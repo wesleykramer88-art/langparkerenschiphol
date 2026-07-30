@@ -307,13 +307,26 @@ export function BookingPicker({
         <div className="flex items-end justify-between gap-4 px-6 pt-4 pb-6 sm:px-7">
           <div className="min-w-0">
             <p className="eyebrow text-muted">{nights ? 'Parkeerperiode' : 'Uw voordeel'}</p>
-            <p className="numeric text-heading mt-1.5 truncate text-base font-medium">
+            {/* The period is a departure-board value — mono, tabular, one line,
+                truncated if it must be. The standing promise is prose, so it
+                gets neither: `numeric` is for prices, times and references, and
+                a nowrap run here is what starves this column on a phone, where
+                the valet stub's "Betaal bij aankomst" takes half the row. */}
+            <p
+              className={cn(
+                'text-heading mt-1.5 text-base font-medium',
+                nights ? 'numeric truncate' : 'leading-snug text-balance',
+              )}
+            >
               {nights
                 ? `${isoToShortLabel(values.arrivalDate)} — ${isoToShortLabel(values.departureDate)}`
                 : 'Optionele annuleringsdekking'}
             </p>
           </div>
-          <div className="numeric shrink-0 text-right">
+          {/* Same rule as the left column: mono and unshrinkable while this
+              holds a number, plain and wrappable while it holds a label — so
+              "Betaal bij aankomst" stops claiming half the row on a phone. */}
+          <div className={cn('text-right', nights ? 'numeric shrink-0' : 'shrink')}>
             {nights && price ? (
               <>
                 <span className="text-heading block text-xl leading-none font-semibold">

@@ -151,7 +151,17 @@ export function HeroSection({ bounds }: { bounds?: PickerBounds }) {
       </div>
 
       <Container className="relative">
-        <div className="grid items-center gap-14 pt-12 pb-28 sm:pt-16 lg:min-h-[min(80vh,800px)] lg:grid-cols-[7fr_5fr] lg:gap-16 lg:pt-20 lg:pb-32">
+        {/* The tracks are minmax(0, …) rather than bare `auto`/`fr` on purpose.
+            A grid track's automatic minimum is min-content, and the ticket's stub
+            row is a `justify-between` flex with a `truncate` (white-space: nowrap)
+            left column and a shrink-0 right column — so its min-content is the
+            full un-truncated width of BOTH. That exceeds the container on a
+            phone, the track grows past it, and because this section is
+            overflow-hidden the card silently renders wider than the screen. It
+            changed width whenever the stub's right-hand meta changed with the
+            service. minmax(0, …) floors the track so the card can never exceed
+            its column and the stub truncates as it was designed to. */}
+        <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-14 pt-12 pb-28 sm:pt-16 lg:min-h-[min(80vh,800px)] lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16 lg:pt-20 lg:pb-32">
           {/* ---------- Left column ---------- */}
           <div className="flex flex-col items-start">
             {/* This line used to read "★★★★★ 4,7/5 · Duizenden reizigers elk
