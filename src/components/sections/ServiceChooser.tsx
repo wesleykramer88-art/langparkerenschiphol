@@ -235,7 +235,13 @@ function ServiceCard({ service }: { service: Service }) {
           {/* Carries the service into the booking flow, which narrows it to
               that service's two products. The picker's own format — see
               src/lib/booking.ts. */}
-          <Button href={`/reservering/?service=${service.slug}`} className="w-full sm:w-auto">
+          {/* Width is capped rather than shrink-to-fit. `sm:w-auto` sized each
+              button to its own label — "Reserveer Shuttle Parkeren" is 14px
+              wider than "Reserveer Valet Parkeren" — so the two cards' CTAs
+              never lined up. A capped full width makes both exactly max-w-xs on
+              every card, and holds under translation, where the labels diverge
+              again by a different amount. */}
+          <Button href={`/reservering/?service=${service.slug}`} className="w-full sm:max-w-xs">
             {service.cta}
             <ArrowRight data-arrow className="size-4" aria-hidden />
           </Button>

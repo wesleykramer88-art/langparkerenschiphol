@@ -124,6 +124,7 @@ export default async function BookingPage({
                 src={src}
                 title="Reserveringssysteem van Lang Parkeren Schiphol"
                 label="Reserveren"
+                fallbackLabel="het reserveringssysteem"
                 notch="canvas"
                 // The plugin's own default for [pp_booking_iframe]. The height
                 // held until the frame reports its own, and the floor it can

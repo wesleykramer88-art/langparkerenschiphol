@@ -135,6 +135,7 @@ export default function RatesPage() {
                 src={ratesUrl()}
                 title="Tarieven berekenen voor parkeren bij Schiphol"
                 label="Tarieven berekenen"
+                fallbackLabel="de tarievencalculator"
                 notch="canvas"
                 // The tallest of the four plugin defaults — a full rate table
                 // runs to 30 days.

@@ -118,6 +118,16 @@ export function ParkingProFrame({
   title,
   /** Stub label, e.g. "Reserveren". */
   label,
+  /**
+   * What the fallback link below the frame opens, as a noun phrase with its
+   * article: "het reserveringssysteem", "de tarievencalculator". It is read
+   * straight into "Open … in een nieuw tabblad".
+   *
+   * Required, because this component serves three different embeds and the
+   * sentence used to be hardcoded as the booking one — so /tarieven/ offered to
+   * open "het reserveringssysteem" and handed the visitor the rate table.
+   */
+  fallbackLabel,
   notch = 'canvas',
   /**
    * Height reserved before the frame reports its own, in px.
@@ -140,6 +150,7 @@ export function ParkingProFrame({
   src: string;
   title: string;
   label: string;
+  fallbackLabel: string;
   notch?: NotchColor;
   initialHeight: number;
   onCompleteHref?: string;
@@ -472,7 +483,7 @@ export function ParkingProFrame({
           rel="noopener noreferrer"
           className="text-brand decoration-navy-300 hover:decoration-navy-600 underline underline-offset-4"
         >
-          Open het reserveringssysteem in een nieuw tabblad
+          Open {fallbackLabel} in een nieuw tabblad
         </a>
         .
       </p>

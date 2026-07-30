@@ -44,6 +44,7 @@ export function PortalFrame({
       src={loginUrl()}
       title="Inloggen op het klantenportaal van Lang Parkeren Schiphol"
       label="Inloggen"
+      fallbackLabel="het klantenportaal"
       notch={notch}
       // The plugin's own default for [pp_account_login_iframe]. It is far
       // taller than a two-field sign-in form looks like it needs, and that is
