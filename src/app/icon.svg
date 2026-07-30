@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Lang Parkeren Schiphol">
+  <!--
+    App icon. The parking ticket, reduced until it still reads at 32px:
+    a pale ticket on navy, punched on both edges, with the hi-vis stub.
+    Colours are the design tokens navy-950, paper-200 and valet-600.
+  -->
+  <rect width="512" height="512" rx="112" fill="#071E33"/>
+  <g transform="translate(0 4)">
+    <!-- Ticket body. The notches are punched by overpainting in the navy
+         background colour, exactly as the ticket-notch CSS utility does. -->
+    <rect x="118" y="128" width="276" height="256" rx="28" fill="#F5F1EA"/>
+    <!-- Hi-vis stub, below the tear. -->
+    <path d="M118 316h276v40a28 28 0 0 1-28 28H146a28 28 0 0 1-28-28z" fill="#E8631C"/>
+    <!-- Tear rule. -->
+    <g fill="#071E33" opacity=".28">
+      <rect x="152" y="313" width="36" height="7" rx="3.5"/>
+      <rect x="204" y="313" width="36" height="7" rx="3.5"/>
+      <rect x="256" y="313" width="36" height="7" rx="3.5"/>
+      <rect x="308" y="313" width="36" height="7" rx="3.5"/>
+    </g>
+    <!-- Punched notches, centred on the tear. -->
+    <circle cx="118" cy="316" r="26" fill="#071E33"/>
+    <circle cx="394" cy="316" r="26" fill="#071E33"/>
+  </g>
+</svg>

@@ -1,0 +1,61 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# .env.example carries no secrets and documents required config — keep it tracked.
+!.env.example
+
+# Local agent/editor state
+.claude/
+
+# Unprocessed photography from the client.
+#
+# His camera files are 6–9 MB each and carry EXIF including GPS. They must never
+# be committed: git keeps every revision of a binary forever, and the GPS tags
+# would be published with them. Drop originals here, run `npm run images`, and
+# commit only what lands in public/images/. See scripts/images.mjs.
+/photos-source/
+
+# Original photographs from the client — 6–9 MB camera files carrying EXIF/GPS.
+# They are the INPUT to `npm run images`, never a repository artefact: git keeps
+# every revision of a binary forever, and the processed WebP in public/images/ is
+# the only version the site needs.
+/photos-source/

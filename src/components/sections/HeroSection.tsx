@@ -1,0 +1,269 @@
+'use client';
+
+import { motion, useReducedMotion } from 'motion/react';
+import { ArrowRight, Check } from 'lucide-react';
+import { Container } from '@/components/ui/Container';
+import { Button } from '@/components/ui/Button';
+import { HeroPhoto } from '@/components/ui/HeroPhoto';
+import { BookingPicker } from '@/components/booking/BookingPicker';
+import { siteConfig } from '@/config/site';
+import type { PickerBounds } from '@/lib/parkingpro-config';
+
+/**
+ * The hero.
+ *
+ * The thesis of the whole page: a covered deck receding into the dark, with the
+ * booking ticket laid over it. The photograph is the argument — this business
+ * sells a place to leave your car, and the flat navy field it replaces asserted
+ * that in words while showing nothing. Everything else here is arranged to stay
+ * out of its way.
+ *
+ * This is the one place on the site that uses motion/Framer. Everything else —
+ * scroll reveals, hovers, the marquee, the photograph's drift — is CSS, so the
+ * animation runtime loads for exactly one orchestrated moment rather than being
+ * sprinkled across the page. Over-animation is the clearest tell of generated
+ * work.
+ *
+ * The load sequence, finishing under 1.4s:
+ *   1. eyebrow + rating fade in
+ *   2. H1 reveals line by line, each line's inner span rising from y:100%
+ *      behind an overflow:hidden mask, 90ms apart
+ *   3. lead fades up
+ *   4. the proof row fades up
+ *   5. CTAs fade up
+ *   6. the ticket arrives from x:32 / rotate:-2deg — it settles like a card
+ *      being laid on a desk
+ *   7. the ticket's perforation draws left to right (CSS, in globals.css)
+ *
+ * Behind all of it the photograph drifts from scale 1.04 to 1.13 over 30s, once
+ * and never looping. Nothing below the fold animates on load.
+ */
+
+// One curve for the whole sequence. ease-out-expo: it decelerates hard, which is
+// what makes the ticket read as being set down rather than sliding to a stop.
+const EASE = [0.16, 1, 0.3, 1] as const;
+
+/** The H1, pre-split. Line breaks are a design decision, not a wrap artefact. */
+const HEADLINE_LINES = ['Zorgeloos', 'lang parkeren', 'op Schiphol.'] as const;
+
+/** Verbatim from the live site. Set as a hairline row, not as a bullet list. */
+const PROOF = [
+  'Boek direct via de website',
+  '24/7 camerabewaking en monitoring',
+  'De meest gekozen parkeerservice',
+] as const;
+
+export function HeroSection({ bounds }: { bounds?: PickerBounds }) {
+  const prefersReduced = useReducedMotion();
+
+  /** Every animated element resolves through here, so reduced motion is handled
+   *  once rather than per-element.
+   *
+   *  Under reduced motion this returns the FINAL state explicitly — opacity 1,
+   *  no travel, zero duration — rather than `initial: false`. That shorthand
+   *  leaves an element with no `animate` target at all, and the hero rendered
+   *  with nothing below the H1: no lead, no proof row, no buttons. A
+   *  reduced-motion visitor is not asking for less content. */
+  const rise = (delay: number) =>
+    prefersReduced
+      ? {
+          initial: { opacity: 1, y: 0 },
+          animate: { opacity: 1, y: 0 },
+          transition: { duration: 0 },
+        }
+      : {
+          initial: { opacity: 0, y: 14 },
+          animate: { opacity: 1, y: 0 },
+          transition: { duration: 0.55, delay, ease: EASE },
+        };
+
+  return (
+    // -mt-20 pt-20 is what makes the header's transparency mean anything: the
+    // bar is h-20 and sits in normal flow, so without this the hero starts BELOW
+    // it and a transparent bar shows the cream canvas — light nav text on cream,
+    // i.e. an invisible header. Pulling the section up by exactly the bar's
+    // height and padding it back by the same amount slides the photograph under
+    // the bar without moving a single pixel of hero content.
+    <section className="bg-surface-inverse relative -mt-20 overflow-hidden pt-20">
+      {/* ---------- The photograph ----------
+          The branded van at the kerb under Schiphol's own "Vertrek 2 /
+          Departures 2" sign. It replaced a covered-deck stock shot whose German
+          number plates contradicted the one claim this page exists to make.
+
+          A garage says "car park operator"; a terminal frontage says "part of
+          the airport", which is the feeling the client asked for in as many
+          words — and the wayfinding sign says it without reproducing anyone's
+          mark.
+
+          Decorative: the H1 beside it already says where this is, and a screen
+          reader gains nothing from a description of the wallpaper.
+
+          ── The phone hero took two fixes, not one ──────────────────────────
+          The client reported the hero as looking bad on a phone. It was worse
+          than that: the photograph was not visible at all, on the pages where
+          most of his traffic is. Two separate causes, and fixing either alone
+          left it broken.
+
+          1. THE CROP. The original is 1.79 : 1. Below 640px this now switches to
+             a purpose-made PORTRAIT crop of the same frame through a real
+             <picture> element — see <HeroPhoto> for why next/image cannot art
+             direct, and why two <Image>s with one hidden would cost every phone
+             visitor a wasted download of the LCP element.
+
+          2. THE BOX. A portrait crop alone still showed nothing but terminal
+             glass, because at 360px this section is about 1,595px TALL —
+             eyebrow, headline, lead, three proof rows, two buttons, the phone
+             number and the booking ticket, stacked. That is a 0.23 : 1 box, and
+             covering it with any photograph discards ~70% of the frame.
+
+             So below lg the image occupies the top band only, and the gradient
+             resolves it into the navy the rest of the section is already
+             painted in. At 360 × 32rem the box is 0.70 : 1 against the crop's
+             0.75 : 1 — about a tenth of the width lost, and the van, the livery
+             and the Vertrek 2 sign all read.
+
+          At lg the photograph goes back to filling the section, where the
+          proportions were never the problem: the container is WIDER than
+          1.79 : 1, so the full width shows and only height is cropped — 45%
+          keeps the canopy and the sign and loses road. */}
+      <div aria-hidden className="absolute inset-x-0 top-0 h-128 sm:h-152 lg:inset-0 lg:h-full">
+        <HeroPhoto
+          name="terminalDeparture"
+          portraitName="terminalDeparturePortrait"
+          className="absolute inset-0 h-full w-full"
+          imageClassName="photo-drift object-[center_62%] sm:object-[58%_50%] lg:object-[center_45%]"
+        />
+
+        {/* Two scrims, because the composition changes at lg.
+
+            Desktop: the headline sits in the left third, so the scrim runs
+            right — the photograph stays visible on the side the ticket is on.
+
+            Mobile: the text runs the full width, so the scrim has to be flat.
+            It used to be 88% → 74% → 100% navy — legible, and also effectively
+            opaque, which was the other half of why the photograph could not be
+            seen. It is now 72% → 52% → 100%: heavy where the headline sits,
+            open through the middle where the van is, and closing to solid navy
+            at the foot so the band's bottom edge dissolves into the section
+            rather than ending on a line. */}
+        <div className="from-navy-950/72 via-navy-950/52 to-navy-950 absolute inset-0 bg-linear-to-b lg:hidden" />
+        <div className="scrim-hero absolute inset-0 hidden lg:block" />
+      </div>
+
+      <Container className="relative">
+        <div className="grid items-center gap-14 pt-12 pb-28 sm:pt-16 lg:min-h-[min(80vh,800px)] lg:grid-cols-[7fr_5fr] lg:gap-16 lg:pt-20 lg:pb-32">
+          {/* ---------- Left column ---------- */}
+          <div className="flex flex-col items-start">
+            {/* This line used to read "★★★★★ 4,7/5 · Duizenden reizigers elk
+                jaar". The 4,7 had no source anywhere — no Google profile, no
+                Trustpilot, no count — and five stars beside it is a rating
+                claim whether or not it is marked up as one. Both are gone; see
+                config/site.ts.
+
+                What is left is two things that are true and checkable, in the
+                same position and at the same weight. The small rotated square
+                is the same marker the process timeline uses for a stop on a
+                route — an internal rhyme rather than a new decoration. */}
+            <motion.div {...rise(0)} className="flex items-center gap-3">
+              <span aria-hidden className="bg-valet-400 size-2 shrink-0 rotate-45 rounded-xs" />
+              <p className="eyebrow text-valet-300">
+                <span className="numeric">{siteConfig.yearsActive}+</span> jaar op Schiphol ·
+                Duizenden reizigers per jaar
+              </p>
+            </motion.div>
+
+            <h1 className="text-display-2xl text-heading-inverse mt-7">
+              {HEADLINE_LINES.map((line, index) => (
+                // overflow-hidden mask per line; the inner span rises out of it.
+                <span key={line} className="block overflow-hidden pb-[0.08em]">
+                  <motion.span
+                    className="block"
+                    initial={prefersReduced ? { y: '0%' } : { y: '100%' }}
+                    animate={{ y: '0%' }}
+                    transition={
+                      prefersReduced
+                        ? { duration: 0 }
+                        : { duration: 0.6, delay: 0.07 + index * 0.09, ease: EASE }
+                    }
+                  >
+                    {line}
+                  </motion.span>
+                </span>
+              ))}
+            </h1>
+
+            <motion.p {...rise(0.42)} className="text-lead text-navy-100 mt-7 max-w-[46ch]">
+              Binnen 2 minuten geregeld. Kies voor valet of shuttle parkeren — veilig, snel en
+              professioneel.
+            </motion.p>
+
+            {/* The proof row. Deliberately not a bullet list with filled circle
+                chips: three of those under every hero is the house style of
+                every generated landing page. A hairline-ruled row reads as a
+                service label on a terminal sign, which is the voice this site
+                already speaks in the eyebrow and the ticket stub. */}
+            <motion.ul
+              {...rise(0.51)}
+              className="border-line-inverse mt-9 grid w-full max-w-2xl gap-3 border-t pt-6 sm:grid-cols-3 sm:gap-x-6"
+            >
+              {PROOF.map((item) => (
+                <li key={item} className="text-navy-100 flex items-start gap-2.5">
+                  <Check
+                    className="text-valet-400 mt-0.5 size-4 shrink-0"
+                    strokeWidth={3}
+                    aria-hidden
+                  />
+                  <span className="text-sm leading-snug">{item}</span>
+                </li>
+              ))}
+            </motion.ul>
+
+            <motion.div {...rise(0.6)} className="mt-9 flex flex-wrap items-center gap-3">
+              <Button href="/reservering/" size="lg">
+                Reserveer nu
+                <ArrowRight data-arrow className="size-4" aria-hidden />
+              </Button>
+              <Button href="/tarieven/" variant="onDark" size="lg">
+                Bekijk tarieven
+              </Button>
+            </motion.div>
+
+            {/* The phone number belongs in the hero, not only in the header. A
+                meaningful share of this audience is deciding, on a phone,
+                whether a parking website can be trusted with their car; a
+                visible, tappable number is the cheapest trust signal there is. */}
+            <motion.p {...rise(0.66)} className="text-navy-300 mt-6 text-sm">
+              Liever persoonlijk?{' '}
+              <a
+                href={siteConfig.phone.href}
+                className="numeric text-heading-inverse decoration-navy-500 hover:decoration-valet-400 ease-settle underline underline-offset-4 transition-colors duration-(--duration-micro)"
+              >
+                {siteConfig.phone.display}
+              </a>
+            </motion.p>
+          </div>
+
+          {/* ---------- Right column: the ticket ----------
+              Overhangs the section's bottom edge so it straddles the boundary
+              with the board below. The notches are set to navy-950 because they
+              sit in the upper, dark portion of the card. */}
+          <motion.div
+            initial={
+              prefersReduced ? { opacity: 1, x: 0, rotate: 0 } : { opacity: 0, x: 32, rotate: -2 }
+            }
+            animate={{ opacity: 1, x: 0, rotate: 0 }}
+            transition={
+              prefersReduced ? { duration: 0 } : { duration: 0.7, delay: 0.68, ease: EASE }
+            }
+            // The id is what StickyBookingBar watches: the mobile bar appears
+            // only once this card has left the viewport.
+            id="hero-booking"
+            className="relative z-10 -mb-24 w-full lg:-mb-32"
+          >
+            <BookingPicker notch="inverse" bounds={bounds} />
+          </motion.div>
+        </div>
+      </Container>
+    </section>
+  );
+}

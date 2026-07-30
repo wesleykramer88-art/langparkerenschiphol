@@ -1,0 +1,266 @@
+/**
+ * Single source of truth for NAP (name, address, phone), navigation and legal
+ * identity. Nothing in the app hard-codes a phone number, e-mail or URL —
+ * everything reads from here, so a change lands everywhere at once.
+ *
+ * Why this file exists: the WordPress site it replaces showed 085-4013918 in the
+ * homepage header and footer, 0297-785515 on every other page's header and on
+ * /contact/, and mixed klantenservice@ with info@. Inconsistent NAP actively
+ * suppresses local-SEO ranking, so it is consolidated here.
+ *
+ * The phone half of that is now settled: 085-4013918 is the only number on the
+ * site. See `phone` below.
+ */
+
+/**
+ * THE phone number. Singular — see the note on `phone` below.
+ *
+ * Kept in E.164 here and expanded into display and `tel:` forms once, so the
+ * site cannot end up showing one number and dialling another.
+ */
+const PHONE_E164 = '+31854013918';
+
+export const siteConfig = {
+  name: 'Lang Parkeren Schiphol',
+  /** Used as the OpenGraph site_name and in the <title> template. */
+  shortName: 'Lang Parkeren Schiphol',
+  locale: 'nl-NL',
+  lang: 'nl',
+  tagline: 'Zorgeloos parkeren, ontspannen reizen.',
+
+  /**
+   * THE phone number, and the only one. Client decision, 29 July 2026.
+   *
+   * ── This closes the last open NAP question ─────────────────────────────────
+   * The old site ran two numbers: 085-4013918 in the homepage header and the
+   * site-wide footer, 0297-785515 on every other page's header and on
+   * /contact/. Earlier handovers picked 0297 as canonical — it was corroborated
+   * by the algemene voorwaarden ("Telefoon Kantoor +31(0) 297 785 515") and it
+   * appeared in more places — and kept 085 as a secondary line on /contact/.
+   *
+   * That reasoning was sound and the conclusion was wrong. Which number the
+   * business actually answers is not something documents can settle, and the
+   * client has now said plainly: 085-4013918, everywhere, and nothing else.
+   *
+   * `phoneSecondary` is gone rather than left unused. Two numbers in a config
+   * file is how two numbers end up back on a page, and one consistent number is
+   * the entire point of this file — Google will not trust a local business that
+   * cannot state its own.
+   *
+   * TODO(client): 0297-785515 is still printed in your algemene voorwaarden,
+   * which are hosted on valetparkingschiphol.nl and linked from every page of
+   * this site. Worth updating there too, or the inconsistency simply moves.
+   */
+  phone: {
+    /** Human-readable, as it should be rendered on screen. */
+    display: '085 - 401 3918',
+    /** E.164, for tel: hrefs and schema.org. Replaces the live site's broken
+     *  placeholder `tel:123456789`, which called nothing when tapped. */
+    href: `tel:${PHONE_E164}`,
+    e164: PHONE_E164,
+  },
+
+  /**
+   * CANONICAL e-mail. Chosen because /contact/ uses it and it appears inside the
+   * already-indexed og:description for that page.
+   * TODO(client): confirm. Footer of the live site uses klantenservice@ instead.
+   */
+  email: 'info@langparkerenschiphol.nl',
+  /** Alias shown on /contact/ alongside the canonical address. */
+  emailSecondary: 'klantenservice@langparkerenschiphol.nl',
+
+  /**
+   * ── THERE ARE TWO ADDRESSES, AND THAT IS CORRECT ───────────────────────────
+   *
+   * Handover 3 recorded the site's three different location strings as a NAP
+   * consistency problem and collapsed them onto one. That was half right. Two
+   * of the three are the same place written badly; the third is a different
+   * place entirely, and merging it away lost real information.
+   *
+   * ParkingPro's own location data settles it. The four products carry two
+   * addresses between them:
+   *
+   *   shuttle (LPS-S, LPS-SO)   Tupolevlaan 39, Schiphol-Rijk
+   *   valet   (LPS-V, LPS-VO)   Vertrekpassage, Schiphol — Vertrekhal, 1e verd.
+   *
+   * They are not in conflict. The terrain, the office and the shuttle depot are
+   * at Tupolevlaan; the valet handover happens kerbside at the terminal,
+   * because that is the entire point of valet. A customer who drives to the
+   * wrong one of those misses their flight.
+   *
+   * So both are published, each labelled with what happens there. `address`
+   * below is the BUSINESS address — it is what goes in the LocalBusiness
+   * markup, the footer and the KvK-facing identity. `valetHandover` is an
+   * operational instruction, shown on the valet service and on /contact/, and
+   * deliberately absent from the structured data: two PostalAddress values on
+   * one LocalBusiness node is the inconsistency this was meant to fix.
+   */
+  address: {
+    street: 'Tupolevlaan 39',
+    postalCode: '1119 PA',
+    locality: 'Schiphol-Rijk',
+    region: 'Noord-Holland',
+    country: 'NL',
+    countryName: 'Nederland',
+    /** One-line form, for the footer and the contact card. */
+    display: 'Tupolevlaan 39, Schiphol-Rijk',
+  },
+
+  /**
+   * Where a VALET customer actually drives to. Not the business address.
+   *
+   * TODO(client): confirm the postcode for Tupolevlaan 39 above — 1119 PA is
+   * the postcode for that street, but we have it from the address rather than
+   * from you, and it is the one part of the NAP that is inferred rather than
+   * read off your own systems.
+   */
+  valetHandover: {
+    street: 'Vertrekpassage',
+    detail: 'Vertrekhal, 1e verdieping',
+    locality: 'Schiphol',
+    display: 'Vertrekpassage, Schiphol — Vertrekhal, 1e verdieping',
+  },
+
+  /** Amsterdam Airport Schiphol. Used for geo in ParkingFacility schema. */
+  geo: { latitude: 52.3105, longitude: 4.7683 },
+
+  /**
+   * Legal identity, taken from the algemene voorwaarden. The live site publishes
+   * none of this; Dutch distance-selling law (BW 6:230m) requires a trader to
+   * state its identity, geographic address and KvK number.
+   * TODO(client): confirm this entity is the contracting party for THIS brand.
+   */
+  legal: {
+    entity: 'The Parking Company',
+    kvk: '74048856',
+    registeredAddress: 'Proosdijland 12, 3645 LA Vinkeveen',
+  },
+
+  /** Years in business. The live site says "meer dan 15 jaar" on the homepage and
+   *  footer, but "10+ jaar" on /samenwerken/. We use 15 — two authoritative
+   *  placements agree, and the partner page has documented copy-paste damage.
+   *  TODO(client): confirm 15. */
+  yearsActive: 15,
+} as const;
+
+/**
+ * Primary navigation. Also the source for sitemap.ts and BreadcrumbList schema,
+ * so routes are never listed twice.
+ *
+ * Trailing slashes are deliberate and must not be removed: these exact URLs are
+ * indexed and carry backlinks. next.config.ts sets trailingSlash: true so they
+ * resolve 200 rather than 301.
+ */
+export const navigation = [
+  { href: '/', label: 'Home', inNav: false, inSitemap: true, priority: 1.0 },
+  { href: '/onze-services/', label: 'Onze Services', inNav: true, inSitemap: true, priority: 0.9 },
+  { href: '/tarieven/', label: 'Tarieven', inNav: true, inSitemap: true, priority: 0.9 },
+  // The trust page. In the nav under a short label — the slug is the long-tail
+  // query ("waarom lang parkeren schiphol") and the label is what fits a header.
+  {
+    href: '/waarom-lang-parkeren-schiphol/',
+    label: 'Waarom ons',
+    inNav: true,
+    inSitemap: true,
+    priority: 0.8,
+  },
+  // Slug and label deliberately differ: /samenwerken/ ranks, "Reisbureaus" is
+  // what the audience calls itself. Do not "fix" this to match.
+  { href: '/samenwerken/', label: 'Reisbureaus', inNav: true, inSitemap: true, priority: 0.6 },
+  { href: '/contact/', label: 'Contact', inNav: true, inSitemap: true, priority: 0.7 },
+  { href: '/reservering/', label: 'Reserveren', inNav: false, inSitemap: true, priority: 0.8 },
+  // Kept OUT of the main nav on purpose. Six items plus a phone number plus the
+  // booking button is already the most a header can carry before it stops being
+  // scannable; these two are reached from the footer, from the testimonials
+  // block and from the trust page, which is enough for both crawlers and
+  // customers.
+  { href: '/reviews/', label: 'Reviews', inNav: false, inSitemap: true, priority: 0.6 },
+  { href: '/login/', label: 'Inloggen', inNav: false, inSitemap: true, priority: 0.5 },
+] as const;
+
+export type NavItem = (typeof navigation)[number];
+
+/** Nav items rendered in the header/mobile menu. */
+export const mainNav = navigation.filter((item) => item.inNav);
+
+/**
+ * Footer link groups. The service anchors point at /onze-services/#valet and
+ * #Shuttle — the capital S is intentional and matches the live anchor, so
+ * existing footer backlinks keep resolving.
+ */
+export const footerNav = {
+  diensten: [
+    { href: '/onze-services/#valet', label: 'Valet Parkeren' },
+    { href: '/onze-services/#Shuttle', label: 'Shuttle Parkeren' },
+    { href: '/tarieven/', label: 'Tarieven' },
+    { href: '/reservering/', label: 'Reserveren' },
+  ],
+  bedrijf: [
+    { href: '/waarom-lang-parkeren-schiphol/', label: 'Waarom ons' },
+    { href: '/reviews/', label: 'Ervaringen' },
+    { href: '/samenwerken/', label: 'Reisbureaus' },
+    { href: '/contact/', label: 'Contact' },
+  ],
+  account: [{ href: '/login/', label: 'Klantenportaal' }],
+} as const;
+
+/**
+ * Terms currently live on a different domain (valetparkingschiphol.nl).
+ * Cross-domain legal pages cost a little trust and leak link equity.
+ * TODO(client): decide whether to host a copy on this domain.
+ */
+export const termsUrl = 'https://valetparkingschiphol.nl/algemene-voorwaarden/';
+
+/**
+ * ── THE 4,7/5 IS GONE, AND THAT IS DELIBERATE ────────────────────────────────
+ *
+ * The live site publishes "4,7 / 5" in the hero, in the footer and above the
+ * testimonials, and there is no source for it anywhere: no Google Business
+ * Profile, no Trustpilot, no review platform, no count of what it averages.
+ *
+ * Handover 1 kept it as plain text on the reasoning that unmarked-up text is not
+ * a rich-result risk. That reasoning was too narrow. Google's spam policies do
+ * not only cover structured data — an unverifiable rating shown as a fact is a
+ * misleading-content problem in its own right, and under the EU Omnibus
+ * directive (implemented in Dutch law since 2022) publishing an average review
+ * score without stating whether and how the reviews are verified is an unfair
+ * commercial practice. The fine is calculated on turnover.
+ *
+ * So it is removed sitewide until there is a source. What replaces it in each
+ * place is a claim that is true and checkable: fifteen years, thousands of
+ * travellers, and three named testimonials on /reviews/ presented as what they
+ * are.
+ *
+ * TODO(client): his WordPress has Trustindex.io AND a Google Reviews plugin
+ * installed, which suggests the 4,7 was real and simply lost its provenance.
+ * If Trustindex is connected to a live Google Business Profile, the score goes
+ * back everywhere — with AggregateRating markup and a link to the reviews it
+ * averages, which is worth considerably more than the bare number was.
+ *
+ * The switch itself lives in src/content/reviews.ts, next to the reviews it
+ * governs, so turning the score back on is one edit in one file rather than a
+ * flag here and a list there that can disagree.
+ */
+
+/**
+ * The klantenportaal discount, stated once so the pages that surface it cannot
+ * disagree about the figure. Taken verbatim from the live /login/ copy:
+ * "Exclusieve 10% klantenkorting op iedere reservering".
+ */
+export const accountDiscount = { percentage: 10 } as const;
+
+/**
+ * Independence disclaimer.
+ *
+ * The whole design resolves ambiguity towards "airport infrastructure" because
+ * that is what the client asked for and what his domain is worth. This line is
+ * the counterweight, and it is not optional: it states plainly that the business
+ * is not part of Royal Schiphol Group, which is what keeps evoking the category
+ * on the right side of a trademark challenge. Competitors on this keyword carry
+ * the same sentence.
+ *
+ * TODO(client): confirm this exact wording — it is a legal statement about your
+ * own business and you should be comfortable with every word of it.
+ */
+export const independenceDisclaimer =
+  'Lang Parkeren Schiphol is een onafhankelijke parkeerservice en is niet gelieerd aan Royal Schiphol Group.';
