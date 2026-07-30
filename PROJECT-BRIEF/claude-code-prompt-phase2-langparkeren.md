@@ -152,7 +152,7 @@ cross-domain terms, unsourced 4.7/5.
 ```
 Vertrekpassage Schiphol
 1118 CL Schiphol
-info@langparkerenschiphol.nl
+klantenservice@langparkerenschiphol.nl
 0297-785515
 ```
 

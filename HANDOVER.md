@@ -396,7 +396,7 @@ in the map results for your own name.
 We have used **Vertrekpassage Schiphol, 1118 CL Schiphol** everywhere, because it
 is the only complete one — it has a postcode, so it can go into the map listing,
 and it is what a driver actually needs. Same for `0297 - 785 515` and
-`info@langparkerenschiphol.nl`, which are now the only phone number and email
+`klantenservice@langparkerenschiphol.nl`, which are now the only phone number and email
 used anywhere.
 
 **What we need from you:**

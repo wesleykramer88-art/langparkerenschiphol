@@ -65,7 +65,7 @@ export const siteConfig = {
    * already-indexed og:description for that page.
    * TODO(client): confirm. Footer of the live site uses klantenservice@ instead.
    */
-  email: 'info@langparkerenschiphol.nl',
+  email: 'klantenservice@langparkerenschiphol.nl',
   /** Alias shown on /contact/ alongside the canonical address. */
   emailSecondary: 'klantenservice@langparkerenschiphol.nl',
 
