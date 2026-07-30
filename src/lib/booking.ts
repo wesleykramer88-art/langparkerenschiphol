@@ -4,8 +4,6 @@ import {
   LOCATIONS,
   ServiceType,
   minimumHoursNotice,
-  toParkingProDate,
-  toParkingProTime,
   type ParkingLocation,
   type ServiceTypeValue,
 } from '@/lib/parkingpro';
@@ -20,16 +18,20 @@ import {
  * visitor chose in OUR picker, and the translation into what their system
  * expects.
  *
- * ── The two date formats, and why both exist ────────────────────────────────
+ * ── One date format, and the cost of having believed otherwise ──────────────
  * We hold dates as `YYYY-MM-DD` and times as `HH:mm`, matching what the native
  * date/time inputs produce and sorting correctly as plain strings.
  *
- * ParkingPro expects `dd-mm-yyyy`. This is not a preference — send anything
- * else and the iframe loads perfectly, shows an empty form, and silently
- * discards the prefill. There is no error and nothing in any log; the only
- * symptom is a visitor typing their dates a second time. That is exactly the
- * failure this pass exists to fix, so the conversion happens in one function
- * and nowhere else.
+ * ParkingPro reads exactly that. Both interfaces do — the booking frame and the
+ * price API — so the prefill is a passthrough with no conversion anywhere.
+ *
+ * It was written as a conversion to `dd-mm-yyyy`, and that is what broke the
+ * feature this module exists for: the frame took the URL, kept the two times
+ * (`HH:mm` is the same string either way) and dropped both dates without a word.
+ * The visitor typed their dates a second time — the precise failure the prefill
+ * was built to prevent, reintroduced by the fix for it. If a date ever goes
+ * missing from the frame again, this is the first thing to check, and
+ * src/lib/parkingpro.ts records the evidence for the format.
  */
 
 /** Which of the two services the visitor picked in the hero. */
@@ -173,31 +175,40 @@ export function parseSelectionParams(
 }
 
 /**
- * Our format → ParkingPro's.
+ * Our format → ParkingPro's. Which, it turns out, is our format.
  *
- * Dates are rebuilt from their parts into a LOCAL Date rather than parsed with
- * `new Date('2026-08-14')`, which the spec defines as UTC midnight. On a server
- * running west of Greenwich that lands on the 13th, and the visitor's
- * reservation would be prefilled one day early — a bug that never reproduces
- * for a Dutch developer and always reproduces on somebody's laptop.
+ * The frame reads ISO `YYYY-MM-DD` and `HH:mm` — see the note above
+ * PARKINGPRO_PATHS' date section in src/lib/parkingpro.ts for how that was
+ * established. So nothing is reformatted here; a date is passed on only once
+ * `fromIso` confirms it is a real calendar date, and a time only once it looks
+ * like a clock time.
+ *
+ * Validating rather than trusting matters because this input arrives from a
+ * query string. `2026-02-31` would sail through a regex, and the frame's
+ * response to a date that does not exist is the same as its response to a
+ * malformed one: ignore the prefill, render an empty form, say nothing. Dropping
+ * it here at least means the two fields fail together rather than the visitor
+ * getting a half-filled form.
+ *
+ * A date is only sent WITH its time, and vice versa. The frame treats them as
+ * one moment; handing it a date whose time was rejected prefills midnight, which
+ * is a wrong answer wearing the clothes of a right one.
  */
 export function toParkingProParams(selection: Partial<BookingSelection>) {
-  const dateFor = (iso: string | undefined, time: string | undefined) => {
-    const parts = iso ? fromIso(iso) : null;
-    if (!parts) return null;
-    const [hours, minutes] = (time ?? '00:00').split(':').map(Number);
-    return new Date(parts.year, parts.month - 1, parts.day, hours || 0, minutes || 0);
-  };
+  const moment = (iso: string | undefined, time: string | undefined) =>
+    iso && fromIso(iso) && time && /^\d{2}:\d{2}$/.test(time)
+      ? { date: iso, time }
+      : { date: undefined, time: undefined };
 
-  const arrival = dateFor(selection.arrivalDate, selection.arrivalTime);
-  const departure = dateFor(selection.departureDate, selection.departureTime);
+  const arrival = moment(selection.arrivalDate, selection.arrivalTime);
+  const departure = moment(selection.departureDate, selection.departureTime);
   const service = selection.service;
 
   return {
-    arrivalDate: arrival ? toParkingProDate(arrival) : undefined,
-    arrivalTime: arrival ? toParkingProTime(arrival) : undefined,
-    departureDate: departure ? toParkingProDate(departure) : undefined,
-    departureTime: departure ? toParkingProTime(departure) : undefined,
+    arrivalDate: arrival.date,
+    arrivalTime: arrival.time,
+    departureDate: departure.date,
+    departureTime: departure.time,
     // No `locationId`: narrowing the choice is right, preselecting one of two
     // prices for the visitor is not. See locationsFor().
     showLocations: service ? locationChoicesFor(service) : undefined,
@@ -205,16 +216,15 @@ export function toParkingProParams(selection: Partial<BookingSelection>) {
 }
 
 /**
- * ISO `YYYY-MM-DD` is what the PRICE API wants — not the dd-mm-yyyy the iframe
- * wants. Same vendor, same instance, two different date formats on two
- * different interfaces, and each rejects the other's:
+ * The dates the price API wants — ISO `YYYY-MM-DD`, the same as the frame.
  *
- *   /reservations/add?arrivalDate=14-08-2026   ✅ prefills   ❌ ISO is ignored
- *   /api/widget/price?arrivalDate=2026-08-14   ✅ 200        ❌ dd-mm-yyyy 400s
+ * This was documented as the one interface that DIFFERED from the iframe, which
+ * is the belief that produced the dd-mm-yyyy conversion and lost the prefill.
+ * The API is simply stricter about being given it: `dd-mm-yyyy` 400s here with
+ * "not valid for DateTimeOffset", where the frame swallows it silently.
  *
- * The API at least fails loudly ("not valid for DateTimeOffset"). The iframe
- * fails silently. Both formats are produced here so no call site has to
- * remember which is which.
+ * Kept as a named function even though it now only picks two fields — it is the
+ * place a call site looks to ask what the API expects.
  */
 export function toPriceApiDates(selection: Partial<BookingSelection>) {
   return {

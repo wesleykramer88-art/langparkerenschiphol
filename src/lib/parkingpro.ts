@@ -137,21 +137,28 @@ export function minimumHoursNotice(serviceType: ServiceTypeValue): number {
 }
 
 // ---------------------------------------------------------------------------
-// Date formatting — ParkingPro expects dd-mm-yyyy and 24h HH:mm.
-// Anything else fails silently: the iframe loads but ignores the prefill.
+// Date formatting
+//
+// `/reservations/add` takes ISO `YYYY-MM-DD` and 24h `HH:mm` — the SAME format
+// our pickers already hold, so the prefill is a passthrough and there is no
+// converter here to get wrong.
+//
+// This was previously written as dd-mm-yyyy, which is what killed the prefill:
+// the frame accepted the URL, kept the two times (`HH:mm` is identical in both
+// readings) and silently dropped both dates. No error, no log — the only symptom
+// was the visitor typing their dates a second time.
+//
+// The format is not a guess. The official Booking Widgets plugin builds the
+// iframe URL on the live WordPress site and passes the query string straight
+// through, unconverted:
+//
+//   /reservations/add?hideHeader=true&hideTitle=true
+//     &arrivalDate=2026-07-31&arrivalTime=00%3A30
+//     &departureDate=2026-08-21&departureTime=01%3A00&culture=nl-NL
+//
+// Which also means the iframe and the price API agree after all — both want ISO.
+// See toParkingProParams() and toPriceApiDates() in src/lib/booking.ts.
 // ---------------------------------------------------------------------------
-
-export function toParkingProDate(date: Date): string {
-  const dd = String(date.getDate()).padStart(2, '0');
-  const mm = String(date.getMonth() + 1).padStart(2, '0');
-  return `${dd}-${mm}-${date.getFullYear()}`;
-}
-
-export function toParkingProTime(date: Date): string {
-  const hh = String(date.getHours()).padStart(2, '0');
-  const mi = String(date.getMinutes()).padStart(2, '0');
-  return `${hh}:${mi}`;
-}
 
 // ---------------------------------------------------------------------------
 // URL building

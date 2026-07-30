@@ -35,7 +35,7 @@ import { cn } from '@/lib/cn';
  * the card was decoration with a form attached. The chain is now:
  *
  *   BookingPicker  →  /reservering/?service&arrivalDate&…
- *                  →  toParkingProParams()   (YYYY-MM-DD → dd-mm-yyyy)
+ *                  →  toParkingProParams()   (validate; ISO passes through)
  *                  →  bookingUrl()           (the one URL builder)
  *                  →  the flow, prefilled
  *
