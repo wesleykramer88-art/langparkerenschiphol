@@ -216,7 +216,7 @@ function ServiceCard({ service }: { service: Service }) {
             said so. Set as a hairline pair rather than two more cards: this is
             a variant of the product above it, not a third and fourth product. */}
         <div className="border-line mt-6 border-t pt-6">
-          <p className="eyebrow text-muted">Beschikbaar als</p>
+          <p className="eyebrow text-muted">Kies uw parkeerlocatie</p>
           <dl className="mt-3 grid gap-3 sm:grid-cols-2">
             {COVER_OPTIONS.map((option) => (
               <div key={option.label} className="border-line rounded-md border p-3.5">
