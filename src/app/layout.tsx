@@ -3,6 +3,7 @@ import { fontVariables } from '@/lib/fonts';
 import { env } from '@/lib/env';
 import { siteConfig } from '@/config/site';
 import { jsonLd, organizationSchema, websiteSchema } from '@/lib/schema';
+import { Analytics as VercelAnalytics } from '@vercel/analytics/next';
 import { Analytics } from '@/components/analytics/Analytics';
 import './globals.css';
 
@@ -68,7 +69,28 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: jsonLd(websiteSchema()) }}
         />
 
+        {/* Consent-gated GA4 — renders the banner and only loads gtag on accept. */}
         <Analytics />
+
+        {/*
+          Vercel Web Analytics. Deliberately NOT behind the consent gate above.
+
+          It sets no cookie and writes nothing to the visitor's device: a
+          visitor is identified by a hash of the incoming request, computed
+          server-side and discarded after 24 hours. ePrivacy art. 5(3) — the
+          rule the banner exists to satisfy — is triggered by storing or
+          reading information on terminal equipment, and this stores nothing,
+          so the consent requirement is not engaged.
+
+          That is the entire reason it is worth adding alongside GA4: it
+          measures the ~half of visitors who decline the banner, which is
+          exactly the half GA4 can never see.
+
+          Self-hosted from our own origin (/<unique-path>/script.js), so the
+          CSP in next.config.ts needs no new entries — 'self' already covers
+          both the script and its intake requests.
+        */}
+        <VercelAnalytics />
       </body>
     </html>
   );
