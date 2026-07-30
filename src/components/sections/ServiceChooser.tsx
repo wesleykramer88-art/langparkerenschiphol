@@ -202,12 +202,12 @@ function ServiceCard({ service }: { service: Service }) {
           {/* Only valet takes payment on site. It is a real, checkable
               difference between the two products — and a reason to pick the
               more expensive one — and it appeared nowhere on the old site. */}
-          {service.payOnArrival ? (
+          {/* {service.payOnArrival ? (
             <li className="flex items-start gap-3">
               <Wallet className="text-accent mt-1 size-4 shrink-0" strokeWidth={2.5} aria-hidden />
               <span className="text-sm font-medium sm:text-base">Betalen kan ook bij aankomst</span>
             </li>
-          ) : null}
+          ) : null} */}
         </ul>
 
         {/* ---------- Outdoor or covered ----------
