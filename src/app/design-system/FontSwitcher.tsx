@@ -97,7 +97,8 @@ export function FontSwitcher() {
               <h3 className="text-display-sm">Super snel en probleemloos</h3>
               <p className="text-body mt-3 text-sm leading-relaxed">
                 U rijdt naar de vertrekhal, wij nemen uw auto over en parkeren hem op een afgesloten
-                terrein met 24/7 camerabewaking. Tot 24 uur van tevoren gratis annuleren.
+                terrein met 24/7 camerabewaking. Met annuleringsdekking tot 24 uur van tevoren
+                gratis annuleren.
               </p>
               <div className="mt-4 flex gap-2">
                 <Badge tone="accent">Snelste optie</Badge>
@@ -182,7 +183,11 @@ export function FontSwitcher() {
                 ['display-md', 'text-display-md', 'Uw auto is veilig terwijl u reist'],
                 ['display-sm', 'text-display-sm', 'Al meer dan 15 jaar de vertrouwde keuze'],
                 ['lead', 'text-lead text-muted', 'Binnen 2 minuten geregeld.'],
-                ['base', 'text-base text-body', 'Tot 24 uur van tevoren gratis annuleren.'],
+                [
+                  'base',
+                  'text-base text-body',
+                  'Met annuleringsdekking gratis annuleren tot 24 uur van tevoren.',
+                ],
                 ['sm', 'text-sm text-body', 'Directe bevestiging per e-mail.'],
               ] as const
             ).map(([name, className, sample]) => (

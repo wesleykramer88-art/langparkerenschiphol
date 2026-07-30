@@ -310,7 +310,7 @@ export function BookingPicker({
             <p className="numeric text-heading mt-1.5 truncate text-base font-medium">
               {nights
                 ? `${isoToShortLabel(values.arrivalDate)} — ${isoToShortLabel(values.departureDate)}`
-                : 'Gratis annuleren tot 24 uur'}
+                : 'Optionele annuleringsdekking'}
             </p>
           </div>
           <div className="numeric shrink-0 text-right">

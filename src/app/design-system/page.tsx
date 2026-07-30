@@ -51,7 +51,8 @@ const DEMO_FAQ = [
   },
   {
     question: 'Kan ik kosteloos annuleren?',
-    answer: 'Ja, tot 24 uur voor aankomst kunt u uw reservering kosteloos annuleren.',
+    answer:
+      'Met een annuleringsdekking kunt u uw reservering tot 24 uur voor aanvang geheel kosteloos annuleren. Binnen 24 uur voor uw reis annuleren niet.',
   },
 ] as const;
 

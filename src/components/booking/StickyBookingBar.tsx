@@ -74,7 +74,7 @@ export function StickyBookingBar({
       <div className="flex items-center justify-between gap-4 px-5 py-3">
         <p className="text-muted flex min-w-0 items-center gap-2 text-xs leading-snug">
           <ShieldCheck className="text-accent size-4 shrink-0" strokeWidth={1.75} aria-hidden />
-          Gratis annuleren tot 24 uur
+          Gratis annuleren met annuleringsdekking
         </p>
         <Button href="/reservering/" className="shrink-0">
           Reserveer nu

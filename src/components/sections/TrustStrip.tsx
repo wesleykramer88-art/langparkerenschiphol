@@ -41,7 +41,7 @@ type BoardItem = {
 const ITEMS: readonly BoardItem[] = [
   { number: siteConfig.yearsActive, numberSuffix: '+', label: 'jaar actief op Schiphol' },
   { word: 'Duizenden', label: 'tevreden reizigers per jaar' },
-  { number: 24, unit: 'uur', label: 'van tevoren gratis annuleren' },
+  { number: 24, unit: 'uur', label: 'van tevoren gratis annuleren met annuleringsdekking' },
   { word: 'AMS', label: 'valet- en shuttleservice' },
 ];
 

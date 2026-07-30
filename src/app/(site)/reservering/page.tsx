@@ -67,7 +67,7 @@ const REASSURANCES: readonly { icon: LucideIcon; title: string; body: string }[]
   },
   {
     icon: Undo2,
-    title: 'Gratis annuleren tot 24 uur',
+    title: 'Gratis annuleren met annuleringsdekking',
     body: 'Met een annuleringsdekking annuleert u tot 24 uur voor aanvang geheel kosteloos.',
   },
   {

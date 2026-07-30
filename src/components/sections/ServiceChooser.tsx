@@ -144,8 +144,8 @@ export function ServiceChooser() {
             </h2>
           </div>
           <p className="text-muted max-w-[36ch] text-base lg:pb-2 lg:text-right">
-            Twee manieren om bij de vertrekhal te komen. Beide met bewaakte parkeerplaats en gratis
-            annuleren tot 24 uur van tevoren.
+            Twee manieren om bij de vertrekhal te komen. Beide met bewaakte parkeerplaats en een
+            optionele annuleringsdekking.
           </p>
         </Reveal>
 

@@ -335,7 +335,12 @@ market shows a real, dated, all-in price on the homepage.
 
 **The play:** the hero ticket calculates in place. Dates in → a price out, on the
 same card, without navigation. Then: *"Prijs inclusief btw. Geen boekingskosten.
-Gratis annuleren tot 24 uur voor aankomst."* All-in, stated, before the ask.
+Met annuleringsdekking gratis annuleren tot 24 uur voor aankomst."* All-in,
+stated, before the ask.
+
+> **Copy rule — cancellation.** Free cancellation is **only** available with the
+> optional annuleringsdekking. Never state "gratis annuleren tot 24 uur" on its
+> own; the qualifier travels with the claim everywhere it appears.
 
 Everything else in this document is refinement. This is the move.
 
@@ -786,7 +791,7 @@ photo drift: all keep.
 │  ▸ Wat zit erbij in?                │
 │                                     │
 │  [ Reserveer voor € 74,50      → ]  │
-│  ✓ Gratis annuleren tot 24 uur      │
+│  ✓ Annuleringsdekking mogelijk      │
 └─────────────────────────────────────┘
 ```
 
@@ -835,7 +840,7 @@ correct — preserve it.
 | -------------------------------------- | ---------------------------------------------- |
 | `15+` jaar actief op Schiphol          | Keep                                            |
 | `Duizenden` tevreden reizigers per jaar | **`4,7`** gemiddeld · *38 Google-reviews →*    |
-| `24 uur` van tevoren gratis annuleren  | Keep                                            |
+| `24 uur` van tevoren gratis annuleren  | Keep — **must carry "met annuleringsdekking"**  |
 | `AMS` valet- en shuttleservice         | **`5–8 min`** naar de vertrekhal                |
 
 **UX reasoning.** "Duizenden" is the least credible item on the board precisely
@@ -1311,7 +1316,7 @@ estimated cost:
 | ------------------- | ----------------- | ------------------------------------------ |
 | Hero CTA            | Reserveer nu      | **Reserveer voor € 74,50**                 |
 | Hero CTA (no dates) | Reserveer nu      | **Bereken uw prijs**                       |
-| Under hero CTA      | —                 | Gratis annuleren tot 24 uur voor aankomst   |
+| Under hero CTA      | —                 | Met annuleringsdekking gratis annuleren tot 24 uur |
 | Price               | € 74,50           | **€ 74,50** · incl. btw · geen boekingskosten |
 | Service CTA         | Reserveer Valet…  | **Kies valet — vanaf € 8,50 p/d**          |
 | Business CTA        | Reserveer nu      | **Vraag zakelijke tarieven aan**           |
@@ -1326,7 +1331,7 @@ The pattern throughout: **state the outcome, not the mechanism.** "Reserveer voo
 | ------------------------- | ------------------------------------------ |
 | Verified review score     | Trust board, reviews, footer               |
 | 15+ jaar                  | Trust board, safety section                |
-| Free cancellation         | Hero card, service cards, close, FAQ       |
+| Free cancellation *(with annuleringsdekking)* | Hero card, service cards, close, FAQ |
 | No booking fee            | Hero card, price section                   |
 | KvK + legal entity        | Footer                                     |
 | Payment marks             | Footer, and **beside the hero CTA**        |
