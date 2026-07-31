@@ -100,15 +100,27 @@ export function HeroSection({ bounds }: { bounds?: PickerBounds }) {
     // height and padding it back by the same amount slides the photograph under
     // the bar without moving a single pixel of hero content.
     <section className="bg-surface-inverse relative -mt-20 overflow-hidden pt-20">
-      {/* ---------- The photograph ----------
-          The branded van at the kerb under Schiphol's own "Vertrek 2 /
-          Departures 2" sign. It replaced a covered-deck stock shot whose German
-          number plates contradicted the one claim this page exists to make.
+      {/* ---------- The image ----------
+          The branded van at the kerb under Schiphol's "Vertrek 3 / Departures 3"
+          sign, supplied by the client on 31 July 2026 and set here at his
+          request. It is AI-GENERATED, not photographed — the only such image on
+          the site — and the specific things wrong with it are itemised on its
+          manifest entry in config/images.ts. Read that before reusing it.
 
-          A garage says "car park operator"; a terminal frontage says "part of
-          the airport", which is the feeling the client asked for in as many
-          words — and the wayfinding sign says it without reproducing anyone's
-          mark.
+          What it does well is real: a garage says "car park operator"; a
+          terminal frontage says "part of the airport", which is the feeling the
+          client asked for in as many words — and the wayfinding sign says it
+          without reproducing anyone's mark. It also carries the crew jacket and
+          a full-width livery, which the frame it replaced held further away.
+
+          It measured 4.57:1 for the lead under the existing scrim against the
+          old frame's 4.60:1, so `scrim-hero` was left exactly as it was. If this
+          image is replaced, re-measure — see the note on that utility.
+
+          TODO(client): this is the slot the real kerbside photograph belongs in.
+          A genuine frame of the orange shuttle bus at the terminal would say
+          bright, Schiphol and shuttle at once, and would not need any of the
+          caveats above.
 
           Decorative: the H1 beside it already says where this is, and a screen
           reader gains nothing from a description of the wallpaper.
@@ -143,8 +155,8 @@ export function HeroSection({ bounds }: { bounds?: PickerBounds }) {
           keeps the canopy and the sign and loses road. */}
       <div aria-hidden className="absolute inset-x-0 top-0 h-128 sm:h-152 lg:inset-0 lg:h-full">
         <HeroPhoto
-          name="terminalDeparture"
-          portraitName="terminalDeparturePortrait"
+          name="terminalDepartures3"
+          portraitName="terminalDepartures3Portrait"
           className="absolute inset-0 h-full w-full"
           imageClassName="photo-drift object-[center_62%] sm:object-[58%_50%] lg:object-[center_45%]"
         />
@@ -236,7 +248,8 @@ export function HeroSection({ bounds }: { bounds?: PickerBounds }) {
                 figure, already published on /onze-services/, the FAQ, the trust
                 page and the service chooser, so this is not a new claim. */}
             <motion.p {...rise(0.42)} className="text-lead text-navy-100 mt-7 max-w-[46ch]">
-              Binnen 2 minuten geregeld. Kies voor Shuttle met een gratis transfer naar de vertrekhal of voor Valet, waarbij onze chauffeur uw auto direct voor u parkeert.
+              Binnen 2 minuten geregeld. Kies voor Shuttle met een gratis transfer naar de
+              vertrekhal of voor Valet, waarbij onze chauffeur uw auto direct voor u parkeert.
             </motion.p>
 
             {/* The proof row. Deliberately not a bullet list with filled circle

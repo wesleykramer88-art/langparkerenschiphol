@@ -16,7 +16,13 @@
  * ~100 bytes each, emitted by `npm run images` from the asset itself — so the
  * reveal resolves out of the photograph's own colours instead of a grey box.
  *
- * ── EVERY PHOTOGRAPH HERE IS THE CLIENT'S OWN ────────────────────────────────
+ * ── EVERY PHOTOGRAPH HERE IS THE CLIENT'S OWN, WITH ONE EXCEPTION ────────────
+ * The exception is `terminalDepartures3` / `terminalDepartures3Portrait`, the
+ * current hero, which is AI-generated and was supplied and requested as such by
+ * the client on 31 July 2026. It is marked with a ⚠ at its entry and the reasons
+ * to be careful with it are listed there. Everything below is his camera, and
+ * the rest of this note applies to those.
+ *
  * The library this replaces was five pieces of stock garage photography, and
  * four of them showed READABLE FOREIGN NUMBER PLATES: German plates in the
  * covered decks (they carried the hero and the security band), and a lot of
@@ -89,6 +95,70 @@ export const photos = {
     alt: 'Shuttlebus van Lang Parkeren Schiphol bij de ingang Vertrek 2 van de vertrekhal op Schiphol.',
     blurDataURL:
       'data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADQAQCdASoJAAwAAsBIJQBOgB5wa12cAAD+5TpQ5LC6FUYks7ERV3gZuPfnbCDYFa6FEp1pdEhEErt+vIodSNjLasAj6lfICgITXGaEXAA=',
+  },
+
+  /**
+   * ⚠ THE CURRENT HERO, AND THE ONLY GENERATED IMAGE IN THIS MANIFEST.
+   *
+   * Supplied by the client on 31 July 2026 and set as the hero at his request.
+   * The source filename was `PicjamDownload-Picsart-AiImageEnhancer.jpg` and the
+   * frame is AI-generated, not photographed. Everything else in this file is his
+   * own camera. Read the note at the top of this manifest before you reach for
+   * this entry for anything else.
+   *
+   * It composes well — the Departures sign, the branded van, the crew jacket and
+   * a yellow plate are all where the argument needs them — and it measured 4.57:1
+   * for the hero lead under the existing scrim, against 4.60:1 for the
+   * photograph it replaced, so no contrast work was needed.
+   *
+   * The number plate survives inspection: "VLG-01-L" is a real Dutch sidecode
+   * (XXX-99-X) on a correctly yellow plate, so the standing rule at the top of
+   * this file is met. Only the tiny legend along the plate's bottom edge and the
+   * EU band are mush, and neither is legible at any size the site renders.
+   *
+   * What IS wrong, and why the crop is what it is:
+   *   • The flight board that stood at the upper right listed "AIR ARARIA",
+   *     "AIR TRAUSAT", "BULIEARIA AIR" and "AIR MACTA" — mangled real carriers,
+   *     under a header of pure gibberish. It was the one flaw a traveller would
+   *     read instantly, so the landscape crop starts BELOW it (top=1180 of the
+   *     4096 square, which clears the board and still opens above the Departures
+   *     sign at ~1250). The portrait crop never contained it. Do not re-crop
+   *     upward without checking this.
+   *   • The crew jacket's own lettering is illegible mush. It is small, and it
+   *     reads as an out-of-focus logo rather than as an error.
+   *   • It says Vertrek 3. The client's real photography says Vertrek 2 and
+   *     article 6 of his terms puts the handover between halls 2 and 3.
+   *
+   * TODO(client): a real photograph at the kerb replaces this. See the note in
+   * HeroSection.
+   */
+  terminalDepartures3: {
+    src: '/images/terminal-vertrek3.webp',
+    width: 2400,
+    height: 1341,
+    alt: 'Bus van Lang Parkeren Schiphol bij de ingang Vertrek 3 van de vertrekhal op Schiphol, met een medewerker in oranje jas.',
+    blurDataURL:
+      'data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAQCdASoMAAcAA4BaJQBOgB5vxedgAP7aoWnGCkvDyS2Zi2hrxC8dmCVc/+zWmR1F71DuzU3X34SbHLCi10VmPkFBpQAA',
+  },
+
+  /**
+   * THE CURRENT HERO, PORTRAIT. Same generated frame, cropped 3:4 around the van.
+   *
+   * Same art-direction reason as terminalDeparturePortrait: a 1.79:1 frame in a
+   * phone viewport crops away most of its width. This crop holds the sign, the
+   * full livery and the plate.
+   *
+   * Taken from the left 3072px of the square, which is also why it never
+   * contained the mangled flight board — that sat past x=3650. It needs no
+   * equivalent of the landscape crop's top offset.
+   */
+  terminalDepartures3Portrait: {
+    src: '/images/terminal-vertrek3-portret.webp',
+    width: 1800,
+    height: 2400,
+    alt: 'Bus van Lang Parkeren Schiphol bij de ingang Vertrek 3 van de vertrekhal op Schiphol.',
+    blurDataURL:
+      'data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAAAwAgCdASoMABAAA4BaJQBOgCHgvfMQ3BAzAAD+ibx+xyaVv38FkuDGvt9DQ1CFQggHsosI9oX2OdTK9UOBn2Rm+g/fxv3Bct5MuZKAOFEUQDctzFqAAA==',
   },
 
   /**
