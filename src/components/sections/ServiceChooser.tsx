@@ -1,4 +1,16 @@
-import { ArrowRight, Check, MapPin, Wallet } from 'lucide-react';
+import {
+  ArrowRight,
+  BadgeCheck,
+  BusFront,
+  DoorOpen,
+  Handshake,
+  KeyRound,
+  LayoutGrid,
+  MapPin,
+  ShieldCheck,
+  Zap,
+  type LucideIcon,
+} from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { Section } from '@/components/ui/Section';
 import { Eyebrow } from '@/components/ui/Eyebrow';
@@ -22,11 +34,21 @@ import type { PhotoName } from '@/config/images';
  * entry; a title on the image is a spread. The body, the bullets and the CTA
  * sit below on the surface, where they are readable.
  *
- * Copy is verbatim from the live homepage. The mixed u/jij address inside the
- * bullets ("Check direct in voor je vlucht" under a "u" paragraph) is the live
- * site's, kept as-is — normalising it is a copy decision for the client, not
- * ours to make silently.
- * TODO(client): pick one form of address, u or je, and we will align all copy.
+ * ── The USPs, and the address form that came with them ─────────────────────
+ * The four bullets per card are the client's own, supplied 31 July 2026 as the
+ * "compacte versie voor icon-blokken" — his phrase, and the reason each one now
+ * carries its own icon rather than a row of identical check marks. They replace
+ * three shorter lines carried over from the live homepage.
+ *
+ * That also closes a TODO that had been open since the first pass. The old
+ * bullets mixed forms of address — "Check direct in voor je vlucht" sat under a
+ * paragraph written in "u" — and normalising it was a copy decision we were not
+ * willing to make on the client's behalf. He has now made it: all four USPs per
+ * service are in "u", which matches the descriptions above them and the rest of
+ * the site. There is no mixed address left in this component.
+ *
+ * The longer five-item benefit lists on /onze-services/ are NOT these. They are
+ * the detailed version and stay as they are; this is the compact one.
  *
  * ── The CTAs now carry the service ─────────────────────────────────────────
  * They used to point at a bare /reservering/, on the reasoning that no
@@ -43,14 +65,34 @@ type Service = {
   /** accent = the recommended option; there is only ever one. */
   badgeTone: 'accent' | 'brand';
   description: string;
-  bullets: readonly string[];
+  /**
+   * The client's USPs for this service, each with its own mark.
+   *
+   * An icon per line rather than one repeated check: the client asked for
+   * "icon-blokken", and four identical ticks say only "this is a list" four
+   * times. Each icon is chosen to restate its own line — a key for the keys you
+   * keep, a door for stepping out at the hall — so the row is scannable before
+   * it is read. Keep them distinct within a card; two cards may share one.
+   */
+  usps: readonly { icon: LucideIcon; text: string }[];
   cta: string;
   photo: PhotoName;
   /** The service's booking slug, carried into the hero picker's format. */
   slug: 'valet' | 'shuttle';
   /** Where the customer physically goes. The two services differ. */
   where: string;
-  /** Set where it is a real differentiator; only valet takes payment on site. */
+  /**
+   * Only valet takes payment on site. True, and a genuine reason to pick the
+   * more expensive service — but NOT rendered.
+   *
+   * It had been sitting here as a commented-out fifth list item since before the
+   * client supplied his USPs. Now that the list is his four and each line has
+   * its own mark, a fifth row in a different voice would dilute them. The fact
+   * is kept in the data rather than deleted, because it is the sort of thing
+   * that is expensive to rediscover.
+   * TODO(client): confirm this is still true, and we will find it a home —
+   * the payment section on /reservering/ is the natural one.
+   */
   payOnArrival?: boolean;
 };
 
@@ -62,10 +104,11 @@ const SERVICES: readonly Service[] = [
     badgeTone: 'accent',
     description:
       'Rijd rechtstreeks naar de vertrekhal van Schiphol. Onze chauffeur staat klaar, controleert uw auto en rijdt deze naar onze veilige parkeerlocatie.',
-    bullets: [
-      'Stap direct uit bij de vertrekhal',
-      'Check direct in voor je vlucht',
-      'Ideaal voor zakenreizen en vakanties',
+    usps: [
+      { icon: DoorOpen, text: 'Direct uitstappen bij de vertrekhal' },
+      { icon: Zap, text: 'De snelste start van uw reis' },
+      { icon: Handshake, text: 'Professionele overdracht van uw auto' },
+      { icon: BadgeCheck, text: 'Comfort en zekerheid zonder stress' },
     ],
     cta: 'Reserveer Valet Parkeren',
     // The crew in the branded hi-vis. The only photograph on the page of the
@@ -84,7 +127,12 @@ const SERVICES: readonly Service[] = [
     badgeTone: 'brand',
     description:
       'Parkeer uw auto op ons terrein. Onze shuttlebus brengt u comfortabel binnen 5 tot 8 minuten naar de vertrekhal van Schiphol.',
-    bullets: ['Autosleutels blijven bij jou', 'Snelle transferservice', 'Korte wachttijden'],
+    usps: [
+      { icon: KeyRound, text: 'Zelf parkeren, sleutels mee op reis' },
+      { icon: BusFront, text: 'Snelle transfer zonder wachttijd' },
+      { icon: LayoutGrid, text: 'Duidelijk en strak georganiseerd' },
+      { icon: ShieldCheck, text: 'Veilig terrein, betrouwbare service' },
+    ],
     cta: 'Reserveer Shuttle Parkeren',
     // His own terrain, with the shuttle bus running along the top of the frame
     // and Dutch yellow plates through every row. Literally what this option is.
@@ -191,23 +239,27 @@ function ServiceCard({ service }: { service: Service }) {
       <div className="flex flex-1 flex-col p-6 sm:p-8">
         <p className="max-w-[46ch]">{service.description}</p>
 
-        <ul className="border-line mt-6 flex flex-col gap-3 border-t pt-6">
-          {service.bullets.map((bullet) => (
-            <li key={bullet} className="flex items-start gap-3">
-              <Check className="text-accent mt-1 size-4 shrink-0" strokeWidth={3} aria-hidden />
-              <span className="text-sm sm:text-base">{bullet}</span>
+        {/* The USP block.
+
+            `gap-3.5` rather than the old `gap-3`: four rows of distinct marks
+            need slightly more air than three identical ticks, or the icons read
+            as a vertical strip of their own instead of as one mark per line.
+
+            The icon keeps `size-4` and sits in a `shrink-0` box so a line that
+            wraps on a narrow card stays hung off its mark rather than sliding
+            back under it. Every icon is aria-hidden — each one restates the
+            sentence beside it, so announcing both would read the list twice. */}
+        <ul className="border-line mt-6 flex flex-col gap-3.5 border-t pt-6">
+          {service.usps.map((usp) => (
+            <li key={usp.text} className="flex items-start gap-3">
+              <usp.icon
+                className="text-accent mt-0.5 size-4 shrink-0"
+                strokeWidth={2.25}
+                aria-hidden
+              />
+              <span className="text-sm sm:text-base">{usp.text}</span>
             </li>
           ))}
-
-          {/* Only valet takes payment on site. It is a real, checkable
-              difference between the two products — and a reason to pick the
-              more expensive one — and it appeared nowhere on the old site. */}
-          {/* {service.payOnArrival ? (
-            <li className="flex items-start gap-3">
-              <Wallet className="text-accent mt-1 size-4 shrink-0" strokeWidth={2.5} aria-hidden />
-              <span className="text-sm font-medium sm:text-base">Betalen kan ook bij aankomst</span>
-            </li>
-          ) : null} */}
         </ul>
 
         {/* ---------- Outdoor or covered ----------
