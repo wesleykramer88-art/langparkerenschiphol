@@ -2,7 +2,7 @@
 
 import { useId, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowRight, Wallet } from 'lucide-react';
+import { ArrowRight, CarFront, KeyRound, Wallet, type LucideIcon } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { DateField } from '@/components/ui/DateField';
 import { TimeField } from '@/components/ui/TimeField';
@@ -55,9 +55,38 @@ import { cn } from '@/lib/cn';
  * either costs, would be asking them to guess.
  */
 
-const SERVICE_LABELS: Record<ServiceSlug, { name: string; note: string }> = {
-  shuttle: { name: 'Shuttle', note: 'U parkeert zelf · shuttle naar de vertrekhal' },
-  valet: { name: 'Valet', note: 'Wij nemen uw auto over bij de vertrekhal' },
+/**
+ * The two services, and the two things each one says on this card.
+ *
+ * `note` sits under the radios and is MECHANICAL — what physically happens to
+ * the car. `usp` sits in the stub at the foot of the ticket and is the BENEFIT —
+ * what the visitor gets out of that. They are deliberately not the same
+ * sentence: the card would otherwise make the same point twice, once at each
+ * end, and repetition at the CTA only reinforces if the words have moved on.
+ *
+ * The USPs are the client's own, supplied 31 July 2026, so that switching
+ * service updates the stub's "Uw voordeel" line instead of leaving a standing
+ * claim there. His originals opened with an emoji (🔑, 🚗); those are line icons
+ * here, because the stub already sets an icon-plus-label pair in the right
+ * column and a colour emoji beside it would be the only one on the site.
+ *
+ * His separator was "•". This uses "·", which is what the rest of this card and
+ * the stub's own "AMS · 24/7" already use.
+ */
+const SERVICE_LABELS: Record<
+  ServiceSlug,
+  { name: string; note: string; usp: { icon: LucideIcon; text: string } }
+> = {
+  shuttle: {
+    name: 'Shuttle',
+    note: 'U parkeert zelf · shuttle naar de vertrekhal',
+    usp: { icon: KeyRound, text: 'Sleutels mee op reis · Gratis transfer naar Schiphol' },
+  },
+  valet: {
+    name: 'Valet',
+    note: 'Wij nemen uw auto over bij de vertrekhal',
+    usp: { icon: CarFront, text: 'Direct voor de vertrekhal · Auto wordt voor u geparkeerd' },
+  },
 };
 
 export function BookingPicker({
@@ -93,6 +122,10 @@ export function BookingPicker({
   const [submitting, setSubmitting] = useState(false);
 
   const nights = countNights(values.arrivalDate, values.departureDate);
+
+  // Capitalised so JSX treats it as a component rather than an <usp> element.
+  // Reading it here keeps the stub's markup to the one thing that changes.
+  const Usp = SERVICE_LABELS[values.service].usp.icon;
 
   // Recomputed on render rather than held in state: it depends on the clock, and
   // a visitor who leaves the tab open over the hour boundary should not be
@@ -308,19 +341,42 @@ export function BookingPicker({
           <div className="min-w-0">
             <p className="eyebrow text-muted">{nights ? 'Parkeerperiode' : 'Uw voordeel'}</p>
             {/* The period is a departure-board value — mono, tabular, one line,
-                truncated if it must be. The standing promise is prose, so it
-                gets neither: `numeric` is for prices, times and references, and
-                a nowrap run here is what starves this column on a phone, where
-                the valet stub's "Betaal bij aankomst" takes half the row. */}
+                truncated if it must be. The USP is prose, so it gets neither:
+                `numeric` is for prices, times and references, and a nowrap run
+                here is what starves this column on a phone, where the valet
+                stub's "Betaal bij aankomst" takes half the row.
+
+                This slot used to hold one standing line, "Optionele
+                annuleringsdekking", whichever service was selected. It now
+                follows the radios. The cancellation cover is not lost — it is
+                stated on /reservering/ in the reassurance list and in the
+                service chooser's own intro — and a benefit that changes with
+                the choice is worth more here than one that never moves.
+
+                Note this is the DATELESS state only: once both dates are set the
+                eyebrow above becomes "Parkeerperiode" and this line shows the
+                period instead. That is the right trade — a visitor who has
+                entered dates is past being sold to and wants to see what they
+                typed — but it does mean the USP is a first-impression element,
+                not a permanent one. */}
             <p
               className={cn(
                 'text-heading mt-1.5 text-base font-medium',
                 nights ? 'numeric truncate' : 'leading-snug text-balance',
               )}
             >
-              {nights
-                ? `${isoToShortLabel(values.arrivalDate)} — ${isoToShortLabel(values.departureDate)}`
-                : 'Optionele annuleringsdekking'}
+              {nights ? (
+                `${isoToShortLabel(values.arrivalDate)} — ${isoToShortLabel(values.departureDate)}`
+              ) : (
+                // items-start, not items-center: the text runs to two or three
+                // lines in this column on a phone, and a centred icon would
+                // drift to the middle of the block instead of marking its first
+                // line.
+                <span className="flex items-start gap-2">
+                  <Usp className="text-accent mt-0.5 size-4 shrink-0" aria-hidden />
+                  <span>{SERVICE_LABELS[values.service].usp.text}</span>
+                </span>
+              )}
             </p>
           </div>
           {/* Same rule as the left column: mono and unshrinkable while this

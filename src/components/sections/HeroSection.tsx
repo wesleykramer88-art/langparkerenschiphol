@@ -271,19 +271,31 @@ export function HeroSection({ bounds }: { bounds?: PickerBounds }) {
               </Button>
             </motion.div>
 
-            {/* The phone number belongs in the hero, not only in the header. A
-                meaningful share of this audience is deciding, on a phone,
-                whether a parking website can be trusted with their car; a
-                visible, tappable number is the cheapest trust signal there is. */}
-            {/* <motion.p {...rise(0.66)} className="text-navy-300 mt-6 text-sm">
-              Liever persoonlijk?{' '}
-              <a
-                href={siteConfig.phone.href}
-                className="numeric text-heading-inverse decoration-navy-500 hover:decoration-valet-400 ease-settle underline underline-offset-4 transition-colors duration-(--duration-micro)"
-              >
-                {siteConfig.phone.display}
-              </a>
-            </motion.p> */}
+            {/* The line directly under the CTAs. Client's copy, 31 July 2026.
+
+                It used to be "Liever persoonlijk? 085-4013918" — an escape
+                hatch. This is the opposite kind of line: it answers the last
+                hesitation before the click ("do I find out now, or do I wait for
+                someone to get back to me?") instead of offering a way around it.
+                Micro-reassurance at the button is a better use of this slot than
+                a second route out of the funnel.
+
+                Kept at navy-300 and text-sm, i.e. quieter than the buttons above
+                it. A reassurance that competes with the CTA stops being one.
+
+                ── What this cost, and where it went ──────────────────────────
+                The phone number was here deliberately: a visible, tappable
+                number is the cheapest trust signal a parking site has, and this
+                audience is deciding whether to hand over a car. It is NOT gone,
+                but on a phone it is now one tap further away — the header's
+                number is `hidden md:flex`, so below 768px it lives inside the
+                hamburger and in the footer. Desktop is unaffected; the header
+                carries it at all times there.
+                TODO(client): if bookings by phone drop, this is the first change
+                to look at. */}
+            <motion.p {...rise(0.66)} className="text-navy-300 mt-6 text-sm">
+              Online reserveren met directe bevestiging
+            </motion.p>
           </div>
 
           {/* ---------- Right column: the ticket ----------
