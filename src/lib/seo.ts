@@ -89,6 +89,15 @@ export const pageSeo = {
       'Lees de ervaringen van reizigers die hun auto bij Lang Parkeren Schiphol parkeerden. Echte reacties over de overdracht, de shuttle en de staat van de auto bij terugkomst.',
     path: '/reviews/',
   },
+  terms: {
+    // The terms used to live on valetparkingschiphol.nl. The slug matches the
+    // one they were published under there, so the old URL can be redirected to
+    // this one without inventing a new path.
+    title: 'Algemene voorwaarden - Lang Parkeren Schiphol',
+    description:
+      'De algemene voorwaarden van The Parking Company voor valet en shuttle parkeren bij Schiphol: reserveren, annuleren, schade melden, aansprakelijkheid en betaling.',
+    path: '/algemene-voorwaarden/',
+  },
 } as const satisfies Record<string, PageSeo>;
 
 export type PageSeoKey = keyof typeof pageSeo;

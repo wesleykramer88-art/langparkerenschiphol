@@ -176,6 +176,17 @@ export const navigation = [
   // customers.
   { href: '/reviews/', label: 'Reviews', inNav: false, inSitemap: true, priority: 0.6 },
   { href: '/login/', label: 'Inloggen', inNav: false, inSitemap: true, priority: 0.5 },
+  // Footer-only, and the lowest priority in the sitemap: it must be indexable —
+  // a trader's terms that a search engine cannot find are not "readily
+  // available" in the sense the distance-selling rules mean — but it should
+  // never outrank a page that sells something.
+  {
+    href: '/algemene-voorwaarden/',
+    label: 'Algemene voorwaarden',
+    inNav: false,
+    inSitemap: true,
+    priority: 0.3,
+  },
 ] as const;
 
 export type NavItem = (typeof navigation)[number];
@@ -205,11 +216,22 @@ export const footerNav = {
 } as const;
 
 /**
- * Terms currently live on a different domain (valetparkingschiphol.nl).
- * Cross-domain legal pages cost a little trust and leak link equity.
- * TODO(client): decide whether to host a copy on this domain.
+ * The terms. Now hosted here rather than on valetparkingschiphol.nl.
+ *
+ * They used to be a cross-domain link, which cost a little trust at exactly the
+ * moment a visitor is checking whether the company is real, and leaked the link
+ * equity of the one page every other page links to. The client supplied the
+ * document, so it lives on this domain — see src/content/algemene-voorwaarden.ts.
+ *
+ * Still exported as a constant rather than inlined at each call site: this is
+ * the single place to change if the terms ever move again, and every link to
+ * them already reads from here.
+ *
+ * TODO(client): 301 the old valetparkingschiphol.nl/algemene-voorwaarden/ to
+ * this URL. Same slug, so it is a one-line redirect, and it keeps whatever
+ * inbound links the old page has.
  */
-export const termsUrl = 'https://valetparkingschiphol.nl/algemene-voorwaarden/';
+export const termsUrl = '/algemene-voorwaarden/';
 
 /**
  * ── THE 4,7/5 IS GONE, AND THAT IS DELIBERATE ────────────────────────────────

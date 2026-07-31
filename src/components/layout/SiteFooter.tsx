@@ -141,17 +141,16 @@ export function SiteFooter() {
 
           <ul className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs">
             <li>
-              {/* TODO(client): terms currently live on valetparkingschiphol.nl.
-                  Hosting a copy on this domain would keep the trust signal and the
-                  link equity here. */}
-              <a
+              {/* On this domain now, so it is a Link rather than an <a> opening a
+                  new tab: a same-site page has no reason to leave the site, and
+                  the terms are the one page a hesitant visitor opens mid-booking
+                  and then wants the back button from. */}
+              <Link
                 href={termsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="text-navy-300 decoration-navy-600 hover:text-heading-inverse ease-settle inline-flex min-h-11 items-center underline underline-offset-4 transition-colors duration-(--duration-micro)"
               >
                 Algemene voorwaarden
-              </a>
+              </Link>
             </li>
             {/* Dutch distance-selling law requires the trader's identity and
                 registration number to be discoverable. The site this replaces
