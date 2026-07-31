@@ -545,18 +545,49 @@
    headline column legible, and one running down, which seats the image into the
    band below instead of ending on a hard edge.
 
-   The left stop is navy-950 at 94%, not a mid opacity — the H1 sits there and
+   The left stop is navy-950 at 93%, not a mid opacity — the H1 sits there and
    paper-50 on that measures better than 15:1 regardless of what the photograph
    is doing underneath. Text over photography is where contrast quietly fails,
-   so the scrim is sized to the text, not to taste. */
+   so the scrim is sized to the text, not to taste.
+
+   ── Why the right half clears to nothing ────────────────────────────────────
+   The client read this hero as too dark, and he was right about the result
+   while being wrong about the cause: the photograph is a bright, sunny frame —
+   blue sky, glass, the branded van at Departures 2 — and every bit of the
+   darkness was this overlay.
+
+   It cannot simply be lifted. The lead is --text-lead, 17–20px at regular
+   weight, so it is NORMAL text under WCAG and needs 4.5:1. The pixels behind it
+   are blown-out sky, measured at 249,255,255, and navy-100 over that clears 4.5
+   only at about 66% navy. The old 32%/64% stops put 64% at the point the 46ch
+   lead ends. In other words the previous ramp was already sitting on the
+   accessibility floor, which is why it looked the way it did — it was sized
+   correctly and shaped badly.
+
+   So the fix is the SHAPE, not the level. Through the copy column (0–50%) this
+   ramp is identical to the old one to within half a percent — 64.5% where the
+   lead ends, against 64% before, so nothing about legibility regresses. Past
+   60% it falls away much harder: 27% against 34% at the two-thirds mark, 11%
+   against 23% at 80%, and fully clear at the right edge against 10%. That is
+   exactly the part of the frame carrying the van, the livery and the "Vertrek 2
+   / Departures 2" sign, and it is now genuinely visible.
+
+   The extra 46% stop is what holds the copy zone flat while the tail steepens;
+   with three stops the two goals fight each other.
+
+   If you change the crop, re-measure before touching these numbers: the 66%
+   figure is a property of THIS photograph at THIS object-position. The mobile
+   gradient in HeroSection has no equivalent headroom — it runs top-to-bottom
+   under full-width copy, so there is no quiet side to open. */
 @utility scrim-hero {
   background-image:
     linear-gradient(
       to right,
       color-mix(in srgb, var(--color-navy-950) 93%, transparent) 0%,
-      color-mix(in srgb, var(--color-navy-950) 74%, transparent) 32%,
-      color-mix(in srgb, var(--color-navy-950) 34%, transparent) 64%,
-      color-mix(in srgb, var(--color-navy-950) 10%, transparent) 100%
+      color-mix(in srgb, var(--color-navy-950) 72%, transparent) 30%,
+      color-mix(in srgb, var(--color-navy-950) 60%, transparent) 46%,
+      color-mix(in srgb, var(--color-navy-950) 16%, transparent) 70%,
+      transparent 100%
     ),
     linear-gradient(
       to bottom,

@@ -46,11 +46,26 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 /** The H1, pre-split. Line breaks are a design decision, not a wrap artefact. */
 const HEADLINE_LINES = ['Zorgeloos', 'lang parkeren', 'op Schiphol.'] as const;
 
-/** Verbatim from the live site. Set as a hairline row, not as a bullet list. */
+/**
+ * Set as a hairline row, not as a bullet list.
+ *
+ * Shuttle leads, because shuttle is about 90% of bookings (client, 31 July
+ * 2026) and nothing above the fold used to say so — the hero named valet first
+ * and the proof row did not mention either service.
+ *
+ * "De meest gekozen parkeerservice" was the third line and is gone. It is
+ * unfalsifiable — most-chosen by whom, measured against what — and it sat in
+ * the one row on the page whose job is to be checkable. What replaces it is a
+ * concrete fact the client already publishes on /tarieven/, and it happens to
+ * answer the question shuttle customers actually ask, which is whether the ride
+ * costs extra.
+ * TODO(client): if you want a popularity claim back, give us the number behind
+ * it and we will state that instead.
+ */
 const PROOF = [
-  'Boek direct via de website',
+  'Shuttle van en naar de vertrekhal inbegrepen',
   '24/7 camerabewaking en monitoring',
-  'De meest gekozen parkeerservice',
+  'Boek direct via de website',
 ] as const;
 
 export function HeroSection({ bounds }: { bounds?: PickerBounds }) {
@@ -138,8 +153,17 @@ export function HeroSection({ bounds }: { bounds?: PickerBounds }) {
 
             Desktop: the headline sits in the left third, so the scrim runs
             right — the photograph stays visible on the side the ticket is on.
+            Its ramp was re-shaped after the client read the hero as too dark:
+            unchanged through the copy column, and clearing to nothing over the
+            van and the Departures sign instead of stopping at 10% navy. The
+            arithmetic, and why the level could NOT simply be lowered, is on
+            `scrim-hero` in globals.css.
 
             Mobile: the text runs the full width, so the scrim has to be flat.
+            That is also why the desktop fix has no mobile equivalent — a
+            top-to-bottom gradient under full-width copy has no quiet side to
+            open, so every part of it is load-bearing for contrast. Brightening
+            the phone hero means a different CROP, not a different scrim.
             It used to be 88% → 74% → 100% navy — legible, and also effectively
             opaque, which was the other half of why the photograph could not be
             seen. It is now 72% → 52% → 100%: heavy where the headline sits,
@@ -202,9 +226,18 @@ export function HeroSection({ bounds }: { bounds?: PickerBounds }) {
               ))}
             </h1>
 
+            {/* Shuttle first, and with a number attached.
+
+                This used to read "Kies voor valet of shuttle parkeren — veilig,
+                snel en professioneel", which named the 10% product first and
+                then spent its remaining words on three adjectives that every
+                competitor also claims. "In 5 tot 8 minuten naar de vertrekhal"
+                is the same length and is checkable; it is also the client's own
+                figure, already published on /onze-services/, the FAQ, the trust
+                page and the service chooser, so this is not a new claim. */}
             <motion.p {...rise(0.42)} className="text-lead text-navy-100 mt-7 max-w-[46ch]">
-              Binnen 2 minuten geregeld. Kies voor valet of shuttle parkeren — veilig, snel en
-              professioneel.
+              Binnen 2 minuten geregeld. Onze shuttle brengt u in 5 tot 8 minuten naar de vertrekhal
+              — of laat uw auto bij valet over aan onze chauffeur.
             </motion.p>
 
             {/* The proof row. Deliberately not a bullet list with filled circle
