@@ -9,7 +9,7 @@ import { Accordion } from '@/components/ui/Accordion';
 import { Reveal, Stagger } from '@/components/motion/Reveal';
 import { PageHero } from '@/components/sections/PageHero';
 import { ClosingCta } from '@/components/sections/ClosingCta';
-import { AccountDiscountBar } from '@/components/sections/AccountDiscountBar';
+// import { AccountDiscountBar } from '@/components/sections/AccountDiscountBar';
 import { ParkingProFrame } from '@/components/booking/ParkingProFrame';
 import { PARKINGPRO_DEFAULT_HEIGHTS, ratesUrl } from '@/lib/parkingpro';
 
@@ -151,7 +151,7 @@ export default function RatesPage() {
           site where a visitor is looking at a price and has not yet committed
           to it. This offer has existed in writing for as long as the portal
           has, on a page nothing links to. */}
-      <AccountDiscountBar />
+      {/* <AccountDiscountBar /> */}
 
       {/* ---------- Paid options ----------
           The only two hard prices we publish, because they are fixed and the

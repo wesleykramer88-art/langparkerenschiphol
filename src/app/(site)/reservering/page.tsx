@@ -6,7 +6,7 @@ import { Section } from '@/components/ui/Section';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { Reveal } from '@/components/motion/Reveal';
 import { PageHero } from '@/components/sections/PageHero';
-import { AccountDiscountBar } from '@/components/sections/AccountDiscountBar';
+// import { AccountDiscountBar } from '@/components/sections/AccountDiscountBar';
 import { ParkingProFrame } from '@/components/booking/ParkingProFrame';
 import { PARKINGPRO_DEFAULT_HEIGHTS, bookingUrl } from '@/lib/parkingpro';
 import { parseSelectionParams, toParkingProParams } from '@/lib/booking';
@@ -122,7 +122,7 @@ export default async function BookingPage({
                   is a larger saving than anything else on this page and the
                   visitor is about to pay; if it is going to be mentioned at
                   all, it has to be mentioned before the total, not after. */}
-              <AccountDiscountBar variant="inline" className="mb-6" />
+              {/* <AccountDiscountBar variant="inline" className="mb-6" /> */}
 
               <ParkingProFrame
                 src={src}
