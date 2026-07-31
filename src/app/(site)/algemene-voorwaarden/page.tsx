@@ -90,11 +90,17 @@ export default function TermsPage() {
           </h2>
 
           {/* The identity block. Dutch distance-selling law (BW 6:230m) requires
-              a trader to state who it is, where it is established and under
-              which registration number — and the terms themselves are where a
-              visitor looks for it. Article 1 lid 1 already contains all three,
-              but buried in the middle of a definition; repeating it here as a
-              legible card is the difference between "disclosed" and "findable". */}
+              a trader to state who it is, how it can be reached and under which
+              registration number — and the terms themselves are where a visitor
+              looks for it. Article 1 lid 1 carries the name and the KvK number
+              but buried in the middle of a definition; repeating them here as a
+              legible card is the difference between "disclosed" and "findable".
+
+              The law also asks for a geographic address, which this card does
+              NOT show, because the registered one is the client's home. The KvK
+              number carries that requirement in the interim — it resolves to the
+              registered office in a public register — and the contact row below
+              gives a visitor the reachability the rule is really protecting. */}
           <Reveal className="border-line bg-surface max-w-[72ch] rounded-lg border p-6 sm:p-7">
             <Eyebrow rule>Wie is uw contractspartij</Eyebrow>
             <dl className="mt-5 grid gap-x-8 gap-y-4 sm:grid-cols-2">
@@ -106,10 +112,27 @@ export default function TermsPage() {
                 <dt className="text-muted text-xs">KvK-nummer</dt>
                 <dd className="numeric text-heading mt-1 font-medium">{siteConfig.legal.kvk}</dd>
               </div>
+              {/* There is no "Vestigingsadres" row, and that is deliberate —
+                  the registered office is the client's home address. See the
+                  note on `legal` in config/site.ts. When the company is
+                  re-registered at a business address, add the row back here and
+                  restore the phrase in article 1. */}
               <div className="sm:col-span-2">
-                <dt className="text-muted text-xs">Vestigingsadres</dt>
+                <dt className="text-muted text-xs">Bereikbaarheid</dt>
                 <dd className="text-heading mt-1 font-medium">
-                  {siteConfig.legal.registeredAddress}
+                  <a
+                    href={`mailto:${siteConfig.email}`}
+                    className="hover:text-brand ease-settle transition-colors duration-(--duration-micro)"
+                  >
+                    {siteConfig.email}
+                  </a>
+                  <span className="text-muted"> · </span>
+                  <a
+                    href={siteConfig.phone.href}
+                    className="numeric hover:text-brand ease-settle transition-colors duration-(--duration-micro)"
+                  >
+                    {siteConfig.phone.display}
+                  </a>
                 </dd>
               </div>
             </dl>

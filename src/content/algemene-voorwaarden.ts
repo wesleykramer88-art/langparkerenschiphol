@@ -2,14 +2,39 @@
  * The general terms and conditions, as supplied by the client.
  *
  * ── This is a legal document, not copy ──────────────────────────────────────
- * The text below is the client's own Dutch original, transcribed VERBATIM. It
- * is not edited for tone, house style, address form, or the site's other copy
+ * The text below is the client's own Dutch original, transcribed verbatim apart
+ * from the single documented deviation below. It is not edited for tone, house
+ * style, address form, or the site's other copy
  * conventions, and it must not be. The rest of the site addresses the visitor
  * as "u" and avoids the passive; this document does neither, and that is
  * correct — it is the contract, and its wording is the client's lawyer's, not
  * ours. Do not "align" it with the marketing copy.
  *
- * Two mechanical repairs were made to the supplied file, and only two:
+ * ── One deliberate deviation from the source ───────────────────────────────
+ * Article 1 lid 1 as supplied names the registered office: "gevestigd aan
+ * <street>, <postcode> te Vinkeveen". That address is the client's own HOME,
+ * and he asked on 31 July 2026 for it to come off the site. It is removed from
+ * the clause; the rest of the sentence is untouched and still reads
+ * grammatically, and the company remains identified by its KvK number, which is
+ * in the same clause.
+ *
+ * This is the only place where the rendered document differs from the file the
+ * client sent, and it is recorded here rather than fixed silently because a
+ * contract that quietly differs from its source is worse than one that openly
+ * annotates the difference.
+ *
+ * Two things follow from it, and both are the client's to close:
+ *
+ *   • The PDF/Word original still contains the address. If that version is ever
+ *     attached to a booking confirmation or emailed, it undoes this.
+ *   • BW 6:230m wants a geographic address from a trader. The KvK number carries
+ *     that for now — it resolves to the registered office in a public register —
+ *     but this is an interim position. See `legal` in config/site.ts.
+ *
+ * TODO(client): send the new business address once the company is re-registered
+ * and it goes back into this clause. Do NOT restore the Vinkeveen one.
+ *
+ * Two mechanical repairs were also made to the supplied file, and only two:
  *
  *   1. NUMBERING. The source restarts every article at "1." and then continues
  *      with a document-wide running counter — article 2 arrived as 1, 14, 15,
@@ -78,7 +103,10 @@ export const TERMS: readonly Article[] = [
     clauses: [
       {
         term: 'The Parking Company',
-        text: 'de vennootschap onder firma The Parking Company, de gebruiker van deze algemene voorwaarden, tevens handelend onder de handelsnamen Flight Parking, Business Valet, Valetparkingschiphol.nl en langparkerenschiphol.nl, gevestigd aan Proosdijland 12, 3645 LA te Vinkeveen, ingeschreven in het Handelsregister onder KvK-nummer 74048856.',
+        // The registered office was removed from this clause at the client's
+        // request — see the note on the address at the top of this file. The
+        // sentence is otherwise untouched and still reads grammatically.
+        text: 'de vennootschap onder firma The Parking Company, de gebruiker van deze algemene voorwaarden, tevens handelend onder de handelsnamen Flight Parking, Business Valet, Valetparkingschiphol.nl en langparkerenschiphol.nl, ingeschreven in het Handelsregister onder KvK-nummer 74048856.',
       },
       {
         term: 'Klant',

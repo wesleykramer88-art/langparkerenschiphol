@@ -125,15 +125,35 @@ export const siteConfig = {
   geo: { latitude: 52.3105, longitude: 4.7683 },
 
   /**
-   * Legal identity, taken from the algemene voorwaarden. The live site publishes
-   * none of this; Dutch distance-selling law (BW 6:230m) requires a trader to
-   * state its identity, geographic address and KvK number.
+   * Legal identity. The site this replaces published none of it; Dutch
+   * distance-selling law (BW 6:230m) requires a trader to state its identity,
+   * geographic address and KvK number.
+   *
+   * ── There is deliberately no street address here ────────────────────────────
+   * There was one — the KvK registered office — and it was the client's own
+   * HOME address. He asked for it to be taken off the site on 31 July 2026, and
+   * he is right to: a sole trader's registered office is very often his front
+   * door, and publishing it on a consumer website puts it in front of an
+   * audience that has no business needing it.
+   *
+   * So the field is REMOVED rather than blanked. An empty string would render
+   * an empty row on /algemene-voorwaarden/ and would invite somebody to helpfully
+   * fill it back in from the KvK register.
+   *
+   * What still satisfies BW 6:230m in the meantime is the KvK number below: it
+   * resolves to the trader's registered address in a public register, which is
+   * the identification the rule is actually after. That is an interim position,
+   * not a permanent one.
+   *
+   * TODO(client): send the new business address as soon as the company is
+   * re-registered, and it goes back into the identity block on
+   * /algemene-voorwaarden/ and into article 1 of the terms. Until then, do not
+   * put the Vinkeveen address back — it is a private home.
    * TODO(client): confirm this entity is the contracting party for THIS brand.
    */
   legal: {
     entity: 'The Parking Company',
     kvk: '74048856',
-    registeredAddress: 'Proosdijland 12, 3645 LA Vinkeveen',
   },
 
   /** Years in business. The live site says "meer dan 15 jaar" on the homepage and
