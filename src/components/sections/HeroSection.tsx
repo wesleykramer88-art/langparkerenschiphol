@@ -236,8 +236,7 @@ export function HeroSection({ bounds }: { bounds?: PickerBounds }) {
                 figure, already published on /onze-services/, the FAQ, the trust
                 page and the service chooser, so this is not a new claim. */}
             <motion.p {...rise(0.42)} className="text-lead text-navy-100 mt-7 max-w-[46ch]">
-              Binnen 2 minuten geregeld. Onze shuttle brengt u in 5 tot 8 minuten naar de vertrekhal
-              — of laat uw auto bij valet over aan onze chauffeur.
+              Binnen 2 minuten geregeld. Kies voor Shuttle met een gratis transfer naar de vertrekhal of voor Valet, waarbij onze chauffeur uw auto direct voor u parkeert.
             </motion.p>
 
             {/* The proof row. Deliberately not a bullet list with filled circle
