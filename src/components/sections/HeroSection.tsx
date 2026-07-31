@@ -275,7 +275,7 @@ export function HeroSection({ bounds }: { bounds?: PickerBounds }) {
                 meaningful share of this audience is deciding, on a phone,
                 whether a parking website can be trusted with their car; a
                 visible, tappable number is the cheapest trust signal there is. */}
-            <motion.p {...rise(0.66)} className="text-navy-300 mt-6 text-sm">
+            {/* <motion.p {...rise(0.66)} className="text-navy-300 mt-6 text-sm">
               Liever persoonlijk?{' '}
               <a
                 href={siteConfig.phone.href}
@@ -283,7 +283,7 @@ export function HeroSection({ bounds }: { bounds?: PickerBounds }) {
               >
                 {siteConfig.phone.display}
               </a>
-            </motion.p>
+            </motion.p> */}
           </div>
 
           {/* ---------- Right column: the ticket ----------
