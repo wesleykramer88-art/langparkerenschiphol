@@ -1,5 +1,5 @@
 import { env } from '@/lib/env';
-import { siteConfig } from '@/config/site';
+import { paymentMethods, siteConfig } from '@/config/site';
 import type { ReviewSource } from '@/content/reviews';
 
 /**
@@ -72,7 +72,9 @@ export function organizationSchema() {
       closes: '23:59',
     },
     currenciesAccepted: 'EUR',
-    paymentAccepted: 'iDEAL, Creditcard, Bancontact',
+    // Read from the one list rather than retyped — this used to name three
+    // methods while the footer named four different ones. See config/site.ts.
+    paymentAccepted: paymentMethods.join(', '),
     // Legal identity, from the algemene voorwaarden. Dutch distance-selling law
     // requires the trader's identity and registration number to be discoverable.
     legalName: siteConfig.legal.entity,

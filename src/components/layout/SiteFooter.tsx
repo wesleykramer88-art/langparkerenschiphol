@@ -1,29 +1,68 @@
 import Link from 'next/link';
-import { Mail, MapPin, Phone } from 'lucide-react';
+import {
+  CreditCard,
+  Landmark,
+  Mail,
+  MapPin,
+  Phone,
+  Smartphone,
+  Wallet,
+  type LucideIcon,
+} from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { cn } from '@/lib/cn';
 import { Logo } from '@/components/layout/Logo';
 import {
   footerNav,
   independenceDisclaimer,
+  paymentMethods,
   siteConfig,
   termsUrl,
   accountDiscount,
+  type PaymentMethod,
 } from '@/config/site';
 
 /**
- * Payment methods.
+ * Payment methods — the mark beside each name.
  *
- * Rendered as text marks, not logos. The Visa, Mastercard and iDEAL marks are
- * registered trademarks whose use is governed by each scheme's brand guidelines,
- * and we do not have the licensed asset files. A wrong-colour or redrawn mark is
- * a trademark problem, whereas naming the methods in text is accurate and
- * accessible.
+ * ── These are NOT the schemes' logos, and that is not an oversight ──────────
+ * The client asked for icons. The obvious reading is the real brand marks — the
+ * iDEAL lozenge, the Apple Pay glyph, the Klarna wordmark — and those we cannot
+ * ship. Every one is a registered trademark whose use is governed by that
+ * scheme's brand guidelines, we do not hold the licensed asset files, and a
+ * redrawn or recoloured mark is a trademark problem rather than a near miss.
+ * Apple in particular publishes rules on the Apple Pay mark that a hand-drawn
+ * copy breaks immediately.
  *
- * TODO(client): supply the official SVGs (they come with the payment provider's
- * brand kit) and we will swap these for the real marks.
+ * So each method gets a mark for its KIND instead: what the visitor will
+ * actually be doing. That is honest, it needs no licence, and it carries
+ * information the logos do not — four of these nine are bank buttons, and a row
+ * of nine unfamiliar wordmarks does not tell a Dutch customer that.
+ *
+ *   Landmark   → you are sent to your own bank to approve it
+ *   Smartphone → you confirm on your phone or watch
+ *   Wallet     → you sign in to an account that holds your money
+ *   CreditCard → you type a card number
+ *
+ * Repetition across the column is deliberate: the four bank buttons SHOULD look
+ * like each other.
+ *
+ * TODO(client): if you want the real marks, they come in your PSP's brand kit
+ * as licensed SVGs — send that folder and this becomes a straight swap. Please
+ * send the kit rather than files pulled off a search, which is where the
+ * licence problem starts.
  */
-const PAYMENT_METHODS = ['iDEAL', 'Visa', 'Mastercard', 'Bancontact'] as const;
+const PAYMENT_ICONS: Record<PaymentMethod, LucideIcon> = {
+  iDEAL: Landmark,
+  Creditcard: CreditCard,
+  'Apple Pay': Smartphone,
+  'Google Pay': Smartphone,
+  PayPal: Wallet,
+  Klarna: Wallet,
+  Bancontact: Landmark,
+  'KBC/CBC-betaalknop': Landmark,
+  'Belfius-betaalknop': Landmark,
+};
 
 export function SiteFooter() {
   // Evaluated at build time. The site is statically rendered, so a rebuild is
@@ -122,15 +161,25 @@ export function SiteFooter() {
 
         <div className="border-line-inverse border-t py-8">
           <p className="eyebrow text-navy-400">Betaalmethoden</p>
+          {/* Nine chips rather than four, so they wrap to two rows on a laptop
+              and several on a phone. `items-center` on the chip and `shrink-0`
+              on the mark keep a wrapped row's baselines together. */}
           <ul className="mt-4 flex flex-wrap gap-2">
-            {PAYMENT_METHODS.map((method) => (
-              <li
-                key={method}
-                className="border-line-inverse text-navy-200 rounded-md border px-3 py-1.5 text-xs font-medium"
-              >
-                {method}
-              </li>
-            ))}
+            {paymentMethods.map((method) => {
+              const Mark = PAYMENT_ICONS[method];
+              return (
+                <li
+                  key={method}
+                  className="border-line-inverse text-navy-200 flex items-center gap-2 rounded-md border px-3 py-1.5 text-xs font-medium"
+                >
+                  {/* aria-hidden: the mark says "bank button", the text says
+                      which bank button. Announcing both would read every row
+                      twice, and the icon is the less precise of the two. */}
+                  <Mark className="text-navy-400 size-3.5 shrink-0" strokeWidth={2} aria-hidden />
+                  {method}
+                </li>
+              );
+            })}
           </ul>
         </div>
 

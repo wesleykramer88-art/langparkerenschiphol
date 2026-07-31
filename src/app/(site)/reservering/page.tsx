@@ -73,7 +73,11 @@ const REASSURANCES: readonly { icon: LucideIcon; title: string; body: string }[]
   {
     icon: ShieldCheck,
     title: 'Betaling via een beveiligde omgeving',
-    body: 'Betalen gaat via iDEAL, creditcard of Bancontact in de beveiligde omgeving van ons reserveringssysteem.',
+    // Not the full list of nine — a sentence that names all of them stops being
+    // readable, and the footer carries the complete set. These are the ones a
+    // Dutch or Belgian traveller scans for. See `paymentMethods` in
+    // config/site.ts, which is where the full list lives.
+    body: 'Betalen gaat onder meer via iDEAL, creditcard, PayPal, Klarna, Apple Pay of Bancontact, in de beveiligde omgeving van ons reserveringssysteem.',
   },
   {
     icon: Phone,

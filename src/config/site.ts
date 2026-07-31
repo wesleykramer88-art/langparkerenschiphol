@@ -236,6 +236,42 @@ export const footerNav = {
 } as const;
 
 /**
+ * Every payment method the checkout accepts. Client's own list, 31 July 2026.
+ *
+ * ── Why this is here and not in the footer ──────────────────────────────────
+ * It was in three places and all three disagreed: the footer advertised "iDEAL,
+ * Visa, Mastercard, Bancontact", the LocalBusiness schema claimed "iDEAL,
+ * Creditcard, Bancontact", and /reservering/ told the visitor they could pay by
+ * "iDEAL, creditcard of Bancontact". None of them mentioned Apple Pay, Google
+ * Pay, Klarna, PayPal or the two Belgian bank buttons, and the footer named two
+ * card schemes the client does not list separately. Every one of those is a
+ * promise made at the point a visitor decides whether to start a booking, so
+ * they now read from one array.
+ *
+ * Names are as the schemes themselves write them, Dutch where the scheme has a
+ * Dutch name. Order is the client's, which runs roughly by how Dutch and Belgian
+ * customers actually pay rather than alphabetically.
+ *
+ * TODO(client): the checkout is ParkingPro's, so what a customer is actually
+ * offered is whatever your PSP has switched on in THEIR back office. If any of
+ * these is off there, the footer is promising something the payment screen will
+ * not show, which is the worst place to be caught out. Worth one test booking.
+ */
+export const paymentMethods = [
+  'iDEAL',
+  'Creditcard',
+  'Apple Pay',
+  'Google Pay',
+  'PayPal',
+  'Klarna',
+  'Bancontact',
+  'KBC/CBC-betaalknop',
+  'Belfius-betaalknop',
+] as const;
+
+export type PaymentMethod = (typeof paymentMethods)[number];
+
+/**
  * The terms. Now hosted here rather than on valetparkingschiphol.nl.
  *
  * They used to be a cross-domain link, which cost a little trust at exactly the
