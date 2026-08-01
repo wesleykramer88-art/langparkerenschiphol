@@ -8,7 +8,13 @@
  * banner cannot appear in the static HTML and cannot become the LCP element.
  */
 
-const STORAGE_KEY = 'lps-consent';
+/**
+ * Exported because the Consent Mode bootstrap in the root layout reads the same
+ * key from an inline script, before any module has loaded. Written out twice,
+ * the two would eventually drift and every returning visitor would silently
+ * revert to "denied" — see buildConsentBootstrap in src/lib/analytics.ts.
+ */
+export const CONSENT_STORAGE_KEY = 'lps-consent';
 
 export type Consent = 'granted' | 'denied';
 
@@ -20,7 +26,7 @@ let cached: Consent | null | undefined;
 
 function read(): Consent | null {
   try {
-    const value = window.localStorage.getItem(STORAGE_KEY);
+    const value = window.localStorage.getItem(CONSENT_STORAGE_KEY);
     return value === 'granted' || value === 'denied' ? value : null;
   } catch {
     // Private mode, or storage disabled by policy. Treat as undecided — we ask
@@ -49,7 +55,7 @@ export function getConsentServerSnapshot(): Consent | null {
 export function setConsent(value: Consent) {
   cached = value;
   try {
-    window.localStorage.setItem(STORAGE_KEY, value);
+    window.localStorage.setItem(CONSENT_STORAGE_KEY, value);
   } catch {
     // Non-fatal: the choice still holds for this page view.
   }

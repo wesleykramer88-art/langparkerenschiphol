@@ -17,6 +17,7 @@ import {
   isParkingProOrigin,
   readParkingProMessage,
 } from '@/lib/parkingpro';
+import { readReservationReference, readReservationValue, trackPurchase } from '@/lib/analytics';
 
 /**
  * The one component that embeds MyParkingPro.
@@ -94,24 +95,6 @@ import {
  * payload. Without that check any page in any tab could post a
  * `reservationAdded` message and redirect this visitor wherever it liked.
  */
-
-/** Pull a reservation reference out of the payload without assuming a key. */
-function readReference(reservation: Record<string, unknown> | undefined): string | null {
-  if (!reservation) return null;
-  for (const key of ['reservationNumber', 'number', 'reference', 'code', 'id']) {
-    const value = reservation[key];
-    if (typeof value === 'string' && value.trim()) return value.trim();
-    if (typeof value === 'number') return String(value);
-  }
-  return null;
-}
-
-declare global {
-  interface Window {
-    gtag?: (...args: unknown[]) => void;
-    dataLayer?: unknown[];
-  }
-}
 
 export function ParkingProFrame({
   src,
@@ -304,8 +287,28 @@ export function ParkingProFrame({
         }
 
         case PARKINGPRO_EVENTS.reservationAdded: {
+          const reference = readReservationReference(message.reservation);
+
+          /**
+           * Report the conversion HERE, not on the thank-you page.
+           *
+           * This is the only moment the booking's value exists on our side: it
+           * is in the payload we were just handed, and it is deliberately not
+           * carried across the navigation (see below). Firing on arrival at the
+           * confirmation page instead would mean either a valueless conversion
+           * — useless for ROAS, which is the whole point of this — or putting a
+           * price in a query string, where a visitor can edit it and report
+           * whatever revenue they like into the client's ad account.
+           *
+           * Deduplicated on the reference, because the confirmation page fires
+           * a valueless backup for the case where the payment provider took
+           * over the whole tab and this message was never delivered. Whichever
+           * arrives first wins; see trackPurchase().
+           */
+          const { value, currency } = readReservationValue(message.reservation);
+          trackPurchase({ transactionId: reference, value, currency, source: 'iframe' });
+
           if (!onCompleteHref) break;
-          const reference = readReference(message.reservation);
           // ONLY the reference travels in the URL.
           //
           // The payload also carries the customer's name, e-mail and number
