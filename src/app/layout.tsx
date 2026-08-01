@@ -5,6 +5,8 @@ import { siteConfig } from '@/config/site';
 import { jsonLd, organizationSchema, websiteSchema } from '@/lib/schema';
 import { Analytics as VercelAnalytics } from '@vercel/analytics/next';
 import { Analytics } from '@/components/analytics/Analytics';
+import { buildConsentBootstrap } from '@/lib/analytics';
+import { CONSENT_STORAGE_KEY } from '@/lib/consent';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -54,6 +56,32 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: `if('IntersectionObserver' in window)document.documentElement.classList.add('js')`,
           }}
         />
+
+        {/*
+          Consent Mode v2 default state.
+
+          MUST stay here, in <head>, ahead of everything — including the GTM
+          loader in <Analytics />, which is rendered at the bottom of <body>.
+          Consent Mode's contract is that the default is on the dataLayer before
+          any tag reads it; a default that arrives afterwards is not a default,
+          it is a late correction, and whatever fired in between fired
+          unconsented. Parser order is the only guarantee strong enough for
+          that, which is why this is a raw inline <script> and not <Script>.
+
+          It defaults every ad and analytics signal to DENIED, then reads the
+          visitor's stored answer and grants if they have already accepted — so
+          a returning visitor is never briefly downgraded and re-upgraded, which
+          GA4 would otherwise count as two sessions from two users.
+
+          Emitted only when a container is configured. With no GTM id the whole
+          measurement stack is absent and this would define a dataLayer nothing
+          ever reads.
+        */}
+        {env.NEXT_PUBLIC_GTM_ID ? (
+          <script
+            dangerouslySetInnerHTML={{ __html: buildConsentBootstrap(CONSENT_STORAGE_KEY) }}
+          />
+        ) : null}
       </head>
       <body className="min-h-dvh antialiased">
         {children}
@@ -69,7 +97,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: jsonLd(websiteSchema()) }}
         />
 
-        {/* Consent-gated GA4 — renders the banner and only loads gtag on accept. */}
+        {/* GTM under Consent Mode v2 — renders the banner and the container.
+            The default consent state is set by the bootstrap in <head> above. */}
         <Analytics />
 
         {/*

@@ -39,14 +39,82 @@ const isDev = process.env.NODE_ENV === 'development';
  */
 const devConnectSrc = isDev ? ' ws://localhost:* http://localhost:* ws://127.0.0.1:*' : '';
 
+/**
+ * Hosts the Google tagging stack needs, split by what each one is for.
+ *
+ * The previous policy allowed only GA4's two hosts, which was correct when the
+ * site loaded gtag.js for analytics and nothing else. It now runs a Tag Manager
+ * container with a Google Ads destination, and CONVERSION TRACKING USES A
+ * DIFFERENT SET OF HOSTS ENTIRELY. Left as it was, GA4 would have kept working
+ * — masking the problem — while every Ads conversion ping was blocked by the
+ * browser. The only symptom is zero conversions in an account that looks
+ * correctly configured, which is close to undiagnosable from the Ads UI.
+ *
+ * Written out per-host rather than as `https://*.google.com`, so that widening
+ * this is a deliberate edit and it stays obvious what each entry buys.
+ */
+const GOOGLE_TAGGING = {
+  /** gtm.js, and the Ads conversion library it loads. */
+  script: ['https://www.googletagmanager.com', 'https://www.googleadservices.com'],
+
+  /**
+   * Conversion and remarketing pixels. Google Ads fires its conversion ping as
+   * an IMAGE against the country domain the visitor resolves — .nl and .be
+   * carry almost all of this site's traffic, with .com as the fallback. A
+   * missing ccTLD here silently drops the conversions from that country only,
+   * which reads as a regional performance dip rather than a tagging fault.
+   */
+  image: [
+    'https://www.googletagmanager.com',
+    'https://www.google-analytics.com',
+    'https://www.googleadservices.com',
+    'https://googleads.g.doubleclick.net',
+    'https://www.google.com',
+    'https://www.google.nl',
+    'https://www.google.be',
+  ],
+
+  /** GA4 measurement protocol, plus the Ads conversion beacon on fetch/XHR. */
+  connect: [
+    'https://www.googletagmanager.com',
+    'https://www.google-analytics.com',
+    'https://region1.google-analytics.com',
+    'https://analytics.google.com',
+    'https://stats.g.doubleclick.net',
+    'https://googleads.g.doubleclick.net',
+    'https://www.googleadservices.com',
+    'https://www.google.com',
+    'https://www.google.nl',
+    'https://www.google.be',
+  ],
+
+  /**
+   * The conversion linker's cross-domain iframe. This is what preserves the
+   * gclid across the hop to the payment provider and back; without it, paid
+   * bookings are attributed to direct traffic.
+   */
+  frame: ['https://td.doubleclick.net'],
+} as const;
+
 const csp = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
+  `script-src 'self' 'unsafe-inline' ${GOOGLE_TAGGING.script.join(' ')}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https://www.googletagmanager.com https://www.google-analytics.com",
+  `img-src 'self' data: blob: ${GOOGLE_TAGGING.image.join(' ')}`,
   "font-src 'self'",
-  `connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com${devConnectSrc}`,
-  `frame-src ${PARKINGPRO_ORIGIN}`,
+  `connect-src 'self' ${GOOGLE_TAGGING.connect.join(' ')}${devConnectSrc}`,
+  `frame-src ${PARKINGPRO_ORIGIN} ${GOOGLE_TAGGING.frame.join(' ')}`,
+  /**
+   * Kept at 'none', which means GTM's own Preview mode will NOT be able to
+   * embed this site — Tag Assistant loads the page in an iframe on
+   * tagassistant.google.com and this policy refuses it.
+   *
+   * That is the intended trade. The alternative is allowing a Google origin to
+   * frame the live site permanently to make debugging convenient, and debugging
+   * has a first-class answer that costs nothing: the Tag Assistant Companion
+   * Chrome extension drives Preview in a normal tab, with no framing at all.
+   * Use that.
+   */
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",

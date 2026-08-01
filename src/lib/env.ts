@@ -36,11 +36,20 @@ const envSchema = z.object({
   /** Google Search Console verification token. Optional — omitted in preview. */
   NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: z.string().min(1).optional(),
 
-  /** GA4 measurement ID. Optional. When absent, no analytics script is emitted
-   *  at all, which is the correct default for preview deployments. */
-  NEXT_PUBLIC_GA_MEASUREMENT_ID: z
+  /**
+   * Google Tag Manager container ID. Optional — when absent, no tag manager, no
+   * consent bootstrap and no banner are emitted at all, which is the correct
+   * default for preview deployments.
+   *
+   * This is the ONLY measurement id the site knows. GA4 (G-N2KKPQR770) and
+   * Google Ads (AW-934465672) are both configured as destinations inside the
+   * container, so neither belongs here: adding a second GA4 loader alongside
+   * GTM double-counts every session, and hardcoding the Ads id would mean a
+   * redeploy every time a conversion action or a value rule changes.
+   */
+  NEXT_PUBLIC_GTM_ID: z
     .string()
-    .regex(/^G-[A-Z0-9]+$/, { error: 'NEXT_PUBLIC_GA_MEASUREMENT_ID must look like G-XXXXXXX' })
+    .regex(/^GTM-[A-Z0-9]+$/, { error: 'NEXT_PUBLIC_GTM_ID must look like GTM-XXXXXXX' })
     .optional(),
 });
 
@@ -54,7 +63,7 @@ const parsed = envSchema.safeParse({
   NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
   NEXT_PUBLIC_PARKINGPRO_ORIGIN: process.env.NEXT_PUBLIC_PARKINGPRO_ORIGIN,
   NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
-  NEXT_PUBLIC_GA_MEASUREMENT_ID: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID,
+  NEXT_PUBLIC_GTM_ID: process.env.NEXT_PUBLIC_GTM_ID,
 });
 
 if (!parsed.success) {
