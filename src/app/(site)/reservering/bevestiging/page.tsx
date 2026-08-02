@@ -6,7 +6,7 @@ import { Eyebrow } from '@/components/ui/Eyebrow';
 import { Button } from '@/components/ui/Button';
 import { Ticket, TicketTear } from '@/components/ui/Ticket';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
-import { PurchaseFallback } from '@/components/analytics/PurchaseFallback';
+import { PurchaseReporter } from '@/components/analytics/PurchaseReporter';
 import { siteConfig } from '@/config/site';
 
 /**
@@ -65,9 +65,9 @@ export default async function BookingConfirmationPage({
   return (
     <Section spacing="lg">
       <Container width="narrow">
-        {/* Reports the conversion only if the booking reached this page without
-            passing through the iframe's postMessage — see PurchaseFallback. */}
-        <PurchaseFallback reference={reference} />
+        {/* The single place a booking conversion is reported: paid, all steps
+            done, thank-you page reached. See PurchaseReporter. */}
+        <PurchaseReporter reference={reference} />
 
         <Breadcrumbs
           tone="onLight"

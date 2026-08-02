@@ -17,7 +17,11 @@ import {
   isParkingProOrigin,
   readParkingProMessage,
 } from '@/lib/parkingpro';
-import { readReservationReference, readReservationValue, trackPurchase } from '@/lib/analytics';
+import {
+  readReservationReference,
+  readReservationValue,
+  stashPendingBooking,
+} from '@/lib/analytics';
 
 /**
  * The one component that embeds MyParkingPro.
@@ -290,23 +294,22 @@ export function ParkingProFrame({
           const reference = readReservationReference(message.reservation);
 
           /**
-           * Report the conversion HERE, not on the thank-you page.
+           * Park the value; do NOT report the conversion here.
            *
-           * This is the only moment the booking's value exists on our side: it
-           * is in the payload we were just handed, and it is deliberately not
-           * carried across the navigation (see below). Firing on arrival at the
-           * confirmation page instead would mean either a valueless conversion
-           * — useless for ROAS, which is the whole point of this — or putting a
-           * price in a query string, where a visitor can edit it and report
-           * whatever revenue they like into the client's ad account.
+           * This is the only moment the booking's value exists on our side, so
+           * it has to be captured now — but a conversion only counts once the
+           * visitor has paid and reached the thank-you page, and this message
+           * says a reservation record was created, which is not the same claim.
+           * Whether ParkingPro emits it before or after the payment provider
+           * settles is not visible from here, so reporting on it would risk
+           * counting an abandoned iDEAL payment as revenue.
            *
-           * Deduplicated on the reference, because the confirmation page fires
-           * a valueless backup for the case where the payment provider took
-           * over the whole tab and this message was never delivered. Whichever
-           * arrives first wins; see trackPurchase().
+           * stashPendingBooking keeps it in sessionStorage — out of the URL, and
+           * durable across the payment provider taking over the tab. The
+           * thank-you page reads it back and reports. See trackPurchase().
            */
           const { value, currency } = readReservationValue(message.reservation);
-          trackPurchase({ transactionId: reference, value, currency, source: 'iframe' });
+          stashPendingBooking({ reference, value, currency });
 
           if (!onCompleteHref) break;
           // ONLY the reference travels in the URL.
