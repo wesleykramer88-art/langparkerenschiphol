@@ -174,6 +174,88 @@ export function readReservationReference(
 // Firing the conversion
 // ---------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------
+// Holding the value until the visitor reaches the thank-you page
+// ---------------------------------------------------------------------------
+
+const PENDING_KEY = 'lps-pending-booking';
+
+export type PendingBooking = {
+  reference: string | null;
+  value: number | null;
+  currency: string;
+};
+
+/**
+ * Park a completed booking's value until the thank-you page is actually reached.
+ *
+ * ── Why the value waits here instead of being reported on the spot ───────────
+ * The client's definition of a conversion is explicit: it counts once the
+ * visitor has been through every step, PAID, and landed on the thank-you page.
+ * `reservationAdded` is the wrong moment to report against that rule — it is
+ * ParkingPro telling us a reservation record now exists, and whether that
+ * happens before or after the payment provider confirms is theirs to decide,
+ * not something this codebase can see. Report there and a bounced iDEAL payment
+ * is a conversion in the ad account.
+ *
+ * The thank-you page is the gate the client described, so that is where it
+ * fires. This just carries the value across the navigation.
+ *
+ * ── Why sessionStorage and not the URL ──────────────────────────────────────
+ * Same reason the reference is the only thing in the query string: a price in
+ * the address bar is a price the visitor can edit, and an account bidding to a
+ * ROAS target will believe whatever number it is handed. sessionStorage is
+ * per-tab and per-origin, it is not in history, not in access logs and not in
+ * the Referer header — and, critically, it SURVIVES the payment provider taking
+ * over the whole tab and sending the visitor back. That is the one path where
+ * the value would otherwise be lost for good.
+ */
+export function stashPendingBooking(booking: PendingBooking) {
+  if (typeof window === 'undefined') return;
+  try {
+    window.sessionStorage.setItem(PENDING_KEY, JSON.stringify(booking));
+  } catch {
+    // Private mode or storage disabled. The thank-you page will still report the
+    // conversion off the URL reference, just without a value — degraded, not
+    // broken. Losing the value beats losing the conversion.
+  }
+}
+
+/** The booking parked by `reservationAdded`, if this tab has one in flight. */
+export function readPendingBooking(): PendingBooking | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const raw = window.sessionStorage.getItem(PENDING_KEY);
+    if (!raw) return null;
+    const parsed: unknown = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object') return null;
+    const { reference, value, currency } = parsed as Record<string, unknown>;
+    return {
+      reference: typeof reference === 'string' ? reference : null,
+      value: typeof value === 'number' && Number.isFinite(value) && value > 0 ? value : null,
+      currency: typeof currency === 'string' ? currency : DEFAULT_CURRENCY,
+    };
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Drop the parked booking once it has been reported.
+ *
+ * Without this, a visitor who books and then browses back to the thank-you page
+ * later in the same tab would re-report. `alreadyFired` catches that too, but
+ * only while its key survives; clearing the source is the cheaper guarantee.
+ */
+export function clearPendingBooking() {
+  if (typeof window === 'undefined') return;
+  try {
+    window.sessionStorage.removeItem(PENDING_KEY);
+  } catch {
+    // Nothing to do — see above.
+  }
+}
+
 const FIRED_PREFIX = 'lps-purchase:';
 
 /**
@@ -206,26 +288,26 @@ function markFired(key: string) {
 /**
  * Report a completed booking to GTM, exactly once per reservation per tab.
  *
- * ── Why this is deduplicated rather than fired in one obvious place ─────────
- * A booking can finish along two different paths, and only one of them is the
- * one everybody pictures:
+ * Called from ONE place — the thank-you page — because that is the client's
+ * stated definition of a conversion. What differs is how the visitor got there,
+ * and a booking can finish along two paths:
  *
  *   1. Payment completes INSIDE the iframe. ParkingPro posts
- *      `reservationAdded`, ParkingProFrame catches it, and we route to
- *      /reservering/bevestiging/ ourselves. The payload is in hand, so the
- *      value is known. This is the good path.
+ *      `reservationAdded`, ParkingProFrame stashes the value and routes to
+ *      /reservering/bevestiging/?ref=… itself. Reference and value both known.
  *
  *   2. The payment provider takes over the WHOLE TAB. The frame is sandboxed
  *      with `allow-top-navigation-by-user-activation` precisely so iDEAL and
- *      the card flows can do this. No postMessage is ever delivered to us,
- *      because by then our page is gone.
+ *      the card flows can do this, and the visitor comes back via ParkingPro's
+ *      own return URL — which will not carry our `?ref=`. The stash is what
+ *      survives that round trip, so the conversion still reports, with its
+ *      value, off a page load we did not originate.
  *
- * Firing only from the message handler misses every booking that takes path 2.
- * Firing only from the thank-you page misses the value, and double-counts on a
- * refresh or a back-button. So both fire, both go through here, and the
- * reservation reference makes the second one a no-op.
+ * Still deduplicated, because the thank-you page is a URL like any other: a
+ * refresh, a back-button or a bookmarked visit would otherwise each count as a
+ * fresh booking.
  *
- * The reference is also sent as `transaction_id`, which is what lets Google Ads
+ * The reference also goes out as `transaction_id`, which is what lets Google Ads
  * discard a duplicate that slips past this — in a second tab, say, or after the
  * session store is cleared.
  */
@@ -233,8 +315,8 @@ export function trackPurchase(input: {
   transactionId: string | null;
   value: number | null;
   currency?: string;
-  /** Which path reported it. Surfaces in Tag Assistant while this is bedding in. */
-  source: 'iframe' | 'confirmation-page';
+  /** How the visitor reached the page. Surfaces in Tag Assistant while this beds in. */
+  source: 'in-frame' | 'returned-from-payment';
 }): boolean {
   if (typeof window === 'undefined') return false;
 
