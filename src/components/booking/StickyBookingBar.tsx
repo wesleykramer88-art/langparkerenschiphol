@@ -74,7 +74,11 @@ export function StickyBookingBar({
       <div className="flex items-center justify-between gap-4 px-5 py-3">
         <p className="text-muted flex min-w-0 items-center gap-2 text-xs leading-snug">
           <ShieldCheck className="text-accent size-4 shrink-0" strokeWidth={1.75} aria-hidden />
-          Gratis annuleren met annuleringsdekking
+          {/* The short form of the standing cancellation line. The bar has one
+              line at 12px beside a button, so it carries the claim without the
+              24-uur qualifier; the long form runs on /reservering/, /tarieven/
+              and in the closing CTA. Never "gratis" — the cover is paid. */}
+          Annuleren mogelijk met annuleringsdekking
         </p>
         <Button href="/reservering/" className="shrink-0">
           Reserveer nu

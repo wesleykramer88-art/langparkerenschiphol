@@ -36,7 +36,7 @@ import type { NotchColor } from '@/components/ui/Ticket';
  */
 
 const REASSURANCES = [
-  'Met annuleringsdekking gratis annuleren tot 24 uur van tevoren',
+  'Flexibel annuleren tot 24 uur voor aankomst met annuleringsdekking',
   'Binnen 2 minuten geregeld',
   '24/7 bewaakte parkeerlocatie',
 ] as const;

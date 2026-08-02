@@ -42,7 +42,7 @@ export default async function HomePage() {
       <WhyUs />
       <Security />
       <HowItWorks />
-      <Testimonials />
+      {/* <Testimonials /> */}
       <Faq />
       <ClosingCta />
 

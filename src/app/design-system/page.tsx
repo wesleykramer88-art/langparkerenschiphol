@@ -50,9 +50,9 @@ const DEMO_FAQ = [
       'Bij valet parkeren rijdt u naar de vertrekhal en neemt onze chauffeur uw auto daar over. Bij shuttle parkeren parkeert u zelf op ons beveiligde terrein en brengt de shuttle u naar de terminal.',
   },
   {
-    question: 'Kan ik kosteloos annuleren?',
+    question: 'Kan ik mijn reservering annuleren?',
     answer:
-      'Met een annuleringsdekking kunt u uw reservering tot 24 uur voor aanvang geheel kosteloos annuleren. Binnen 24 uur voor uw reis annuleren niet.',
+      'Met een annuleringsdekking annuleert u uw reservering tot 24 uur voor aankomst. De dekking is een optionele, betaalde toevoeging. Binnen 24 uur voor uw reis is annuleren niet meer mogelijk.',
   },
 ] as const;
 

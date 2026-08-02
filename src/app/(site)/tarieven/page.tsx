@@ -1,4 +1,4 @@
-import { ArrowRight, BatteryCharging, KeyRound, type LucideIcon } from 'lucide-react';
+import { ArrowRight, BatteryCharging, type LucideIcon } from 'lucide-react';
 import { createMetadata } from '@/lib/seo';
 import { jsonLd, breadcrumbSchema, faqSchema, type FaqItem } from '@/lib/schema';
 import { Container } from '@/components/ui/Container';
@@ -29,8 +29,10 @@ const CRUMBS = [{ name: 'Tarieven', path: '/tarieven/' }];
  * What this page adds around it is everything the calculator cannot say:
  *
  *   - that the figure it shows is inclusive of VAT and of the shuttle
- *   - what the two paid options actually cost (€15 and €35 — real figures, from
- *     the client's own FAQ copy, which is the only place they currently appear)
+ *   - what the paid option actually costs (€35 — a real figure, from the
+ *     client's own FAQ copy, which is the only place it currently appears).
+ *     "Keep keys" (€15) used to sit beside it and was withdrawn by the client
+ *     on 2 Aug 2026; keeping keys on the shuttle service is not sold here.
  *   - that a free account takes 10% off it
  *
  * The last of those is the point of the page. See AccountDiscountBar.
@@ -44,12 +46,6 @@ const CRUMBS = [{ name: 'Tarieven', path: '/tarieven/' }];
 /** Verbatim from the live page. Real figures, and the only place they appear. */
 const OPTIONS: readonly { icon: LucideIcon; name: string; price: string; body: string }[] = [
   {
-    icon: KeyRound,
-    name: 'Keep keys',
-    price: '€ 15,00',
-    body: 'Bij Shuttle Parking neemt u uw autosleutels gewoon mee op reis. Uw auto blijft gegarandeerd op dezelfde parkeerplek staan.',
-  },
-  {
     icon: BatteryCharging,
     name: 'Opladen',
     price: '€ 35,00',
@@ -57,7 +53,7 @@ const OPTIONS: readonly { icon: LucideIcon; name: string; price: string; body: s
   },
 ];
 
-/** The four FAQ answers, verbatim from the live page. */
+/** The FAQ answers, verbatim from the live page. */
 const FAQS: readonly FaqItem[] = [
   {
     question: 'Hoe worden de tarieven voor lang parkeren bij Schiphol berekend?',
@@ -68,11 +64,6 @@ const FAQS: readonly FaqItem[] = [
     question: 'Is de shuttlebus gratis inbegrepen bij het parkeertarief?',
     answer:
       'Ja, de shuttleservice van en naar de luchthaven is volledig inbegrepen in onze tarieven voor Shuttle Parking. Er zijn dus geen verborgen extra kosten. De shuttlebus brengt je in een paar minuten rechtstreeks naar de vertrekhal en haalt je bij terugkomst ook weer op.',
-  },
-  {
-    question: 'Kan ik mijn autosleutels zelf meenemen op reis?',
-    answer:
-      "Zeker! Als je kiest voor Shuttle Parking, kun je voor slechts € 15,00 de optie 'Keep keys' aanvinken. Je neemt je autosleutels dan gewoon zelf mee op reis en je auto blijft gegarandeerd op dezelfde veilige parkeerplek staan.",
   },
   {
     question: 'Is het mogelijk om mijn elektrische auto op te laden tijdens het parkeren?',
@@ -117,7 +108,7 @@ export default function RatesPage() {
                 {[
                   'Alle prijzen inclusief BTW',
                   'Shuttlerit van en naar de vertrekhal inbegrepen',
-                  'Gratis annuleren tot 24 uur van tevoren met annuleringsdekking',
+                  'Flexibel annuleren tot 24 uur voor aankomst met annuleringsdekking',
                 ].map((item) => (
                   <li key={item} className="text-body py-3.5">
                     {item}
@@ -154,15 +145,17 @@ export default function RatesPage() {
       {/* <AccountDiscountBar /> */}
 
       {/* ---------- Paid options ----------
-          The only two hard prices we publish, because they are fixed and the
-          client wrote them down himself. Set in the mono face with tabular
-          figures, the way the ticket stub and the trust board set a number. */}
+          The only hard price we publish, because it is fixed and the client
+          wrote it down himself. Set in the mono face with tabular figures, the
+          way the ticket stub and the trust board set a number. The grid stays
+          two-column so the single card keeps its measure rather than stretching
+          a 38ch paragraph across the container. */}
       <Section tone="surface" spacing="md" aria-labelledby="opties-heading">
         <Container>
           <Reveal className="max-w-[46ch]">
             <Eyebrow rule>Opties</Eyebrow>
             <h2 id="opties-heading" className="text-display-md mt-5">
-              Twee extra&#39;s, met een vaste prijs
+              Eén extra, met een vaste prijs
             </h2>
             <p className="text-muted mt-5 leading-relaxed">
               Aan te vinken tijdens het reserveren. Al het overige zit al in het tarief.
@@ -205,7 +198,7 @@ export default function RatesPage() {
                 Wat zit er in de prijs?
               </h2>
               <p className="text-muted mt-6 max-w-[40ch] leading-relaxed">
-                Vier vragen over hoe het tarief tot stand komt en wat er wel en niet bij inbegrepen
+                Drie vragen over hoe het tarief tot stand komt en wat er wel en niet bij inbegrepen
                 is.
               </p>
               <Button href="/waarom-lang-parkeren-schiphol/" variant="link" className="mt-7">
@@ -232,8 +225,8 @@ export default function RatesPage() {
         dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbSchema(CRUMBS)) }}
       />
       {/* Rendered from the same array the accordion renders, so the markup can
-          never describe an answer the page does not show. The live site has
-          these four answers written and claims none of them. */}
+          never describe an answer the page does not show — which is why pulling
+          the keys answer out above also pulled it out of the rich result. */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema(FAQS)) }}

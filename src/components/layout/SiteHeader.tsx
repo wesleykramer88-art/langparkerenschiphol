@@ -8,8 +8,8 @@ import { DesktopNav } from '@/components/layout/DesktopNav';
 import { MobileNav } from '@/components/layout/MobileNav';
 import { siteConfig } from '@/config/site';
 
-/** Terminal labels for the strip above the header. Client-approved wording. */
-const MARQUEE_LABELS = ['Valet parkeren', 'Shuttle parkeren', 'Schiphol', '24/7 bewaking'] as const;
+/** Wording for the strip above the header. Client-approved. */
+const MARQUEE_LABELS = ['Start uw reis comfortabel, veilig en met een gerust gevoel.'] as const;
 
 /**
  * Transparent over a dark hero, solid once scrolled past it.
@@ -40,7 +40,11 @@ const barClasses = [
 export function SiteHeader() {
   return (
     <HeaderShell>
-      <Marquee items={MARQUEE_LABELS} />
+      {/* One sentence is far narrower than the four labels it replaces, so it is
+          repeated to keep a pass wider than the screen, and the duration is
+          raised with it — otherwise the same seconds over a longer pass would
+          scroll roughly three times faster. */}
+      <Marquee items={MARQUEE_LABELS} repeat={3} duration={96} />
 
       <div className={barClasses}>
         <Container>

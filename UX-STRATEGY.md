@@ -278,7 +278,7 @@ reads as the important one. See §6.5.
 
 **⑦ Claim redundancy.** *24/7 camerabewaking* appears in the hero proof row, in
 `WhyUs` reasons, in `Security` measures and in the FAQ. *Binnen 2 minuten* in the
-hero lead, in `HowItWorks` step 1 and in `ClosingCta`. *Gratis annuleren tot 24
+hero lead, in `HowItWorks` step 1 and in `ClosingCta`. *Flexibel annuleren tot 24
 uur* in `ServiceChooser`, `TrustStrip`, the FAQ and `ClosingCta`. Repetition at
 the ask is deliberate and good. Repetition in four consecutive explanatory
 sections is cognitive load — the reader is re-reading, and re-reading feels like
@@ -335,12 +335,24 @@ market shows a real, dated, all-in price on the homepage.
 
 **The play:** the hero ticket calculates in place. Dates in → a price out, on the
 same card, without navigation. Then: *"Prijs inclusief btw. Geen boekingskosten.
-Met annuleringsdekking gratis annuleren tot 24 uur voor aankomst."* All-in,
+Flexibel annuleren tot 24 uur voor aankomst met annuleringsdekking."* All-in,
 stated, before the ask.
 
-> **Copy rule — cancellation.** Free cancellation is **only** available with the
-> optional annuleringsdekking. Never state "gratis annuleren tot 24 uur" on its
-> own; the qualifier travels with the claim everywhere it appears.
+> **Copy rule — cancellation.** The annuleringsdekking is a **paid** option, so
+> the word *gratis* never appears near it: "gratis annuleren" sells a flexibility
+> the visitor has to buy first, and it read as a contradiction against "optionele
+> annuleringsdekking" elsewhere on the same page. Two phrasings, and no others:
+>
+> - long — *"Flexibel annuleren tot 24 uur voor aankomst met annuleringsdekking"*
+> - short, where a line has no room for the qualifier (the sticky mobile bar) —
+>   *"Annuleren mogelijk met annuleringsdekking"*
+>
+> Wherever there is room for a sentence rather than a line — /reservering/, the
+> FAQ — also say that the cover is optional and paid, and what it costs. The
+> price is still **unknown to us** (it appears as €X throughout this document and
+> nowhere on the live site); until the client supplies it the copy points the
+> reader at the booking screen. A stated amount is the premium version of this
+> claim. "Gratis" was the version that unravelled at the checkbox.
 
 Everything else in this document is refinement. This is the move.
 
@@ -840,7 +852,7 @@ correct — preserve it.
 | -------------------------------------- | ---------------------------------------------- |
 | `15+` jaar actief op Schiphol          | Keep                                            |
 | `Duizenden` tevreden reizigers per jaar | **`4,7`** gemiddeld · *38 Google-reviews →*    |
-| `24 uur` van tevoren gratis annuleren  | Keep — **must carry "met annuleringsdekking"**  |
+| `24 uur` van tevoren gratis annuleren  | **`24 uur` voor aankomst flexibel annuleren met annuleringsdekking** |
 | `AMS` valet- en shuttleservice         | **`5–8 min`** naar de vertrekhal                |
 
 **UX reasoning.** "Duizenden" is the least credible item on the board precisely
@@ -1316,7 +1328,7 @@ estimated cost:
 | ------------------- | ----------------- | ------------------------------------------ |
 | Hero CTA            | Reserveer nu      | **Reserveer voor € 74,50**                 |
 | Hero CTA (no dates) | Reserveer nu      | **Bereken uw prijs**                       |
-| Under hero CTA      | —                 | Met annuleringsdekking gratis annuleren tot 24 uur |
+| Under hero CTA      | —                 | Flexibel annuleren tot 24 uur voor aankomst met annuleringsdekking |
 | Price               | € 74,50           | **€ 74,50** · incl. btw · geen boekingskosten |
 | Service CTA         | Reserveer Valet…  | **Kies valet — vanaf € 8,50 p/d**          |
 | Business CTA        | Reserveer nu      | **Vraag zakelijke tarieven aan**           |
@@ -1331,7 +1343,7 @@ The pattern throughout: **state the outcome, not the mechanism.** "Reserveer voo
 | ------------------------- | ------------------------------------------ |
 | Verified review score     | Trust board, reviews, footer               |
 | 15+ jaar                  | Trust board, safety section                |
-| Free cancellation *(with annuleringsdekking)* | Hero card, service cards, close, FAQ |
+| Flexible cancellation *(with paid annuleringsdekking)* | Hero card, service cards, close, FAQ |
 | No booking fee            | Hero card, price section                   |
 | KvK + legal entity        | Footer                                     |
 | Payment marks             | Footer, and **beside the hero CTA**        |

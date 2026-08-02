@@ -60,6 +60,14 @@ const CRUMBS = [{ name: 'Reserveren', path: '/reservering/' }];
  * anything on it.
  */
 
+/**
+ * TODO(client): what does the annuleringsdekking cost? The figure is not in any
+ * copy we hold — UX-STRATEGY.md carries it as "€X" and the live site never
+ * states it — so the reassurance below points at the booking screen instead of
+ * naming a price. Naming it is the stronger version of this block: a stated
+ * amount reads as premium, "gratis" (the old wording) read as a claim that
+ * unravelled the moment the visitor reached the paid checkbox.
+ */
 const REASSURANCES: readonly { icon: LucideIcon; title: string; body: string }[] = [
   {
     icon: Clock,
@@ -68,8 +76,12 @@ const REASSURANCES: readonly { icon: LucideIcon; title: string; body: string }[]
   },
   {
     icon: Undo2,
-    title: 'Gratis annuleren met annuleringsdekking',
-    body: 'Met een annuleringsdekking annuleert u tot 24 uur voor aanvang geheel kosteloos.',
+    title: 'Flexibel annuleren met annuleringsdekking',
+    // The one place on the site with room to say what the cover actually IS,
+    // so it says it: a paid option, added during booking, priced in the
+    // booking screen. Naming the amount here is better still and is the only
+    // thing missing — see the TODO above REASSURANCES.
+    body: 'Met een annuleringsdekking annuleert u tot 24 uur voor aankomst. De dekking is een optionele, betaalde toevoeging; u ziet de prijs bij het reserveren voordat u afrekent.',
   },
   {
     icon: ShieldCheck,

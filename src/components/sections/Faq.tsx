@@ -39,9 +39,13 @@ const FAQS: readonly FaqItem[] = [
       'Uw auto staat geparkeerd op een professioneel parkeerterrein dat 24 uur per dag wordt bewaakt en gemonitord. Alle ritten worden digitaal geregistreerd, zodat er altijd inzicht is in de verplaatsingen van uw voertuig. Zo kunt u met een gerust gevoel op reis, terwijl uw auto veilig achterblijft.',
   },
   {
-    question: 'Kan ik mijn reservering kosteloos annuleren?',
+    // Reworded away from the live site's "kosteloos annuleren", which asked the
+    // reader whether cancelling is free and answered "ja" — while the cover
+    // that makes it free is a paid option they have not bought yet. The answer
+    // now states the cover is paid before it states what it buys.
+    question: 'Kan ik mijn reservering annuleren?',
     answer:
-      'Ja, met een annuleringsdekking kunt u uw reservering tot 24 uur voor aanvang geheel kosteloos annuleren. Binnen 24 uur voor uw reis annuleren niet. Daarvoor dient u uw eigen reisverzekering in te schakelen.',
+      'Ja, met een annuleringsdekking annuleert u uw reservering tot 24 uur voor aankomst. De annuleringsdekking is een optionele, betaalde toevoeging die u tijdens het reserveren aan uw boeking toevoegt; de prijs ziet u voordat u afrekent. Binnen 24 uur voor uw reis is annuleren niet meer mogelijk. Daarvoor dient u uw eigen reisverzekering in te schakelen.',
   },
   {
     question: 'Hoe ver van tevoren moet ik een reservering maken?',

@@ -41,7 +41,12 @@ type BoardItem = {
 const ITEMS: readonly BoardItem[] = [
   { number: siteConfig.yearsActive, numberSuffix: '+', label: 'jaar actief op Schiphol' },
   { word: 'Duizenden', label: 'tevreden reizigers per jaar' },
-  { number: 24, unit: 'uur', label: 'van tevoren gratis annuleren met annuleringsdekking' },
+  // Not "gratis annuleren". The cancellation cover is a paid option, so the
+  // free-cancellation framing sells a flexibility the visitor has to buy first
+  // — and it contradicts "optionele annuleringsdekking" in the service chooser
+  // two sections down. "Flexibel … met annuleringsdekking" is the one phrasing
+  // used everywhere the claim appears.
+  { number: 24, unit: 'uur', label: 'voor aankomst flexibel annuleren met annuleringsdekking' },
   { word: 'AMS', label: 'valet- en shuttleservice' },
 ];
 
