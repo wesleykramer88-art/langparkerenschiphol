@@ -11,6 +11,7 @@ import { ParkingProFrame } from '@/components/booking/ParkingProFrame';
 import { PARKINGPRO_DEFAULT_HEIGHTS, bookingUrl } from '@/lib/parkingpro';
 import { parseSelectionParams, toParkingProParams } from '@/lib/booking';
 import { siteConfig } from '@/config/site';
+import { env } from '@/lib/env';
 
 export const metadata = createMetadata('booking');
 
@@ -96,7 +97,27 @@ export default async function BookingPage({
   // once empty and then swapping its src, which reloads the vendor's whole
   // application and is visible as a flash.
   const selection = parseSelectionParams(await searchParams);
-  const src = bookingUrl(toParkingProParams(selection));
+
+  /**
+   * Ask MyParkingPro to land the visitor on OUR thank-you page.
+   *
+   * A test booking on 2026-08-02 came back from the payment provider to
+   * ParkingPro's own confirmation screen at
+   * .../reservations/add/payment/redirect?paymentStandaloneTransactionId=…
+   * — so on the iDEAL path our own page is never reached, and a conversion
+   * that only fires there can never fire at all.
+   *
+   * `returnUrl` is the parameter the Booking Widgets plugin exposes for this.
+   * Whether this MyParkingPro instance honours it is UNVERIFIED — it is passed
+   * here because it is the only lever on our side of the integration, and an
+   * ignored query parameter costs nothing. If a test booking still ends on
+   * their domain, the redirect has to be set by ParkingPro against the account
+   * and no amount of code here will do it.
+   */
+  const src = bookingUrl({
+    ...toParkingProParams(selection),
+    returnUrl: `${env.NEXT_PUBLIC_SITE_URL}/reservering/bevestiging/`,
+  });
 
   return (
     <>

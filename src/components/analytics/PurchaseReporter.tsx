@@ -34,6 +34,30 @@ import { clearPendingBooking, readPendingBooking, trackPurchase } from '@/lib/an
  */
 export function PurchaseReporter({ reference }: { reference: string | null }) {
   useEffect(() => {
+    /**
+     * If ParkingPro honours `returnUrl` by redirecting the IFRAME rather than
+     * the tab, this page is now rendering inside a 600px box on our own booking
+     * page — the whole site, nested in itself. Climb out first.
+     *
+     * Deliberately before the conversion fires, not after. Breaking out reloads
+     * this page at the top level, where the reporter runs again; firing here
+     * first would consume the stash and leave that second run with nothing to
+     * report. Same-origin, so the top-level run shares this sessionStorage.
+     *
+     * If the navigation is refused — a sandbox without top-navigation, a
+     * cross-origin top we are not allowed to move — we fall through and report
+     * from inside the frame. A conversion in an iframe still counts; an ugly
+     * page is worth less than a lost booking.
+     */
+    if (window.top && window.top !== window.self) {
+      try {
+        window.top.location.replace(window.location.href);
+        return;
+      } catch {
+        // Refused. Report from here instead.
+      }
+    }
+
     const pending = readPendingBooking();
 
     // No stash and no reference: not a booking, just a visit to the URL.
