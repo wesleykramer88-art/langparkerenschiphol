@@ -101,21 +101,26 @@ export function HeroSection({ bounds }: { bounds?: PickerBounds }) {
     // the bar without moving a single pixel of hero content.
     <section className="bg-surface-inverse relative -mt-20 overflow-hidden pt-20">
       {/* ---------- The image ----------
-          The branded van at the kerb under Schiphol's "Vertrek 3 / Departures 3"
-          sign, supplied by the client on 31 July 2026 and set here at his
-          request. It is AI-GENERATED, not photographed — the only such image on
-          the site — and the specific things wrong with it are itemised on its
-          manifest entry in config/images.ts. Read that before reusing it.
+          The branded black Vito at the kerb under Schiphol's "Vertrek 3 /
+          Departures 3" sign, supplied by the client on 2 August 2026 and set
+          here at his request. It is AI-GENERATED, not photographed, and the
+          specific things wrong with it are itemised on `vitoDepartures3` in
+          config/images.ts. Read that before reusing it.
 
           What it does well is real: a garage says "car park operator"; a
           terminal frontage says "part of the airport", which is the feeling the
           client asked for in as many words — and the wayfinding sign says it
-          without reproducing anyone's mark. It also carries the crew jacket and
-          a full-width livery, which the frame it replaced held further away.
+          without reproducing anyone's mark. Against the frame it replaces it
+          also carries the livery at full flank height, a legible yellow plate,
+          the crew jacket, and a wet red bus lane that places it at a kerb.
 
-          It measured 4.57:1 for the lead under the existing scrim against the
-          old frame's 4.60:1, so `scrim-hero` was left exactly as it was. If this
+          It measured 4.64:1 for the lead under the existing scrim against the
+          old frame's 4.57:1, so `scrim-hero` was left exactly as it was. If this
           image is replaced, re-measure — see the note on that utility.
+
+          ⚠ The mangled flight board is in this crop at desktop widths; it could
+          not be cropped out without also losing the crew member. It is out of
+          the sm and phone crops. The manifest entry has the alternative.
 
           TODO(client): this is the slot the real kerbside photograph belongs in.
           A genuine frame of the orange shuttle bus at the terminal would say
@@ -155,10 +160,15 @@ export function HeroSection({ bounds }: { bounds?: PickerBounds }) {
           keeps the canopy and the sign and loses road. */}
       <div aria-hidden className="absolute inset-x-0 top-0 h-128 sm:h-152 lg:inset-0 lg:h-full">
         <HeroPhoto
-          name="terminalDepartures3"
-          portraitName="terminalDepartures3Portrait"
+          name="vitoDepartures3"
+          portraitName="vitoDepartures3Portrait"
           className="absolute inset-0 h-full w-full"
-          imageClassName="photo-drift object-[center_62%] sm:object-[58%_50%] lg:object-[center_45%]"
+          // sm sits at 42%, not the middle: between 640px and lg the box is
+          // about 1.05:1 against the frame's 1.79:1, so only ~59% of the width
+          // shows. Anchored left of centre that window holds the terminal sign
+          // and the whole van and stops just short of the mangled flight board
+          // at x≈1850 of 2400. Anything past ~46% starts to show it.
+          imageClassName="photo-drift object-[center_62%] sm:object-[42%_50%] lg:object-[center_45%]"
         />
 
         {/* Two scrims, because the composition changes at lg.

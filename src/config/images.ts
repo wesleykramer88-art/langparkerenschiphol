@@ -16,11 +16,13 @@
  * ~100 bytes each, emitted by `npm run images` from the asset itself — so the
  * reveal resolves out of the photograph's own colours instead of a grey box.
  *
- * ── EVERY PHOTOGRAPH HERE IS THE CLIENT'S OWN, WITH ONE EXCEPTION ────────────
- * The exception is `terminalDepartures3` / `terminalDepartures3Portrait`, the
- * current hero, which is AI-generated and was supplied and requested as such by
- * the client on 31 July 2026. It is marked with a ⚠ at its entry and the reasons
- * to be careful with it are listed there. Everything below is his camera, and
+ * ── EVERY PHOTOGRAPH HERE IS THE CLIENT'S OWN, WITH TWO EXCEPTIONS ───────────
+ * The exceptions are the two generated hero frames: `vitoDepartures3` /
+ * `vitoDepartures3Portrait` (the current hero, supplied 2 August 2026) and
+ * `terminalDepartures3` / `terminalDepartures3Portrait` (the one it replaced).
+ * Both are AI-generated and both were supplied and requested as such by the
+ * client. They are marked with a ⚠ at their entries and the reasons to be
+ * careful with them are listed there. Everything else below is his camera, and
  * the rest of this note applies to those.
  *
  * The library this replaces was five pieces of stock garage photography, and
@@ -98,7 +100,79 @@ export const photos = {
   },
 
   /**
-   * ⚠ THE CURRENT HERO, AND THE ONLY GENERATED IMAGE IN THIS MANIFEST.
+   * ⚠ THE CURRENT HERO. GENERATED, NOT PHOTOGRAPHED.
+   *
+   * Supplied on 2 August 2026 (`PicjamDownloa.jpg`, 2752 × 1536) and set as the
+   * hero on request. It replaces `terminalDepartures3` below, which is kept so
+   * this is a one-line revert.
+   *
+   * What it gains over the frame it replaces: the livery is a full-height
+   * "Lang Parkeren Schiphol" on the flank of a black Vito rather than a small
+   * mark, the plate is legible and yellow ("VLG-01-L", a real Dutch sidecode),
+   * the crew jacket carries the same wordmark, and the terminal's own
+   * "Vertrek / Departures 3" lettering, the canopy and the trolley rank all
+   * read. The wet red bus lane in the foreground is the strongest thing in the
+   * frame for placing this at an airport kerb.
+   *
+   * Measured under the existing `scrim-hero` at a 1440 × 800 desktop section:
+   * the lead in navy-100 is 4.64:1 against the copy column's brightest pixel
+   * (4.57:1 for the frame it replaced), the H1 7.5:1, the micro-line in
+   * navy-300 6.6:1. So the scrim was left exactly as it was. Re-measure if this
+   * image is replaced — see the note on that utility in globals.css.
+   *
+   * ⚠ WHAT IS WRONG WITH IT, AND IT IS THE SAME FLAW AS LAST TIME: the blue
+   * flight board at the upper right IS IN THIS CROP, and its carrier list is
+   * mangled — "AIR BRADIA", "AIR TRANEST", "BULDARIA AIR", "CRGATIAN AIRLINES",
+   * "ETMAD AIRWAYS", "CZEEH AIRLINES", "YUEUNIE", "AIR MACTA", under a header
+   * whose second line is gibberish. The previous generated hero had the same
+   * board and it was deliberately cropped out; here it cannot be, because the
+   * board and the crew member in the orange jacket share the right-hand quarter
+   * of the frame — cropping past x≈2100 of 2752 removes both.
+   * It is legible at desktop widths. The portrait crop below does not contain
+   * it, so phones are unaffected.
+   * TODO(client): either accept it, or say the word and this ships as a 2.38:1
+   * crop from y=380 down, which loses the board and the sky and keeps the van,
+   * the sign and the crew — at the cost of roughly a quarter of the width at
+   * desktop. A real photograph at the kerb ends the question entirely.
+   */
+  vitoDepartures3: {
+    src: '/images/terminal-vertrek3-vito.webp',
+    width: 2400,
+    height: 1340,
+    alt: 'Zwarte bus met Lang Parkeren Schiphol belettering bij de ingang Vertrek 3 van de vertrekhal op Schiphol, met een medewerker in oranje jas.',
+    blurDataURL:
+      'data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADwAQCdASoMAAcAAsBIJQBOgCLs4munfMAA/u9cbf6BfnJ0MOqWHrcC8fhsCzJM6zaC6tlG1u1WIiE2XHOiZ2enAAA=',
+  },
+
+  /**
+   * THE CURRENT HERO, PORTRAIT. Same generated frame, cropped 3:4 around the van.
+   *
+   * Same art-direction reason as the pair below: a 1.79:1 frame in a phone
+   * viewport crops away most of its width. Served below 640px through a real
+   * <picture> element — see <HeroPhoto>. Only one of the two is downloaded.
+   *
+   * Taken from x=900…2050 of the 2752-wide original, which is what puts the
+   * plate, the wheels, the orange "Schiphol" and the canopy in frame — and
+   * which is also why the mangled flight board (x≈2100 onward) is not in it.
+   *
+   * The source is 1.79:1, so this crop can hold the full width of the terminal
+   * sign OR the full width of the livery, not both: the two span 0.84:1
+   * together and the phone band is 0.70:1. The livery won. "Vertrek /
+   * Departures 3" therefore runs off the left edge and "Lang Parkeren" off the
+   * right, which reads as a frame edge rather than as a mistake.
+   */
+  vitoDepartures3Portrait: {
+    src: '/images/terminal-vertrek3-vito-portret.webp',
+    width: 1150,
+    height: 1536,
+    alt: 'Zwarte bus met Lang Parkeren Schiphol belettering en Nederlands geel kenteken voor de vertrekhal Vertrek 3 op Schiphol.',
+    blurDataURL:
+      'data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADwAQCdASoJAAwAAsBIJYwCdAD5+xCHCgAA9qjI5gv+G/hK1upqe2/KJnG1DXW64sTw7nWMZM+bukqSpOFqiH5AAAA=',
+  },
+
+  /**
+   * ⚠ THE PREVIOUS HERO. GENERATED, NOT PHOTOGRAPHED. Kept for revert only —
+   * nothing renders it since 2 August 2026.
    *
    * Supplied by the client on 31 July 2026 and set as the hero at his request.
    * The source filename was `PicjamDownload-Picsart-AiImageEnhancer.jpg` and the
