@@ -17,13 +17,14 @@
  * reveal resolves out of the photograph's own colours instead of a grey box.
  *
  * ── EVERY PHOTOGRAPH HERE IS THE CLIENT'S OWN, WITH TWO EXCEPTIONS ───────────
- * The exceptions are the two generated hero frames: `vitoDepartures3` /
- * `vitoDepartures3Portrait` (the current hero, supplied 2 August 2026) and
- * `terminalDepartures3` / `terminalDepartures3Portrait` (the one it replaced).
- * Both are AI-generated and both were supplied and requested as such by the
- * client. They are marked with a ⚠ at their entries and the reasons to be
- * careful with them are listed there. Everything else below is his camera, and
- * the rest of this note applies to those.
+ * The exceptions are the two generated hero frames kept below for revert only:
+ * `vitoDepartures3` / `vitoDepartures3Portrait` (hero from 2 to 3 August 2026)
+ * and `terminalDepartures3` / `terminalDepartures3Portrait` (the one that
+ * replaced). Both are AI-generated and both were supplied and requested as such
+ * by the client. They are marked with a ⚠ at their entries and the reasons to be
+ * careful with them are listed there. NOTHING RENDERS EITHER PAIR since
+ * 3 August 2026 — the hero is a real photograph again. Everything else below is
+ * his camera, and the rest of this note applies to those.
  *
  * The library this replaces was five pieces of stock garage photography, and
  * four of them showed READABLE FOREIGN NUMBER PLATES: German plates in the
@@ -53,8 +54,82 @@ export type SitePhoto = {
 
 export const photos = {
   /**
-   * THE HERO. The branded van at the kerb under Schiphol's own "Vertrek 2 /
-   * Departures 2" sign.
+   * THE HERO. A real photograph again, supplied 3 August 2026 as
+   * `busjeschiphollangparkeren.png` (1678 × 937).
+   *
+   * The handover at the kerb: a crew member in the orange jacket walking a
+   * customer to the black Vito with its side door already open, Schiphol's blue
+   * wayfinding signs behind them and the terminal deck on the right. She is
+   * turned back over her shoulder, smiling — which is the single thing neither
+   * generated frame it replaces could produce, because both of those had no
+   * customer in them at all.
+   *
+   * Everything the two AI frames were reaching for is here and is true: the
+   * "Lang Parkeren Schiphol" wordmark at full width across the jacket, the van,
+   * the airport, the kerb. And nothing has to be apologised for — no mangled
+   * flight board, no invented carriers, no illegible plate legend. The van's
+   * plate is not in frame at all, so the standing rule at the top of this file
+   * is met by omission rather than by inspection.
+   *
+   * Measured under the existing `scrim-hero` at a 1440 × 800 desktop section,
+   * sampling the brightest pixel inside the copy column (x 80–600) at each
+   * element's own band: the lead in navy-100 is 6.65:1 (5.53:1 for the frame it
+   * replaces), the H1 in white 8.20:1, the micro-line in navy-300 6.97:1
+   * (6.89:1). Brighter frame, better numbers — the 93% navy at the left of the
+   * scrim does the work — so `scrim-hero` was left exactly as it was. Re-measure
+   * if this image is replaced; see the note on that utility in globals.css.
+   *
+   * ⚠ RESOLUTION. The supplied file is 1678px wide, against 2400px for
+   * everything else in this manifest. `allowedWidthsUpTo` therefore caps the
+   * landscape srcset at 1200w — see config/image-sizes.ts, which refuses to
+   * offer widths that would upscale — so above ~1200px CSS the desktop hero is
+   * being stretched, and this is the LCP element on the busiest page of the
+   * site. It is soft rather than broken, and a real photograph at 1678px is
+   * worth more than a generated one at 2400px.
+   * TODO(client): send the original camera file. Drop it in `photos-source/`
+   * and re-run `npm run images`; nothing else here has to change.
+   */
+  crewShuttleTerminal: {
+    src: '/images/chauffeur-shuttle-vertrekhal.webp',
+    width: 1678,
+    height: 937,
+    alt: 'Chauffeur van Lang Parkeren Schiphol in oranje bedrijfsjas begeleidt een reizigster naar de shuttlebus bij de vertrekhal op Schiphol.',
+    blurDataURL:
+      'data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAAAwAgCdASoMAAcAAsBIJbACdDBAAalJOmb9XAD+8E12fgRV3CFuU41G3kqWYZY1LmnZ3GmbgsFweo9MwlO2zKyCKlgifSQ8vWVm3A4OO3uuMB5lGgOEqrXx/my8AA==',
+  },
+
+  /**
+   * THE HERO, PORTRAIT. Same frame, cropped 3:4 around the jacket.
+   *
+   * Taken from x = 390…1093 of the 1678-wide original, full height. That window
+   * is chosen so the wordmark clears both edges after `object-cover` trims the
+   * crop's 0.75:1 down to the phone band's 0.70:1 — the lettering ends at about
+   * 92% across, and anything further right starts to clip "Lang".
+   *
+   * What it costs is the customer: she sits at x ≈ 120–400 and no 3:4 window can
+   * hold both her and the full wordmark out of a 1.79:1 source. On a phone the
+   * brand name is the thing worth keeping. She is in the sm and desktop crops.
+   *
+   * Served below 640px through a real <picture> element — see <HeroPhoto>. Only
+   * one of the two is ever downloaded.
+   *
+   * ⚠ Same resolution caveat as above, and sharper here: at 703px wide the
+   * portrait srcset tops out at 640w, so a 360px phone at DPR 3 is upscaling
+   * from 1.78× rather than 3×. The frame it replaces was 1150px and reached
+   * 1080w. The original camera file fixes this too.
+   */
+  crewShuttleTerminalPortrait: {
+    src: '/images/chauffeur-shuttle-vertrekhal-portret.webp',
+    width: 703,
+    height: 937,
+    alt: 'Chauffeur van Lang Parkeren Schiphol in oranje jas met het logo op de rug, voor de openstaande shuttlebus bij de vertrekhal op Schiphol.',
+    blurDataURL:
+      'data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAADQAQCdASoJAAwAAsBIJbACdAEONNiYEAD+919tNwUJ9k6m1E4pc98fy5PAAgOQjN+FyJ5VvY8fTcLLqtYYuAGrWFzLY3tfQrdwUJ7d/5rfz7I3rUzhIBTwVTmv9K2FQAA=',
+  },
+
+  /**
+   * An earlier real hero. The branded van at the kerb under Schiphol's own
+   * "Vertrek 2 / Departures 2" sign. Nothing renders it; kept for revert.
    *
    * This is the photograph the whole brand argument rests on. A covered deck
    * says "car park operator"; a terminal frontage says "part of the airport",
@@ -75,7 +150,7 @@ export const photos = {
   },
 
   /**
-   * THE HERO, PORTRAIT. The same frame, cropped 3:4 around the van.
+   * That earlier hero, PORTRAIT. The same frame, cropped 3:4 around the van.
    *
    * Art direction, not a duplicate. The landscape original is 1.79:1; a phone
    * viewport is about 0.46:1. Filling one with the other crops away three
@@ -100,11 +175,13 @@ export const photos = {
   },
 
   /**
-   * ⚠ THE CURRENT HERO. GENERATED, NOT PHOTOGRAPHED.
+   * ⚠ THE PREVIOUS HERO. GENERATED, NOT PHOTOGRAPHED. Kept for revert only —
+   * nothing renders it since 3 August 2026, when `crewShuttleTerminal` above
+   * took the slot.
    *
    * Supplied on 2 August 2026 (`PicjamDownloa.jpg`, 2752 × 1536) and set as the
-   * hero on request. It replaces `terminalDepartures3` below, which is kept so
-   * this is a one-line revert.
+   * hero on request. It replaced `terminalDepartures3` below, which is kept so
+   * that is a one-line revert too.
    *
    * What it gains over the frame it replaces: the livery is a full-height
    * "Lang Parkeren Schiphol" on the flank of a black Vito rather than a small
@@ -145,7 +222,8 @@ export const photos = {
   },
 
   /**
-   * THE CURRENT HERO, PORTRAIT. Same generated frame, cropped 3:4 around the van.
+   * THE PREVIOUS HERO, PORTRAIT. Same generated frame, cropped 3:4 around the
+   * van. Kept for revert; nothing renders it.
    *
    * Same art-direction reason as the pair below: a 1.79:1 frame in a phone
    * viewport crops away most of its width. Served below 640px through a real
@@ -216,7 +294,8 @@ export const photos = {
   },
 
   /**
-   * THE CURRENT HERO, PORTRAIT. Same generated frame, cropped 3:4 around the van.
+   * AN EARLIER HERO, PORTRAIT. Same generated frame, cropped 3:4 around the van.
+   * Kept for revert; nothing renders it.
    *
    * Same art-direction reason as terminalDeparturePortrait: a 1.79:1 frame in a
    * phone viewport crops away most of its width. This crop holds the sign, the

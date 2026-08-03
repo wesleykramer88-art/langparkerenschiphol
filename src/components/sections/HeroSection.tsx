@@ -12,11 +12,11 @@ import type { PickerBounds } from '@/lib/parkingpro-config';
 /**
  * The hero.
  *
- * The thesis of the whole page: a covered deck receding into the dark, with the
- * booking ticket laid over it. The photograph is the argument — this business
- * sells a place to leave your car, and the flat navy field it replaces asserted
- * that in words while showing nothing. Everything else here is arranged to stay
- * out of its way.
+ * The thesis of the whole page: the handover itself, at the terminal kerb, with
+ * the booking ticket laid over it. The photograph is the argument — this
+ * business sells a place to leave your car, and the flat navy field it replaces
+ * asserted that in words while showing nothing. Everything else here is arranged
+ * to stay out of its way.
  *
  * This is the one place on the site that uses motion/Framer. Everything else —
  * scroll reveals, hovers, the marquee, the photograph's drift — is CSS, so the
@@ -101,31 +101,32 @@ export function HeroSection({ bounds }: { bounds?: PickerBounds }) {
     // the bar without moving a single pixel of hero content.
     <section className="bg-surface-inverse relative -mt-20 overflow-hidden pt-20">
       {/* ---------- The image ----------
-          The branded black Vito at the kerb under Schiphol's "Vertrek 3 /
-          Departures 3" sign, supplied by the client on 2 August 2026 and set
-          here at his request. It is AI-GENERATED, not photographed, and the
-          specific things wrong with it are itemised on `vitoDepartures3` in
-          config/images.ts. Read that before reusing it.
+          The real kerbside photograph this slot has been asking for since the
+          site shipped: a crew member in the orange jacket walking a customer to
+          the open Vito at the terminal kerb, supplied by the client on
+          3 August 2026. See `crewShuttleTerminal` in config/images.ts.
 
-          What it does well is real: a garage says "car park operator"; a
-          terminal frontage says "part of the airport", which is the feeling the
-          client asked for in as many words — and the wayfinding sign says it
-          without reproducing anyone's mark. Against the frame it replaces it
-          also carries the livery at full flank height, a legible yellow plate,
-          the crew jacket, and a wet red bus lane that places it at a kerb.
+          It ends a run of two AI-generated heroes. Both of those were reaching
+          for exactly this — livery, van, airport, kerb — and both had to be
+          shipped with a list of things not to look at too closely. That list is
+          now empty: no mangled flight board, no invented carriers, no illegible
+          plate legend. There is nothing here to crop AROUND, which is why the
+          object-position values below are about composition and not about
+          hiding a defect.
 
-          It measured 4.64:1 for the lead under the existing scrim against the
-          old frame's 4.57:1, so `scrim-hero` was left exactly as it was. If this
+          It also carries the one thing neither generated frame could: a
+          customer, turned back over her shoulder, smiling. The page sells
+          handing a stranger your car keys.
+
+          Contrast went UP, not down, despite the frame being far brighter — the
+          scrim's 93% navy at the left carries it. Measured at 1440 × 800 in the
+          copy column: lead 6.65:1 against the old frame's 5.53:1, H1 8.20:1,
+          micro-line 6.97:1. So `scrim-hero` was left exactly as it was. If this
           image is replaced, re-measure — see the note on that utility.
 
-          ⚠ The mangled flight board is in this crop at desktop widths; it could
-          not be cropped out without also losing the crew member. It is out of
-          the sm and phone crops. The manifest entry has the alternative.
-
-          TODO(client): this is the slot the real kerbside photograph belongs in.
-          A genuine frame of the orange shuttle bus at the terminal would say
-          bright, Schiphol and shuttle at once, and would not need any of the
-          caveats above.
+          ⚠ The supplied file is 1678px wide, so the landscape srcset caps at
+          1200w and the desktop hero is upscaled above that. The manifest entry
+          explains why, and asks the client for the original camera file.
 
           Decorative: the H1 beside it already says where this is, and a screen
           reader gains nothing from a description of the wallpaper.
@@ -151,23 +152,25 @@ export function HeroSection({ bounds }: { bounds?: PickerBounds }) {
              So below lg the image occupies the top band only, and the gradient
              resolves it into the navy the rest of the section is already
              painted in. At 360 × 32rem the box is 0.70 : 1 against the crop's
-             0.75 : 1 — about a tenth of the width lost, and the van, the livery
-             and the Vertrek 2 sign all read.
+             0.75 : 1 — about a tenth of the width lost, which the portrait crop
+             is framed to absorb: the wordmark across the jacket clears both
+             edges, and the wayfinding sign and the van's open door survive.
 
           At lg the photograph goes back to filling the section, where the
-          proportions were never the problem: the container is WIDER than
-          1.79 : 1, so the full width shows and only height is cropped — 45%
-          keeps the canopy and the sign and loses road. */}
+          proportions were never the problem: this frame is 1.79 : 1 and a
+          1440 × 800 section is 1.80 : 1, so it lands almost exactly — 45% is
+          doing nearly nothing, and stays only so a taller viewport still trims
+          sky rather than kerb. */}
       <div aria-hidden className="absolute inset-x-0 top-0 h-128 sm:h-152 lg:inset-0 lg:h-full">
         <HeroPhoto
-          name="vitoDepartures3"
-          portraitName="vitoDepartures3Portrait"
+          name="crewShuttleTerminal"
+          portraitName="crewShuttleTerminalPortrait"
           className="absolute inset-0 h-full w-full"
-          // sm sits at 42%, not the middle: between 640px and lg the box is
-          // about 1.05:1 against the frame's 1.79:1, so only ~59% of the width
-          // shows. Anchored left of centre that window holds the terminal sign
-          // and the whole van and stops just short of the mangled flight board
-          // at x≈1850 of 2400. Anything past ~46% starts to show it.
+          // sm stays at 42%, and for a new reason. Between 640px and lg the box
+          // is about 1.05:1 against the frame's 1.79:1, so only ~59% of the
+          // width shows. Centred, that window cuts the customer's face in half
+          // at the left edge; at 42% she is whole and the van's open door and
+          // rear light still close the right side. Past ~50% she is gone.
           imageClassName="photo-drift object-[center_62%] sm:object-[42%_50%] lg:object-[center_45%]"
         />
 

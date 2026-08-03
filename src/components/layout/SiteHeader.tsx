@@ -44,7 +44,7 @@ export function SiteHeader() {
           repeated to keep a pass wider than the screen, and the duration is
           raised with it — otherwise the same seconds over a longer pass would
           scroll roughly three times faster. */}
-      <Marquee items={MARQUEE_LABELS} repeat={3} duration={96} />
+      {/* <Marquee items={MARQUEE_LABELS} repeat={3} duration={96} /> */}
 
       <div className={barClasses}>
         <Container>
