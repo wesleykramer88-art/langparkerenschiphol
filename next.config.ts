@@ -191,6 +191,37 @@ const nextConfig: NextConfig = {
       { source: '/old-samenwerken/', destination: '/samenwerken/', permanent: true },
       { source: '/contact-us/', destination: '/contact/', permanent: true },
       { source: '/reserveren/', destination: '/reservering/', permanent: true },
+
+      /**
+       * The rest of the WordPress site, recovered from the Wayback Machine on
+       * 2026-08-04 and verified 404 against production.
+       *
+       * These were missed at cutover because the handover listed six URLs and
+       * nobody held the old sitemap. Every one of them is a page that ranked,
+       * that has inbound links, and that a Google Ads final URL may still point
+       * at — and an ad whose destination 404s is disapproved as "Destination
+       * not working" and stops serving. Which is one of the few faults that
+       * takes a campaign's clicks to exactly zero, as this account's did.
+       *
+       * Targets are the nearest surviving equivalent, not the homepage.
+       * Bouncing everything to / tells Google the old page is gone rather than
+       * moved, and it throws away the ranking signal the 308 exists to carry.
+       */
+      { source: '/home/', destination: '/', permanent: true },
+      { source: '/prijzen/', destination: '/tarieven/', permanent: true },
+      { source: '/service/', destination: '/onze-services/', permanent: true },
+      // Directions and the address live on the contact page.
+      { source: '/route/', destination: '/contact/', permanent: true },
+      // No FAQ page survived; the "why us" page carries that content now.
+      {
+        source: '/veelgestelde-vragen/',
+        destination: '/waarom-lang-parkeren-schiphol/',
+        permanent: true,
+      },
+      // Changing a booking happens in the ParkingPro portal behind /login/.
+      // NOT /mijn-reservering/ — that directory exists but holds no page.
+      { source: '/wijzig-uw-reservering/', destination: '/login/', permanent: true },
+      { source: '/cart/', destination: '/reservering/', permanent: true },
     ];
   },
 
