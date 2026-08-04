@@ -454,11 +454,36 @@ export function ParkingProFrame({
                 title={title}
                 loading="lazy"
                 onLoad={() => setLoaded(true)}
-                // Least privilege that still lets a booking and a sign-in work:
-                // scripts and same-origin for the vendor's own session, forms to
-                // submit, top-navigation-by-user-activation for the payment
-                // redirect. No allow-popups, no allow-downloads.
-                sandbox="allow-scripts allow-same-origin allow-forms allow-top-navigation-by-user-activation"
+                /**
+                 * Least privilege that still lets a booking and a sign-in work:
+                 * scripts and same-origin for the vendor's own session, forms to
+                 * submit, top-navigation-by-user-activation for the payment
+                 * redirect. Still no allow-downloads.
+                 *
+                 * ── Why popups are allowed ──────────────────────────────────
+                 * ParkingPro Support reported on 2026-08-04 that the terms link
+                 * inside the booking form does nothing when clicked, and they
+                 * are right: it targets a new tab, and a sandbox without
+                 * allow-popups drops that silently — no error, no navigation.
+                 *
+                 * That is not a cosmetic bug. The customer is asked to agree to
+                 * terms they are physically unable to open, one step before
+                 * paying. Under Dutch and EU consumer law those terms have to be
+                 * made available before the contract is concluded, so this is a
+                 * compliance defect in the checkout, not a broken link.
+                 *
+                 * `-to-escape-sandbox` is required alongside it, not optional:
+                 * without it the new tab INHERITS this sandbox, and our own
+                 * /algemene-voorwaarden/ page would load with an opaque origin —
+                 * clicking the link would "work" and still show a broken page.
+                 *
+                 * The security delta is small. This frame already runs scripts
+                 * under its own origin and may navigate the top window, so a
+                 * vendor able to abuse a popup is a vendor already handling the
+                 * payment step. The trust decision was made upstream of this
+                 * attribute.
+                 */
+                sandbox="allow-scripts allow-same-origin allow-forms allow-top-navigation-by-user-activation allow-popups allow-popups-to-escape-sandbox"
                 referrerPolicy="strict-origin-when-cross-origin"
                 className={cn(
                   // rounded-b-2xl matches the ticket's own radius, so the frame
