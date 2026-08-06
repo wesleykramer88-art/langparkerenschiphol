@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { Ticket, TicketTear } from '@/components/ui/Ticket';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { PurchaseReporter } from '@/components/analytics/PurchaseReporter';
+import { readValueParam } from '@/lib/analytics';
 import { siteConfig } from '@/config/site';
 
 /**
@@ -56,18 +57,44 @@ export default async function BookingConfirmationPage({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const params = await searchParams;
-  const raw = params.ref;
-  // Defensive: this value comes from a third party's postMessage payload and is
-  // rendered on the page. Length-capped and restricted to the characters a
-  // reference can plausibly contain.
-  const reference = typeof raw === 'string' && /^[A-Za-z0-9-]{1,32}$/.test(raw) ? raw : null;
+
+  /**
+   * `reservationCode` is ParkingPro's, appended to this URL after an online
+   * payment (Support, 2026-08-06) and nominated by them as the unique
+   * transaction id. `ref` is ours, set by ParkingProFrame on the path where
+   * `reservationAdded` still fires — reservations made without the payment
+   * provider. ParkingPro's wins when both are present, because on the paid path
+   * theirs is the only one that exists.
+   */
+  const raw = params.reservationCode ?? params.ref;
+
+  /**
+   * Defensive: this arrives in a URL the visitor can edit and is rendered on
+   * the page. Length-capped and restricted to the characters a reference can
+   * plausibly contain. Underscore is allowed alongside the original set because
+   * ParkingPro never specified `reservationCode`'s alphabet and a rejected
+   * reference costs the conversion its deduplication key.
+   */
+  const reference = typeof raw === 'string' && /^[A-Za-z0-9_-]{1,40}$/.test(raw) ? raw : null;
+
+  /**
+   * The booking value, gross, from ParkingPro's redirect. Bounded on the way in
+   * — see MAX_PLAUSIBLE_VALUE. Absent on the non-payment path, where the value
+   * comes from the stash instead.
+   */
+  const urlValue = readValueParam(params.totalWithTax);
+  const fromOnlinePayment = typeof params.reservationCode === 'string';
 
   return (
     <Section spacing="lg">
       <Container width="narrow">
         {/* The single place a booking conversion is reported: paid, all steps
             done, thank-you page reached. See PurchaseReporter. */}
-        <PurchaseReporter reference={reference} />
+        <PurchaseReporter
+          reference={reference}
+          urlValue={urlValue}
+          fromOnlinePayment={fromOnlinePayment}
+        />
 
         <Breadcrumbs
           tone="onLight"

@@ -14,25 +14,36 @@ import { clearPendingBooking, readPendingBooking, trackPurchase } from '@/lib/an
  * towards traffic that abandons at iDEAL.
  *
  * ── The two ways a visitor gets here ────────────────────────────────────────
- *   1. Payment finished inside the iframe. ParkingProFrame stashed the value
- *      and pushed us here with `?ref=`. Reference and value both in hand.
+ *   1. ONLINE PAYMENT — nearly all bookings. ParkingPro redirects here after
+ *      the provider settles and appends `reservationCode` and `totalWithTax`.
+ *      They confirmed on 2026-08-06 that `reservationAdded` is NOT emitted on
+ *      this path, so the query string is the only evidence we get. Both values
+ *      arrive as props, read and bounded on the server.
  *
- *   2. The payment provider took over the whole tab and ParkingPro's own return
- *      URL brought them back. There is no `?ref=` on that path — we never got
- *      to add one — so the stash left behind before the tab was taken over is
- *      the only evidence the booking happened, and the only copy of its value.
+ *   2. A reservation made WITHOUT the online payment flow. `reservationAdded`
+ *      does fire there, so ParkingProFrame stashed the value and pushed us here
+ *      with `?ref=`.
  *
- * Path 2 is why this reports off the stash and not only off the URL. It is also
- * why the previous shape of this component was ineffective: it required a `?ref=`
- * that path 2 never has, so the one case it existed to cover was the one case it
- * could not fire on.
+ * The URL wins over the stash whenever it carries a value. On path 1 the stash
+ * is empty anyway; on the rare occasion both exist, ParkingPro's own figure for
+ * this reservation beats one this tab happened to be holding.
  *
  * ── What stops a bare visit counting ────────────────────────────────────────
- * A bookmark, a shared link or a back-button lands here with no `?ref=` and no
- * stash, and reports nothing. Something has to have been left behind by an
- * actual completed booking in this tab.
+ * A bookmark, a shared link or a back-button lands here with no reference and
+ * no stash, and reports nothing. Something has to have been left behind by an
+ * actual completed booking.
  */
-export function PurchaseReporter({ reference }: { reference: string | null }) {
+export function PurchaseReporter({
+  reference,
+  urlValue = null,
+  fromOnlinePayment = false,
+}: {
+  reference: string | null;
+  /** `totalWithTax` from ParkingPro's redirect, already bounded. */
+  urlValue?: number | null;
+  /** True when `reservationCode` was present — i.e. path 1. */
+  fromOnlinePayment?: boolean;
+}) {
   useEffect(() => {
     /**
      * If ParkingPro honours `returnUrl` by redirecting the IFRAME rather than
@@ -75,13 +86,13 @@ export function PurchaseReporter({ reference }: { reference: string | null }) {
 
     trackPurchase({
       transactionId: reference ?? pending?.reference ?? null,
-      value: sameBooking ? (pending?.value ?? null) : null,
+      value: urlValue ?? (sameBooking ? (pending?.value ?? null) : null),
       currency: pending?.currency,
-      source: reference ? 'in-frame' : 'returned-from-payment',
+      source: fromOnlinePayment ? 'online-payment' : 'in-frame',
     });
 
     clearPendingBooking();
-  }, [reference]);
+  }, [reference, urlValue, fromOnlinePayment]);
 
   return null;
 }
