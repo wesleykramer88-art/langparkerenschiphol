@@ -113,6 +113,9 @@ const GOOGLE_TAGGING = {
      * GTM and this entry with it.
      */
     'https://www.merchant-center-analytics.goog',
+    // The other half of the Tag Assistant debug channel — see `frame` below.
+    // The frame is how it connects; this is how the two exchange state.
+    'https://tagassistant.google.com',
     'https://www.google.com',
     'https://www.google.nl',
     'https://www.google.be',
@@ -122,8 +125,19 @@ const GOOGLE_TAGGING = {
    * The conversion linker's cross-domain iframe. This is what preserves the
    * gclid across the hop to the payment provider and back; without it, paid
    * bookings are attributed to direct traffic.
+   *
+   * tagassistant.google.com is GTM's debug channel. When a page is opened with
+   * `?gtm_debug=`, the container embeds a frame there and talks to it; blocked,
+   * the page loads perfectly and Tag Assistant reports "Could not connect",
+   * which is what happened on 2026-08-07 while verifying the conversion tag.
+   *
+   * This does NOT let Google embed this site — `frame-ancestors 'none'` still
+   * refuses that, and stays. This is the opposite direction: our page reaching
+   * out to a Google origin we already trust with the container script itself.
+   * Kept permanently rather than behind a dev flag, because the tag being
+   * verified only fires on production data.
    */
-  frame: ['https://td.doubleclick.net'],
+  frame: ['https://td.doubleclick.net', 'https://tagassistant.google.com'],
 } as const;
 
 const csp = [
