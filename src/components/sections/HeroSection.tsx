@@ -6,6 +6,7 @@ import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { HeroPhoto } from '@/components/ui/HeroPhoto';
 import { BookingPicker } from '@/components/booking/BookingPicker';
+import { PromoCoupon } from '@/components/sections/PromoCoupon';
 import { siteConfig } from '@/config/site';
 import type { PickerBounds } from '@/lib/parkingpro-config';
 
@@ -68,7 +69,18 @@ const PROOF = [
   'Boek direct via de website',
 ] as const;
 
-export function HeroSection({ bounds }: { bounds?: PickerBounds }) {
+export function HeroSection({
+  bounds,
+  /**
+   * Whether the seasonal coupon is still running. Decided on the server — see
+   * isPromoActive() — because comparing the visitor's clock against the build's
+   * would produce a hydration mismatch on the offer's last day.
+   */
+  showPromo = false,
+}: {
+  bounds?: PickerBounds;
+  showPromo?: boolean;
+}) {
   const prefersReduced = useReducedMotion();
 
   /** Every animated element resolves through here, so reduced motion is handled
@@ -321,6 +333,16 @@ export function HeroSection({ bounds }: { bounds?: PickerBounds }) {
             <motion.p {...rise(0.66)} className="text-navy-300 mt-6 text-sm">
               Online reserveren met directe bevestiging
             </motion.p>
+
+            {/* Last in the load sequence, deliberately.
+                The offer is a reason to book now, not the reason to book here —
+                it has to arrive after the headline, the proof row and the CTAs
+                have made their case, or the page opens by discounting itself. */}
+            {showPromo ? (
+              <motion.div {...rise(0.74)} className="mt-7">
+                <PromoCoupon />
+              </motion.div>
+            ) : null}
           </div>
 
           {/* ---------- Right column: the ticket ----------

@@ -11,6 +11,7 @@ import { Faq } from '@/components/sections/Faq';
 import { ClosingCta } from '@/components/sections/ClosingCta';
 import { StickyBookingBar } from '@/components/booking/StickyBookingBar';
 import { fetchPickerBounds } from '@/lib/parkingpro-config';
+import { isPromoActive } from '@/config/site';
 
 export const metadata = createMetadata('home');
 
@@ -34,9 +35,18 @@ export default async function HomePage() {
   // to the values the picker always used if ParkingPro is unreachable.
   const bounds = await fetchPickerBounds();
 
+  /**
+   * Evaluated here rather than in the hero, because the hero is a client
+   * component: a date comparison inside it would run once against the build
+   * clock and again against the visitor's, and disagree on the offer's last
+   * day. This page revalidates hourly, so the coupon takes itself down within
+   * an hour of expiring — nobody has to remember to remove it on 1 September.
+   */
+  const showPromo = isPromoActive();
+
   return (
     <>
-      <HeroSection bounds={bounds} />
+      <HeroSection bounds={bounds} showPromo={showPromo} />
       <TrustStrip />
       <ServiceChooser />
       <WhyUs />

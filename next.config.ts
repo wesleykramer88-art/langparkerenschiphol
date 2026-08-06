@@ -40,6 +40,18 @@ const isDev = process.env.NODE_ENV === 'development';
 const devConnectSrc = isDev ? ' ws://localhost:* http://localhost:* ws://127.0.0.1:*' : '';
 
 /**
+ * Vercel Analytics, in development only.
+ *
+ * In production `@vercel/analytics` is served from /_vercel/insights/script.js
+ * on our own origin, which `'self'` already covers. In development it loads the
+ * debug build from va.vercel-scripts.com instead, so without this the dev
+ * console reports a CSP violation on every page load for something that is not
+ * actually broken in production — noise that buries real violations, which is
+ * exactly how the blocked Ads collector above went unnoticed.
+ */
+const devScriptSrc = isDev ? ' https://va.vercel-scripts.com' : '';
+
+/**
  * Hosts the Google tagging stack needs, split by what each one is for.
  *
  * The previous policy allowed only GA4's two hosts, which was correct when the
@@ -69,6 +81,13 @@ const GOOGLE_TAGGING = {
     'https://www.google-analytics.com',
     'https://www.googleadservices.com',
     'https://googleads.g.doubleclick.net',
+    /**
+     * The Ads conversion/remarketing collector. Observed being refused in the
+     * browser console on 2026-08-06 — `/ccm/collect` was blocked both as an
+     * image and on fetch, with `tid=AW-934465672` in the query string. That is
+     * this account's conversion ping, dropped by our own policy.
+     */
+    'https://pagead2.googlesyndication.com',
     'https://www.google.com',
     'https://www.google.nl',
     'https://www.google.be',
@@ -83,6 +102,17 @@ const GOOGLE_TAGGING = {
     'https://stats.g.doubleclick.net',
     'https://googleads.g.doubleclick.net',
     'https://www.googleadservices.com',
+    // See the note in `image` — same collector, blocked on fetch as well.
+    'https://pagead2.googlesyndication.com',
+    /**
+     * A Merchant Center destination (MC-K92E09J4XT) is configured on the
+     * client's Google tag and beacons here. We did not add it and may not want
+     * it, but while it is on the tag its requests are ours to allow or to
+     * refuse — and a console full of blocked beacons hides the ones that matter.
+     * TODO(client): if Merchant Center is not in use, remove that destination in
+     * GTM and this entry with it.
+     */
+    'https://www.merchant-center-analytics.goog',
     'https://www.google.com',
     'https://www.google.nl',
     'https://www.google.be',
@@ -98,7 +128,7 @@ const GOOGLE_TAGGING = {
 
 const csp = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline' ${GOOGLE_TAGGING.script.join(' ')}`,
+  `script-src 'self' 'unsafe-inline' ${GOOGLE_TAGGING.script.join(' ')}${devScriptSrc}`,
   "style-src 'self' 'unsafe-inline'",
   `img-src 'self' data: blob: ${GOOGLE_TAGGING.image.join(' ')}`,
   "font-src 'self'",

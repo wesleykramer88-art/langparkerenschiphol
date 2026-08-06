@@ -328,6 +328,48 @@ export const termsUrl = '/algemene-voorwaarden/';
 export const accountDiscount = { percentage: 10 } as const;
 
 /**
+ * The seasonal promotion, client's brief of 2026-08-06: August is a weak month
+ * and he wants a reason to decide now rather than later.
+ *
+ * ── The end date is enforced, not just printed ──────────────────────────────
+ * `endsAt` is the first instant the code is NO LONGER valid, written with an
+ * explicit +02:00 because that is what the Netherlands is on in August. A
+ * server rendering in UTC would otherwise keep the coupon up for two hours into
+ * 1 September — small, but the failure mode is a customer typing a dead code at
+ * the payment step and calling to complain, which costs more than the booking.
+ *
+ * The homepage is statically rendered with `revalidate: 3600`, so the coupon
+ * disappears within an hour of expiry without a deploy. If it ever needs to go
+ * sooner than that, change the date here and redeploy.
+ *
+ * ── Spelling ────────────────────────────────────────────────────────────────
+ * "kortingscode", with the s. The client corrected this himself on 2026-08-06
+ * and the mock-up he sent has it wrong, so it is stated once here rather than
+ * retyped per component.
+ */
+export const promo = {
+  /** Displayed uppercase; ParkingPro should be configured case-insensitively. */
+  code: 'ZOMER10',
+  percentage: 10,
+  /** Exclusive upper bound. Europe/Amsterdam is UTC+2 in August. */
+  endsAt: '2026-09-01T00:00:00+02:00',
+  /** Human form of the same date, for the deadline line. */
+  validUntil: 't/m 31 augustus',
+} as const;
+
+/**
+ * Whether the promotion is still running.
+ *
+ * Call this on the SERVER and pass the result down. Evaluating it inside a
+ * client component would compare the visitor's own clock against the one the
+ * HTML was built with, and React would flag the mismatch on the last day —
+ * exactly when the coupon matters most.
+ */
+export function isPromoActive(now: number = Date.now()): boolean {
+  return now < Date.parse(promo.endsAt);
+}
+
+/**
  * Independence disclaimer.
  *
  * The whole design resolves ambiguity towards "airport infrastructure" because
