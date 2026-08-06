@@ -117,7 +117,7 @@
           {
             "type": "TEMPLATE",
             "key": "conversionLabel",
-            "value": "PASTE_CONVERSION_LABEL_HERE"
+            "value": "9jJnCMOKlt0cEIihy70D"
           },
           { "type": "TEMPLATE", "key": "currencyCode", "value": "{{DLV - currency}}" },
           { "type": "TEMPLATE", "key": "orderId", "value": "{{DLV - transaction_id}}" },
