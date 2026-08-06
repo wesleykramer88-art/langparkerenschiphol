@@ -65,6 +65,46 @@ const devScriptSrc = isDev ? ' https://va.vercel-scripts.com' : '';
  * Written out per-host rather than as `https://*.google.com`, so that widening
  * this is a deliberate edit and it stays obvious what each entry buys.
  */
+/**
+ * Google's country domains, for the conversion and remarketing pings.
+ *
+ * These are not interchangeable with google.com. Google 302s the ping to the
+ * ccTLD of the VISITOR's country, and CSP is checked again after the redirect —
+ * so a missing entry drops that country's traffic only. It reads in the Ads UI
+ * as a regional performance dip rather than as a tagging fault, which is close
+ * to undiagnosable from inside the account.
+ *
+ * Observed on 2026-08-07: testing production from Pakistan, the 1p-user-list
+ * ping redirected to www.google.com.pk and was refused. Dutch and Belgian
+ * visitors were never affected — .nl and .be were already here, and they are
+ * effectively all of this business's customers. The rest of the list is the
+ * European markets Schiphol actually flies, added because the cost of an entry
+ * is nothing and the cost of a missing one is silent.
+ *
+ * CSP has no wildcard for TLDs, so this has to be enumerated. `.com.pk` is
+ * deliberately included: it is where this site is developed from, and a
+ * developer whose own test pings fail cannot tell a real fault from a local one.
+ */
+const GOOGLE_CCTLDS = [
+  'https://www.google.com',
+  'https://www.google.nl',
+  'https://www.google.be',
+  'https://www.google.de',
+  'https://www.google.fr',
+  'https://www.google.co.uk',
+  'https://www.google.es',
+  'https://www.google.it',
+  'https://www.google.pl',
+  'https://www.google.at',
+  'https://www.google.ch',
+  'https://www.google.dk',
+  'https://www.google.se',
+  'https://www.google.no',
+  'https://www.google.ie',
+  'https://www.google.pt',
+  'https://www.google.com.pk',
+] as const;
+
 const GOOGLE_TAGGING = {
   /** gtm.js, and the Ads conversion library it loads. */
   script: ['https://www.googletagmanager.com', 'https://www.googleadservices.com'],
@@ -88,9 +128,7 @@ const GOOGLE_TAGGING = {
      * this account's conversion ping, dropped by our own policy.
      */
     'https://pagead2.googlesyndication.com',
-    'https://www.google.com',
-    'https://www.google.nl',
-    'https://www.google.be',
+    ...GOOGLE_CCTLDS,
   ],
 
   /** GA4 measurement protocol, plus the Ads conversion beacon on fetch/XHR. */
@@ -113,17 +151,29 @@ const GOOGLE_TAGGING = {
      * GTM and this entry with it.
      */
     'https://www.merchant-center-analytics.goog',
-    'https://www.google.com',
-    'https://www.google.nl',
-    'https://www.google.be',
+    // The other half of the Tag Assistant debug channel — see `frame` below.
+    // The frame is how it connects; this is how the two exchange state.
+    'https://tagassistant.google.com',
+    ...GOOGLE_CCTLDS,
   ],
 
   /**
    * The conversion linker's cross-domain iframe. This is what preserves the
    * gclid across the hop to the payment provider and back; without it, paid
    * bookings are attributed to direct traffic.
+   *
+   * tagassistant.google.com is GTM's debug channel. When a page is opened with
+   * `?gtm_debug=`, the container embeds a frame there and talks to it; blocked,
+   * the page loads perfectly and Tag Assistant reports "Could not connect",
+   * which is what happened on 2026-08-07 while verifying the conversion tag.
+   *
+   * This does NOT let Google embed this site — `frame-ancestors 'none'` still
+   * refuses that, and stays. This is the opposite direction: our page reaching
+   * out to a Google origin we already trust with the container script itself.
+   * Kept permanently rather than behind a dev flag, because the tag being
+   * verified only fires on production data.
    */
-  frame: ['https://td.doubleclick.net'],
+  frame: ['https://td.doubleclick.net', 'https://tagassistant.google.com'],
 } as const;
 
 const csp = [
