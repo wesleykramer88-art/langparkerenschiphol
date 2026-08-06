@@ -87,47 +87,56 @@ function toAmount(input: unknown): number | null {
 }
 
 /**
- * Field names that might carry the booking total, most specific first.
+ * The field carrying the booking total.
  *
- * `totalWithTax` leads because that is what ParkingPro's own public price API
- * returns (see PriceQuote in src/lib/parkingpro.ts), so it is the one name we
- * have actually observed on this instance. The rest are the plausible spellings
- * around it.
+ * Named by ParkingPro Support on 2026-08-06: `totalWithTax`, gross, in EUR,
+ * both in the `reservationAdded` payload and as a query parameter on the
+ * post-payment redirect. It matches the field their public price API already
+ * returns (PriceQuote in src/lib/parkingpro.ts).
  *
- * Order matters and the list is deliberately gross-first. Reporting a net,
- * ex-VAT figure to Google Ads understates every conversion by 21% and quietly
- * drags a ROAS target off by the same amount — the customer paid the gross
+ * This used to be ten plausible spellings searched in order, plus a one-level
+ * walk into nested objects, because the payload was undocumented and guessing
+ * beat reporting nothing. The vendor has now named the field, so the guessing
+ * is gone — a search that can still find `price` somewhere is a search that can
+ * report a VAT line or a deposit as the order total.
+ *
+ * Gross, deliberately: an ex-VAT figure understates every conversion by 21% and
+ * drags a ROAS target off by the same amount. The customer paid the gross
  * price, so the gross price is the revenue.
  */
-const VALUE_KEYS = [
-  'totalWithTax',
-  'totalIncVat',
-  'totalInclVat',
-  'totalIncludingTax',
-  'grandTotal',
-  'totalPrice',
-  'totalAmount',
-  'total',
-  'amount',
-  'price',
-] as const;
-
-/** Sub-objects worth looking inside before giving up. */
-const NESTED_KEYS = ['price', 'prices', 'total', 'totals', 'payment', 'order', 'amounts'] as const;
+const VALUE_KEY = 'totalWithTax';
 
 /**
- * Best-effort extraction of the booking value from ParkingPro's
- * `reservationAdded` payload.
+ * The largest booking value this site will report.
  *
- * UNVERIFIED, and it has to be. The payload shape is not documented anywhere we
- * have access to, and this instance's own flow is the only place it can be
- * observed — so this reads defensively across the plausible names rather than
- * asserting one. Returning null is a valid answer: the caller reports the
- * conversion without a value and flags it, which is recoverable. Reporting a
- * confidently wrong number is not.
+ * Not a business rule — a poison guard, and it is needed now in a way it was
+ * not before. `totalWithTax` arrives in the QUERY STRING on the payment
+ * redirect, which means the visitor can edit it before the page reads it, and
+ * an account bidding to a ROAS target believes whatever number it is handed.
+ * One booking reported at €9,999,999 teaches Smart Bidding to go and find more
+ * people like whoever sent it.
  *
- * Once the real key is confirmed in Tag Assistant against a live booking, this
- * list should be narrowed to it.
+ * Set far above any real reservation, so it never rejects a genuine booking and
+ * only ever catches a fabricated one. Anything above it reports as NO value
+ * rather than as a clamped one — a confidently wrong number is worse than a
+ * missing one, and `value_missing` makes it visible in GTM either way.
+ */
+const MAX_PLAUSIBLE_VALUE = 5000;
+
+/** `toAmount`, with the poison guard applied. */
+function boundedAmount(input: unknown): number | null {
+  const value = toAmount(input);
+  if (value === null) return null;
+  return value <= MAX_PLAUSIBLE_VALUE ? value : null;
+}
+
+/**
+ * The booking value from a `reservationAdded` payload.
+ *
+ * Still used, but no longer the main path: ParkingPro confirmed that
+ * `reservationAdded` is NOT emitted after an online payment. It fires only for
+ * reservations created without the payment provider, so this now serves that
+ * narrower case. See the note on trackPurchase().
  */
 export function readReservationValue(reservation: Record<string, unknown> | undefined) {
   if (!reservation) return { value: null, currency: DEFAULT_CURRENCY };
@@ -137,32 +146,33 @@ export function readReservationValue(reservation: Record<string, unknown> | unde
       ? reservation.currency
       : DEFAULT_CURRENCY;
 
-  for (const key of VALUE_KEYS) {
-    const value = toAmount(reservation[key]);
-    if (value !== null) return { value, currency };
-  }
-
-  // One level down. Not a recursive walk: an unbounded search over a third
-  // party's object is how you end up reporting a VAT line or a deposit as the
-  // order total.
-  for (const key of NESTED_KEYS) {
-    const nested = reservation[key];
-    if (!nested || typeof nested !== 'object' || Array.isArray(nested)) continue;
-    for (const valueKey of VALUE_KEYS) {
-      const value = toAmount((nested as Record<string, unknown>)[valueKey]);
-      if (value !== null) return { value, currency };
-    }
-  }
-
-  return { value: null, currency };
+  return { value: boundedAmount(reservation[VALUE_KEY]), currency };
 }
 
-/** Pull a reservation reference out of the payload without assuming a key. */
+/**
+ * The booking value from the post-payment redirect's query string.
+ *
+ * Separate from the payload reader because the trust level is different, not
+ * because the parsing is: this input has been through the visitor's address
+ * bar. `toAmount` handles a .NET back end serialising a decimal as "201,49" or
+ * "€ 1.201,49"; `boundedAmount` handles someone typing their own number in.
+ */
+export function readValueParam(raw: string | string[] | undefined): number | null {
+  return typeof raw === 'string' ? boundedAmount(raw) : null;
+}
+
+/**
+ * Pull a reservation reference out of a `reservationAdded` payload.
+ *
+ * `reservationCode` leads: ParkingPro named it on 2026-08-06 as the unique
+ * transaction id and the field to deduplicate on. The rest are kept as
+ * fallbacks for the non-payment path, whose payload shape they never described.
+ */
 export function readReservationReference(
   reservation: Record<string, unknown> | undefined,
 ): string | null {
   if (!reservation) return null;
-  for (const key of ['reservationNumber', 'number', 'reference', 'code', 'id']) {
+  for (const key of ['reservationCode', 'reservationNumber', 'number', 'reference', 'code', 'id']) {
     const value = reservation[key];
     if (typeof value === 'string' && value.trim()) return value.trim();
     if (typeof value === 'number') return String(value);
@@ -290,22 +300,25 @@ function markFired(key: string) {
  *
  * Called from ONE place — the thank-you page — because that is the client's
  * stated definition of a conversion. What differs is how the visitor got there,
- * and a booking can finish along two paths:
+ * and ParkingPro Support confirmed the two paths on 2026-08-06:
  *
- *   1. Payment completes INSIDE the iframe. ParkingPro posts
- *      `reservationAdded`, ParkingProFrame stashes the value and routes to
- *      /reservering/bevestiging/?ref=… itself. Reference and value both known.
+ *   1. ONLINE PAYMENT, which is nearly all of them. The payment provider takes
+ *      the whole tab; ParkingPro then redirects to the `returnUrl` we pass on
+ *      the booking iframe and appends `reservationCode` and `totalWithTax`.
+ *      `reservationAdded` is explicitly NOT emitted on this path — so the
+ *      query string is the only source of both the reference and the value.
  *
- *   2. The payment provider takes over the WHOLE TAB. The frame is sandboxed
- *      with `allow-top-navigation-by-user-activation` precisely so iDEAL and
- *      the card flows can do this, and the visitor comes back via ParkingPro's
- *      own return URL — which will not carry our `?ref=`. The stash is what
- *      survives that round trip, so the conversion still reports, with its
- *      value, off a page load we did not originate.
+ *   2. A reservation created WITHOUT the online payment flow. Here
+ *      `reservationAdded` does fire, ParkingProFrame stashes the value and
+ *      routes to /reservering/bevestiging/?ref=… itself.
+ *
+ * Path 1 is why the earlier design could not have worked: it reported from the
+ * postMessage, and the postMessage never arrives for a paid booking.
  *
  * Still deduplicated, because the thank-you page is a URL like any other: a
  * refresh, a back-button or a bookmarked visit would otherwise each count as a
- * fresh booking.
+ * fresh booking. ParkingPro recommends deduplicating on `reservationCode`,
+ * which is what the key is.
  *
  * The reference also goes out as `transaction_id`, which is what lets Google Ads
  * discard a duplicate that slips past this — in a second tab, say, or after the
@@ -315,8 +328,8 @@ export function trackPurchase(input: {
   transactionId: string | null;
   value: number | null;
   currency?: string;
-  /** How the visitor reached the page. Surfaces in Tag Assistant while this beds in. */
-  source: 'in-frame' | 'returned-from-payment';
+  /** Which of the two paths above reported it. Visible in Tag Assistant. */
+  source: 'online-payment' | 'in-frame';
 }): boolean {
   if (typeof window === 'undefined') return false;
 
