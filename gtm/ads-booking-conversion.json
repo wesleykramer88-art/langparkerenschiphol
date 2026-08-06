@@ -1,0 +1,135 @@
+{
+  "exportFormatVersion": 2,
+  "exportTime": "2026-08-06 20:30:00",
+  "containerVersion": {
+    "path": "accounts/6354941427/containers/252221269/versions/0",
+    "accountId": "6354941427",
+    "containerId": "252221269",
+    "containerVersionId": "0",
+    "container": {
+      "path": "accounts/6354941427/containers/252221269",
+      "accountId": "6354941427",
+      "containerId": "252221269",
+      "name": "langparkerenschiphol.nl",
+      "publicId": "GTM-WJXJ44J6",
+      "usageContext": ["WEB"],
+      "fingerprint": "0"
+    },
+    "variable": [
+      {
+        "accountId": "6354941427",
+        "containerId": "252221269",
+        "variableId": "1001",
+        "name": "DLV - value",
+        "type": "v",
+        "parameter": [
+          { "type": "BOOLEAN", "key": "setDefaultValue", "value": "false" },
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" },
+          { "type": "TEMPLATE", "key": "name", "value": "value" }
+        ],
+        "fingerprint": "0"
+      },
+      {
+        "accountId": "6354941427",
+        "containerId": "252221269",
+        "variableId": "1002",
+        "name": "DLV - currency",
+        "type": "v",
+        "parameter": [
+          { "type": "BOOLEAN", "key": "setDefaultValue", "value": "true" },
+          { "type": "TEMPLATE", "key": "defaultValue", "value": "EUR" },
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" },
+          { "type": "TEMPLATE", "key": "name", "value": "currency" }
+        ],
+        "fingerprint": "0"
+      },
+      {
+        "accountId": "6354941427",
+        "containerId": "252221269",
+        "variableId": "1003",
+        "name": "DLV - transaction_id",
+        "type": "v",
+        "parameter": [
+          { "type": "BOOLEAN", "key": "setDefaultValue", "value": "false" },
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" },
+          { "type": "TEMPLATE", "key": "name", "value": "transaction_id" }
+        ],
+        "fingerprint": "0"
+      },
+      {
+        "accountId": "6354941427",
+        "containerId": "252221269",
+        "variableId": "1004",
+        "name": "DLV - value_missing",
+        "type": "v",
+        "parameter": [
+          { "type": "BOOLEAN", "key": "setDefaultValue", "value": "true" },
+          { "type": "TEMPLATE", "key": "defaultValue", "value": "false" },
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" },
+          { "type": "TEMPLATE", "key": "name", "value": "value_missing" }
+        ],
+        "fingerprint": "0"
+      },
+      {
+        "accountId": "6354941427",
+        "containerId": "252221269",
+        "variableId": "1005",
+        "name": "DLV - booking_source",
+        "type": "v",
+        "parameter": [
+          { "type": "BOOLEAN", "key": "setDefaultValue", "value": "false" },
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" },
+          { "type": "TEMPLATE", "key": "name", "value": "booking_source" }
+        ],
+        "fingerprint": "0"
+      }
+    ],
+    "trigger": [
+      {
+        "accountId": "6354941427",
+        "containerId": "252221269",
+        "triggerId": "2001",
+        "name": "Custom Event - purchase",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              { "type": "TEMPLATE", "key": "arg0", "value": "{{_event}}" },
+              { "type": "TEMPLATE", "key": "arg1", "value": "purchase" }
+            ]
+          }
+        ],
+        "fingerprint": "0"
+      }
+    ],
+    "tag": [
+      {
+        "accountId": "6354941427",
+        "containerId": "252221269",
+        "tagId": "3001",
+        "name": "Google Ads - Booking Conversion",
+        "type": "awct",
+        "parameter": [
+          { "type": "BOOLEAN", "key": "enableConversionLinker", "value": "true" },
+          { "type": "TEMPLATE", "key": "conversionValue", "value": "{{DLV - value}}" },
+          { "type": "TEMPLATE", "key": "conversionId", "value": "934465672" },
+          {
+            "type": "TEMPLATE",
+            "key": "conversionLabel",
+            "value": "PASTE_CONVERSION_LABEL_HERE"
+          },
+          { "type": "TEMPLATE", "key": "currencyCode", "value": "{{DLV - currency}}" },
+          { "type": "TEMPLATE", "key": "orderId", "value": "{{DLV - transaction_id}}" },
+          { "type": "TEMPLATE", "key": "conversionCookiePrefix", "value": "_gcl" }
+        ],
+        "firingTriggerId": ["2001"],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": { "type": "MAP" },
+        "consentSettings": { "consentStatus": "NOT_SET" },
+        "fingerprint": "0"
+      }
+    ],
+    "fingerprint": "0"
+  }
+}

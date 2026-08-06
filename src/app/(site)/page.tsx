@@ -6,7 +6,6 @@ import { ServiceChooser } from '@/components/sections/ServiceChooser';
 import { WhyUs } from '@/components/sections/WhyUs';
 import { Security } from '@/components/sections/Security';
 import { HowItWorks } from '@/components/sections/HowItWorks';
-import { Testimonials } from '@/components/sections/Testimonials';
 import { Faq } from '@/components/sections/Faq';
 import { ClosingCta } from '@/components/sections/ClosingCta';
 import { StickyBookingBar } from '@/components/booking/StickyBookingBar';
@@ -52,6 +51,10 @@ export default async function HomePage() {
       <WhyUs />
       <Security />
       <HowItWorks />
+      {/* Disabled, not deleted. To restore, add back
+            import { Testimonials } from '@/components/sections/Testimonials';
+          and uncomment. The import was removed because an unused one fails
+          eslint, and the section order note above still assumes it. */}
       {/* <Testimonials /> */}
       <Faq />
       <ClosingCta />
