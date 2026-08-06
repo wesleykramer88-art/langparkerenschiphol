@@ -2,14 +2,10 @@ import { LogIn, Phone } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { Logo } from '@/components/layout/Logo';
-import { Marquee } from '@/components/layout/Marquee';
 import { HeaderShell } from '@/components/layout/HeaderShell';
 import { DesktopNav } from '@/components/layout/DesktopNav';
 import { MobileNav } from '@/components/layout/MobileNav';
 import { siteConfig } from '@/config/site';
-
-/** Wording for the strip above the header. Client-approved. */
-const MARQUEE_LABELS = ['Start uw reis comfortabel, veilig en met een gerust gevoel.'] as const;
 
 /**
  * Transparent over a dark hero, solid once scrolled past it.
@@ -44,6 +40,12 @@ export function SiteHeader() {
           repeated to keep a pass wider than the screen, and the duration is
           raised with it — otherwise the same seconds over a longer pass would
           scroll roughly three times faster. */}
+      {/* Disabled, not deleted. To restore, add back:
+            import { Marquee } from '@/components/layout/Marquee';
+            const MARQUEE_LABELS = ['Start uw reis comfortabel, veilig en met een gerust gevoel.'] as const;
+          and uncomment the line below. The import and the constant were removed
+          because an unused import is an eslint error, and a failing `npm run
+          verify` teaches everyone to stop reading its output. */}
       {/* <Marquee items={MARQUEE_LABELS} repeat={3} duration={96} /> */}
 
       <div className={barClasses}>
