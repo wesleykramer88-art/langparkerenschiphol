@@ -5,7 +5,7 @@ import { siteConfig } from '@/config/site';
 import { jsonLd, organizationSchema, websiteSchema } from '@/lib/schema';
 import { Analytics as VercelAnalytics } from '@vercel/analytics/next';
 import { Analytics } from '@/components/analytics/Analytics';
-import { buildConsentBootstrap } from '@/lib/analytics';
+import { buildConsentBootstrap, buildGtmLoader } from '@/lib/analytics';
 import { CONSENT_STORAGE_KEY } from '@/lib/consent';
 import './globals.css';
 
@@ -60,9 +60,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/*
           Consent Mode v2 default state.
 
-          MUST stay here, in <head>, ahead of everything — including the GTM
-          loader in <Analytics />, which is rendered at the bottom of <body>.
-          Consent Mode's contract is that the default is on the dataLayer before
+          MUST stay here, in <head>, ahead of the container loader directly
+          below it. Consent Mode's contract is that the default is on the
+          dataLayer before
           any tag reads it; a default that arrives afterwards is not a default,
           it is a late correction, and whatever fired in between fired
           unconsented. Parser order is the only guarantee strong enough for
@@ -82,6 +82,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             dangerouslySetInnerHTML={{ __html: buildConsentBootstrap(CONSENT_STORAGE_KEY) }}
           />
         ) : null}
+
+        {/*
+          The GTM container itself, immediately after the default above.
+
+          These two must stay adjacent and in this order. The bootstrap sets the
+          Consent Mode default; this loads the container that reads it. Swap them
+          and every tag firing in the gap fires unconsented.
+
+          In <head> rather than as a <Script> in <body> because Google Ads reads
+          the HTML we serve when it checks whether a Google tag is installed, and
+          `afterInteractive` is injected client-side after hydration — invisible
+          to that check, which is why both campaigns reported a missing tag on
+          2026-08-08 while the tag was demonstrably working. See buildGtmLoader().
+        */}
+        {env.NEXT_PUBLIC_GTM_ID ? (
+          <script dangerouslySetInnerHTML={{ __html: buildGtmLoader(env.NEXT_PUBLIC_GTM_ID) }} />
+        ) : null}
       </head>
       <body className="min-h-dvh antialiased">
         {children}
@@ -97,8 +114,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: jsonLd(websiteSchema()) }}
         />
 
-        {/* GTM under Consent Mode v2 — renders the banner and the container.
-            The default consent state is set by the bootstrap in <head> above. */}
+        {/* The consent banner, and the `consent update` when the visitor
+            answers it. The container and the default state are both in <head>
+            above — this renders neither. */}
         <Analytics />
 
         {/*

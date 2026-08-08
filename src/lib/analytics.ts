@@ -440,6 +440,40 @@ export function updateGoogleConsent(granted: boolean) {
  * again, so the two cannot drift apart. If they did, every returning visitor
  * would silently revert to denied.
  */
+/**
+ * The GTM container loader, as a string for the root layout to embed in <head>.
+ *
+ * ── Why this moved out of <Analytics /> ─────────────────────────────────────
+ * It used to be a `<Script strategy="afterInteractive">` at the bottom of
+ * <body>. That works for real visitors — the container loads, tags fire, and a
+ * conversion was verified end to end on 2026-08-07 — but `afterInteractive` is
+ * injected by the client AFTER hydration and therefore never appears in the
+ * server-rendered HTML.
+ *
+ * Google Ads reads that HTML. On 2026-08-08 both campaigns showed "Er ontbreekt
+ * een Google-tag op uw website", because from Google's side the tag genuinely
+ * is not there: their scanner sees the document we serve, not the DOM React
+ * builds afterwards. Next's own docs are explicit that only
+ * `beforeInteractive` is "injected into the initial HTML from the server".
+ *
+ * So the container is emitted in <head> as a raw inline script, exactly as the
+ * consent bootstrap is, and for a related reason: parser order. The bootstrap
+ * runs first and sets the Consent Mode default, then this runs. That ordering
+ * was previously guaranteed by <head> coming before <body>; it is now
+ * guaranteed by two adjacent lines, which is stronger and easier to see.
+ *
+ * ── The cost, stated plainly ────────────────────────────────────────────────
+ * gtm.js now starts downloading earlier and competes for bandwidth with the
+ * hero image. The script itself is `async` and blocks nothing, and the hero is
+ * priority-loaded, so the expected LCP impact is small — but it is not zero.
+ * Worth a PageSpeed check after deploying. The trade buys a container that
+ * Google can see and that is running before the first event rather than after
+ * hydration.
+ */
+export function buildGtmLoader(containerId: string): string {
+  return `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f)})(window,document,'script','dataLayer',${JSON.stringify(containerId)});`;
+}
+
 export function buildConsentBootstrap(storageKey: string): string {
   return `(function(){
 window.dataLayer=window.dataLayer||[];
