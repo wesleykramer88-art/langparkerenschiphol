@@ -1,7 +1,6 @@
 'use client';
 
 import { useSyncExternalStore } from 'react';
-import Script from 'next/script';
 import { env } from '@/lib/env';
 import { Button } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
@@ -78,21 +77,18 @@ export function Analytics() {
   return (
     <>
       {/*
-        Loaded on every page view regardless of the answer — that is what makes
-        this Advanced rather than Basic consent mode, and it is the whole reason
-        modelling works. Storage stays denied until `decide` says otherwise.
+        The container is NOT loaded here any more — it is an inline script in
+        <head>, next to the consent default. See buildGtmLoader() in
+        src/lib/analytics.ts for why it had to move: `afterInteractive` never
+        reaches the server-rendered HTML, so Google Ads reported a missing tag
+        on a site that was measuring correctly.
 
-        `afterInteractive` rather than `beforeInteractive`: the container must
-        not compete with our own paint, and the consent bootstrap in <head> has
-        already guaranteed the ordering that actually matters.
+        It still loads on every page view regardless of the visitor's answer —
+        that is what makes this Advanced rather than Basic consent mode, and the
+        whole reason conversion modelling works. Storage stays denied until
+        `decide` says otherwise. This component now owns only the banner and the
+        consent update.
       */}
-      <Script id="gtm-loader" strategy="afterInteractive">
-        {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','${containerId}');`}
-      </Script>
 
       {/*
         No <noscript> iframe fallback.
