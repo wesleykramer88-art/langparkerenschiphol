@@ -381,6 +381,51 @@ export const photos = {
     blurDataURL:
       'data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAADQAQCdASoMAAUAA8BgJYgCdAEec8/agADeN7DvV/xZZPTfXAeVN/gjst76C7EDcX/Pq1lkw9h4PUz6iSzxltFLjbkDgUAA',
   },
+  /**
+   * ── THE TWO APP SCREENSHOTS ARE NOT PHOTOGRAPHS ────────────────────────────
+   *
+   * Client-supplied, August 2026, for /digitale-ritregistratie/. They are
+   * screen captures of the driver app his crew actually runs, in a rendered
+   * iPhone frame on a near-white ground.
+   *
+   * ⚠ THEY MUST NOT BE RENDERED THROUGH <Photo>. That component applies the
+   * house grade — saturate(0.82), contrast(1.06) and an 8% navy veil — which
+   * exists to drag photographs shot under different light onto one hue line.
+   * Applied to a UI capture it desaturates the interface and lays a blue cast
+   * over white cards, which does not read as "graded", it reads as a broken
+   * screenshot. They are rendered with next/image directly. See
+   * <AppScreenshot> on the ritregistratie page.
+   *
+   * ⚠ THE APP UI IS TEAL-GREEN, which is a hue this palette does not contain
+   * and deliberately excludes. That is acceptable here and only here: it is
+   * evidence of a third-party tool rather than a brand surface. Both are
+   * presented on a paper panel and never placed next to the accent, so the
+   * green never sits beside the orange.
+   *
+   * ⚠ THE DATA IN THEM IS FABRICATED. "John de Vries", 0612345678,
+   * john.devries@mail.com, plate 7-xgf-98, booking #J4G7A. Plainly test data,
+   * but it will be on a public page.
+   * TODO(client): confirm you are happy for these to be published as-is. If
+   * not, send captures with those rows blanked — a crop here would cut the
+   * layout that makes the point.
+   */
+  appReservation: {
+    src: '/images/app-reservering.webp',
+    width: 1007,
+    height: 1561,
+    alt: 'Schermafbeelding van de chauffeursapp met de gegevens van een reservering: naam, voertuig, parkeer- en retourdatum en de vluchtinformatie.',
+    blurDataURL:
+      'data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAACwAQCdASoIAAwAAsBIJYwCw7DdDFk0AP7uZll7IrPc2Yg4hrICVbqmi+XxPY8XgIYXPItI+mUP+HYUpE2g12W2wpN6aGK/PzdNIz6zc+Tdt0Q0/84zLmUFeAAAAA==',
+  },
+
+  appRideRegistration: {
+    src: '/images/app-ritregistratie.webp',
+    width: 899,
+    height: 1750,
+    alt: 'Schermafbeelding van de chauffeursapp tijdens een rit, met de huidige snelheid in km per uur, de starttijd van de rit en de status van de GPS-verbinding.',
+    blurDataURL:
+      'data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAAAwAgCdASoGAAwAAsBIJZQAD4lw5Q0yHf7OAAD+6G4ttIsjLtk+/cRvKAPzXWR1Q2vqzOJ3sEYvS/F9iigbPvOJTz661P4PhQoXiCOAAAA=',
+  },
 } as const satisfies Record<string, SitePhoto>;
 
 export type PhotoName = keyof typeof photos;

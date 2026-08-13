@@ -656,6 +656,14 @@
 /* Centre scrim. Stacked ON TOP of scrim-band when the band's content is
    centred rather than set to one side.
 
+   ⚠ CURRENTLY UNUSED, AND KEPT ON PURPOSE. Its only caller was the closing CTA,
+   which stopped being a full-bleed photographic band in the August 2026
+   rebalance — it is now a light section with the photograph in a contained
+   panel, so there is no longer text over an image for this to protect. The
+   utility is not deleted because the numbers below are measured against real
+   frames from this library, and the next centred photographic band will need
+   exactly them. Deleting four lines here costs the re-measurement later.
+
    scrim-band's horizontal gradient is deliberately lightest through the middle,
    which is the right call when the text is in the left third — and the wrong
    one the moment the text is centred, because that is precisely where the

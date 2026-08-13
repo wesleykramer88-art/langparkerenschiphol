@@ -44,8 +44,40 @@ import type { PickerBounds } from '@/lib/parkingpro-config';
 // what makes the ticket read as being set down rather than sliding to a stop.
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-/** The H1, pre-split. Line breaks are a design decision, not a wrap artefact. */
-const HEADLINE_LINES = ['Zorgeloos', 'lang parkeren', 'op Schiphol.'] as const;
+/**
+ * The H1, pre-split. Line breaks are a design decision, not a wrap artefact.
+ *
+ * ── Client copy, August 2026 ────────────────────────────────────────────────
+ * Was ['Zorgeloos', 'lang parkeren', 'op Schiphol.'] — three lines opening on
+ * an adjective. The brand name now leads and "Schiphol" closes the line, which
+ * is also the local-SEO ask: the H1 is the strongest on-page signal the site
+ * has for the query it is actually competing for.
+ *
+ * "Zorgeloos" is not lost — it moves to SUBHEAD below, where it reads as the
+ * promise rather than as the first thing the page says about itself.
+ *
+ * ⚠ SCRIM. Two lines now, not three, and no line is wider than "lang parkeren"
+ * was — so the copy column neither widens nor extends, and `scrim-hero`'s
+ * measurements still hold exactly (64.5% navy where the 46ch lead ends). Do NOT
+ * re-tune the gradient for this change; there is nothing to re-tune for. If a
+ * future H1 runs LONGER than these lines, re-measure — see the utility's own
+ * note in globals.css for how and why.
+ */
+const HEADLINE_LINES = ['Lang Parkeren', 'op Schiphol'] as const;
+
+/**
+ * The promise, directly under the H1.
+ *
+ * Set at display-md rather than as another lead paragraph: it is a tagline, and
+ * a tagline that shares the lead's size and weight simply reads as a first
+ * sentence that failed to say anything. In valet-300 on the hero's navy, the
+ * same colour the eyebrow uses, so the two brand-voice lines above and below the
+ * headline belong to each other.
+ *
+ * Contrast: valet-300 on navy-950 measures 9.81:1 — AAA, and far past the 3:1
+ * this would need at display size.
+ */
+const SUBHEAD = 'Zorgeloos geregeld.';
 
 /**
  * Set as a hairline row, not as a bullet list.
@@ -66,7 +98,22 @@ const HEADLINE_LINES = ['Zorgeloos', 'lang parkeren', 'op Schiphol.'] as const;
 const PROOF = [
   'Shuttle van en naar de vertrekhal inbegrepen',
   '24/7 camerabewaking en monitoring',
-  'Boek direct via de website',
+  // ── The proximity claim. Local SEO, August 2026 ──────────────────────────
+  // Replaces 'Boek direct via de website', which said nothing a visitor
+  // looking at a booking form needed to be told.
+  //
+  // The brief asked for "Op 5 minuten van Schiphol". It is deliberately NOT
+  // that. This site already publishes "5 tot 8 minuten" for the shuttle in six
+  // separate places — the FAQ, the service chooser, /onze-services/, the trust
+  // page and twice in schema-adjacent copy — and a shorter figure here would be
+  // the client's own claim disagreeing with itself, in the one row on the page
+  // whose entire job is to be checkable. So this states the published number.
+  //
+  // TODO(client): if you would rather state a DISTANCE ("op 5 minuten rijden",
+  // "3 km van de terminal"), send the figure and we will use it — but it then
+  // has to replace the 5–8 minute claim everywhere or sit clearly beside it as
+  // a different measurement. One number in two sizes is worse than either.
+  'Op 5 tot 8 minuten van de vertrekhal',
 ] as const;
 
 export function HeroSection({
@@ -262,6 +309,14 @@ export function HeroSection({
                 </span>
               ))}
             </h1>
+
+            {/* The promise. Rides in on the beat immediately after the last
+                headline line lands — 0.07 + 2 × 0.09 = 0.25s for the second
+                line, so 0.34 reads as the same gesture finishing rather than as
+                a fourth element arriving. */}
+            <motion.p {...rise(0.34)} className="text-display-md text-valet-300 mt-4">
+              {SUBHEAD}
+            </motion.p>
 
             {/* Shuttle first, and with a number attached.
 

@@ -2,7 +2,7 @@
 
 import { useId, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowRight, CarFront, KeyRound, Wallet, type LucideIcon } from 'lucide-react';
+import { ArrowRight, Wallet } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { DateField } from '@/components/ui/DateField';
 import { TimeField } from '@/components/ui/TimeField';
@@ -16,6 +16,7 @@ import {
   type BookingSelection,
   type ServiceSlug,
 } from '@/lib/booking';
+import { SERVICE_COPY } from '@/config/services';
 import { isBefore, isoToShortLabel } from '@/lib/date';
 import { DEFAULT_BOUNDS, type PickerBounds } from '@/lib/parkingpro-config';
 import { formatPrice, useLivePrice } from '@/hooks/useLivePrice';
@@ -56,41 +57,29 @@ import { cn } from '@/lib/cn';
  */
 
 /**
- * The two services, and the two things each one says on this card.
+ * The names, the mechanical note and the "Uw voordeel" line all now live in
+ * src/config/services.ts.
  *
- * `note` sits under the radios and is MECHANICAL — what physically happens to
- * the car. `usp` sits in the stub at the foot of the ticket and is the BENEFIT —
- * what the visitor gets out of that. They are deliberately not the same
- * sentence: the card would otherwise make the same point twice, once at each
- * end, and repetition at the CTA only reinforces if the words have moved on.
- *
- * The USPs are the client's own, supplied 31 July 2026, so that switching
- * service updates the stub's "Uw voordeel" line instead of leaving a standing
- * claim there. His originals opened with an emoji (🔑, 🚗); those are line icons
- * here, because the stub already sets an icon-plus-label pair in the right
- * column and a colour emoji beside it would be the only one on the site.
- *
- * His separator was "•". This uses "·", which is what the rest of this card and
- * the stub's own "AMS · 24/7" already use.
+ * They were declared here, which was right while this card was the only thing
+ * that rendered them. The two service landing pages lead with the same benefit
+ * line and the same bullets, and a second copy of the client's own words is a
+ * copy that will eventually disagree with the first.
  */
-const SERVICE_LABELS: Record<
-  ServiceSlug,
-  { name: string; note: string; usp: { icon: LucideIcon; text: string } }
-> = {
-  shuttle: {
-    name: 'Shuttle',
-    note: 'U parkeert zelf · shuttle naar de vertrekhal',
-    usp: { icon: KeyRound, text: 'Sleutels mee op reis · Gratis transfer naar Schiphol' },
-  },
-  valet: {
-    name: 'Valet',
-    note: 'Wij nemen uw auto over bij de vertrekhal',
-    usp: { icon: CarFront, text: 'Direct voor de vertrekhal · Auto wordt voor u geparkeerd' },
-  },
-};
 
 export function BookingPicker({
   notch = 'canvas',
+  /**
+   * Which service is selected on first paint.
+   *
+   * Defaults to shuttle: it is the cheaper product, it carries no minimum
+   * notice — so nothing is disabled on first render — and it is what most
+   * long-stay travellers book. Valet is one tap away.
+   *
+   * The two service landing pages override it, because a visitor who has just
+   * clicked through to a page about ONE service and is then shown a form
+   * defaulted to the other one has been asked to correct the page.
+   */
+  defaultService = 'shuttle',
   /**
    * Opening hours and defaults, read from ParkingPro's own widget config on the
    * server. Today his instance returns nulls for all of them and these are the
@@ -101,6 +90,7 @@ export function BookingPicker({
   className,
 }: {
   notch?: NotchColor;
+  defaultService?: ServiceSlug;
   bounds?: PickerBounds;
   className?: string;
 }) {
@@ -109,10 +99,7 @@ export function BookingPicker({
   const serviceLabelId = useId();
 
   const [values, setValues] = useState<BookingSelection>({
-    // Shuttle first: it is the cheaper product, it carries no minimum notice, so
-    // nothing is disabled on first render, and it is what most long-stay
-    // travellers book. Valet is one tap away.
-    service: 'shuttle',
+    service: defaultService,
     arrivalDate: '',
     arrivalTime: bounds.defaultArrivalTime,
     departureDate: '',
@@ -125,7 +112,7 @@ export function BookingPicker({
 
   // Capitalised so JSX treats it as a component rather than an <usp> element.
   // Reading it here keeps the stub's markup to the one thing that changes.
-  const Usp = SERVICE_LABELS[values.service].usp.icon;
+  const Usp = SERVICE_COPY[values.service].usp.icon;
 
   // Recomputed on render rather than held in state: it depends on the clock, and
   // a visitor who leaves the tab open over the hour boundary should not be
@@ -252,14 +239,14 @@ export function BookingPicker({
                       onChange={() => setField('service', slug)}
                       className="sr-only"
                     />
-                    {SERVICE_LABELS[slug].name}
+                    {SERVICE_COPY[slug].name}
                   </label>
                 );
               })}
             </div>
 
             <p className="text-muted mt-2.5 text-xs leading-relaxed">
-              {SERVICE_LABELS[values.service].note}
+              {SERVICE_COPY[values.service].note}
             </p>
           </fieldset>
 
@@ -374,7 +361,7 @@ export function BookingPicker({
                 // line.
                 <span className="flex items-start gap-2">
                   <Usp className="text-accent mt-0.5 size-4 shrink-0" aria-hidden />
-                  <span>{SERVICE_LABELS[values.service].usp.text}</span>
+                  <span>{SERVICE_COPY[values.service].usp.text}</span>
                 </span>
               )}
             </p>

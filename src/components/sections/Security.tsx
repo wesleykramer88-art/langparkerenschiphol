@@ -1,7 +1,8 @@
-import { Award, Lock, Video, Warehouse, type LucideIcon } from 'lucide-react';
+import { ArrowRight, Award, Lock, Video, Warehouse, type LucideIcon } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { Section } from '@/components/ui/Section';
 import { Eyebrow } from '@/components/ui/Eyebrow';
+import { Button } from '@/components/ui/Button';
 import { SectionTear } from '@/components/ui/Ticket';
 import { Photo } from '@/components/ui/Photo';
 import { Reveal, Stagger } from '@/components/motion/Reveal';
@@ -98,6 +99,23 @@ export function Security() {
             </div>
           ))}
         </Stagger>
+
+        {/* The one link out of this band, and it belongs here rather than
+            anywhere else on the homepage: this is the section that raises the
+            question "what happens to my car when I am not there", and ride
+            registration is the only answer on the site that is a system rather
+            than a claim. Valet-only, which the line says rather than leaving a
+            shuttle customer to click and find out. */}
+        <Reveal delay={160}>
+          <p className="text-navy-300 mt-10 max-w-[52ch] text-sm leading-relaxed">
+            Bij valet parking wordt daarnaast iedere rit met uw auto digitaal geregistreerd — route,
+            snelheid en duur.
+          </p>
+          <Button href="/digitale-ritregistratie/" variant="onDark" className="mt-6">
+            Bekijk de digitale ritregistratie
+            <ArrowRight data-arrow className="size-4" aria-hidden />
+          </Button>
+        </Reveal>
       </Container>
     </Section>
   );

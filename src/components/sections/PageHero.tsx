@@ -37,6 +37,7 @@ export function PageHero({
   /** Vertical crop of the photograph. Each frame has its own subject. */
   objectPosition = 'object-center',
   children,
+  aside,
 }: {
   eyebrow: string;
   title: string;
@@ -46,6 +47,24 @@ export function PageHero({
   objectPosition?: string;
   /** Buttons or a note, under the lead. */
   children?: React.ReactNode;
+  /**
+   * A card beside the copy — in practice the booking ticket, on the two service
+   * landing pages.
+   *
+   * The band stays a band: this does NOT turn the page hero into the homepage
+   * hero. No orchestrated load sequence, no near-full viewport, no animation
+   * runtime. It splits the measure and caps the copy at 46ch so the two columns
+   * do not collide, and that is the whole difference.
+   *
+   * ⚠ The 58ch lead below becomes 46ch when this is present, and that matters
+   * for contrast rather than for looks: `scrim-page` is shaped to hold its
+   * weight out to about 68% of the frame because a page hero's lead normally
+   * runs to 58ch. At 46ch the copy ends well inside that, so the measured 6.0:1
+   * still holds with margin. Widening the copy back out while a card sits
+   * beside it would put the lead over the thinning part of the scrim AND under
+   * the card. Do not.
+   */
+  aside?: React.ReactNode;
 }) {
   return (
     <section className="bg-surface-inverse relative -mt-20 overflow-hidden pt-20">
@@ -89,22 +108,40 @@ export function PageHero({
       </div>
 
       <Container className="relative">
-        <div className="flex flex-col py-12 sm:py-16 lg:py-20">
-          <Breadcrumbs crumbs={crumbs} />
+        {/* minmax(0, …) rather than bare fr — same reason as the homepage hero:
+            the ticket's stub row has a nowrap left column, so its min-content
+            exceeds a phone's width and an `auto` track would grow past the
+            container. See the note in HeroSection. */}
+        <div
+          className={
+            aside
+              ? 'grid grid-cols-[minmax(0,1fr)] items-center gap-12 py-12 sm:py-16 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16 lg:py-20'
+              : 'flex flex-col py-12 sm:py-16 lg:py-20'
+          }
+        >
+          <div className="flex flex-col items-start">
+            <Breadcrumbs crumbs={crumbs} />
 
-          <Eyebrow tone="accent" className="mt-9">
-            {eyebrow}
-          </Eyebrow>
+            <Eyebrow tone="accent" className="mt-9">
+              {eyebrow}
+            </Eyebrow>
 
-          <h1 className="text-display-xl text-heading-inverse mt-5 max-w-[18ch]">{title}</h1>
+            <h1 className="text-display-xl text-heading-inverse mt-5 max-w-[18ch]">{title}</h1>
 
-          {lead ? (
-            <p className="text-lead text-navy-100 mt-6 max-w-[58ch] text-balance">{lead}</p>
-          ) : null}
+            {lead ? (
+              <p
+                className={`text-lead text-navy-100 mt-6 text-balance ${aside ? 'max-w-[46ch]' : 'max-w-[58ch]'}`}
+              >
+                {lead}
+              </p>
+            ) : null}
 
-          {children ? (
-            <div className="mt-9 flex flex-wrap items-center gap-3">{children}</div>
-          ) : null}
+            {children ? (
+              <div className="mt-9 flex flex-wrap items-center gap-3">{children}</div>
+            ) : null}
+          </div>
+
+          {aside ? <div className="relative z-10 w-full">{aside}</div> : null}
         </div>
       </Container>
     </section>
