@@ -138,7 +138,7 @@ export default function PartnersPage() {
           Neem vrijblijvend contact op
           <ArrowRight data-arrow className="size-4" aria-hidden />
         </Button>
-        <Button href={siteConfig.phone.href} variant="onDark" size="lg">
+        <Button href={siteConfig.phone.href} variant="outline" size="lg">
           <Phone className="size-4" aria-hidden />
           <span className="sr-only">Bel ons: </span>
           <span className="numeric">{siteConfig.phone.display}</span>
@@ -189,42 +189,51 @@ export default function PartnersPage() {
 
       {/* ---------- Five reasons ----------
           Rewritten. See the note at the top of this file for what was here. */}
-      <Section tone="inverse" spacing="lg" aria-labelledby="waarom-partner-heading">
-        <div aria-hidden className="absolute inset-0 overflow-hidden">
-          <Photo
-            name="lotShuttle"
-            alt=""
-            fill
-            sizes="100vw"
-            className="absolute inset-0 h-full w-full"
-            imageClassName="object-cover object-[center_30%]"
-          />
-          <div className="scrim-band absolute inset-0" />
-        </div>
+      {/* Was a full-bleed photograph under scrim-band with glass panels over
+          it. Lightened with the rest of the site — client, August 2026:
+          "nergens donker". The photograph is not lost, it is contained and
+          ungraded beside the copy, where the plates and the shuttle are
+          actually legible; the glass went with the dark field, because glass
+          over a flat colour is a tinted box pretending to be glass.
 
+          Contrast on surface: navy-950 heading 16.90:1, ink-700 card titles
+          9.58:1, ink-500 card body 5.48:1. */}
+      <Section tone="surface" spacing="lg" aria-labelledby="waarom-partner-heading">
         <Container className="absolute inset-x-0 top-0 z-10">
-          <SectionTear notch="canvas" tone="dark" />
+          <SectionTear notch="canvas" />
         </Container>
 
         <Container className="relative">
-          <Reveal className="max-w-[30ch]">
-            <Eyebrow rule tone="accent">
-              Waarom wij
-            </Eyebrow>
-            <h2 id="waarom-partner-heading" className="text-display-lg text-heading-inverse mt-5">
-              Waarom samenwerken met Lang Parkeren Schiphol?
-            </h2>
-          </Reveal>
+          <div className="grid items-center gap-12 lg:grid-cols-[7fr_5fr] lg:gap-16">
+            <Reveal className="max-w-[30ch]">
+              <Eyebrow rule>Waarom wij</Eyebrow>
+              <h2 id="waarom-partner-heading" className="text-display-lg mt-5">
+                Waarom samenwerken met Lang Parkeren Schiphol?
+              </h2>
+            </Reveal>
+
+            <Reveal delay={80}>
+              <div className="shadow-photo relative aspect-4/3 overflow-hidden rounded-xl">
+                <Photo
+                  name="lotShuttle"
+                  fill
+                  sizes="(min-width: 1024px) 28rem, 100vw"
+                  className="absolute inset-0 h-full w-full"
+                  imageClassName="object-cover object-[center_35%]"
+                />
+              </div>
+            </Reveal>
+          </div>
 
           <Stagger as="ul" className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {REASONS.map((reason) => (
               <div
                 key={reason.title}
-                className="glass-dark flex h-full flex-col gap-4 rounded-xl px-6 py-7"
+                className="border-line bg-canvas flex h-full flex-col gap-4 rounded-xl border px-6 py-7"
               >
-                <reason.icon className="text-valet-400 size-6" strokeWidth={1.75} aria-hidden />
-                <h3 className="text-heading-inverse text-base font-semibold">{reason.title}</h3>
-                <p className="text-navy-200 text-sm leading-relaxed">{reason.body}</p>
+                <reason.icon className="text-accent size-6" strokeWidth={1.75} aria-hidden />
+                <h3 className="text-heading text-base font-semibold">{reason.title}</h3>
+                <p className="text-muted text-sm leading-relaxed">{reason.body}</p>
               </div>
             ))}
           </Stagger>

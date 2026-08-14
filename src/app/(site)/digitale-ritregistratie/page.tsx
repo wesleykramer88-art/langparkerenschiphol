@@ -73,7 +73,7 @@ const STEPS: readonly TimelineStep[] = [
   },
   {
     title: 'Terugrit opnieuw geregistreerd',
-    body: 'De rit terug naar de aankomsthal wordt op dezelfde manier vastgelegd.',
+    body: 'De rit terug naar de Vertrekpassage wordt op dezelfde manier vastgelegd.',
   },
 ];
 
@@ -90,7 +90,7 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Wordt iedere rit geregistreerd?',
     answer:
-      'Ja. Iedere valetrit wordt digitaal geregistreerd — zowel de rit van de vertrekhal naar onze parkeerlocatie als de rit terug naar de aankomsthal. Bij shuttle parkeren rijdt niemand anders in uw auto, dus daar is dit niet van toepassing.',
+      'Ja. Iedere valetrit wordt digitaal geregistreerd — zowel de rit van de vertrekhal naar onze parkeerlocatie als de rit terug. U geeft uw auto af en krijgt hem terug op dezelfde plek, tussen Vertrekhal 2 en 3. Bij shuttle parkeren rijdt niemand anders in uw auto, dus daar is dit niet van toepassing.',
   },
   {
     question: 'Wordt mijn locatie gedeeld?',
@@ -132,7 +132,7 @@ export default function RideRegistrationPage() {
           Reserveer veilig
           <ArrowRight data-arrow className="size-4" aria-hidden />
         </Button>
-        <Button href="/valet-parking-schiphol/" variant="onDark" size="lg">
+        <Button href="/valet-parking-schiphol/" variant="outline" size="lg">
           Over valet parking
         </Button>
       </PageHero>

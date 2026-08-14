@@ -56,12 +56,13 @@ const EASE = [0.16, 1, 0.3, 1] as const;
  * "Zorgeloos" is not lost — it moves to SUBHEAD below, where it reads as the
  * promise rather than as the first thing the page says about itself.
  *
- * ⚠ SCRIM. Two lines now, not three, and no line is wider than "lang parkeren"
- * was — so the copy column neither widens nor extends, and `scrim-hero`'s
- * measurements still hold exactly (64.5% navy where the 46ch lead ends). Do NOT
- * re-tune the gradient for this change; there is nothing to re-tune for. If a
- * future H1 runs LONGER than these lines, re-measure — see the utility's own
- * note in globals.css for how and why.
+ * ⚠ SCRIM. Two lines, not three, and no line wider than "lang parkeren" was, so
+ * this copy change on its own neither widened nor extended the copy column.
+ * The gradient WAS re-cut afterwards, for a different reason — the client asked
+ * for a lighter hero — and every stop is now measured against the real
+ * composited frame. If a future H1 runs longer than these lines, re-measure;
+ * `scrim-hero` in globals.css says how, and warns against the shortcut that
+ * produced the wrong numbers the first time.
  */
 const HEADLINE_LINES = ['Lang Parkeren', 'op Schiphol'] as const;
 
@@ -70,12 +71,14 @@ const HEADLINE_LINES = ['Lang Parkeren', 'op Schiphol'] as const;
  *
  * Set at display-md rather than as another lead paragraph: it is a tagline, and
  * a tagline that shares the lead's size and weight simply reads as a first
- * sentence that failed to say anything. In valet-300 on the hero's navy, the
- * same colour the eyebrow uses, so the two brand-voice lines above and below the
- * headline belong to each other.
+ * sentence that failed to say anything.
  *
- * Contrast: valet-300 on navy-950 measures 9.81:1 — AAA, and far past the 3:1
- * this would need at display size.
+ * It is the last valet-300 element left in the hero — the eyebrow above it went
+ * white when the scrim was lightened — which makes it the accent's only
+ * appearance in the copy column, and also the tightest measurement in the band:
+ * 3.38:1 over the real composited frame, against the 3.0 a 40px bold line
+ * needs. That figure is what stopped the scrim going lighter still. If you
+ * change this colour or this size, re-measure the whole band.
  */
 const SUBHEAD = 'Zorgeloos geregeld.';
 
@@ -254,8 +257,52 @@ export function HeroSection({
             open through the middle where the van is, and closing to solid navy
             at the foot so the band's bottom edge dissolves into the section
             rather than ending on a line. */}
-        <div className="from-navy-950/72 via-navy-950/52 to-navy-950 absolute inset-0 bg-linear-to-b lg:hidden" />
+        {/* Mobile. Lightened with the desktop ramp — 72/52 became 62/38 — but
+            it still CLOSES on navy-950, and that is not an oversight. Below lg
+            the photograph occupies the top band only and the rest of the
+            section is the flat navy behind it, so this gradient has to land on
+            that colour or it draws a line across the middle of the hero.
+            ⚠ That flat lower half is the one genuinely dark area left on the
+            homepage. Making it light means changing the mobile hero's LAYOUT,
+            not this gradient — see the note at the top of this component. */}
+        <div className="from-navy-950/62 via-navy-950/38 to-navy-950 absolute inset-0 bg-linear-to-b lg:hidden" />
         <div className="scrim-hero absolute inset-0 hidden lg:block" />
+
+        {/* ---------- The header's own scrim ----------
+            The site header is transparent on '/' and only on '/' (see
+            HeaderShell), so the nav, the wordmark and the phone number are
+            light type sitting directly on this photograph.
+
+            Lightening the hero broke them. The old ramp opened at 58% navy at
+            the top of the frame and carried the bar for free; at 41% it does
+            not. Measured over the real composited hero, the nav ran from
+            4.37:1 down to 2.11:1 against a 4.5 floor — worst at the right-hand
+            end, where the gradient is thinnest and "Contact" and "Inloggen"
+            sit over bright terminal glazing.
+
+            The fix is local. Re-darkening the hero to carry the bar would undo
+            the entire point of the re-cut, so this is a 128px band behind the
+            header only: opaque enough at the very top for 15px type, gone by
+            the time it reaches the eyebrow. It reads as chrome, not as part of
+            the picture.
+
+            ⚠ Tied to the header's height. The bar is h-20 (80px) and shrinks to
+            4.5rem on scroll; at lg this is h-32 (128px) so the fade completes
+            below it. If the header gets taller, this grows with it.
+
+            ── Why it is TALLER below lg ──────────────────────────────────────
+            On a phone the eyebrow wraps to three lines and runs to about
+            y=190, i.e. straight past a 128px band and into the brightest part
+            of the frame. Measured per line, its last two ran 3.62:1 and
+            3.48:1 against a 4.5 floor.
+            The alternative was re-darkening the whole mobile gradient, which
+            costs the entire photograph to protect one 12px line. At h-48
+            (192px) the strip covers the header AND the eyebrow, every line
+            clears 4.5, and the mobile ramp stays at the lighter 62/38. */}
+        <div
+          aria-hidden
+          className="from-navy-950/88 via-navy-950/46 absolute inset-x-0 top-0 h-48 bg-linear-to-b to-transparent lg:h-32"
+        />
       </div>
 
       <Container className="relative">
@@ -284,7 +331,19 @@ export function HeroSection({
                 route — an internal rhyme rather than a new decoration. */}
             <motion.div {...rise(0)} className="flex items-center gap-3">
               <span aria-hidden className="bg-valet-400 size-2 shrink-0 rotate-45 rounded-xs" />
-              <p className="eyebrow text-valet-300">
+              {/* ── This line WAS valet-300, and that was the single thing
+                  stopping the scrim from being lightened at all ────────────
+                  Measured over the real composited hero at 1440×800, the
+                  valet-300 eyebrow was the binding constraint on the whole
+                  band: 4.98:1 against a 4.5 floor, i.e. 0.48 of margin, while
+                  the lead had 9.31:1 against the same floor. Every candidate
+                  ramp that meaningfully opened the photograph pushed this one
+                  line under AA before anything else came close.
+                  The orange has NOT left the row — the diamond beside it is
+                  still valet-400. What changed is the 12px type, which is the
+                  size at which a mid-ramp accent on a photograph was always
+                  going to be the first thing to fail. */}
+              <p className="eyebrow text-paper-50">
                 <span className="numeric">{siteConfig.yearsActive}+</span> jaar op Schiphol ·
                 Duizenden reizigers per jaar
               </p>
@@ -339,7 +398,15 @@ export function HeroSection({
                 already speaks in the eyebrow and the ticket stub. */}
             <motion.ul
               {...rise(0.51)}
-              className="border-line-inverse mt-9 grid w-full max-w-2xl gap-3 border-t pt-6 sm:grid-cols-3 sm:gap-x-6"
+              // max-w-lg, not max-w-2xl. The row used to run 672px wide, which
+              // at 1440 put its last item at 57% across the frame — out where
+              // the scrim has thinned to let the van and the Departures sign
+              // through. That one row was holding the entire right half of the
+              // gradient up: it needed 4.5:1 at 14px in a part of the picture
+              // the whole re-cut exists to open. At 512px it ends around 46%,
+              // inside the flat part of the ramp, and the tail is free.
+              // If you widen this again, re-measure the scrim. See globals.css.
+              className="border-line-inverse mt-9 grid w-full max-w-lg gap-3 border-t pt-6 sm:grid-cols-3 sm:gap-x-5"
             >
               {PROOF.map((item) => (
                 <li key={item} className="text-navy-100 flex items-start gap-2.5">

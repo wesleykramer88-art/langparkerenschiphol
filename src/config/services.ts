@@ -10,6 +10,7 @@ import {
   Zap,
   type LucideIcon,
 } from 'lucide-react';
+import { siteConfig } from '@/config/site';
 import type { ServiceSlug } from '@/lib/booking';
 
 /**
@@ -78,7 +79,7 @@ export const SERVICE_COPY: Record<ServiceSlug, ServiceCopy> = {
       { icon: LayoutGrid, text: 'Duidelijk en strak georganiseerd' },
       { icon: ShieldCheck, text: 'Veilig terrein, betrouwbare service' },
     ],
-    where: 'Tupolevlaan 39, Schiphol-Rijk',
+    where: `${siteConfig.address.street}, ${siteConfig.address.locality}`,
     href: '/shuttle-parkeren-schiphol/',
   },
   valet: {
@@ -92,7 +93,10 @@ export const SERVICE_COPY: Record<ServiceSlug, ServiceCopy> = {
       { icon: Handshake, text: 'Professionele overdracht van uw auto' },
       { icon: BadgeCheck, text: 'Comfort en zekerheid zonder stress' },
     ],
-    where: 'Vertrekpassage, Vertrekhal 1e verdieping',
+    // Read from the one place the handover point is defined. It used to be
+    // retyped here, and when the client corrected it to "tussen Vertrekhal 2
+    // en 3" this copy kept saying the old thing on the homepage.
+    where: siteConfig.valetHandover.display,
     href: '/valet-parking-schiphol/',
   },
 };

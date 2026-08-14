@@ -116,9 +116,27 @@ export const siteConfig = {
    */
   valetHandover: {
     street: 'Vertrekpassage',
-    detail: 'Vertrekhal, 1e verdieping',
+    detail: 'Vertrekhal, 1e verdieping — tussen Vertrekhal 2 en 3',
     locality: 'Schiphol',
-    display: 'Vertrekpassage, Schiphol — Vertrekhal, 1e verdieping',
+    display: 'Vertrekpassage op Schiphol, tussen Vertrekhal 2 en 3',
+    /**
+     * ── BOTH DIRECTIONS HAPPEN HERE. THIS IS NOT THE ARRIVALS HALL ───────────
+     * Client correction, August 2026. A valet customer hands the car over
+     * between Vertrekhal 2 and 3, and gets it back in the SAME place. There is
+     * no arrivals-hall leg at any point.
+     *
+     * The site had it wrong in five places — the valet page's own timeline, its
+     * body copy, two answers on /digitale-ritregistratie/ and one on
+     * /veilig-parkeren-schiphol/ all said the car comes back to the
+     * "aankomsthal". That is the kind of error a customer only discovers while
+     * standing in the wrong hall with luggage after a flight, so it is stated
+     * here once and every page reads it from here.
+     *
+     * ⚠ Do not confuse this with the SHUTTLE return. A shuttle customer is a
+     * passenger being collected after landing, not a car being delivered, and
+     * where that pickup happens is a separate question — see the TODO below.
+     */
+    returnNote: 'U krijgt uw auto op dezelfde plek terug: tussen Vertrekhal 2 en 3.',
   },
 
   /** Amsterdam Airport Schiphol. Used for geo in ParkingFacility schema. */

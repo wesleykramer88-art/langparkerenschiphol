@@ -103,7 +103,7 @@ export default function CheapShuttlePage() {
         <Button href="/tarieven/" size="lg">
           Bereken uw prijs
         </Button>
-        <Button href="/shuttle-parkeren-schiphol/" variant="onDark" size="lg">
+        <Button href="/shuttle-parkeren-schiphol/" variant="outline" size="lg">
           Hoe shuttle parkeren werkt
         </Button>
       </PageHero>

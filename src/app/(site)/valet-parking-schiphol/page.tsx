@@ -52,7 +52,7 @@ const STEPS: readonly TimelineStep[] = [
   },
   {
     title: 'Rijd naar de vertrekhal.',
-    body: 'U rijdt rechtstreeks naar de Vertrekpassage op Schiphol — vertrekhal, eerste verdieping.',
+    body: 'U rijdt rechtstreeks naar de Vertrekpassage op Schiphol, tussen Vertrekhal 2 en 3.',
   },
   {
     title: 'Onze chauffeur wacht u op.',
@@ -67,8 +67,8 @@ const STEPS: readonly TimelineStep[] = [
     body: 'Uw auto gaat naar onze beveiligde locatie. De rit ernaartoe wordt digitaal geregistreerd.',
   },
   {
-    title: 'Terug bij de aankomsthal.',
-    body: 'Bel na de landing. Uw auto staat bij de hal en de terugrit is opnieuw geregistreerd.',
+    title: 'Terug tussen Vertrekhal 2 en 3.',
+    body: 'Bel na de landing. Uw auto staat op dezelfde plek als bij vertrek, en de terugrit is opnieuw geregistreerd.',
   },
 ];
 
@@ -91,6 +91,10 @@ const FAQS: readonly FaqItem[] = [
     question: 'Wordt de staat van mijn auto vastgelegd?',
     answer:
       'Ja. Voordat wij uw auto overnemen, wordt de staat ervan samen met u vastgelegd. Zo is voor beide partijen duidelijk hoe de auto is afgegeven, en dat is bij terugkomst het uitgangspunt.',
+  },
+  {
+    question: 'Waar krijg ik mijn auto terug?',
+    answer: `${siteConfig.valetHandover.returnNote} Afgifte en teruggave gebeuren allebei bij de vertrekhal — u hoeft dus na de landing niet naar een aankomsthal of naar een parkeerterrein. Bel ons zodra u geland bent, dan staat de auto klaar wanneer u buiten komt.`,
   },
   {
     question: 'Wie rijdt er in mijn auto?',
@@ -138,7 +142,7 @@ export default async function ValetParkingPage() {
         paragraphs={[
           `U rijdt naar de ${siteConfig.valetHandover.display}. Onze chauffeur staat daar op u te wachten en heeft uw gegevens al digitaal ontvangen: welke auto, welke vlucht, hoe laat u terugkomt.`,
           'Samen loopt u langs de auto en wordt de staat ervan vastgelegd. Daarna neemt hij de sleutel over en tekent u voor de overdracht. Vanaf dat moment loopt u door naar de incheckbalie, en gaat uw auto naar onze beveiligde parkeerlocatie.',
-          'De rit ernaartoe is geen blinde vlek. Route, snelheid en duur worden digitaal geregistreerd, zodat achteraf inzichtelijk is wat er met uw auto is gebeurd — ook de terugrit, wanneer hij weer naar de aankomsthal wordt gebracht.',
+          'De rit ernaartoe is geen blinde vlek. Route, snelheid en duur worden digitaal geregistreerd, zodat achteraf inzichtelijk is wat er met uw auto is gebeurd — ook de terugrit, wanneer hij weer naar de Vertrekpassage wordt gebracht.',
         ]}
         photo="crewTerminal"
         objectPosition="object-[center_30%]"

@@ -290,6 +290,7 @@ export default async function ShuttleParkingPage() {
           'Afgesloten en gecontroleerd parkeerterrein',
           '24/7 camerabewaking en monitoring',
           'Overdekte plaatsen beschikbaar, in beperkt aantal',
+          'Laadpunten aanwezig voor elektrische auto\u2019s',
           'U parkeert zelf en houdt uw autosleutel',
         ]}
       >

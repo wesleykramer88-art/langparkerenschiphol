@@ -162,7 +162,7 @@ export default function ServicesPage() {
           Reserveer nu
           <ArrowRight data-arrow className="size-4" aria-hidden />
         </Button>
-        <Button href="/tarieven/" variant="onDark" size="lg">
+        <Button href="/tarieven/" variant="outline" size="lg">
           Bekijk tarieven
         </Button>
       </PageHero>
@@ -195,52 +195,52 @@ export default function ServicesPage() {
       <ServiceSection service={SERVICES[1]} reversed />
 
       {/* ---------- Safety ----------
-          Navy and typographic. The homepage already spends a full-bleed
-          photograph and the site's only glassmorphism on exactly this argument;
-          repeating that treatment here would make the stronger of the two
-          weaker. A departure-board list on a flat navy field says the same
-          thing in this page's own voice. */}
-      <Section tone="inverse" spacing="lg" aria-labelledby="veiligheid-heading">
+          Typographic, on the accent wash. It was a flat navy field, on the
+          reasoning that the homepage already spends a photograph and the site's
+          only glassmorphism on this same argument and a second photographic
+          treatment would weaken the stronger of the two. That reasoning holds;
+          only the colour changed, because the client asked for no dark sections
+          anywhere ("nergens donker").
+
+          The wash rather than plain surface: this page runs canvas, white,
+          canvas, and a fourth plain band would disappear into the stack. Used
+          once per page, which is the rule on it.
+
+          Contrast on valet-100: navy-950 heading 14.90:1 AAA, ink-700 items
+          8.44:1 AAA, ink-500 note 4.66:1 AA. */}
+      <Section tone="accent" spacing="lg" aria-labelledby="veiligheid-heading">
         <Container>
           <div className="grid gap-12 lg:grid-cols-[5fr_7fr] lg:gap-20">
             <Reveal>
-              <Eyebrow rule tone="accent">
-                Veiligheid &amp; Kwaliteit
-              </Eyebrow>
-              <h2
-                id="veiligheid-heading"
-                className="text-display-lg text-heading-inverse mt-5 max-w-[14ch]"
-              >
+              <Eyebrow rule>Veiligheid &amp; Kwaliteit</Eyebrow>
+              <h2 id="veiligheid-heading" className="text-display-lg mt-5 max-w-[14ch]">
                 Altijd veilig parkeren bij Schiphol.
               </h2>
-              <p className="text-lead text-navy-100 mt-6 max-w-[40ch]">
+              <p className="text-lead text-body mt-6 max-w-[40ch]">
                 Welke service u ook kiest, uw auto is bij ons altijd in goede handen.
               </p>
             </Reveal>
 
             <div>
-              <Stagger
-                as="ul"
-                className="divide-line-inverse border-line-inverse divide-y border-y"
-              >
+              <Stagger as="ul" className="divide-valet-200 border-valet-200 divide-y border-y">
                 {SAFETY.map((item) => (
                   <div key={item} className="flex items-start gap-5 py-5">
                     <Check
-                      className="text-valet-400 mt-1 size-5 shrink-0"
+                      className="text-accent-hover mt-1 size-5 shrink-0"
                       strokeWidth={2.5}
                       aria-hidden
                     />
-                    <span className="text-heading-inverse text-base sm:text-lg">{item}</span>
+                    <span className="text-heading text-base sm:text-lg">{item}</span>
                   </div>
                 ))}
               </Stagger>
 
               <Reveal>
-                <p className="text-navy-300 mt-8 max-w-[52ch] text-sm leading-relaxed">
+                <p className="text-muted mt-8 max-w-[52ch] text-sm leading-relaxed">
                   Wij combineren jarenlange ervaring met moderne technologie om u maximale zekerheid
                   te bieden.
                 </p>
-                <Button href="/waarom-lang-parkeren-schiphol/" variant="onDark" className="mt-7">
+                <Button href="/waarom-lang-parkeren-schiphol/" variant="outline" className="mt-7">
                   Lees hoe wij uw auto beveiligen
                   <ArrowRight data-arrow className="size-4" aria-hidden />
                 </Button>

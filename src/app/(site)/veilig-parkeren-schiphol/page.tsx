@@ -1,4 +1,4 @@
-import { Award, Lock, Video, Warehouse, type LucideIcon } from 'lucide-react';
+import { Award, Lock, PlugZap, Video, Warehouse, type LucideIcon } from 'lucide-react';
 import { createMetadata } from '@/lib/seo';
 import { jsonLd, breadcrumbSchema, type FaqItem } from '@/lib/schema';
 import { Container } from '@/components/ui/Container';
@@ -59,6 +59,13 @@ const MEASURES: readonly { icon: LucideIcon; label: string; body: string }[] = [
     label: 'Vakbekwame chauffeurs',
     body: 'Rijdt er iemand in uw auto, dan is dat een van onze eigen chauffeurs — en wordt die rit digitaal geregistreerd.',
   },
+  {
+    // See the note on the same item in components/sections/Security.tsx: the
+    // claim is kept to what we actually know until the client sends specifics.
+    icon: PlugZap,
+    label: 'Elektrisch opladen',
+    body: 'Rijdt u elektrisch? Er zijn laadpunten op onze eigen parkeerlocatie.',
+  },
 ];
 
 const FAQS: readonly FaqItem[] = [
@@ -70,7 +77,7 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Weet ik waar mijn auto staat?',
     answer:
-      'Bij shuttle parkeren wel, want u zet hem zelf neer en u houdt de sleutel — hij staat bij terugkomst waar u hem heeft achtergelaten. Bij valet parking parkeert onze chauffeur hem op onze beveiligde locatie en staat hij bij uw terugkomst weer klaar bij de aankomsthal.',
+      'Bij shuttle parkeren wel, want u zet hem zelf neer en u houdt de sleutel — hij staat bij terugkomst waar u hem heeft achtergelaten. Bij valet parking parkeert onze chauffeur hem op onze beveiligde locatie en staat hij bij uw terugkomst weer klaar op de Vertrekpassage, tussen Vertrekhal 2 en 3 — dezelfde plek als waar u hem heeft afgegeven.',
   },
   {
     question: 'Wie rijdt er in mijn auto bij valet parking?',
@@ -98,6 +105,11 @@ const FAQS: readonly FaqItem[] = [
       'Wij volgen de actuele vluchtinformatie en passen de ophaaltijd indien nodig aan. Bij een vertraging of een vervroegde landing zorgen wij dat u wordt opgehaald en dat uw auto beschikbaar is.',
   },
   {
+    question: 'Kan ik mijn elektrische auto opladen?',
+    answer:
+      'Op onze parkeerlocatie zijn laadpunten aanwezig. Geef bij het reserveren even door dat u elektrisch rijdt, dan houden wij daar rekening mee.',
+  },
+  {
     question: 'Hoe lang bestaat dit bedrijf al?',
     answer: `Wij verzorgen al meer dan ${siteConfig.yearsActive} jaar valet en shuttle parkeren op Schiphol, voor duizenden reizigers per jaar.`,
   },
@@ -117,7 +129,7 @@ export default function SafeParkingPage() {
         <Button href="/reservering/" size="lg">
           Reserveer uw plek
         </Button>
-        <Button href="/waarom-lang-parkeren-schiphol/" variant="onDark" size="lg">
+        <Button href="/waarom-lang-parkeren-schiphol/" variant="outline" size="lg">
           Waarom ons
         </Button>
       </PageHero>
@@ -200,7 +212,7 @@ export default function SafeParkingPage() {
         title="Wat er gebeurt op de dag dat u terugkomt"
         paragraphs={[
           'Wij volgen de actuele vluchtinformatie, dus een vertraging of een vervroegde landing is bij ons bekend voordat u belt. Toch vragen wij u om direct na de landing even contact op te nemen — dan weten wij dat u er werkelijk bent, en niet alleen dat uw vlucht dat is.',
-          'Bij shuttle parkeren haalt de shuttle u op bij de aankomsthal en brengt u terug naar het terrein, waar uw auto staat waar u hem heeft achtergelaten. Bij valet parking staat uw auto weer klaar bij de luchthaven en krijgt u uw sleutels persoonlijk terug.',
+          'Bij shuttle parkeren haalt de shuttle u op en brengt u terug naar het terrein, waar uw auto staat waar u hem heeft achtergelaten. Bij valet parking staat uw auto weer klaar op de Vertrekpassage, tussen Vertrekhal 2 en 3, en krijgt u uw sleutels persoonlijk terug.',
         ]}
       />
 

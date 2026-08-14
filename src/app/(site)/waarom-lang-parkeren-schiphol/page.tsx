@@ -207,7 +207,7 @@ export default function WhyPage() {
           Reserveer nu
           <ArrowRight data-arrow className="size-4" aria-hidden />
         </Button>
-        <Button href="#wat-als" variant="onDark" size="lg">
+        <Button href="#wat-als" variant="outline" size="lg">
           Wat als er iets misgaat?
         </Button>
       </PageHero>
@@ -253,7 +253,12 @@ export default function WhyPage() {
                     because it is the reason this page exists — the homepage
                     already says the four steps are easy. */}
                 <div className="border-line lg:border-l lg:pl-12">
-                  <p className="eyebrow text-accent">Uw auto</p>
+                  {/* text-brand, not text-accent. valet-600 at 12px on the canvas is
+                      2.99:1 — it fails AA, and it was failing before this pass
+                      too; the ramp's own note in globals.css restricts it to
+                      >=24px display text, icons and non-text borders. navy-600
+                      is 6.29:1 here. */}
+                  <p className="eyebrow text-brand">Uw auto</p>
                   <p className="text-body mt-3 max-w-[44ch] leading-relaxed">{step.car}</p>
                 </div>
               </Reveal>
@@ -263,38 +268,36 @@ export default function WhyPage() {
       </Section>
 
       {/* ══════════ SECURITY & INSURANCE ══════════ */}
-      <Section tone="inverse" spacing="lg" aria-labelledby="beveiliging-heading">
+      {/* Was navy. Lightened with the rest of the site — client, August 2026:
+          "nergens donker". The section keeps its weight through width and
+          through the six measures it lists, not through its background.
+          Contrast on surface: navy-950 headings 16.90:1, ink-700 body 9.58:1,
+          ink-500 supporting 5.48:1. */}
+      <Section tone="surface" spacing="lg" aria-labelledby="beveiliging-heading">
         <Container>
           <div className="grid gap-12 lg:grid-cols-[5fr_7fr] lg:gap-20">
             <Reveal className="lg:sticky lg:top-32 lg:self-start">
-              <Eyebrow rule tone="accent">
-                Beveiliging
-              </Eyebrow>
-              <h2
-                id="beveiliging-heading"
-                className="text-display-lg text-heading-inverse mt-5 max-w-[16ch]"
-              >
+              <Eyebrow rule>Beveiliging</Eyebrow>
+              <h2 id="beveiliging-heading" className="text-display-lg mt-5 max-w-[16ch]">
                 Zes maatregelen, geen van alle vrijblijvend
               </h2>
-              <p className="text-navy-200 mt-6 max-w-[42ch] leading-relaxed">
+              <p className="text-body mt-6 max-w-[42ch] leading-relaxed">
                 Dit is wat er concreet geregeld is rond uw voertuig — niet als geruststelling, maar
                 als opsomming van wat er staat, draait en wordt vastgelegd.
               </p>
             </Reveal>
 
-            <Stagger as="ul" className="divide-line-inverse border-line-inverse divide-y border-y">
+            <Stagger as="ul" className="divide-line border-line divide-y border-y">
               {MEASURES.map((measure) => (
                 <div key={measure.title} className="flex items-start gap-5 py-6">
                   <measure.icon
-                    className="text-valet-400 mt-0.5 size-6 shrink-0"
+                    className="text-accent mt-0.5 size-6 shrink-0"
                     strokeWidth={1.75}
                     aria-hidden
                   />
                   <div>
-                    <h3 className="text-heading-inverse text-base font-semibold">
-                      {measure.title}
-                    </h3>
-                    <p className="text-navy-200 mt-2 max-w-[52ch] text-sm leading-relaxed">
+                    <h3 className="text-heading text-base font-semibold">{measure.title}</h3>
+                    <p className="text-muted mt-2 max-w-[52ch] text-sm leading-relaxed">
                       {measure.body}
                     </p>
                   </div>
@@ -324,21 +327,19 @@ export default function WhyPage() {
             page: "verzekerd tot € X via Y" answers the question the reader is
             actually asking, and no competitor on this keyword states it.
           */}
-          <Reveal className="border-line-inverse mt-16 border-t pt-10">
-            <h3 className="text-heading-inverse text-lg font-semibold">
-              Verzekering en aansprakelijkheid
-            </h3>
-            <p className="text-navy-200 mt-4 max-w-[68ch] leading-relaxed">
+          <Reveal className="border-line mt-16 border-t pt-10">
+            <h3 className="text-heading text-lg font-semibold">Verzekering en aansprakelijkheid</h3>
+            <p className="text-body mt-4 max-w-[68ch] leading-relaxed">
               Wat er precies geldt terwijl uw auto bij ons staat — waarvoor wij aansprakelijk zijn
               en onder welke voorwaarden — is vastgelegd in onze algemene voorwaarden. Heeft u hier
               vooraf een concrete vraag over, bel ons dan even; wij beantwoorden die liever
               persoonlijk dan met een algemene zin op een website.
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-3">
-              <Button href={termsUrl} variant="onDark">
+              <Button href={termsUrl} variant="outline">
                 Lees de algemene voorwaarden
               </Button>
-              <Button href="/contact/" variant="onDark">
+              <Button href="/contact/" variant="outline">
                 Stel uw vraag
               </Button>
             </div>
