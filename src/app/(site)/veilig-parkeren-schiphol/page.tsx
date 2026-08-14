@@ -144,15 +144,17 @@ export default function SafeParkingPage() {
         ]}
       />
 
-      {/* ---------- The four measures ----------
-          The same four the homepage security band names, in the same words, but
-          typographic instead of glass-on-photograph. See the note at the top. */}
+      {/* ---------- The five measures ----------
+          The same five the homepage security band names, in the same words, but
+          typographic instead of glass-on-photograph. See the note at the top.
+          ⚠ The heading below counts them. It said "Vier" for one pass after the
+          EV measure was added, which is the sort of thing nobody reads twice. */}
       <Section tone="surface" spacing="lg" aria-labelledby="maatregelen-heading">
         <Container>
           <Reveal className="max-w-[36ch]">
             <Eyebrow rule>Wat er geregeld is</Eyebrow>
             <h2 id="maatregelen-heading" className="text-display-md mt-5">
-              Vier dingen die op orde zijn
+              Vijf dingen die op orde zijn
             </h2>
           </Reveal>
 
@@ -173,6 +175,41 @@ export default function SafeParkingPage() {
           </Stagger>
         </Container>
       </Section>
+
+      {/* ---------- Elektrisch opladen ----------
+          The EV claim appears twice on this page already — as a measure above
+          and as an FAQ below — and until now had nothing behind it. This is the
+          client's own charger, his own garage, and a member of his own crew
+          plugging in.
+
+          The copy stays as thin as it was: that laadpunten exist, on his own
+          location, and that it helps to say so when booking. How many there
+          are, what a charge costs and whether it must be requested are still
+          unknown, and an EV driver asks all three. See the TODO at the measure
+          in components/sections/Security.tsx.
+
+          <ContentSection> renders 4:3, same ratio as the homepage band, so this
+          needs the same kind of crop from a 3:2 frame — object-[42%] rather
+          than the homepage's 38%, which is as far right as the charge point can
+          go before its left edge starts to clip.
+
+          `reversed` puts the photograph on the right. That is about the page's
+          own rhythm, not about this section: the prose band above it carries no
+          image and the zelf-parkeren band below it sets its photograph on the
+          left, so an un-reversed frame here would stack two left-hand images
+          with only a text block between them. */}
+      <ContentSection
+        id="opladen"
+        eyebrow="Elektrisch rijden"
+        title="Laadpunten op onze eigen parkeerlocatie"
+        paragraphs={[
+          'Rijdt u elektrisch, dan hoeft u onderweg naar Schiphol geen omweg te maken om nog even te laden. Op onze eigen parkeerlocatie zijn laadpunten aanwezig.',
+          'Geef bij het reserveren even door dat u elektrisch rijdt. Dan houden wij daar rekening mee bij het toewijzen van uw plek, en staat u niet bij aankomst te zoeken.',
+        ]}
+        photo="evCharging"
+        objectPosition="object-[42%_50%]"
+        reversed
+      />
 
       <ContentSection
         id="zelf-parkeren"

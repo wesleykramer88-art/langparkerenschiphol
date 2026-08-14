@@ -126,18 +126,30 @@ export function Security() {
             </Button>
           </Reveal>
 
-          {/* His own terrain: rows of Dutch yellow plates with the orange
-              shuttle along the top of the frame. It used to run full-bleed
-              under a heavy navy scrim; contained and ungraded, the plates and
-              the bus are actually legible. */}
+          {/* ── The EV frame, and why it took this slot ─────────────────────
+              This was `lotShuttle` — his terrain under the shuttle. It moved
+              aside for `evCharging` because the EV claim is the newest thing on
+              this band and was the only measure here with nothing behind it:
+              four of the five are states of a car park, which the terrain photo
+              showed adequately, while "elektrisch opladen" was an assertion.
+              Now it is a photograph of his own charger, his own garage and his
+              own staff member plugging in.
+
+              The terrain is not lost — it still carries /veilig-parkeren-
+              schiphol/, the shuttle page's hero and the samenwerken band.
+
+              The frame is 3:2 and this slot is 4:3, so the crop trims the
+              sides. object-[38%_50%] keeps the charge point and the connector —
+              the part that makes the point — inside the frame; centred, the
+              charger's left edge falls off. */}
           <Reveal delay={80}>
             <div className="shadow-photo relative aspect-4/3 overflow-hidden rounded-xl">
               <Photo
-                name="lotShuttle"
+                name="evCharging"
                 fill
                 sizes="(min-width: 1024px) 34rem, 100vw"
                 className="absolute inset-0 h-full w-full"
-                imageClassName="object-cover object-[center_35%]"
+                imageClassName="object-cover object-[38%_50%]"
               />
             </div>
           </Reveal>

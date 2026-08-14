@@ -152,6 +152,15 @@ export default function CheapShuttlePage() {
         paragraphs={[
           'U reserveert vooraf online en geeft door wanneer u aankomt en wanneer u terugkomt. Op de dag zelf rijdt u naar ons terrein aan de Tupolevlaan in Schiphol-Rijk — niet naar de terminal, dat is bij deze service een veelgemaakte vergissing.',
           'U parkeert uw auto zelf op de plek die u krijgt aangewezen en neemt uw autosleutel mee. De shuttlebus brengt u in 5 tot 8 minuten naar de vertrekhal, waar u gewoon door kunt lopen naar de incheckbalie.',
+          // TODO(client): SHUTTLE PICKUP LOCATION — UNCONFIRMED.
+          // The valet flow was corrected in August 2026: a valet car is handed over
+          // AND returned between Vertrekhal 2 and 3, never at arrivals. Whether the
+          // SHUTTLE collects a landed passenger at the aankomsthal or at that same
+          // departures point has not been answered, so this line is deliberately
+          // LEFT AS IT WAS rather than guessed at.
+          // There are five of these across the site — this file, zelf-parkeren,
+          // goedkoop-shuttle, zonder-sleutel (x2). Search "aankomsthal" and fix
+          // them together in one pass when the answer comes back.
           'Bij terugkomst belt u ons zodra u door de bagagehal bent. De shuttle haalt u op bij de aankomsthal en brengt u terug naar het terrein, waar uw auto staat waar u hem heeft achtergelaten.',
         ]}
       >

@@ -248,14 +248,31 @@ export default function RideRegistrationPage() {
           The layout is deliberately uneven: one tall frame and two stacked, so
           it does not read as a three-up grid of interchangeable tiles.
 
-          ⚠ There is no sleutelkluis photograph in the library, and the brief
-          asked for one. It is left out rather than substituted.
-          TODO(client): a frame of the brandwerende kluis on kantoor would be the
+          ── The lead frame is new, and it is the one this page wanted ──────
+          `crewPaperwork`, supplied 14 August 2026: the chauffeur on his own
+          terrain with a reservation's paperwork in his hand and the shuttle
+          behind him. It takes the tall slot, because it is the only photograph
+          in the library showing a named human doing the ADMINISTRATIVE half of
+          the job — which is precisely what this page is about. Everything else
+          here shows the driving half.
+
+          It arrived under a `ChatGPT Image …` filename and is nevertheless a
+          real photograph: the client's own frame with the crew jacket
+          recoloured from blue to the correct orange. That is retouching, not
+          generation, and the distinction is what makes it admissible on this
+          page at all. The reasoning and the inspection are recorded at its
+          manifest entry — read that note before adding any other file with
+          that filename shape here.
+
+          `crewCheck` keeps the wide inset. At 590px it can only work at that
+          size, and the two now sit together honestly: the wide one is the
+          clipboard detail, the tall one is the person.
+
+          ⚠ There is still no sleutelkluis photograph in the library, and the
+          brief asked for one. It is left out rather than substituted.
+          TODO(client): a frame of the brandwerende kluis on kantoor is now the
           single most useful photograph you could send for this page — it is the
-          one thing the valet FAQ describes that nobody can currently see. Same
-          for a chauffeur mid-registratie with the app in hand; `crewCheck`
-          below is the only frame of that and it is 590px wide, which is why it
-          is an inset here and not a band. */}
+          one thing the valet FAQ describes that nobody can currently see. */}
       <Section spacing="lg" aria-labelledby="beeld-heading">
         <Container>
           <Reveal className="max-w-[38ch]">
@@ -267,13 +284,18 @@ export default function RideRegistrationPage() {
 
           <div className="mt-12 grid gap-6 lg:grid-cols-2 lg:gap-8">
             <Reveal>
+              {/* object-[62%_50%] rather than centre: the frame is 3:2 and this
+                  slot is 3:4, so a centred crop keeps the empty tarmac on the
+                  left and pushes the shuttle out of the right edge. At 62% the
+                  chauffeur sits on the vertical third with the bus behind him
+                  and the yellow plate still in shot. */}
               <div className="shadow-photo relative aspect-3/4 overflow-hidden rounded-xl">
                 <Photo
-                  name="crewTerminal"
+                  name="crewPaperwork"
                   fill
                   sizes="(min-width: 1024px) 36rem, 100vw"
                   className="absolute inset-0 h-full w-full"
-                  imageClassName="object-cover object-[center_30%]"
+                  imageClassName="object-cover object-[62%_50%]"
                 />
               </div>
             </Reveal>
@@ -282,11 +304,11 @@ export default function RideRegistrationPage() {
               <Reveal delay={80}>
                 <div className="shadow-photo relative aspect-4/3 overflow-hidden rounded-xl">
                   <Photo
-                    name="lotShuttle"
+                    name="crewTerminal"
                     fill
                     sizes="(min-width: 1024px) 36rem, 100vw"
                     className="absolute inset-0 h-full w-full"
-                    imageClassName="object-cover object-[center_45%]"
+                    imageClassName="object-cover object-[center_30%]"
                   />
                 </div>
               </Reveal>

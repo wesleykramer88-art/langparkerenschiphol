@@ -40,6 +40,23 @@
  * The standing rule for any future asset, stock or shot: DUTCH YELLOW PLATES,
  * or no vehicle in frame. There is no third option.
  *
+ * ── RETOUCHED IS NOT THE SAME AS GENERATED ──────────────────────────────────
+ * Added August 2026, because the distinction now decides where a frame may be
+ * used and a filename is not enough to settle it.
+ *
+ *   GENERATED — the scene never happened. Never on /digitale-ritregistratie/,
+ *   which argues for verifiable honesty and would be undermined by a synthetic
+ *   frame; general ambiance only, and marked with a ⚠ at its entry.
+ *
+ *   RETOUCHED — the client's own photograph, corrected. `crewPaperwork` below
+ *   is his frame with the crew jacket recoloured from blue to the correct
+ *   hi-vis orange. Usable anywhere a photograph is usable.
+ *
+ * A `ChatGPT Image …` filename tells you a tool touched the file. It does not
+ * tell you which of the two happened, and the two are not interchangeable. Ask
+ * the client which it is, inspect the frame before shipping it — wordmarks,
+ * plates, signage, bokeh — and record the answer at the entry.
+ *
  * Originals live in `photos-source/` (gitignored) and are processed by
  * `npm run images` — see scripts/images.mjs.
  */
@@ -381,6 +398,80 @@ export const photos = {
     blurDataURL:
       'data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAADQAQCdASoMAAUAA8BgJYgCdAEec8/agADeN7DvV/xZZPTfXAeVN/gjst76C7EDcX/Pq1lkw9h4PUz6iSzxltFLjbkDgUAA',
   },
+  /**
+   * The chauffeur on his own terrain, paperwork in hand, with the orange
+   * shuttle behind him and a Dutch yellow plate on the car at the left.
+   * Supplied 14 August 2026.
+   *
+   * This is the frame the manifest has been asking for since the first pass —
+   * `crewCheck` below carries the same idea at 590px and has a TODO on it
+   * begging for exactly this. It is the only photograph in the library that
+   * shows a named human doing the administrative half of the job, which is why
+   * it carries /digitale-ritregistratie/.
+   *
+   * ── ON THE FILENAME, AND WHY THIS IS NOT AN AI FRAME ───────────────────────
+   * It arrived as `ChatGPT Image 14 aug 2026_ 11_55_52.png`, which under the
+   * standing rule at the top of this file would disqualify it from that page
+   * outright. The client has confirmed it is his own photograph: the crew jacket
+   * was the wrong colour in the original (blue), and ChatGPT was used to
+   * recolour it to the correct hi-vis orange. The subject, the location, the
+   * people and the vehicles are all real and all his.
+   *
+   * That distinction matters and is worth stating plainly, because
+   * /digitale-ritregistratie/ is a page about verifiable honesty and a
+   * synthetic frame on it would undermine the argument it is making. A colour
+   * correction is retouching. A generated scene is not. This is the former.
+   *
+   * Inspected before use, as any retouched frame should be: the wordmark reads
+   * correctly, the yellow plate is intact and Dutch, the bokeh is optically
+   * consistent, and there is no mangled signage. Nothing here has to be cropped
+   * around.
+   *
+   * ⚠ Two SIBLING files came with it and are NOT in this manifest:
+   *   · `…11_58_36.png` — the same frame with the left 55% outpainted to white
+   *     for a banner crop. The fill is visibly generated; the original below is
+   *     better and needs no apology.
+   *   · `…12_17_21.png` — a car at a garage entrance. Not requested for any
+   *     placement in this pass, and it is the one the earlier brief flagged as
+   *     general ambiance only.
+   * Neither is used anywhere. Do not add them to a trust page without asking.
+   */
+  crewPaperwork: {
+    src: '/images/chauffeur-terrein-papieren.webp',
+    width: 1536,
+    height: 1024,
+    alt: 'Chauffeur van Lang Parkeren Schiphol in oranje bedrijfsjas met de papieren van een reservering in zijn hand, op het parkeerterrein met de shuttlebus op de achtergrond.',
+    blurDataURL:
+      'data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAADQAQCdASoMAAgAAsBIJQBOgCHb5WLXAAD9U5uxAmz74RwiqOeW7H67DHMNrHlv5JNJhKfJQ/S9QX/v7vRBTRG8Z2PdjOPd7aQ5s95UuSkbIsAA',
+  },
+
+  /**
+   * Elektrisch opladen in de overdekte garage. Supplied 14 August 2026.
+   *
+   * The same crew member in the branded jacket, plugging a connector into a
+   * white car under the deck lighting, with the charge point's status ring lit
+   * green. His own garage, his own charger, his own staff.
+   *
+   * The EV proposition was surfaced in copy in the previous pass with nothing
+   * to show for it; this is the evidence. It renders in three places — the
+   * homepage security band, /veilig-parkeren-schiphol/ and the shuttle page —
+   * at three different crops, because it is a 3:2 frame and those slots are
+   * 4:3, 16:10 and 3:2 respectively. See each call site for its object-position.
+   *
+   * ⚠ The charge point's indicator is green, a hue this palette excludes. It is
+   * a lit LED on a real object rather than a brand surface, and the `photo`
+   * grade's desaturation pulls it most of the way onto the house line. It is
+   * never placed adjacent to the accent.
+   */
+  evCharging: {
+    src: '/images/elektrisch-opladen-garage.webp',
+    width: 1536,
+    height: 1024,
+    alt: 'Medewerker van Lang Parkeren Schiphol sluit een laadkabel aan op een elektrische auto bij een laadpunt in de overdekte parkeergarage.',
+    blurDataURL:
+      'data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAADQAQCdASoMAAgAAsBIJZgCdADbmHT+QAD+7S0btSImf1+6R4SnNxx6oTJBUHwvr/n3sSkkjvSG2VwgsPEd7ZFg7rNh/zg7bwuz9cF0mNJU5RAWyTZ4SGKAAAA=',
+  },
+
   /**
    * ── THE TWO APP SCREENSHOTS ARE NOT PHOTOGRAPHS ────────────────────────────
    *

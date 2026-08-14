@@ -69,6 +69,15 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Hoe kom ik bij mijn auto als ik terugkom?',
     answer:
+      // TODO(client): SHUTTLE PICKUP LOCATION — UNCONFIRMED.
+      // The valet flow was corrected in August 2026: a valet car is handed over
+      // AND returned between Vertrekhal 2 and 3, never at arrivals. Whether the
+      // SHUTTLE collects a landed passenger at the aankomsthal or at that same
+      // departures point has not been answered, so this line is deliberately
+      // LEFT AS IT WAS rather than guessed at.
+      // There are five of these across the site — this file, zelf-parkeren,
+      // goedkoop-shuttle, zonder-sleutel (x2). Search "aankomsthal" and fix
+      // them together in one pass when the answer comes back.
       'Bel ons zodra u geland bent en door de bagagehal bent. De shuttle haalt u op bij de aankomsthal en brengt u terug naar het terrein. U loopt naar uw auto en rijdt weg met uw eigen sleutel.',
   },
   {
@@ -167,6 +176,15 @@ export default function KeepKeysPage() {
         paragraphs={[
           'U rijdt naar ons terrein aan de Tupolevlaan 39 in Schiphol-Rijk. Let op dat dit niet de terminal is — bij shuttle parkeren komt u eerst naar ons, en brengen wij u daarna naar Schiphol.',
           'Op het terrein wordt u ontvangen en krijgt u een plek aangewezen. U parkeert zelf, laadt uw bagage uit naast uw eigen auto en stapt in de shuttlebus. Uw sleutel houdt u bij u.',
+          // TODO(client): SHUTTLE PICKUP LOCATION — UNCONFIRMED.
+          // The valet flow was corrected in August 2026: a valet car is handed over
+          // AND returned between Vertrekhal 2 and 3, never at arrivals. Whether the
+          // SHUTTLE collects a landed passenger at the aankomsthal or at that same
+          // departures point has not been answered, so this line is deliberately
+          // LEFT AS IT WAS rather than guessed at.
+          // There are five of these across the site — this file, zelf-parkeren,
+          // goedkoop-shuttle, zonder-sleutel (x2). Search "aankomsthal" and fix
+          // them together in one pass when the answer comes back.
           'Na de landing belt u ons zodra u door de bagagehal bent. De shuttle haalt u op bij de aankomsthal en brengt u terug naar het terrein. Daar loopt u naar uw auto, opent u hem met uw eigen sleutel en rijdt u naar huis.',
         ]}
       >

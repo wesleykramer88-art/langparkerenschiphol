@@ -157,6 +157,15 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Hoe kom ik na mijn reis terug bij mijn auto?',
     answer:
+      // TODO(client): SHUTTLE PICKUP LOCATION — UNCONFIRMED.
+      // The valet flow was corrected in August 2026: a valet car is handed over
+      // AND returned between Vertrekhal 2 and 3, never at arrivals. Whether the
+      // SHUTTLE collects a landed passenger at the aankomsthal or at that same
+      // departures point has not been answered, so this line is deliberately
+      // LEFT AS IT WAS rather than guessed at.
+      // There are five of these across the site — this file, zelf-parkeren,
+      // goedkoop-shuttle, zonder-sleutel (x2). Search "aankomsthal" and fix
+      // them together in one pass when the answer comes back.
       'Bel ons direct nadat u geland bent en door de bagagehal bent. De shuttle haalt u op bij de aankomsthal en brengt u terug naar het terrein, waar uw auto staat waar u hem heeft achtergelaten.',
   },
   {
@@ -293,6 +302,20 @@ export default async function ShuttleParkingPage() {
           'Laadpunten aanwezig voor elektrische auto\u2019s',
           'U parkeert zelf en houdt uw autosleutel',
         ]}
+        // The EV frame carries this section rather than another shot of the
+        // terrain: the bullet list above is four states of a car park and one
+        // genuinely different thing, and the different thing is the one worth
+        // showing. It is also the only frame on this page taken INSIDE the
+        // covered garage, which the third bullet claims and nothing else here
+        // evidences.
+        //
+        // Not `reversed`, so it alternates against the reistijd section above
+        // it. object-[45%_50%] \u2014 a 3:2 frame into a 4:3 slot again; this
+        // placement can afford slightly more of the car on the right than the
+        // homepage band, because the charge point is not competing with a
+        // heading beside it.
+        photo="evCharging"
+        objectPosition="object-[45%_50%]"
       >
         <Button href="/veilig-parkeren-schiphol/" variant="link" className="mt-7">
           Lees meer over veilig parkeren bij Schiphol
