@@ -1,16 +1,4 @@
-import {
-  ArrowRight,
-  BadgeCheck,
-  BusFront,
-  DoorOpen,
-  Handshake,
-  KeyRound,
-  LayoutGrid,
-  MapPin,
-  ShieldCheck,
-  Zap,
-  type LucideIcon,
-} from 'lucide-react';
+import { ArrowRight, MapPin, type LucideIcon } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { Section } from '@/components/ui/Section';
 import { Eyebrow } from '@/components/ui/Eyebrow';
@@ -18,6 +6,7 @@ import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { Photo } from '@/components/ui/Photo';
 import { Reveal, Stagger } from '@/components/motion/Reveal';
+import { SERVICE_COPY } from '@/config/services';
 import type { PhotoName } from '@/config/images';
 
 /**
@@ -104,18 +93,17 @@ const SERVICES: readonly Service[] = [
     badgeTone: 'accent',
     description:
       'Rijd rechtstreeks naar de vertrekhal van Schiphol. Onze chauffeur staat klaar, controleert uw auto en rijdt deze naar onze veilige parkeerlocatie.',
-    usps: [
-      { icon: DoorOpen, text: 'Direct uitstappen bij de vertrekhal' },
-      { icon: Zap, text: 'De snelste start van uw reis' },
-      { icon: Handshake, text: 'Professionele overdracht van uw auto' },
-      { icon: BadgeCheck, text: 'Comfort en zekerheid zonder stress' },
-    ],
+    // Read from the one place the client's compact USPs live, rather than
+    // retyped. This card, the ticket stub and the two service landing pages all
+    // render them; three transcriptions of the same four lines is three chances
+    // for one of them to quietly stop matching. See src/config/services.ts.
+    usps: SERVICE_COPY.valet.bullets,
     cta: 'Reserveer Valet Parkeren',
     // The crew in the branded hi-vis. The only photograph on the page of the
     // actual service being performed, so it carries the option it belongs to.
     photo: 'crewHandover',
     slug: 'valet',
-    where: 'Vertrekpassage, Vertrekhal 1e verdieping',
+    where: SERVICE_COPY.valet.where,
     // Only valet does. It is a genuine reason to choose it and it appeared
     // nowhere on the site before this pass — see the note on the card below.
     payOnArrival: true,
@@ -127,18 +115,13 @@ const SERVICES: readonly Service[] = [
     badgeTone: 'brand',
     description:
       'Parkeer uw auto op ons terrein. Onze shuttlebus brengt u comfortabel binnen 5 tot 8 minuten naar de vertrekhal van Schiphol.',
-    usps: [
-      { icon: KeyRound, text: 'Zelf parkeren, sleutels mee op reis' },
-      { icon: BusFront, text: 'Snelle transfer zonder wachttijd' },
-      { icon: LayoutGrid, text: 'Duidelijk en strak georganiseerd' },
-      { icon: ShieldCheck, text: 'Veilig terrein, betrouwbare service' },
-    ],
+    usps: SERVICE_COPY.shuttle.bullets,
     cta: 'Reserveer Shuttle Parkeren',
     // His own terrain, with the shuttle bus running along the top of the frame
     // and Dutch yellow plates through every row. Literally what this option is.
     photo: 'lotShuttle',
     slug: 'shuttle',
-    where: 'Tupolevlaan 39, Schiphol-Rijk',
+    where: SERVICE_COPY.shuttle.where,
   },
 ];
 
@@ -296,6 +279,19 @@ function ServiceCard({ service }: { service: Service }) {
           <Button href={`/reservering/?service=${service.slug}`} className="w-full sm:max-w-xs">
             {service.cta}
             <ArrowRight data-arrow className="size-4" aria-hidden />
+          </Button>
+
+          {/* The secondary route, added when each service got its own landing
+              page. Kept as a text link under the button rather than as a second
+              button: a visitor who is ready to book should meet one obvious
+              action, and a visitor who is not should still have somewhere to go
+              other than away. */}
+          <Button
+            href={SERVICE_COPY[service.slug].href}
+            variant="link"
+            className="mt-4 block sm:mt-5"
+          >
+            Meer over {service.title.toLowerCase()}
           </Button>
         </div>
       </div>

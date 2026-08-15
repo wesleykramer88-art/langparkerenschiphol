@@ -89,6 +89,68 @@ export const pageSeo = {
       'Lees de ervaringen van reizigers die hun auto bij Lang Parkeren Schiphol parkeerden. Echte reacties over de overdracht, de shuttle en de staat van de auto bij terugkomst.',
     path: '/reviews/',
   },
+  // ── The service + SEO cluster, August 2026 ─────────────────────────────────
+  // Seven new pages, none of them competing with the homepage and none with
+  // each other. The homepage owns the brand query ("lang parkeren schiphol")
+  // and stays generic across both services; each page below owns exactly one
+  // intent, and no two titles lead with the same noun phrase.
+  //
+  // Descriptions are written to the same length as the indexed ones above
+  // (150–160 chars) so the snippet is not truncated mid-clause, and each one
+  // states a concrete fact the page actually contains rather than restating the
+  // title in a sentence.
+  shuttleParking: {
+    // The commercial page for the product that is roughly 90% of bookings, and
+    // the hub of the cluster. "shuttle parkeren schiphol" is the head term.
+    title: 'Shuttle Parkeren Schiphol | Zelf Parkeren, Sleutel Mee op Reis',
+    description:
+      'Shuttle parkeren bij Schiphol: u parkeert zelf op ons beveiligde terrein, neemt uw sleutel mee en bent binnen 5 tot 8 minuten bij de vertrekhal. Direct reserveren.',
+    path: '/shuttle-parkeren-schiphol/',
+  },
+  valetParking: {
+    // Deliberately "valet parking", not "valet parkeren": the Dutch market
+    // searches the English term for this service, and the client's own live
+    // page has always been headed Valet Parking.
+    title: 'Valet Parking Schiphol | Auto Afgeven bij de Vertrekhal',
+    description:
+      'Valet parking op Schiphol: rijd tot de vertrekhal, geef uw auto af aan onze chauffeur en loop direct door. Iedere rit digitaal geregistreerd. Reserveer online.',
+    path: '/valet-parking-schiphol/',
+  },
+  cheapShuttle: {
+    title: 'Goedkoop Parkeren Schiphol | Voordelig Shuttle Parkeren',
+    description:
+      'Goedkoop lang parkeren bij Schiphol met shuttleservice. Ontdek waarom shuttle parkeren voordeliger uitpakt per dag, en waarom voordelig niet onveilig hoeft te zijn.',
+    path: '/goedkoop-shuttle-parkeren-schiphol/',
+  },
+  keepKeys: {
+    title: 'Parkeren Schiphol Zonder Sleutel Inleveren | Sleutel Mee op Reis',
+    description:
+      'Liever uw autosleutel meenemen op reis? Bij shuttle parkeren parkeert u zelf en houdt u uw sleutel. Lees hoe dat werkt en waarom het samengaat met een bewaakt terrein.',
+    path: '/parkeren-schiphol-zonder-sleutel-inleveren/',
+  },
+  safeParking: {
+    title: 'Veilig Parkeren Schiphol | Bewaakt en Afgesloten Terrein',
+    description:
+      'Veilig parkeren bij Schiphol: afgesloten terrein, 24/7 camerabewaking en een vaste procedure bij afgifte en terugkomst. Lees wat er precies met uw auto gebeurt.',
+    path: '/veilig-parkeren-schiphol/',
+  },
+  selfParking: {
+    title: 'Zelf Parkeren Schiphol | U Zet Uw Auto Zelf Neer',
+    description:
+      'Zelf uw auto parkeren bij Schiphol op ons bewaakte terrein. U weet waar hij staat, houdt de sleutel en stapt in de shuttle naar de vertrekhal. Zo werkt het.',
+    path: '/zelf-parkeren-schiphol/',
+  },
+  rideRegistration: {
+    // Valet-only. The slug is the thing itself rather than a query — nobody
+    // searches "digitale ritregistratie", and that is fine: this page exists to
+    // be LINKED to at the moment a visitor hesitates about handing over a car,
+    // not to be found cold.
+    title: 'Digitale Ritregistratie | Lang Parkeren Schiphol',
+    description:
+      'Tijdens iedere valetrit registreren wij route, snelheid en duur digitaal. Lees wat er wordt vastgelegd, wie het kan inzien en waarom wij dit doen.',
+    path: '/digitale-ritregistratie/',
+  },
+
   terms: {
     // The terms used to live on valetparkingschiphol.nl. The slug matches the
     // one they were published under there, so the old URL can be redirected to

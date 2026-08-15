@@ -69,20 +69,59 @@ const FAQS: readonly FaqItem[] = [
   },
 ];
 
+/** The homepage FAQ. Its seven answers stay exactly where they were. */
 export function Faq() {
+  return (
+    <FaqSection
+      items={FAQS}
+      heading="Alles over onze dienstverlening"
+      lead="De vragen die reizigers ons het vaakst stellen, over veiligheid, annuleren en de overdracht van uw auto."
+    />
+  );
+}
+
+/**
+ * The FAQ section, for any page.
+ *
+ * Extracted from the homepage FAQ when the service and cluster pages needed the
+ * same block with their own questions. Everything that made this section work is
+ * in here — the sticky heading column, the two-column measure, the escape hatch
+ * to a human, and the FAQPage markup — so a page supplies questions and gets all
+ * of it. What it must NOT become is a section with a `variant` prop; if a future
+ * page needs a different SHAPE of FAQ, it composes one from <Accordion>.
+ *
+ * The JSON-LD is rendered from the SAME array as the accordion, which is the
+ * point: the structured data cannot describe an answer the page does not show,
+ * and that is the usual way an FAQ rich result gets penalised.
+ *
+ * ⚠ `id="faq-heading"` is fixed rather than generated. That is safe because a
+ * page has one FAQ section; two on one page would emit a duplicate id AND two
+ * FAQPage nodes, and the second of those is the real problem.
+ */
+export function FaqSection({
+  items,
+  eyebrow = 'Veelgestelde vragen',
+  heading,
+  lead,
+  /** Set false on a page that already emits FAQPage markup elsewhere. */
+  schema = true,
+}: {
+  items: readonly FaqItem[];
+  eyebrow?: string;
+  heading: string;
+  lead?: string;
+  schema?: boolean;
+}) {
   return (
     <Section spacing="lg" aria-labelledby="faq-heading">
       <Container>
         <div className="grid gap-12 lg:grid-cols-[5fr_7fr] lg:gap-20">
           <Reveal className="lg:sticky lg:top-32 lg:self-start">
-            <Eyebrow rule>Veelgestelde vragen</Eyebrow>
+            <Eyebrow rule>{eyebrow}</Eyebrow>
             <h2 id="faq-heading" className="text-display-lg mt-5 max-w-[14ch]">
-              Alles over onze dienstverlening
+              {heading}
             </h2>
-            <p className="text-muted mt-6 max-w-[42ch]">
-              De vragen die reizigers ons het vaakst stellen, over veiligheid, annuleren en de
-              overdracht van uw auto.
-            </p>
+            {lead ? <p className="text-muted mt-6 max-w-[42ch]">{lead}</p> : null}
 
             {/* Not a card with a border: a hairline block, so it reads as part
                 of the column rather than as a widget dropped into it. */}
@@ -119,15 +158,17 @@ export function Faq() {
           </Reveal>
 
           <Reveal delay={80}>
-            <Accordion items={FAQS} defaultOpen={0} />
+            <Accordion items={items} defaultOpen={0} />
           </Reveal>
         </div>
       </Container>
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema(FAQS)) }}
-      />
+      {schema ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema(items)) }}
+        />
+      ) : null}
     </Section>
   );
 }

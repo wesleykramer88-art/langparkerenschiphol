@@ -550,55 +550,93 @@
    is doing underneath. Text over photography is where contrast quietly fails,
    so the scrim is sized to the text, not to taste.
 
-   ── Why the right half clears to nothing ────────────────────────────────────
-   The client read this hero as too dark, and he was right about the result
-   while being wrong about the cause: the photograph is a bright, sunny frame —
-   blue sky, glass, the branded van at Departures 2 — and every bit of the
-   darkness was this overlay.
+   ── THE "66% NAVY" FIGURE BELOW WAS WRONG. MEASURE, DO NOT DERIVE ───────────
+   This block used to argue that the ramp could not be lifted at all, because
+   the lead sits over "blown-out sky measured at 249,255,255" and navy-100 over
+   that clears 4.5:1 only at about 66% navy — so the old stops were said to be
+   sitting exactly on the accessibility floor.
 
-   It cannot simply be lifted. The lead is --text-lead, 17–20px at regular
-   weight, so it is NORMAL text under WCAG and needs 4.5:1. The pixels behind it
-   are blown-out sky, measured at 249,255,255, and navy-100 over that clears 4.5
-   only at about 66% navy. The old 32%/64% stops put 64% at the point the 46ch
-   lead ends. In other words the previous ramp was already sitting on the
-   accessibility floor, which is why it looked the way it did — it was sized
-   correctly and shaped badly.
+   That was derived from the brightest pixel in the FRAME, not from the pixels
+   the lead is actually on. It is wrong, and it cost two passes of "we cannot
+   make this lighter". The sky is in the upper right of the composition; the
+   lead sits at y 477–573, over the jacket, the van and the lower glazing.
 
-   So the fix is the SHAPE, not the level. Through the copy column (0–50%) this
-   ramp is identical to the old one to within half a percent — 64.5% where the
-   lead ends, against 64% before, so nothing about legibility regresses. Past
-   60% it falls away much harder: 27% against 34% at the two-thirds mark, 11%
-   against 23% at 80%, and fully clear at the right edge against 10%. That is
-   exactly the part of the frame carrying the van, the livery and the "Vertrek 2
-   / Departures 2" sign, and it is now genuinely visible.
+   Measured properly — by screenshotting the real composited hero at 1440×800
+   with the type hidden, then taking the WORST pixel inside each element's own
+   bounding box — the previous ramp was nowhere near the floor:
 
-   The extra 46% stop is what holds the copy zone flat while the tail steepens;
-   with three stops the two goals fight each other.
+     element   colour      size   needs   old ramp
+     eyebrow   valet-300   12px    4.5     4.98    ← the only tight one
+     h1        white       88px    3.0     7.22
+     subhead   valet-300   40px    3.0     5.18
+     lead      navy-100    20px    4.5     9.31    ← twice its requirement
+     proof     navy-100    14px    4.5    10.50
+     micro     navy-300    14px    4.5     7.23
 
-   If you change the crop, re-measure before touching these numbers: the 66%
-   figure is a property of THIS photograph at THIS object-position. The mobile
-   gradient in HeroSection has no equivalent headroom — it runs top-to-bottom
-   under full-width copy, so there is no quiet side to open. */
+   The binding constraint was never the lead. It was the 12px valet-300 eyebrow
+   at 4.98:1, and a proof row running to 57% of the frame. Both were changed in
+   HeroSection — the eyebrow is white now (its orange diamond stays), the proof
+   row is capped at max-w-lg and ends around 46% — and with those two out of the
+   way the ramp below has real room.
+
+   ── What this ramp is ───────────────────────────────────────────────────────
+   Roughly 12–14 points less navy than the old one at every stop through the
+   copy column, a tail that clears to 5% by 70%, and a bottom that no longer
+   closes to solid navy. Worst-case measured contrast, same method:
+
+     eyebrow 5.48   h1 4.59   subhead 3.38   lead 6.79   proof 5.46   micro 6.01
+
+   Every one clears its requirement with margin. The tightest is the subhead at
+   3.38 against a 3.0 floor for large text, and that is the number to watch: it
+   is valet-300 on a mid-bright part of the frame, and it is what stopped this
+   ramp going further. A ~6-point-lighter variant was measured at 3.15 and
+   rejected for having no room left.
+
+   ── Why the bottom no longer ends on navy ───────────────────────────────────
+   It used to close to 100% navy so the band dissolved into the navy trust strip
+   below it. That strip is the canvas now, so closing to navy would draw exactly
+   the hard horizontal line the arrangement exists to avoid. It ends at 62%
+   instead, and the hero finishes on photograph. If TrustStrip ever goes dark
+   again, this stop goes back with it.
+
+   ── If you change the photograph or the crop, RE-MEASURE ────────────────────
+   Every number here is a property of THIS frame at THIS object-position. Do not
+   reason from the brightest pixel in the image — that is the mistake this note
+   replaces. Screenshot the composited hero with the type hidden and sample each
+   element's own box.
+
+   The mobile gradient in HeroSection is separate and has less headroom: it runs
+   top-to-bottom under full-width copy, so there is no quiet side to open. */
 @utility scrim-hero {
   background-image:
     linear-gradient(
       to right,
-      color-mix(in srgb, var(--color-navy-950) 93%, transparent) 0%,
-      color-mix(in srgb, var(--color-navy-950) 72%, transparent) 30%,
-      color-mix(in srgb, var(--color-navy-950) 60%, transparent) 46%,
-      color-mix(in srgb, var(--color-navy-950) 16%, transparent) 70%,
+      color-mix(in srgb, var(--color-navy-950) 81%, transparent) 0%,
+      color-mix(in srgb, var(--color-navy-950) 58%, transparent) 30%,
+      color-mix(in srgb, var(--color-navy-950) 46%, transparent) 46%,
+      color-mix(in srgb, var(--color-navy-950) 5%, transparent) 70%,
       transparent 100%
     ),
     linear-gradient(
       to bottom,
-      color-mix(in srgb, var(--color-navy-950) 58%, transparent) 0%,
-      color-mix(in srgb, var(--color-navy-950) 6%, transparent) 30%,
-      color-mix(in srgb, var(--color-navy-950) 18%, transparent) 62%,
-      var(--color-navy-950) 100%
+      color-mix(in srgb, var(--color-navy-950) 41%, transparent) 0%,
+      color-mix(in srgb, var(--color-navy-950) 3%, transparent) 30%,
+      color-mix(in srgb, var(--color-navy-950) 12%, transparent) 62%,
+      color-mix(in srgb, var(--color-navy-950) 62%, transparent) 100%
     );
 }
 
-/* Page-hero scrim. scrim-hero's sibling, for the shallow band at the top of
+/* ⚠ UNUSED SINCE AUGUST 2026, AND KEPT ON PURPOSE — as are `scrim-band`,
+   `scrim-center` and `glass-dark` below. The client asked for no dark sections
+   anywhere ("nergens donker"), so every band that put light type over a
+   darkened photograph became a light band with the photograph contained beside
+   the copy instead. Nothing on the site currently applies these four.
+
+   They are not deleted because their stops are measured against real frames
+   from this library, and re-deriving them costs far more than the lines they
+   occupy. If a dark photographic band is ever wanted again, they are correct.
+
+   Page-hero scrim. scrim-hero's sibling, for the shallow band at the top of
    every subpage.
 
    It exists because the two heroes hold text to different widths. The homepage
@@ -633,7 +671,8 @@
     );
 }
 
-/* Band scrim. For a full-bleed photographic section with content over the whole
+/* Band scrim. UNUSED — see the note on scrim-page. For a full-bleed
+   photographic section with content over the whole
    width — heavier and flatter than the hero's, because there is no quiet side
    of the frame to place text in. */
 @utility scrim-band {
@@ -655,6 +694,14 @@
 
 /* Centre scrim. Stacked ON TOP of scrim-band when the band's content is
    centred rather than set to one side.
+
+   ⚠ UNUSED — see the note on scrim-page. Its only caller was the closing CTA,
+   which stopped being a full-bleed photographic band in the August 2026
+   rebalance — it is now a light section with the photograph in a contained
+   panel, so there is no longer text over an image for this to protect. The
+   utility is not deleted because the numbers below are measured against real
+   frames from this library, and the next centred photographic band will need
+   exactly them. Deleting four lines here costs the re-measurement later.
 
    scrim-band's horizontal gradient is deliberately lightest through the middle,
    which is the right call when the text is in the left third — and the wrong
@@ -685,7 +732,9 @@
   );
 }
 
-/* Glass. Permitted in exactly one situation: a panel laid over a photograph,
+/* Glass. UNUSED — see the note on scrim-page; its one caller was the homepage
+   security band, which is light now.
+   Permitted in exactly one situation: a panel laid over a photograph,
    where there is something behind it worth blurring. On a flat background it is
    a tinted box pretending to be glass, which is the tell it is usually used as.
 

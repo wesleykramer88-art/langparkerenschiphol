@@ -21,11 +21,26 @@ const section = cva('relative', {
       /** Accent wash. Use at most once per page, or it stops meaning anything. */
       accent: 'bg-accent-wash text-body',
     },
+    /**
+     * ── Raised one step, August 2026 ───────────────────────────────────────
+     * The client asked for the site to read lighter and calmer — the Parkos /
+     * Eazzypark feel, which is airiness rather than a different palette. Most
+     * of that is bought here: 160px between desktop sections instead of 128px.
+     *
+     * Changed in this one file rather than per section, which is the whole
+     * reason the variants exist. A fourth step was NOT added: a scale with an
+     * extra rung invites per-section drift, and drift is what this file is for
+     * preventing.
+     *
+     * `none` is untouched and stays the escape hatch for a band that owns its
+     * own rhythm. TrustStrip is the one that uses it, and its padding must not
+     * be swept into this — see the note there.
+     */
     spacing: {
       none: '',
-      sm: 'py-12 sm:py-16',
-      md: 'py-16 sm:py-20 lg:py-24',
-      lg: 'py-20 sm:py-28 lg:py-32',
+      sm: 'py-14 sm:py-20',
+      md: 'py-20 sm:py-24 lg:py-32',
+      lg: 'py-24 sm:py-32 lg:py-40',
     },
   },
   defaultVariants: { tone: 'canvas', spacing: 'md' },

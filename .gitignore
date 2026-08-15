@@ -62,3 +62,12 @@ next-env.d.ts
 
 # Playwright MCP debug artefacts (console logs, page snapshots, screenshots)
 .playwright-mcp/
+
+# Raw client deliverables — the SEO content document and the app screen captures
+# supplied for /digitale-ritregistratie/, August 2026.
+#
+# Same rule as photos-source/: this is INPUT, not a repository artefact. The two
+# screenshots have been processed into public/images/ by `npm run images` and are
+# committed there; the .docx is a brief, and its decisions now live in
+# docs/superpowers/specs/ and in the comments on the pages it produced.
+/resources/

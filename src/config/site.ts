@@ -116,9 +116,27 @@ export const siteConfig = {
    */
   valetHandover: {
     street: 'Vertrekpassage',
-    detail: 'Vertrekhal, 1e verdieping',
+    detail: 'Vertrekhal, 1e verdieping — tussen Vertrekhal 2 en 3',
     locality: 'Schiphol',
-    display: 'Vertrekpassage, Schiphol — Vertrekhal, 1e verdieping',
+    display: 'Vertrekpassage op Schiphol, tussen Vertrekhal 2 en 3',
+    /**
+     * ── BOTH DIRECTIONS HAPPEN HERE. THIS IS NOT THE ARRIVALS HALL ───────────
+     * Client correction, August 2026. A valet customer hands the car over
+     * between Vertrekhal 2 and 3, and gets it back in the SAME place. There is
+     * no arrivals-hall leg at any point.
+     *
+     * The site had it wrong in five places — the valet page's own timeline, its
+     * body copy, two answers on /digitale-ritregistratie/ and one on
+     * /veilig-parkeren-schiphol/ all said the car comes back to the
+     * "aankomsthal". That is the kind of error a customer only discovers while
+     * standing in the wrong hall with luggage after a flight, so it is stated
+     * here once and every page reads it from here.
+     *
+     * ⚠ Do not confuse this with the SHUTTLE return. A shuttle customer is a
+     * passenger being collected after landing, not a car being delivered, and
+     * where that pickup happens is a separate question — see the TODO below.
+     */
+    returnNote: 'U krijgt uw auto op dezelfde plek terug: tussen Vertrekhal 2 en 3.',
   },
 
   /** Amsterdam Airport Schiphol. Used for geo in ParkingFacility schema. */
@@ -196,6 +214,73 @@ export const navigation = [
   // customers.
   { href: '/reviews/', label: 'Reviews', inNav: false, inSitemap: true, priority: 0.6 },
   { href: '/login/', label: 'Inloggen', inNav: false, inSitemap: true, priority: 0.5 },
+  // ── The service and SEO cluster, August 2026 ───────────────────────────────
+  // Seven landing pages, none of them in the main nav: the header already
+  // carries five items plus a phone number plus the booking button, which is
+  // the most a bar can hold and stay scannable. They are reached from the
+  // service chooser, from each other, and from the footer's Diensten column.
+  //
+  // Priority 0.9 for the two service pages — they are the commercial pages of
+  // the set and each one owns a query the homepage cannot rank for twice.
+  // 0.7 for the four supporting cluster pages, 0.6 for the trust page: real,
+  // indexable, and deliberately never above a page that sells something.
+  //
+  // ⚠ /shuttle-parkeren-schiphol/ IS BOTH. The build brief specified it as the
+  // shuttle service page and the client's SEO document specified the same URL
+  // as the cluster's main explanatory page. They are one page. Splitting them
+  // would put two near-identical intents on two URLs, which is precisely the
+  // cannibalisation the SEO document warns about on its last page.
+  {
+    href: '/shuttle-parkeren-schiphol/',
+    label: 'Shuttle parkeren',
+    inNav: false,
+    inSitemap: true,
+    priority: 0.9,
+  },
+  {
+    href: '/valet-parking-schiphol/',
+    label: 'Valet parking',
+    inNav: false,
+    inSitemap: true,
+    priority: 0.9,
+  },
+  {
+    href: '/goedkoop-shuttle-parkeren-schiphol/',
+    label: 'Goedkoop shuttle parkeren',
+    inNav: false,
+    inSitemap: true,
+    priority: 0.7,
+  },
+  {
+    href: '/parkeren-schiphol-zonder-sleutel-inleveren/',
+    label: 'Zonder sleutel inleveren',
+    inNav: false,
+    inSitemap: true,
+    priority: 0.7,
+  },
+  {
+    href: '/veilig-parkeren-schiphol/',
+    label: 'Veilig parkeren',
+    inNav: false,
+    inSitemap: true,
+    priority: 0.7,
+  },
+  {
+    href: '/zelf-parkeren-schiphol/',
+    label: 'Zelf parkeren',
+    inNav: false,
+    inSitemap: true,
+    priority: 0.7,
+  },
+  // Valet-only trust page. Linked from the valet landing page and from the
+  // homepage security band, which is where the question it answers is raised.
+  {
+    href: '/digitale-ritregistratie/',
+    label: 'Digitale ritregistratie',
+    inNav: false,
+    inSitemap: true,
+    priority: 0.6,
+  },
   // Footer-only, and the lowest priority in the sitemap: it must be indexable —
   // a trader's terms that a search engine cannot find are not "readily
   // available" in the sense the distance-selling rules mean — but it should
@@ -220,20 +305,66 @@ export const mainNav = navigation.filter((item) => item.inNav);
  * existing footer backlinks keep resolving.
  */
 export const footerNav = {
+  // The two service anchors now point at the dedicated landing pages rather
+  // than at #valet / #Shuttle on /onze-services/.
+  //
+  // The anchors themselves are NOT retired — /onze-services/ keeps both ids,
+  // capital S included, because other people's pages link to them and fragment
+  // matching is case-sensitive. What changed is only where OUR footer sends a
+  // visitor: to a page about one service, rather than to a position on a page
+  // about both.
   diensten: [
-    { href: '/onze-services/#valet', label: 'Valet Parkeren' },
-    { href: '/onze-services/#Shuttle', label: 'Shuttle Parkeren' },
+    { href: '/valet-parking-schiphol/', label: 'Valet Parkeren' },
+    { href: '/shuttle-parkeren-schiphol/', label: 'Shuttle Parkeren' },
     { href: '/tarieven/', label: 'Tarieven' },
     { href: '/reservering/', label: 'Reserveren' },
   ],
   bedrijf: [
     { href: '/waarom-lang-parkeren-schiphol/', label: 'Waarom ons' },
+    { href: '/digitale-ritregistratie/', label: 'Digitale ritregistratie' },
     { href: '/reviews/', label: 'Ervaringen' },
     { href: '/samenwerken/', label: 'Reisbureaus' },
     { href: '/contact/', label: 'Contact' },
   ],
   account: [{ href: '/login/', label: 'Klantenportaal' }],
 } as const;
+
+/**
+ * The SEO cluster, as one list.
+ *
+ * These four pages are supporting pages: each takes one facet of the shuttle
+ * proposition (price, the key, safety, self-parking) and owns the query for it.
+ * They link to each other and up to /shuttle-parkeren-schiphol/, which is the
+ * hub. Declared once here so every page renders the same set minus itself,
+ * rather than each page carrying a hand-written list that will rot.
+ */
+export const seoCluster = [
+  {
+    href: '/shuttle-parkeren-schiphol/',
+    label: 'Shuttle parkeren Schiphol',
+    blurb: 'Hoe shuttle parkeren werkt, van reserveren tot terugkomst.',
+  },
+  {
+    href: '/goedkoop-shuttle-parkeren-schiphol/',
+    label: 'Goedkoop shuttle parkeren',
+    blurb: 'Waarom shuttle parkeren voordeliger uitpakt bij een lange reis.',
+  },
+  {
+    href: '/parkeren-schiphol-zonder-sleutel-inleveren/',
+    label: 'Zonder sleutel inleveren',
+    blurb: 'U parkeert zelf en neemt uw autosleutel gewoon mee op reis.',
+  },
+  {
+    href: '/veilig-parkeren-schiphol/',
+    label: 'Veilig parkeren Schiphol',
+    blurb: 'Het terrein, het toezicht en wat er bij terugkomst gebeurt.',
+  },
+  {
+    href: '/zelf-parkeren-schiphol/',
+    label: 'Zelf parkeren Schiphol',
+    blurb: 'Zelf uw auto neerzetten en zelf zien waar hij staat.',
+  },
+] as const;
 
 /**
  * Every payment method the checkout accepts. Client's own list, 31 July 2026.
