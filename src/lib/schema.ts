@@ -225,12 +225,32 @@ export function aggregateRatingSchema(source: ReviewSource) {
   };
 }
 
-export type FaqItem = { question: string; answer: string };
+/**
+ * One question and its answer.
+ *
+ * `answer` takes an array where the answer is genuinely more than one paragraph.
+ * The client's August 2026 copy writes most answers as two or three — typically
+ * one per service, or a rule followed by its exception — and running those
+ * together into a single block loses the break that makes them scannable in an
+ * open accordion panel. A plain string stays a plain string, so nothing that was
+ * already written as one had to change.
+ */
+export type FaqItem = { question: string; answer: string | readonly string[] };
+
+/** The answer as one plain-text run, for markup and for anything else that
+ *  needs it flat. */
+export function faqAnswerText(answer: FaqItem['answer']): string {
+  return typeof answer === 'string' ? answer : answer.join(' ');
+}
 
 /**
  * FAQPage. Rendered from the same typed content the accordion renders, so the
  * markup can never describe an answer the page does not actually show — which is
  * the usual way FAQ rich results get penalised.
+ *
+ * A multi-paragraph answer is flattened to one text run here. That is a
+ * whitespace difference, not a content one: every word in the markup is a word
+ * the panel shows, which is the property this note is about.
  */
 export function faqSchema(items: readonly FaqItem[]) {
   return {
@@ -239,7 +259,7 @@ export function faqSchema(items: readonly FaqItem[]) {
     mainEntity: items.map((item) => ({
       '@type': 'Question',
       name: item.question,
-      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+      acceptedAnswer: { '@type': 'Answer', text: faqAnswerText(item.answer) },
     })),
   };
 }

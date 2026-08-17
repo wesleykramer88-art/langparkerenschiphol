@@ -158,9 +158,12 @@ export default function SafeParkingPage() {
             </h2>
           </Reveal>
 
+          {/* <div>, not <li>: <Stagger as="ul"> supplies the <li>, so an <li> here
+              nested one inside another. Pre-existing; found while verifying the
+              August 2026 copy pass on the other eight pages. */}
           <Stagger as="ul" className="divide-line border-line mt-12 divide-y border-y">
             {MEASURES.map((measure) => (
-              <li key={measure.label} className="grid gap-4 py-7 sm:grid-cols-[auto_1fr_2fr]">
+              <div key={measure.label} className="grid gap-4 py-7 sm:grid-cols-[auto_1fr_2fr]">
                 <measure.icon
                   className="text-accent size-6 shrink-0"
                   strokeWidth={1.75}
@@ -170,7 +173,7 @@ export default function SafeParkingPage() {
                 <p className="text-muted max-w-[54ch] text-sm leading-relaxed sm:text-base">
                   {measure.body}
                 </p>
-              </li>
+              </div>
             ))}
           </Stagger>
         </Container>

@@ -2,6 +2,7 @@
 
 import { z } from 'zod';
 import { siteConfig } from '@/config/site';
+import { CONTACT_SUBJECTS } from '@/config/contact';
 
 /**
  * The contact form's submit seam.
@@ -48,9 +49,30 @@ import { siteConfig } from '@/config/site';
 const contactSchema = z.object({
   name: z.string().trim().min(2, 'Vul uw naam in.').max(120, 'Deze naam is te lang.'),
   email: z.email('Vul een geldig e-mailadres in.').max(180),
-  // Optional: a visitor who prefers e-mail should not be forced to hand over a
-  // phone number to ask a question.
-  phone: z.string().trim().max(40, 'Dit telefoonnummer is te lang.').optional().or(z.literal('')),
+  /**
+   * ── The phone field became the reservation number, August 2026 ─────────────
+   * The client's contact document replaces it, and the reasoning is his own
+   * page: the phone line is now stated to be for the day of arrival and
+   * departure only, so a form that asks for a number nobody will ring is asking
+   * the visitor for data to no purpose. What his page asks for instead, four
+   * separate times, is the reserveringsnummer — because that is what lets him
+   * find the booking before he replies.
+   *
+   * Optional, like the phone field it replaces: somebody asking a question
+   * before they book has no number to give.
+   */
+  reservationNumber: z
+    .string()
+    .trim()
+    .max(60, 'Dit reserveringsnummer is te lang.')
+    .optional()
+    .or(z.literal('')),
+  /**
+   * Required, and validated against the list rather than as free text: it goes
+   * into the subject line of the e-mail, and an arbitrary string there is a
+   * header-injection surface as well as a triage problem.
+   */
+  subject: z.enum(CONTACT_SUBJECTS, { message: 'Kies een onderwerp.' }),
   message: z
     .string()
     .trim()
@@ -76,7 +98,8 @@ export type ContactResult =
 type Payload = {
   name: string;
   email: string;
-  phone: string | null;
+  reservationNumber: string | null;
+  subject: string;
   message: string;
 };
 
@@ -97,7 +120,8 @@ async function sendViaResend(apiKey: string, payload: Payload): Promise<boolean>
   const lines = [
     `Naam: ${payload.name}`,
     `E-mail: ${payload.email}`,
-    payload.phone ? `Telefoon: ${payload.phone}` : null,
+    `Onderwerp: ${payload.subject}`,
+    payload.reservationNumber ? `Reserveringsnummer: ${payload.reservationNumber}` : null,
     '',
     payload.message,
   ].filter((line) => line !== null);
@@ -116,7 +140,10 @@ async function sendViaResend(apiKey: string, payload: Payload): Promise<boolean>
         // client's inbox answers the customer directly, rather than answering
         // the website. Without it every reply has to be copy-pasted.
         reply_to: payload.email,
-        subject: `Websiteformulier — ${payload.name}`,
+        // The chosen subject leads, so the inbox sorts by what the message is
+        // about rather than by who sent it. Safe to interpolate into a header:
+        // it is one of nine fixed strings from the enum, not visitor text.
+        subject: `Websiteformulier: ${payload.subject} — ${payload.name}`,
         text: lines.join('\n'),
         html: `<pre style="font:14px/1.6 -apple-system,system-ui,sans-serif;white-space:pre-wrap">${escapeHtml(
           lines.join('\n'),
@@ -172,7 +199,8 @@ export async function sendContactMessage(values: unknown): Promise<ContactResult
   const payload: Payload = {
     name: parsed.data.name,
     email: parsed.data.email,
-    phone: parsed.data.phone || null,
+    reservationNumber: parsed.data.reservationNumber || null,
+    subject: parsed.data.subject,
     message: parsed.data.message,
   };
 

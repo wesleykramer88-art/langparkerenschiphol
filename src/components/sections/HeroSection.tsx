@@ -63,8 +63,21 @@ const EASE = [0.16, 1, 0.3, 1] as const;
  * composited frame. If a future H1 runs longer than these lines, re-measure;
  * `scrim-hero` in globals.css says how, and warns against the shortcut that
  * produced the wrong numbers the first time.
+ *
+ * ── Client's final copy, August 2026 ────────────────────────────────────────
+ * "op Schiphol" → "bij Schiphol", and sentence case: his document heads the page
+ * "Lang parkeren bij Schiphol". The lowercase p is his, and it is deliberate on
+ * our side too — set as a sentence this is a description of the service, where
+ * "Lang Parkeren" in caps reads as the company signing its own name.
+ *
+ * ⚠ NO SCRIM RE-MEASURE NEEDED, and this is the arithmetic rather than an
+ * assumption: the binding constraint is the WIDEST line, which is still
+ * "Lang parkeren" (13 characters). "bij Schiphol" is 12 against the old "op
+ * Schiphol"'s 11 — one character wider, and still short of the first line. The
+ * copy column therefore ends exactly where it did, over the same part of the
+ * ramp. Two lines, as before.
  */
-const HEADLINE_LINES = ['Lang Parkeren', 'op Schiphol'] as const;
+const HEADLINE_LINES = ['Lang parkeren', 'bij Schiphol'] as const;
 
 /**
  * The promise, directly under the H1.
@@ -101,6 +114,17 @@ const SUBHEAD = 'Zorgeloos geregeld.';
 const PROOF = [
   'Shuttle van en naar de vertrekhal inbegrepen',
   '24/7 camerabewaking en monitoring',
+  // ── Client's final wording, August 2026 ──────────────────────────────────
+  // Was 'Op 5 tot 8 minuten van de vertrekhal'. His line names the thing that
+  // is five minutes away — the parkeerlocatie — which is the half a reader has
+  // to infer from ours, and it keeps the published 5-to-8 figure the note below
+  // was written to defend. So the TODO under it still stands, unanswered.
+  //
+  // ⚠ It is 17 characters longer, which makes this column wrap to three lines at
+  // lg where it wrapped to two. The row does NOT get wider — the grid is capped
+  // at max-w-lg and the text wraps inside its own column — so the scrim
+  // arithmetic below is untouched. The hero simply grows a line taller on
+  // desktop. Below sm the row was already stacked.
   // ── The proximity claim. Local SEO, August 2026 ──────────────────────────
   // Replaces 'Boek direct via de website', which said nothing a visitor
   // looking at a booking form needed to be told.
@@ -116,7 +140,7 @@ const PROOF = [
   // "3 km van de terminal"), send the figure and we will use it — but it then
   // has to replace the 5–8 minute claim everywhere or sit clearly beside it as
   // a different measurement. One number in two sizes is worse than either.
-  'Op 5 tot 8 minuten van de vertrekhal',
+  'Parkeerlocatie op slechts 5 tot 8 minuten van Schiphol',
 ] as const;
 
 export function HeroSection({
@@ -385,10 +409,25 @@ export function HeroSection({
                 competitor also claims. "In 5 tot 8 minuten naar de vertrekhal"
                 is the same length and is checkable; it is also the client's own
                 figure, already published on /onze-services/, the FAQ, the trust
-                page and the service chooser, so this is not a new claim. */}
+                page and the service chooser, so this is not a new claim.
+
+                ── Client's final copy, August 2026 ──────────────────────────
+                Same argument, his sentences: shuttle still leads, the two-minute
+                claim moves to the front where it is the first thing said, and
+                "uw parkeerplaats bij Schiphol" gives the opening sentence an
+                object. About 15 characters longer, so it wraps one line further
+                at the documented 46ch cap — which is a height change, not a
+                width one, and the cap is what the scrim was measured against.
+
+                His document sets "shuttle parkeren" and "valet parkeren" in
+                bold. Rendered plain here: bold inside a 20px lead over a
+                photograph reads as two different type colours rather than as
+                emphasis, and the site does not use inline bold in body copy
+                anywhere else. Same decision on every page in this pass. */}
             <motion.p {...rise(0.42)} className="text-lead text-navy-100 mt-7 max-w-[46ch]">
-              Binnen 2 minuten geregeld. Kies voor Shuttle met een gratis transfer naar de
-              vertrekhal of voor Valet, waarbij onze chauffeur uw auto direct voor u parkeert.
+              Reserveer binnen 2 minuten uw parkeerplaats bij Schiphol. Kies voor shuttle parkeren
+              met gratis transfer naar de vertrekhal of voor valet parkeren, waarbij onze chauffeur
+              uw auto voor u parkeert.
             </motion.p>
 
             {/* The proof row. Deliberately not a bullet list with filled circle

@@ -49,9 +49,12 @@ export function ClusterLinks({
           </h2>
         </Reveal>
 
+        {/* <div>, not <li>: <Stagger as="ul"> supplies the <li>, so an <li> here
+            nested one inside another. Pre-existing; found while verifying the
+            August 2026 copy pass. */}
         <Stagger as="ul" className="divide-line border-line mt-10 divide-y border-y">
           {links.map((link) => (
-            <li key={link.href}>
+            <div key={link.href}>
               <Link
                 href={link.href}
                 className="group ease-settle flex items-start justify-between gap-6 py-6 transition-colors duration-(--duration-micro)"
@@ -70,7 +73,7 @@ export function ClusterLinks({
                   aria-hidden
                 />
               </Link>
-            </li>
+            </div>
           ))}
         </Stagger>
       </Container>

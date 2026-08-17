@@ -57,7 +57,25 @@ export default async function HomePage() {
           eslint, and the section order note above still assumes it. */}
       {/* <Testimonials /> */}
       <Faq />
-      <ClosingCta />
+
+      {/* The client's closing copy, August 2026. His heading is what the default
+          already said, so only the lines under it are passed. The five
+          reassurances are his, and replace the shared three — see ClosingCta. */}
+      <ClosingCta
+        heading="Begin uw reis ontspannen"
+        subhead="Reserveer uw parkeerplaats bij Schiphol"
+        lead={[
+          'Kies voor het gemak van valet parkeren of parkeer uw auto zelf met onze shuttleservice. Wat u ook kiest: wij zorgen ervoor dat het parkeren vooraf goed geregeld is.',
+          'Reserveer vandaag nog uw parkeerplaats bij Schiphol.',
+        ]}
+        reassurances={[
+          'Annuleren tot 24 uur voor aankomst met annuleringsdekking',
+          'Binnen 2 minuten online gereserveerd',
+          '24/7 bewaakte parkeerlocatie',
+          'Keuze uit valet en shuttle parkeren',
+          'Directe reserveringsbevestiging',
+        ]}
+      />
 
       {/* Watches the hero's booking card; stands down at the footer. */}
       <StickyBookingBar watchId="hero-booking" hideAfterId="site-footer" />

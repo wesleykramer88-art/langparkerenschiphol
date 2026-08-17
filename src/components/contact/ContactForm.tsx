@@ -5,10 +5,11 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Check, Mail, Phone, TriangleAlert } from 'lucide-react';
-import { Field, Input, Textarea } from '@/components/ui/Field';
+import { Field, Input, Select, Textarea } from '@/components/ui/Field';
 import { Button } from '@/components/ui/Button';
 import { sendContactMessage, type ContactResult } from '@/app/(site)/contact/actions';
 import { siteConfig } from '@/config/site';
+import { CONTACT_SUBJECTS } from '@/config/contact';
 
 /**
  * The contact form.
@@ -38,7 +39,8 @@ import { siteConfig } from '@/config/site';
 const schema = z.object({
   name: z.string().trim().min(2, 'Vul uw naam in.').max(120, 'Deze naam is te lang.'),
   email: z.email('Vul een geldig e-mailadres in.').max(180),
-  phone: z.string().trim().max(40, 'Dit telefoonnummer is te lang.').optional(),
+  reservationNumber: z.string().trim().max(60, 'Dit reserveringsnummer is te lang.').optional(),
+  subject: z.enum(CONTACT_SUBJECTS, { message: 'Kies een onderwerp.' }),
   message: z
     .string()
     .trim()
@@ -55,14 +57,16 @@ function mailtoHref(values: Values) {
     '',
     '—',
     values.name,
-    values.phone ? `Telefoon: ${values.phone}` : null,
+    values.reservationNumber ? `Reserveringsnummer: ${values.reservationNumber}` : null,
     values.email,
   ]
     .filter((line) => line !== null)
     .join('\n');
 
   const params = new URLSearchParams({
-    subject: `Vraag via de website — ${values.name}`,
+    // Carries the chosen subject, so the fallback e-mail arrives triaged the
+    // same way a successful submit would.
+    subject: `${values.subject} — ${values.name}`,
     body,
   });
 
@@ -105,16 +109,29 @@ export function ContactForm() {
           <Check className="size-5" strokeWidth={2.5} aria-hidden />
         </span>
         <h3 className="text-display-sm text-heading mt-5">Bedankt voor uw bericht</h3>
+        {/* ── The 1-hour promise is gone, and so is "bel ons gerust" ──────────
+            Both contradicted the page they sit on as of the client's August 2026
+            contact copy, which states plainly that the phone line is for the day
+            of arrival and departure only and that general questions go by
+            e-mail. Offering a general-purpose "is het dringend? bel ons" in the
+            confirmation undoes the whole page above it.
+            Both sentences below are his, verbatim: the response-time line from
+            the hero and the "Stuur ons een bericht" section, the phone
+            restriction from the closing block. The number is NOT removed —
+            somebody who has just landed still needs it. */}
         <p className="text-muted mt-3 max-w-[42ch] leading-relaxed">
-          Wij hebben uw bericht ontvangen en reageren doorgaans binnen 1 uur. Is het dringend? Bel
-          ons gerust op{' '}
+          Wij hebben uw bericht ontvangen. Wij proberen uw vraag zo snel mogelijk te beantwoorden.
+        </p>
+        <p className="text-muted mt-3 max-w-[42ch] text-sm leading-relaxed">
+          Gebruik{' '}
           <a
             href={siteConfig.phone.href}
             className="numeric text-brand decoration-navy-300 hover:decoration-navy-600 underline underline-offset-4"
           >
             {siteConfig.phone.display}
-          </a>
-          .
+          </a>{' '}
+          wanneer u op de dag van uw reservering contact nodig heeft voor het inleveren of ophalen
+          van uw auto of voor de shuttletransfer.
         </p>
       </div>
     );
@@ -162,11 +179,38 @@ export function ContactForm() {
       </div>
 
       <Field
-        label="Telefoonnummer"
-        hint="Optioneel — handig als wij u liever even bellen."
-        error={errors.phone?.message}
+        label="Reserveringsnummer"
+        hint="Optioneel — vul dit in als uw vraag over een bestaande reservering gaat."
+        error={errors.reservationNumber?.message}
       >
-        {(props) => <Input {...props} {...register('phone')} type="tel" autoComplete="tel" />}
+        {(props) => (
+          <Input
+            {...props}
+            {...register('reservationNumber')}
+            autoComplete="off"
+            inputMode="text"
+          />
+        )}
+      </Field>
+
+      {/* Required, and with no blank first option: `defaultValue=""` on a select
+          whose only empty entry is disabled gives the visitor a visible prompt
+          they cannot submit, and the zod enum rejects '' with the same message
+          the server would. A pre-selected first real option would instead have
+          every distracted visitor filing under "Bestaande reservering". */}
+      <Field label="Onderwerp" error={errors.subject?.message} required>
+        {(props) => (
+          <Select {...props} {...register('subject')} defaultValue="">
+            <option value="" disabled>
+              Kies een onderwerp
+            </option>
+            {CONTACT_SUBJECTS.map((subject) => (
+              <option key={subject} value={subject}>
+                {subject}
+              </option>
+            ))}
+          </Select>
+        )}
       </Field>
 
       <Field label="Bericht" error={errors.message?.message} required>
@@ -198,7 +242,12 @@ export function ContactForm() {
         <Button type="submit" size="lg" disabled={pending}>
           {pending ? 'Bezig met versturen…' : 'Stuur bericht'}
         </Button>
-        <p className="text-muted text-sm">Doorgaans reageren wij binnen 1 uur.</p>
+        {/* His wording. The old line promised a reply within the hour, which is
+            a service level nobody has confirmed and which his own copy declines
+            to make. */}
+        <p className="text-muted text-sm">
+          Wij proberen uw vraag zo snel mogelijk te beantwoorden.
+        </p>
       </div>
     </form>
   );

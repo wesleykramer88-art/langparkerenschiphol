@@ -53,6 +53,17 @@ type Service = {
   badge: string;
   /** accent = the recommended option; there is only ever one. */
   badgeTone: 'accent' | 'brand';
+  /**
+   * The client's H3 for this card, between the title and the description.
+   *
+   * New in his August 2026 copy, and it is doing something the badge above it
+   * cannot: the badge is a two-word label on the photograph ("Snelste optie"),
+   * this is the sentence that says why. They are kept separate rather than
+   * merged because his document has both, and because a badge long enough to
+   * carry "De snelste en meest comfortabele keuze" would cover a third of the
+   * frame.
+   */
+  tagline: string;
   description: string;
   /**
    * The client's USPs for this service, each with its own mark.
@@ -70,6 +81,15 @@ type Service = {
   slug: 'valet' | 'shuttle';
   /** Where the customer physically goes. The two services differ. */
   where: string;
+  /**
+   * What that place IS — "Overdracht" for valet, "Parkeerlocatie" for shuttle.
+   *
+   * His copy labels the line, and on this card the label is the point: the two
+   * addresses sit in the same position on two cards side by side, and without it
+   * the reader has to work out which one they drive to. Somebody who gets this
+   * wrong misses a flight.
+   */
+  whereLabel: string;
   /**
    * Only valet takes payment on site. True, and a genuine reason to pick the
    * more expensive service — but NOT rendered.
@@ -91,14 +111,18 @@ const SERVICES: readonly Service[] = [
     title: 'Valet Parkeren',
     badge: 'Snelste optie',
     badgeTone: 'accent',
+    tagline: 'De snelste en meest comfortabele keuze',
+    // His final wording. Ours said "staat klaar"; his says "staat voor u klaar",
+    // and "vervolgens" makes the sequence explicit rather than implied.
     description:
-      'Rijd rechtstreeks naar de vertrekhal van Schiphol. Onze chauffeur staat klaar, controleert uw auto en rijdt deze naar onze veilige parkeerlocatie.',
+      'Rijd rechtstreeks naar de vertrekhal van Schiphol. Onze chauffeur staat voor u klaar, controleert uw auto en rijdt deze vervolgens naar onze beveiligde parkeerlocatie.',
     // Read from the one place the client's compact USPs live, rather than
     // retyped. This card, the ticket stub and the two service landing pages all
     // render them; three transcriptions of the same four lines is three chances
     // for one of them to quietly stop matching. See src/config/services.ts.
     usps: SERVICE_COPY.valet.bullets,
     cta: 'Reserveer Valet Parkeren',
+    whereLabel: 'Overdracht',
     // The crew in the branded hi-vis. The only photograph on the page of the
     // actual service being performed, so it carries the option it belongs to.
     photo: 'crewHandover',
@@ -113,10 +137,14 @@ const SERVICES: readonly Service[] = [
     title: 'Shuttle Parkeren',
     badge: 'Meest betaalbare keuze',
     badgeTone: 'brand',
+    tagline: 'Voordelig parkeren en uw sleutels mee op reis',
+    // His wording, and it names the place: "onze parkeerlocatie in Schiphol-Rijk"
+    // rather than "ons terrein". The 5-to-8 figure survives unchanged.
     description:
-      'Parkeer uw auto op ons terrein. Onze shuttlebus brengt u comfortabel binnen 5 tot 8 minuten naar de vertrekhal van Schiphol.',
+      'Parkeer uw auto zelf op onze parkeerlocatie in Schiphol-Rijk. Onze shuttlebus brengt u vervolgens in ongeveer 5 tot 8 minuten naar de vertrekhal van Schiphol.',
     usps: SERVICE_COPY.shuttle.bullets,
     cta: 'Reserveer Shuttle Parkeren',
+    whereLabel: 'Parkeerlocatie',
     // His own terrain, with the shuttle bus running along the top of the frame
     // and Dutch yellow plates through every row. Literally what this option is.
     photo: 'lotShuttle',
@@ -150,11 +178,13 @@ const SERVICES: readonly Service[] = [
 const COVER_OPTIONS = [
   {
     label: 'Buitenterrein',
-    body: 'Uw auto staat op ons afgesloten, bewaakte buitenterrein.',
+    body: 'Uw auto staat op ons afgesloten en bewaakte buitenterrein.',
   },
   {
+    // "beschermd tegen weersinvloeden" rather than our "uit weer en wind" — his
+    // phrasing, and the one the rates page now also uses for the same option.
     label: 'Overdekt',
-    body: 'Uw auto staat binnen, uit weer en wind. Beperkt beschikbaar.',
+    body: 'Uw auto staat binnen en beschermd tegen weersinvloeden. Beperkt beschikbaar.',
   },
 ] as const;
 
@@ -171,12 +201,17 @@ export function ServiceChooser() {
           <div>
             <Eyebrow rule>Welke parkeeroptie past bij u?</Eyebrow>
             <h2 id="diensten-heading" className="text-display-lg mt-5 max-w-[16ch]">
-              Kies uw parkeerwijze bij Schiphol
+              Kies de parkeerservice die bij u past
             </h2>
           </div>
+          {/* His supporting line. Ours mentioned the cancellation cover, which is
+              now stated on the closing block and in the FAQ instead; his says the
+              thing that is true of BOTH cards, which is what a line above two
+              cards is for. Runs a touch longer than the 36ch cap, so it wraps to
+              four lines at lg where ours wrapped to three. */}
           <p className="text-muted max-w-[36ch] text-base lg:pb-2 lg:text-right">
-            Twee manieren om bij de vertrekhal te komen. Beide met bewaakte parkeerplaats en een
-            optionele annuleringsdekking.
+            Kies voor valet- of shuttle parkeren bij Schiphol. Bij beide parkeerservices staat uw
+            auto tijdens uw reis op een afgesloten en bewaakte parkeerlocatie.
           </p>
         </Reveal>
 
@@ -220,7 +255,12 @@ function ServiceCard({ service }: { service: Service }) {
       </div>
 
       <div className="flex flex-1 flex-col p-6 sm:p-8">
-        <p className="max-w-[46ch]">{service.description}</p>
+        {/* The tagline. Not an <h4>: the card's <h3> is the service name on the
+            photograph and this is a subtitle to it, so promoting it would put two
+            headings in one card with the quieter one ranked deeper. Set at the
+            heading colour and weight so it reads as a title anyway. */}
+        <p className="text-heading text-base font-semibold sm:text-lg">{service.tagline}</p>
+        <p className="mt-3 max-w-[46ch]">{service.description}</p>
 
         {/* The USP block.
 
@@ -262,6 +302,7 @@ function ServiceCard({ service }: { service: Service }) {
           </dl>
           <p className="text-muted mt-3 text-xs leading-relaxed">
             <MapPin className="mr-1 inline size-3.5 align-[-0.15em]" aria-hidden />
+            <span className="text-heading font-semibold">{service.whereLabel}:</span>{' '}
             {service.where}
           </p>
         </div>

@@ -40,6 +40,15 @@ import { siteConfig } from '@/config/site';
 type BoardItem = {
   /** A figure. Counts up once when the band enters the viewport. */
   number?: number;
+  /**
+   * A word before the figure, in the sans face — "Tot 24 uur".
+   *
+   * Added for the client's August 2026 copy, which qualifies the cancellation
+   * window rather than stating it flat. It sits OUTSIDE the mono run on purpose:
+   * "Tot" is a word, and the rule this board is built on is that only figures
+   * get the mono face.
+   */
+  numberPrefix?: string;
   /** Glued to the figure, inside the mono run. */
   numberSuffix?: string;
   /** Follows the figure in the sans face — "uur", not a code. */
@@ -49,16 +58,44 @@ type BoardItem = {
   label: string;
 };
 
+/**
+ * All four are the client's final copy, August 2026. Three changed:
+ *
+ *   · "jaar actief op Schiphol" → the figure now carries "jaar" as its unit and
+ *     the label states what the years are OF. His wording.
+ *   · "Tot" was added to the cancellation window — see `numberPrefix`.
+ *   · "AMS" became "24/7". The airport code was doing the work of a fact and is
+ *     not one: it told a visitor already reading a page about Schiphol that this
+ *     is at Schiphol. "24/7" says the service runs at the hour their flight
+ *     actually leaves, which is the thing a 06:00 departure wants to know.
+ *
+ * Only "Duizenden" is untouched.
+ */
 const ITEMS: readonly BoardItem[] = [
-  { number: siteConfig.yearsActive, numberSuffix: '+', label: 'jaar actief op Schiphol' },
+  {
+    number: siteConfig.yearsActive,
+    numberSuffix: '+',
+    unit: 'jaar',
+    label: 'ervaring met parkeren bij Schiphol',
+  },
   { word: 'Duizenden', label: 'tevreden reizigers per jaar' },
   // Not "gratis annuleren". The cancellation cover is a paid option, so the
   // free-cancellation framing sells a flexibility the visitor has to buy first
   // — and it contradicts "optionele annuleringsdekking" in the service chooser
-  // two sections down. "Flexibel … met annuleringsdekking" is the one phrasing
-  // used everywhere the claim appears.
-  { number: 24, unit: 'uur', label: 'voor aankomst flexibel annuleren met annuleringsdekking' },
-  { word: 'AMS', label: 'valet- en shuttleservice' },
+  // two sections down.
+  //
+  // "Flexibel" has come off the front, because his board copy reads "Tot 24 uur
+  // voor aankomst annuleren met annuleringsdekking". The word is not gone from
+  // the site — his closing blocks on the shuttle, valet and waarom pages all
+  // still open "Flexibel annuleren tot 24 uur …", and those keep it. The
+  // qualifier that matters is "met annuleringsdekking", and that is in both.
+  {
+    numberPrefix: 'Tot',
+    number: 24,
+    unit: 'uur',
+    label: 'voor aankomst annuleren met annuleringsdekking',
+  },
+  { word: '24/7', label: 'valet- en shuttleservice' },
 ];
 
 export function TrustStrip() {
@@ -80,6 +117,14 @@ export function TrustStrip() {
                   board is two columns, and "Duizenden" set at text-4xl runs into
                   the gutter. The figures step up from there. */}
               <p className="text-heading text-3xl leading-none font-semibold sm:text-4xl lg:text-5xl">
+                {/* Stepped down like `unit`, and for the same reason: at the
+                    figure's own size "Tot" is as loud as the 24 and the column
+                    reads as two claims. */}
+                {item.numberPrefix ? (
+                  <span className="mr-2 text-xl font-medium sm:text-2xl lg:text-3xl">
+                    {item.numberPrefix}
+                  </span>
+                ) : null}
                 {item.number !== undefined ? (
                   <CountUp to={item.number} suffix={item.numberSuffix} />
                 ) : (

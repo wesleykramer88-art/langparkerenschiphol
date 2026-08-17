@@ -114,3 +114,38 @@ export function Textarea({ className, ...props }: React.ComponentPropsWithoutRef
     />
   );
 }
+
+/**
+ * A native <select>, on the same control styling as the input.
+ *
+ * Native rather than a listbox built out of divs: this is a nine-option subject
+ * picker on a contact form, and the platform control already has keyboard
+ * support, type-ahead, an accessible name from the <label> above it, and the
+ * correct wheel picker on a phone. A custom one would be a great deal of code
+ * to arrive back where this starts.
+ *
+ * `appearance-none` plus a chevron drawn as a background image, because the
+ * native arrow is drawn in the OS's own colour and sits at the OS's own inset —
+ * beside an <Input> on the same row that reads as a rendering error rather than
+ * as a different control. `pr-10` keeps the longest option clear of it.
+ *
+ * The chevron is inlined as a data: URI rather than an icon component: a
+ * background image cannot be a React element, and a wrapper div with an
+ * absolutely-positioned <ChevronDown> would break the shared `controlClasses`
+ * focus ring by moving the focusable element inside another box.
+ */
+const chevron =
+  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E\")";
+
+export function Select({ className, ...props }: React.ComponentPropsWithoutRef<'select'>) {
+  return (
+    <select
+      className={cn(controlClasses, 'cursor-pointer appearance-none bg-no-repeat pr-10', className)}
+      style={{
+        backgroundImage: chevron,
+        backgroundPosition: 'right 0.75rem center',
+      }}
+      {...props}
+    />
+  );
+}

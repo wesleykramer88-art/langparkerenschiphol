@@ -1,6 +1,8 @@
+import { ArrowRight } from 'lucide-react';
 import { createMetadata } from '@/lib/seo';
 import { jsonLd, breadcrumbSchema, serviceSchema, type FaqItem } from '@/lib/schema';
 import { Button } from '@/components/ui/Button';
+import { SERVICE_COPY } from '@/config/services';
 import { BookingPicker } from '@/components/booking/BookingPicker';
 import { PageHero } from '@/components/sections/PageHero';
 import { ServiceUsp } from '@/components/sections/ServiceUsp';
@@ -48,50 +50,71 @@ const CRUMBS = [{ name: 'Shuttle parkeren Schiphol', path: PATH }];
  * without inventing a number, and a TODO(client) names the missing fact.
  */
 
+/**
+ * The client's six steps, August 2026. His headings, minus the "Stap n:" prefix
+ * that <Timeline> already emits — see the note on the homepage's STEPS.
+ *
+ * ⚠ Considerably longer than the six they replace. At six columns <Timeline>
+ * switches to its dense treatment (text-sm, 34ch), so step 3 runs to about seven
+ * lines and the band is materially taller than before. Nothing overflows and the
+ * grid is unchanged; the columns are just uneven, step 3 being roughly twice
+ * step 5.
+ */
 const STEPS: readonly TimelineStep[] = [
   {
-    title: 'Reserveer online.',
-    body: 'U kiest uw aankomst- en retourmoment en rondt de reservering in een paar minuten af. U ontvangt direct een bevestiging.',
+    title: 'Reserveer online',
+    body: 'Reserveer uw shuttle parkeerplaats eenvoudig online. Vul uw aankomst- en retourgegevens in en ontvang direct uw reserveringsbevestiging.',
   },
   {
-    title: 'Rijd naar het terrein.',
-    body: 'U rijdt naar Tupolevlaan 39 in Schiphol-Rijk. Dat is ons eigen terrein, niet de terminal.',
+    // The address runs inline rather than on its own lines as in his document:
+    // `body` is one string, and a postcode on its own line inside a 150px
+    // column at six across would wrap anyway.
+    title: 'Rijd naar onze parkeerlocatie',
+    body: 'Op de dag van vertrek rijdt u naar Tupolevlaan 39, 1119 PA Schiphol-Rijk. U rijdt dus niet eerst naar de vertrekhal van Schiphol.',
   },
   {
-    title: 'Parkeer zelf, sleutel mee.',
-    body: 'U zet uw auto zelf neer en neemt uw autosleutel gewoon mee op reis.',
+    title: 'Parkeer zelf en neem uw sleutel mee',
+    body: 'Op onze parkeerlocatie parkeert u uw auto zelf op de aangewezen parkeerplaats. Daarna neemt u uw autosleutels gewoon mee op reis. Uw auto blijft tijdens uw reis op de parkeerlocatie staan waar u deze zelf heeft geparkeerd.',
   },
   {
-    title: 'Shuttle naar de vertrekhal.',
-    body: 'Onze shuttlebus brengt u in 5 tot 8 minuten naar de vertrekhal van Schiphol.',
+    title: 'Met de shuttle naar Schiphol',
+    body: 'Nadat u uw auto heeft geparkeerd, stapt u met uw bagage in onze shuttlebus. De rit naar de vertrekhal van Schiphol duurt ongeveer 5 tot 8 minuten.',
   },
   {
-    title: 'Bel bij terugkomst.',
-    body: 'Na de landing belt u ons even. Wij zorgen dat de shuttle u weer ophaalt.',
+    title: 'Bel ons na uw landing',
+    body: 'Bent u weer geland op Schiphol? Neem dan telefonisch contact met ons op. Wij laten u weten waar de shuttle u ophaalt en zorgen ervoor dat u weer naar onze parkeerlocatie wordt gebracht.',
   },
   {
-    title: 'Terug naar uw eigen auto.',
-    body: 'De shuttle brengt u terug naar het terrein, waar uw auto staat waar u hem heeft neergezet.',
+    title: 'Terug naar uw auto',
+    body: 'Onze shuttle brengt u terug naar de parkeerlocatie in Schiphol-Rijk. Uw auto staat daar waar u deze zelf heeft geparkeerd. U stapt in en kunt direct uw reis naar huis vervolgen.',
   },
 ];
 
-/** Who it suits. The document asks for this section by name. */
+/**
+ * Who it suits. The client's four, August 2026 — same four audiences, his words.
+ *
+ * ⚠ The bodies are roughly 40% longer than the ones they replace and the third
+ * title runs to 48 characters. In the four-column hairline grid below that means
+ * the title wraps to three lines and the longest body to about nine, so the row
+ * is noticeably deeper. It does not overflow — the columns are `1fr` and the body
+ * is capped at 32ch — but the four columns are visibly unequal in length.
+ */
 const SUITS = [
   {
-    title: 'Vakantiegangers die langer wegblijven',
-    body: 'Hoe langer u weg bent, hoe zwaarder de parkeerkosten wegen. Shuttle parkeren is de voordeligste van onze twee services en het verschil loopt op per dag.',
+    title: 'Vakantiegangers',
+    body: 'Gaat u meerdere dagen of weken op reis? Dan kan shuttle parkeren een voordelige keuze zijn. U parkeert vlak bij Schiphol en de transfer van en naar de luchthaven is inbegrepen.',
   },
   {
     title: 'Gezinnen met bagage',
-    body: 'U rijdt tot naast uw parkeerplek en laadt rustig uit. De shuttle rijdt tot de vertrekhal, dus u sjouwt niet verder dan van de bus naar de deur.',
+    body: 'U rijdt met uw eigen auto rechtstreeks naar uw parkeerplaats en kunt daar rustig uw koffers en andere bagage uitladen. Vervolgens brengt onze shuttle u met uw bagage naar de vertrekhal.',
   },
   {
-    title: 'Reizigers die hun sleutel houden',
-    body: 'Bij shuttle parkeren geeft u niets af. U parkeert zelf en uw autosleutel gaat mee in uw zak of tas.',
+    title: 'Reizigers die hun autosleutels zelf willen houden',
+    body: 'Bij onze shuttleservice hoeft u uw autosleutels niet af te geven. U parkeert uw auto zelf en neemt de sleutel mee op reis. Uw auto blijft tijdens uw afwezigheid op de plek staan waar u deze heeft geparkeerd.',
   },
   {
-    title: 'Prijsbewuste reizigers die geen risico willen',
-    body: 'Voordelig parkeren zonder in te leveren op het terrein: afgesloten, 24 uur per dag onder camerabewaking en met een vaste procedure.',
+    title: 'Reizigers die voordelig willen parkeren',
+    body: 'Shuttle parkeren is onze voordeligste parkeerservice. U profiteert van een bewaakte parkeerlocatie vlak bij Schiphol, terwijl de transfer van en naar de luchthaven bij uw reservering is inbegrepen.',
   },
 ] as const;
 
@@ -108,75 +131,107 @@ const SUITS = [
 const CONCERNS: readonly FaqItem[] = [
   {
     question: 'Moet ik lang wachten op de shuttle?',
-    answer:
-      'De shuttle rijdt op uw reservering: wij weten wanneer u aankomt en stemmen daarop af. De rit naar de vertrekhal duurt vervolgens 5 tot 8 minuten. Reken voor het geheel — parkeren, instappen en de rit — op ongeveer een kwartier, en houd daarnaast de normale tijd voor inchecken aan.',
+    answer: [
+      'Bij uw reservering geeft u aan hoe laat u bij onze parkeerlocatie verwacht aan te komen. Zo kunnen wij onze shuttleplanning hierop afstemmen.',
+      'De rit naar de vertrekhal duurt vervolgens ongeveer 5 tot 8 minuten.',
+      'Houd voor het parkeren, instappen en de transfer naar Schiphol in totaal rekening met ongeveer 15 minuten.',
+    ],
   },
   {
-    question: 'Hoe gaat het met veel bagage?',
-    answer:
-      'U parkeert zelf, dus u laadt uw bagage uit naast uw eigen auto en niet op een stoep. De shuttlebus is een personenbusje met ruimte voor koffers, en onze chauffeur helpt met in- en uitladen.',
+    question: 'Kan ik veel bagage meenemen?',
+    answer: [
+      'Ja. U kunt uw bagage direct naast uw eigen auto uitladen en vervolgens meenemen in onze shuttlebus.',
+      // "personenbusje" is gone with our version. It was a specific claim about
+      // the vehicle that nobody confirmed; his says what the space is for.
+      'De shuttle beschikt over ruimte voor koffers en andere reisbagage. Onze chauffeur kan u indien nodig helpen bij het in- en uitladen.',
+    ],
   },
   {
-    question: 'Wat als ik midden in de nacht aankom of terugkom?',
-    answer:
-      'Onze shuttleservice is 24 uur per dag beschikbaar, dus ook een vroege vlucht of een late landing is geen probleem. Geef uw werkelijke aankomst- en retourtijd op bij het reserveren, zodat wij daarop kunnen plannen. Bel ons direct na de landing, ook als het laat is.',
+    question: "Kan ik ook 's nachts gebruikmaken van de shuttle?",
+    answer: [
+      'Ja. Onze shuttleservice is 24 uur per dag beschikbaar.',
+      'Ook bij een vroege vlucht of late landing kunt u gebruikmaken van onze transfer. Vul tijdens uw reservering altijd uw juiste aankomst- en retourgegevens in, zodat wij onze planning daarop kunnen afstemmen.',
+    ],
   },
   {
     question: 'Wat gebeurt er als mijn vlucht vertraging heeft?',
-    answer:
-      'Wij volgen de actuele vluchtinformatie en passen de ophaaltijd indien nodig aan. Bij vertraging of een vervroegde landing zorgen wij dat u bij terugkomst gewoon wordt opgehaald. Bel ons wel even zodra u geland bent.',
+    answer: [
+      'Wij houden uw vluchtinformatie in de gaten en kunnen daardoor rekening houden met eventuele vertragingen of een eerdere landing.',
+      'Neem na uw landing altijd telefonisch contact met ons op. Zo weten wij dat u daadwerkelijk bent aangekomen en kunnen we de shuttle voor uw terugreis inplannen.',
+    ],
   },
 ];
 
 const FAQS: readonly FaqItem[] = [
   {
     question: 'Hoe laat moet ik aanwezig zijn bij shuttle parkeren?',
-    answer:
-      'Wij adviseren om bij shuttle parkeren minimaal 3 uur voor vertrek op ons terrein te zijn. Zo heeft u ruim tijd om te parkeren, met de shuttle naar de vertrekhal te rijden en rustig in te checken.',
+    answer: [
+      'Wij adviseren om minimaal 3 uur voor het vertrek van uw vlucht bij onze parkeerlocatie aanwezig te zijn.',
+      'Zo heeft u voldoende tijd om uw auto te parkeren, uw bagage uit te laden, met de shuttle naar Schiphol te reizen en rustig in te checken.',
+    ],
   },
   {
     question: 'Waar moet ik precies zijn?',
-    answer:
-      'Op ons eigen terrein aan de Tupolevlaan 39 in Schiphol-Rijk. Dat is niet de terminal — bij shuttle parkeren rijdt u naar ons toe en brengen wij u naar Schiphol. Rijd dus niet eerst naar de vertrekhal.',
+    answer: [
+      'Onze parkeerlocatie bevindt zich op Tupolevlaan 39, 1119 PA Schiphol-Rijk.',
+      'Bij shuttle parkeren rijdt u rechtstreeks naar deze locatie. U hoeft dus niet eerst naar de vertrekhal van Schiphol te rijden.',
+    ],
   },
   {
-    question: 'Hoe lang duurt de rit naar de vertrekhal?',
+    question: 'Hoe lang duurt de shuttle naar Schiphol?',
     answer:
-      'De shuttlebus brengt u binnen 5 tot 8 minuten van ons terrein naar de vertrekhal van Schiphol.',
+      'De rit van onze parkeerlocatie naar de vertrekhal van Schiphol duurt onder normale omstandigheden ongeveer 5 tot 8 minuten.',
   },
   {
     question: 'Moet ik mijn autosleutel afgeven?',
-    answer:
-      'Nee. Bij shuttle parkeren parkeert u uw auto zelf en neemt u uw autosleutel mee op reis. Alleen bij valet parking nemen wij uw auto over; dan worden uw sleutels bewaard in een brandwerende kluis op ons kantoor, dat onder camerabewaking staat.',
+    answer: [
+      'Nee.',
+      'Bij shuttle parkeren parkeert u uw auto zelf en neemt u uw autosleutels mee op reis.',
+      'Dat is een belangrijk verschil met valet parkeren, waarbij onze chauffeur uw auto voor u parkeert.',
+    ],
   },
   {
-    question: 'Waar stap ik uit op Schiphol?',
+    question: 'Waar zet de shuttle mij af op Schiphol?',
     answer:
-      'De shuttle zet u af bij de vertrekhal. U loopt vanaf daar rechtstreeks door naar de incheckbalies.',
+      'Onze shuttle brengt u naar de vertrekhal van Schiphol. Vanaf daar kunt u met uw bagage direct doorlopen naar de incheckbalies.',
   },
   {
+    // ── The unconfirmed arrivals-hall claim is GONE from this page ───────────
+    // It said "De shuttle haalt u op bij de aankomsthal", which nobody had
+    // confirmed — the valet flow was corrected in August 2026 to depart from and
+    // return to Vertrekhal 2–3, and whether the SHUTTLE collects at arrivals or
+    // at that same point was never answered.
+    //
+    // His answer sidesteps it correctly rather than guessing: the pickup point is
+    // told to the customer on the phone, which is what actually happens. So this
+    // page no longer states a hall it cannot support.
+    //
+    // ⚠ THE CLAIM SURVIVES ON FOUR OTHER PAGES — /zelf-parkeren-schiphol/,
+    // /goedkoop-shuttle-parkeren-schiphol/ and /parkeren-schiphol-zonder-sleutel-
+    // inleveren/ (twice). Those are outside this copy pass and were deliberately
+    // not touched. Search "aankomsthal" and fix them together.
     question: 'Hoe kom ik na mijn reis terug bij mijn auto?',
-    answer:
-      // TODO(client): SHUTTLE PICKUP LOCATION — UNCONFIRMED.
-      // The valet flow was corrected in August 2026: a valet car is handed over
-      // AND returned between Vertrekhal 2 and 3, never at arrivals. Whether the
-      // SHUTTLE collects a landed passenger at the aankomsthal or at that same
-      // departures point has not been answered, so this line is deliberately
-      // LEFT AS IT WAS rather than guessed at.
-      // There are five of these across the site — this file, zelf-parkeren,
-      // goedkoop-shuttle, zonder-sleutel (x2). Search "aankomsthal" and fix
-      // them together in one pass when the answer comes back.
-      'Bel ons direct nadat u geland bent en door de bagagehal bent. De shuttle haalt u op bij de aankomsthal en brengt u terug naar het terrein, waar uw auto staat waar u hem heeft achtergelaten.',
+    answer: [
+      'Neem na uw landing en het ophalen van uw bagage telefonisch contact met ons op.',
+      'Wij vertellen u waar de shuttle u ophaalt. Vervolgens brengen wij u terug naar onze parkeerlocatie, waar uw auto op u wacht.',
+    ],
   },
   {
-    question: 'Kan ik mijn reservering nog wijzigen of annuleren?',
-    answer:
-      'Met een annuleringsdekking annuleert u tot 24 uur voor aankomst. Die dekking is een optionele, betaalde toevoeging die u tijdens het reserveren aan uw boeking toevoegt; de prijs ziet u voordat u afrekent. Binnen 24 uur voor uw reis is annuleren niet meer mogelijk.',
+    question: 'Kan ik mijn reservering wijzigen of annuleren?',
+    answer: [
+      'Heeft u tijdens uw reservering gekozen voor onze optionele annuleringsdekking? Dan kunt u uw reservering tot 24 uur voor uw geplande aankomst annuleren.',
+      'De prijs van de annuleringsdekking ziet u tijdens het reserveren voordat u betaalt.',
+      'Binnen 24 uur voor aankomst is annuleren niet meer mogelijk.',
+      'Wilt u uw reservering wijzigen? Neem dan zo snel mogelijk contact op met onze klantenservice.',
+    ],
   },
   {
     question: 'Staat mijn auto binnen of buiten?',
-    answer:
-      'U kiest zelf. Wij hebben een afgesloten buitenterrein en een beperkt aantal overdekte plaatsen. Beide opties staan in het reserveringsscherm met hun eigen tarief, zodat u ze naast elkaar ziet voordat u kiest.',
+    answer: [
+      'Dat bepaalt u zelf tijdens het reserveren.',
+      'U kunt kiezen voor ons afgesloten buitenterrein of, indien beschikbaar, voor een overdekte parkeerplaats.',
+      'De beschikbare opties en bijbehorende tarieven worden tijdens het reserveren weergegeven.',
+    ],
   },
 ];
 
@@ -188,40 +243,92 @@ export default async function ShuttleParkingPage() {
       <PageHero
         eyebrow="Shuttle Parkeren"
         title="Shuttle parkeren bij Schiphol"
-        lead="U parkeert uw auto zelf op ons beveiligde terrein, houdt uw eigen sleutel en stapt in de shuttle. Binnen 5 tot 8 minuten staat u bij de vertrekhal."
+        subhead="Zelf parkeren, uw autosleutels mee op reis"
+        lead="Parkeer uw auto zelf op onze bewaakte parkeerlocatie in Schiphol-Rijk en neem uw autosleutels gewoon mee op reis. Onze gratis shuttle brengt u vervolgens in ongeveer 5 tot 8 minuten naar de vertrekhal van Schiphol."
         photo="lotShuttle"
         objectPosition="object-[center_35%]"
         crumbs={CRUMBS}
         // Defaulted to shuttle: a visitor who clicked through to a page about
         // one service should not have to correct the form on it.
         aside={<BookingPicker notch="inverse" defaultService="shuttle" bounds={bounds} />}
-      />
+      >
+        {/* His document gives the hero two buttons. They sit beside the booking
+            ticket, which reads as redundant for the primary one and is not for
+            the secondary: this hero had no route to the rates page at all, and
+            "wat kost het" is the question a visitor arrives with. */}
+        <Button href="/reservering/?service=shuttle" size="lg">
+          Reserveer shuttle parkeren
+          <ArrowRight data-arrow className="size-4" aria-hidden />
+        </Button>
+        <Button href="/tarieven/" variant="outline" size="lg">
+          Bekijk tarieven
+        </Button>
+      </PageHero>
 
-      <ServiceUsp service="shuttle" heading="Zelf parkeren, sleutels mee, transfer inbegrepen" />
+      <ServiceUsp
+        service="shuttle"
+        heading="Zelf parkeren, sleutels mee, transfer inbegrepen"
+        subhead="Voordelig en gemakkelijk parkeren bij Schiphol"
+        paragraphs={[
+          'Met shuttle parkeren rijdt u rechtstreeks naar onze parkeerlocatie in Schiphol-Rijk. U parkeert uw auto zelf, neemt uw autosleutels mee en stapt vervolgens in onze shuttlebus.',
+          'Binnen ongeveer 5 tot 8 minuten brengen wij u naar de vertrekhal van Schiphol. Na uw reis halen we u weer op en brengen we u terug naar uw auto.',
+        ]}
+        // His six for this page, not the compact four the homepage cards show.
+        bullets={SERVICE_COPY.shuttle.detailBullets}
+      />
 
       <ContentSection
         id="wat-is-het"
         eyebrow="Wat is shuttle parkeren?"
-        title="Uw auto op ons terrein, u met de bus naar de terminal"
+        title="U parkeert zelf, wij brengen u naar Schiphol"
         paragraphs={[
-          'Shuttle parkeren betekent dat u niet op de luchthaven zelf parkeert, maar op een eigen terrein vlakbij. U rijdt naar ons toe, zet uw auto neer op de plek die u krijgt aangewezen, en onze shuttlebus brengt u naar de vertrekhal van Schiphol. Bij terugkomst gaat dat in omgekeerde volgorde.',
-          'Het verschil met parkeren op de luchthaven zit in de grond eronder. Parkeerplaatsen direct bij een terminal zijn schaars en duur, en dat verschil betaalt u per dag. Een terrein op een paar minuten rijden kost minder, en die paar minuten worden voor u gereden.',
-          'Het verschil met valet parking zit in wie er rijdt. Bij valet geeft u uw auto af bij de vertrekhal en parkeert onze chauffeur hem voor u. Bij shuttle parkeren doet u dat zelf en houdt u uw sleutel. Dat is voor veel reizigers precies de reden om hiervoor te kiezen.',
+          'Shuttle parkeren is een eenvoudige en voordelige manier van parkeren bij Schiphol.',
+          'In plaats van uw auto direct bij de luchthaven te parkeren, rijdt u naar onze parkeerlocatie aan de Tupolevlaan 39 in Schiphol-Rijk. Hier parkeert u uw auto zelf op de aangewezen parkeerplaats.',
+          'Uw autosleutels neemt u gewoon mee op reis. Onze shuttlebus brengt u vervolgens in ongeveer 5 tot 8 minuten naar de vertrekhal van Schiphol.',
+          'Na uw terugkomst werkt het precies andersom. U belt ons nadat u bent geland en wij halen u met de shuttle op bij Schiphol. Vervolgens brengen we u terug naar de parkeerlocatie, waar uw auto op u wacht.',
         ]}
         photo="crewShuttleTerminal"
         objectPosition="object-[center_45%]"
-      />
+      >
+        {/* His document closes this section with an H3 and three paragraphs.
+            Passed as children rather than appended to `paragraphs`, because the
+            heading is doing real work — it is the comparison a visitor on this
+            page is actually making, and flattening it would bury three
+            paragraphs of it under the four above. */}
+        <div className="mt-10">
+          <h3 className="text-heading text-lg font-semibold">
+            Het verschil tussen shuttle en valet parkeren
+          </h3>
+          <div className="mt-4 flex flex-col gap-4">
+            <p className="text-body max-w-[62ch] leading-relaxed">
+              Bij shuttle parkeren rijdt u zelf naar onze parkeerlocatie, parkeert u zelf uw auto en
+              neemt u uw autosleutels mee op reis.
+            </p>
+            <p className="text-body max-w-[62ch] leading-relaxed">
+              Bij valet parkeren rijdt u rechtstreeks naar de vertrekhal van Schiphol. Daar neemt
+              onze chauffeur uw auto van u over en parkeren wij deze voor u.
+            </p>
+            <p className="text-body max-w-[62ch] leading-relaxed">
+              Wilt u voordelig parkeren en vindt u het prettig om uw autosleutels zelf te houden?
+              Dan is shuttle parkeren een uitstekende keuze.
+            </p>
+          </div>
+        </div>
+      </ContentSection>
 
       {/* ---------- The process ---------- */}
       <Section tone="surface" spacing="lg" aria-labelledby="proces-heading">
         <Container>
           <Reveal className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
             <div>
-              <Eyebrow rule>Zo werkt het</Eyebrow>
+              <Eyebrow rule>Zo werkt shuttle parkeren bij Schiphol</Eyebrow>
               <h2 id="proces-heading" className="text-display-lg mt-5 max-w-[18ch]">
-                Van reservering tot terugkomst
+                Van reservering tot terugkomst in 6 eenvoudige stappen
               </h2>
             </div>
+            {/* Ours, kept: his document gives no supporting line for this
+                section, and this one adds a fact the six steps do not state
+                outright — which two of them the customer performs. */}
             <p className="text-muted max-w-[34ch] text-base lg:pb-2 lg:text-right">
               Zes stappen, waarvan u er twee zelf doet: parkeren en bellen als u terug bent.
             </p>
@@ -233,12 +340,14 @@ export default async function ShuttleParkingPage() {
 
       <ContentSection
         id="reistijd"
-        eyebrow="Reistijd en gemak"
-        title="Vijf tot acht minuten naar de vertrekhal"
+        eyebrow="Binnen 5 tot 8 minuten bij de vertrekhal"
+        title="Een korte transfer van en naar Schiphol"
         paragraphs={[
-          'De rit van ons terrein naar de vertrekhal duurt 5 tot 8 minuten. Dat is de afstand die u niet zelf hoeft te rijden en waar u geen parkeerplaats voor hoeft te zoeken — bij aankomst niet, en bij terugkomst evenmin.',
-          'De shuttle rijdt op uw reservering. U geeft bij het boeken op wanneer u aankomt, zodat wij weten wanneer u er bent en daarop kunnen plannen. Voor de terugreis belt u ons na de landing; dan weten wij dat u er werkelijk bent, en niet alleen dat uw vlucht dat zou zijn.',
-          'Reken voor het hele proces op ongeveer een kwartier: parkeren, instappen, rijden en uitstappen. Wij adviseren om minimaal 3 uur voor vertrek op het terrein te zijn, zodat u daarna in alle rust kunt inchecken.',
+          'Onze parkeerlocatie ligt op slechts enkele minuten rijden van Schiphol. De shuttletransfer naar de vertrekhal duurt onder normale omstandigheden ongeveer 5 tot 8 minuten.',
+          'Bij uw reservering geeft u aan hoe laat u verwacht aan te komen. Zo kunnen wij rekening houden met uw aankomst en de shuttle daarop afstemmen.',
+          'Voor de terugreis belt u ons nadat u bent geland en uw bagage heeft opgehaald. Wij vertellen u waar u kunt instappen en brengen u vervolgens terug naar uw auto.',
+          'Houd voor het parkeren, instappen en de transfer naar Schiphol rekening met ongeveer 15 minuten.',
+          'Wij adviseren daarom om minimaal 3 uur voor het vertrek van uw vlucht bij onze parkeerlocatie aanwezig te zijn. Zo heeft u voldoende tijd om uw auto te parkeren, naar Schiphol te reizen en rustig in te checken.',
         ]}
         photo="terminalDeparture"
         objectPosition="object-[center_55%]"
@@ -250,9 +359,9 @@ export default async function ShuttleParkingPage() {
       <Section tone="surface" spacing="md" aria-labelledby="geschikt-heading">
         <Container>
           <Reveal className="max-w-[38ch]">
-            <Eyebrow rule>Voor wie</Eyebrow>
+            <Eyebrow rule>Voor wie is shuttle parkeren geschikt?</Eyebrow>
             <h2 id="geschikt-heading" className="text-display-md mt-5">
-              Wanneer shuttle parkeren de logische keuze is
+              Een voordelige keuze voor parkeren bij Schiphol
             </h2>
           </Reveal>
 
@@ -281,26 +390,32 @@ export default async function ShuttleParkingPage() {
           the set that should be eligible. */}
       <FaqSection
         items={CONCERNS}
-        eyebrow="Waar reizigers over twijfelen"
-        heading="De vragen die u stelt vóór u boekt"
-        lead="Wachten, bagage, en aankomen of terugkomen op een onmogelijk tijdstip — de vier dingen waar shuttle parkeren op wordt beoordeeld."
+        eyebrow="Veelgestelde vragen vóór uw vertrek"
+        heading="Alles over de shuttle, bagage en uw terugkomst"
+        lead="Wilt u weten hoe lang u op de shuttle moet wachten, hoeveel bagage u kunt meenemen of wat er gebeurt bij een late landing? Hieronder beantwoorden we de belangrijkste vragen."
         schema={false}
       />
 
       <ContentSection
         id="veiligheid"
-        eyebrow="Het terrein"
-        title="Voordelig parkeren, zonder concessies aan het terrein"
+        eyebrow="Veilig shuttle parkeren bij Schiphol"
+        title="Uw auto blijft staan waar u hem zelf parkeert"
         paragraphs={[
-          'Voordelig parkeren wordt vaak verward met onbewaakt parkeren. Dat is bij ons niet aan de orde: het terrein is afgesloten, staat 24 uur per dag onder camerabewaking en wordt gemonitord.',
-          'Daarbij komt iets wat alleen voor deze service geldt. U parkeert zelf en houdt uw sleutel, dus uw auto blijft staan waar u hem heeft neergezet. Er is niemand die hem verplaatst en er ligt geen sleutel op kantoor.',
+          'Voordelig parkeren hoeft niet te betekenen dat u moet inleveren op veiligheid.',
+          'Onze parkeerlocatie is afgesloten en voorzien van 24/7 camerabewaking en monitoring.',
+          'Een belangrijk voordeel van onze shuttleservice is dat u zelf uw auto parkeert en uw autosleutels meeneemt op reis.',
+          'Wij hoeven uw auto tijdens uw reis dus niet te verplaatsen. Uw auto blijft op de parkeerplaats staan waar u deze zelf heeft achtergelaten.',
         ]}
+        // His six, in his order. Note the covered-parking bullet is now third
+        // from last rather than third \u2014 the comment below about "the third
+        // bullet" refers to the covered claim wherever it sits in the list.
         bullets={[
-          'Afgesloten en gecontroleerd parkeerterrein',
+          'Afgesloten en gecontroleerde parkeerlocatie',
           '24/7 camerabewaking en monitoring',
-          'Overdekte plaatsen beschikbaar, in beperkt aantal',
-          'Laadpunten aanwezig voor elektrische auto\u2019s',
-          'U parkeert zelf en houdt uw autosleutel',
+          'U parkeert uw auto zelf',
+          'Autosleutels mee op reis',
+          'Overdekte parkeerplaatsen beschikbaar',
+          'Laadpunten voor elektrische auto\u2019s beschikbaar',
         ]}
         // The EV frame carries this section rather than another shot of the
         // terrain: the bullet list above is four states of a car park and one
@@ -325,14 +440,26 @@ export default async function ShuttleParkingPage() {
       <FaqSection
         items={FAQS}
         heading="Veelgestelde vragen over shuttle parkeren"
-        lead="Over aankomsttijden, de rit naar de terminal, uw sleutel en de terugreis."
+        lead="Alles wat u wilt weten voor uw reservering."
       />
 
       <ClusterLinks currentPath={PATH} />
 
       <ClosingCta
         heading="Reserveer uw shuttle parkeerplaats"
-        lead="Kies uw aankomst- en retourmoment en zie direct wat het kost. Binnen een paar minuten geregeld."
+        subhead="Voordelig parkeren op enkele minuten van Schiphol"
+        lead={[
+          'Parkeer uw auto zelf op onze bewaakte parkeerlocatie, neem uw autosleutels mee op reis en laat ons de transfer naar Schiphol regelen.',
+          'Binnen ongeveer 5 tot 8 minuten brengt onze shuttle u naar de vertrekhal. Na uw reis halen we u weer op en brengen we u terug naar uw auto.',
+        ]}
+        reassurances={[
+          'Autosleutels mee op reis',
+          'Gratis shuttle van en naar Schiphol',
+          'Binnen 2 minuten online gereserveerd',
+          '24/7 bewaakte parkeerlocatie',
+          'Slechts 5 tot 8 minuten van Schiphol',
+          'Flexibel annuleren tot 24 uur voor aankomst met annuleringsdekking',
+        ]}
         photo="lotShuttle"
         bookingHref="/reservering/?service=shuttle"
         bookingLabel="Reserveer shuttle parkeren"

@@ -6,7 +6,13 @@ import { cn } from '@/lib/cn';
 
 export type AccordionItem = {
   question: string;
-  answer: string;
+  /**
+   * One paragraph, or several. Structurally identical to `FaqItem` in
+   * lib/schema.ts — deliberately declared here rather than imported, so a UI
+   * primitive does not depend on the schema layer, and every caller passes the
+   * same shape to both.
+   */
+  answer: string | readonly string[];
 };
 
 /**
@@ -87,8 +93,19 @@ export function Accordion({
                 isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]',
               )}
             >
+              {/* An answer may be one paragraph or several — see FaqItem. The
+                  padding-bottom moves to the wrapper so it is not repeated
+                  between paragraphs, and the gap does the separating. */}
               <div className="overflow-hidden">
-                <p className="text-body max-w-[62ch] pr-10 pb-6">{item.answer}</p>
+                <div className="flex flex-col gap-4 pb-6">
+                  {(typeof item.answer === 'string' ? [item.answer] : item.answer).map(
+                    (paragraph) => (
+                      <p key={paragraph} className="text-body max-w-[62ch] pr-10">
+                        {paragraph}
+                      </p>
+                    ),
+                  )}
+                </div>
               </div>
             </div>
           </div>

@@ -38,6 +38,7 @@ export function ContentSection({
   title,
   paragraphs,
   bullets,
+  bulletsHeading,
   photo,
   photoAlt,
   objectPosition = 'object-center',
@@ -50,6 +51,17 @@ export function ContentSection({
   title: string;
   paragraphs: readonly string[];
   bullets?: readonly string[];
+  /**
+   * A label over the bullet list — "Voordelen van valet parking", "Bij de prijs
+   * inbegrepen:".
+   *
+   * This is NOT the variant the note above warns against: the section's shape is
+   * unchanged, and the list is the same list. It is a heading on an element that
+   * already exists, added because the client's August 2026 copy labels this list
+   * on three separate pages and an unlabelled list underneath four paragraphs
+   * reads as a continuation of them rather than as its own claim.
+   */
+  bulletsHeading?: string;
   photo?: PhotoName;
   /** Override the manifest alt where this crop shows something more specific. */
   photoAlt?: string;
@@ -79,7 +91,12 @@ export function ContentSection({
 
       {bullets?.length ? (
         <Reveal delay={80}>
-          <ul className="divide-line border-line mt-8 divide-y border-y">
+          {bulletsHeading ? (
+            <h3 className="text-heading mt-10 text-lg font-semibold">{bulletsHeading}</h3>
+          ) : null}
+          <ul
+            className={`divide-line border-line divide-y border-y ${bulletsHeading ? 'mt-5' : 'mt-8'}`}
+          >
             {bullets.map((bullet) => (
               <li key={bullet} className="flex items-start gap-3.5 py-3.5">
                 <Check className="text-accent mt-1 size-4 shrink-0" strokeWidth={3} aria-hidden />

@@ -61,6 +61,20 @@ import type { NotchColor } from '@/components/ui/Ticket';
  * border, which is the failure mode a variant named for a dark background has.
  */
 
+/**
+ * The default strip. Still three lines, and still the ones every page that does
+ * not override them shows.
+ *
+ * ── Why this is now a prop ──────────────────────────────────────────────────
+ * The client's August 2026 copy gives each page its OWN closing list, of five or
+ * six items rather than three, and they are not the same five: the shuttle page
+ * closes on the keys and the transfer, the ritregistratie page on what is
+ * recorded, the partner page on commission and the fixed contact. A shared three
+ * that contradicts the page above it is worse than a longer list.
+ *
+ * Pages that pass nothing are unchanged — which is eight of the thirteen call
+ * sites, all outside the copy pass this prop was added for.
+ */
 const REASSURANCES = [
   'Flexibel annuleren tot 24 uur voor aankomst met annuleringsdekking',
   'Binnen 2 minuten geregeld',
@@ -69,8 +83,27 @@ const REASSURANCES = [
 
 export function ClosingCta({
   heading = 'Begin uw reis ontspannen',
+  /**
+   * The line between the heading and the lead.
+   *
+   * Every one of the client's August 2026 closing blocks is written as an H1 and
+   * an H2 — "Begin uw reis ontspannen" / "Reserveer uw parkeerplaats bij
+   * Schiphol" — the same shape his page heroes use, and <PageHero> grew the same
+   * prop for the same reason. Undefined by default, so the pages outside that
+   * copy pass are untouched.
+   */
+  subhead,
   lead = 'Kies zekerheid, snelheid en gemak. Reserveer vandaag nog uw parkeerplaats op Schiphol.',
   photo = 'terminalDeparture',
+  /**
+   * This page's closing reassurances. Defaults to the shared three above.
+   *
+   * ⚠ Six is the practical ceiling. The strip wraps and centres, so a seventh
+   * item does not break the layout — but at six the row is already two lines on
+   * a laptop, and a closing block that needs three lines of small print has
+   * stopped being reassurance and become a specification.
+   */
+  reassurances = REASSURANCES,
   /** The section the seam above sits on, so the perforation punches its colour. */
   notch = 'canvas',
   /**
@@ -85,9 +118,12 @@ export function ClosingCta({
   bookingLabel = 'Reserveer nu',
 }: {
   heading?: string;
-  lead?: string;
+  subhead?: string;
+  /** One paragraph, or several where the client's copy runs to more than one. */
+  lead?: string | readonly string[];
   photo?: PhotoName;
   notch?: NotchColor;
+  reassurances?: readonly string[];
   bookingHref?: string;
   bookingLabel?: string;
 } = {}) {
@@ -125,7 +161,20 @@ export function ClosingCta({
           <h2 id="cta-heading" className="text-display-lg text-heading mt-12 max-w-[16ch]">
             {heading}
           </h2>
-          <p className="text-lead text-muted mt-6 max-w-[46ch]">{lead}</p>
+
+          {subhead ? (
+            <p className="text-display-sm text-heading mt-5 max-w-[24ch]">{subhead}</p>
+          ) : null}
+
+          {/* Centred, so the paragraphs are separated by a gap rather than by an
+              indent — there is no left edge here for an indent to work against. */}
+          <div className="mt-6 flex max-w-[46ch] flex-col gap-4">
+            {(typeof lead === 'string' ? [lead] : lead).map((paragraph) => (
+              <p key={paragraph} className="text-lead text-muted">
+                {paragraph}
+              </p>
+            ))}
+          </div>
 
           <div className="mt-10 flex flex-wrap justify-center gap-3">
             <Button href={bookingHref} size="lg">
@@ -139,8 +188,16 @@ export function ClosingCta({
             </Button>
           </div>
 
-          <ul className="border-line text-muted mt-12 flex flex-col items-center gap-3 border-t pt-8 text-sm sm:flex-row sm:gap-8">
-            {REASSURANCES.map((item) => (
+          {/* Wraps, rather than running as one row.
+              With the default three items this is pixel-identical to what it was
+              — three short lines fit one row at gap-8, so `flex-wrap` never
+              engages and `max-w-4xl` is wider than the content. It engages only
+              for the pages that now pass five or six, where the old `sm:flex-row`
+              would have pushed the last item off the measure.
+              The cap matches the photo panel above, so a wrapped strip lines up
+              with the frame instead of running the full container. */}
+          <ul className="border-line text-muted mt-12 flex flex-col items-center gap-3 border-t pt-8 text-sm sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-8 sm:gap-y-3 lg:max-w-4xl">
+            {reassurances.map((item) => (
               <li key={item}>{item}</li>
             ))}
           </ul>

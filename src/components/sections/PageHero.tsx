@@ -59,6 +59,7 @@ import type { Crumb } from '@/lib/schema';
 export function PageHero({
   eyebrow,
   title,
+  subhead,
   lead,
   photo,
   crumbs,
@@ -69,7 +70,29 @@ export function PageHero({
 }: {
   eyebrow: string;
   title: string;
-  lead?: string;
+  /**
+   * The promise, between the H1 and the lead.
+   *
+   * Added for the client's August 2026 copy, where every subpage document is
+   * written as an H1 followed by an H2 — "Shuttle parkeren bij Schiphol" /
+   * "Zelf parkeren, uw autosleutels mee op reis". Folding that second line into
+   * the lead was the alternative and it loses the distinction the documents are
+   * making: the H1 names the product, the subhead states what the reader gets.
+   *
+   * Set at display-md, the same treatment the homepage hero gives its own
+   * SUBHEAD, so the two heroes agree about what this line is. It is NOT a
+   * heading element — the page already has its H1 above and the sections below
+   * own the H2s, and an <h2> here would sit outside any section it describes.
+   *
+   * Contrast on the canvas: ink-700 at 8.51:1, AAA. It deliberately does not
+   * take the accent — valet-600 on cream is 3.16:1 and the ramp's own note in
+   * globals.css restricts it to >=24px display text, which this is, but the
+   * homepage's orange subhead is over a navy scrim and reads as the accent's one
+   * appearance in that column. Repeating it on sixteen pages spends it.
+   */
+  subhead?: string;
+  /** One paragraph, or several where the client's copy runs to more than one. */
+  lead?: string | readonly string[];
   photo: PhotoName;
   crumbs: readonly Crumb[];
   objectPosition?: string;
@@ -115,14 +138,32 @@ export function PageHero({
 
             <h1 className="text-display-xl text-heading mt-5 max-w-[18ch]">{title}</h1>
 
+            {subhead ? (
+              // max-w-[28ch], not the lead's measure: at display-md a line this
+              // size running to 46ch is four words short of the H1's own width
+              // and the two stop reading as a heading and its promise.
+              <p className="text-display-md text-body mt-4 max-w-[28ch]">{subhead}</p>
+            ) : null}
+
             {lead ? (
-              <p
-                className={`text-lead text-body mt-6 text-balance ${
+              // `text-balance` is dropped once there is more than one paragraph:
+              // balancing is for a short block where an orphan is visible, and
+              // applied per-paragraph across three of them it makes each one a
+              // different width, which reads as ragged rather than as balanced.
+              <div
+                className={`mt-6 flex flex-col gap-4 ${
                   showPhoto || aside ? 'max-w-[46ch]' : 'max-w-[58ch]'
                 }`}
               >
-                {lead}
-              </p>
+                {(typeof lead === 'string' ? [lead] : lead).map((paragraph) => (
+                  <p
+                    key={paragraph}
+                    className={`text-lead text-body ${typeof lead === 'string' ? 'text-balance' : ''}`}
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
             ) : null}
 
             {children ? (

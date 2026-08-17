@@ -50,26 +50,35 @@ import { Reveal, Stagger } from '@/components/motion/Reveal';
  * repeats the label beside it and is aria-hidden.
  */
 
+/**
+ * All five are the client's final copy, August 2026. His document gives exactly
+ * these five, in this order, with the same labels this band already carried in
+ * all but wording — so the band's shape is untouched and only the sentences moved.
+ *
+ * The bodies are a little longer than the ones they replace, which is what the
+ * card's `leading-relaxed` and five-column grid were already sized for; the
+ * longest of them wraps to four lines at lg against the previous three.
+ */
 const MEASURES: readonly { icon: LucideIcon; label: string; body: string }[] = [
   {
     icon: Video,
-    label: '24/7 videobewaking',
-    body: 'Camerabewaking en monitoring, het hele jaar door.',
+    label: '24/7 camerabewaking',
+    body: 'Onze parkeerlocaties zijn voorzien van camerabewaking en worden het hele jaar door gemonitord.',
   },
   {
     icon: Lock,
     label: 'Afgesloten parkeerterreinen',
-    body: 'Afgesloten en gecontroleerd. Geen vrije toegang.',
+    body: 'Onze parkeerlocaties zijn afgesloten en niet vrij toegankelijk voor onbevoegden.',
   },
   {
     icon: Warehouse,
-    label: 'Overdekte parkeergarage',
-    body: 'Liever binnen? Beperkt aantal overdekte plaatsen.',
+    label: 'Overdekt parkeren',
+    body: 'Uw auto liever binnen parkeren? Er is een beperkt aantal overdekte parkeerplaatsen beschikbaar.',
   },
   {
     icon: Award,
-    label: 'Vakbekwame chauffeurs',
-    body: 'Rijdt er iemand in uw auto, dan is dat onze eigen chauffeur.',
+    label: 'Ervaren chauffeurs',
+    body: 'Bij valet parkeren wordt uw auto uitsluitend door onze chauffeurs verplaatst.',
   },
   {
     // ── EV charging. Client, August 2026: a real differentiator he wants
@@ -85,7 +94,7 @@ const MEASURES: readonly { icon: LucideIcon; label: string; body: string }[] = [
     // van één regel.
     icon: PlugZap,
     label: 'Elektrisch opladen',
-    body: 'Laadpunten op onze eigen parkeerlocatie, voor wie elektrisch rijdt.',
+    body: 'Rijdt u elektrisch? Tijdens uw reis kan uw auto worden opgeladen bij een van onze laadpunten.',
   },
 ];
 
@@ -101,13 +110,18 @@ export function Security() {
       <Container className="relative">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <Reveal>
-            <Eyebrow rule>Maximale beveiliging</Eyebrow>
+            {/* His document heads this section "Veilig parkeren bij Schiphol"
+                and subtitles it with the line below, so the H1 becomes the
+                eyebrow and the H2 becomes the heading. "Maximale beveiliging"
+                is not a loss: it was a superlative where his label is the query
+                a visitor actually types. */}
+            <Eyebrow rule>Veilig parkeren bij Schiphol</Eyebrow>
             <h2 id="beveiliging-heading" className="text-display-lg mt-5 max-w-[18ch]">
-              Uw auto is veilig terwijl u zorgeloos reist
+              Uw auto veilig geparkeerd terwijl u op reis bent
             </h2>
             <p className="text-lead text-muted mt-6 max-w-[52ch]">
-              Bij Lang Parkeren Schiphol staat veiligheid voorop. Vanaf het moment van inleveren tot
-              uw terugkeer, houden we volledige controle.
+              Uw auto achterlaten tijdens een vakantie of zakenreis vraagt om vertrouwen. Daarom
+              staat veiligheid bij Lang Parkeren Schiphol centraal.
             </p>
 
             {/* The one link out of this band, and it belongs here rather than
@@ -117,8 +131,9 @@ export function Security() {
                 system rather than a claim. Valet-only, which the line says
                 rather than leaving a shuttle customer to click and find out. */}
             <p className="text-muted mt-8 max-w-[52ch] text-sm leading-relaxed">
-              Bij valet parking wordt daarnaast iedere rit met uw auto digitaal geregistreerd —
-              route, snelheid en duur.
+              Uw auto wordt tijdens uw reis geparkeerd op een afgesloten en bewaakte parkeerlocatie.
+              Bij valet parkeren wordt bovendien iedere rit met uw auto digitaal geregistreerd,
+              inclusief route en snelheid.
             </p>
             <Button href="/digitale-ritregistratie/" variant="outline" className="mt-5">
               Bekijk de digitale ritregistratie
@@ -155,9 +170,17 @@ export function Security() {
           </Reveal>
         </div>
 
+        {/* ── The children are <div>, and that is not a downgrade ─────────────
+            <Stagger as="ul"> wraps every child in its own <Reveal as="li">, so an
+            <li> here produced <li><li>…</li></li>: invalid HTML, and React threw
+            a hydration mismatch on the homepage that discarded and re-rendered
+            this whole subtree on the client.
+            Pre-existing, found while verifying the August 2026 copy pass. The
+            list semantics are unchanged — the <li> is still there, it is just
+            emitted by <Stagger> rather than by this file. */}
         <Stagger as="ul" className="mt-14 grid gap-4 sm:grid-cols-2 lg:mt-16 lg:grid-cols-5">
           {MEASURES.map((measure) => (
-            <li
+            <div
               key={measure.label}
               className="border-line bg-canvas flex h-full flex-col gap-3 rounded-xl border px-6 py-7"
             >
@@ -166,7 +189,7 @@ export function Security() {
                 {measure.label}
               </span>
               <span className="text-muted text-sm leading-relaxed">{measure.body}</span>
-            </li>
+            </div>
           ))}
         </Stagger>
       </Container>

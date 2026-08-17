@@ -338,6 +338,20 @@ export const footerNav = {
  * hub. Declared once here so every page renders the same set minus itself,
  * rather than each page carrying a hand-written list that will rot.
  */
+/**
+ * ── Labels and blurbs are the client's, August 2026 ─────────────────────────
+ * Four of the five are reworded from his shuttle page document, which sets out
+ * this block as "Meer over parkeren bij Schiphol" with a card per page. Only the
+ * shuttle entry is untouched, because that page never links to itself and his
+ * document therefore does not describe it.
+ *
+ * ⚠ This array feeds <ClusterLinks> on all five cluster pages, and four of those
+ * are outside the copy pass these words came from. They now show his wording. It
+ * is the right call — a blurb describes the page it points AT, so one wording per
+ * target is the whole reason this list is shared — but it is a visible change on
+ * /goedkoop-shuttle-parkeren-schiphol/, /parkeren-schiphol-zonder-sleutel-
+ * inleveren/, /veilig-parkeren-schiphol/ and /zelf-parkeren-schiphol/.
+ */
 export const seoCluster = [
   {
     href: '/shuttle-parkeren-schiphol/',
@@ -346,23 +360,25 @@ export const seoCluster = [
   },
   {
     href: '/goedkoop-shuttle-parkeren-schiphol/',
-    label: 'Goedkoop shuttle parkeren',
-    blurb: 'Waarom shuttle parkeren voordeliger uitpakt bij een lange reis.',
+    label: 'Voordelig shuttle parkeren',
+    blurb:
+      'Ontdek waarom shuttle parkeren een voordelige keuze is wanneer u meerdere dagen bij Schiphol wilt parkeren.',
   },
   {
     href: '/parkeren-schiphol-zonder-sleutel-inleveren/',
-    label: 'Zonder sleutel inleveren',
-    blurb: 'U parkeert zelf en neemt uw autosleutel gewoon mee op reis.',
+    label: 'Parkeren zonder uw sleutel in te leveren',
+    blurb: 'Parkeer uw auto zelf en neem uw autosleutels gewoon mee op reis.',
   },
   {
     href: '/veilig-parkeren-schiphol/',
-    label: 'Veilig parkeren Schiphol',
-    blurb: 'Het terrein, het toezicht en wat er bij terugkomst gebeurt.',
+    label: 'Veilig parkeren bij Schiphol',
+    blurb:
+      'Lees meer over onze parkeerlocatie, camerabewaking en de maatregelen die we nemen om uw auto veilig te laten staan.',
   },
   {
     href: '/zelf-parkeren-schiphol/',
-    label: 'Zelf parkeren Schiphol',
-    blurb: 'Zelf uw auto neerzetten en zelf zien waar hij staat.',
+    label: 'Zelf parkeren bij Schiphol',
+    blurb: 'Zelf bepalen waar uw auto staat en uw sleutel tijdens uw hele reis bij u houden.',
   },
 ] as const;
 

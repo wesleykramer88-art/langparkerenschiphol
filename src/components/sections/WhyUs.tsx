@@ -3,9 +3,9 @@ import {
   FileCheck,
   Gauge,
   MousePointerClick,
-  ShieldCheck,
   Timer,
   Users,
+  Video,
   Zap,
   type LucideIcon,
 } from 'lucide-react';
@@ -43,51 +43,70 @@ import { siteConfig } from '@/config/site';
 
 type Item = { icon: LucideIcon; title: string; body: string };
 
-/** The four supporting claims, verbatim from the live site. */
+/**
+ * The four supporting claims. Client's final copy, August 2026 — his document
+ * gives exactly four here and exactly four below, in this order, which is why
+ * this section needed no restructuring at all.
+ *
+ * Two of the four stop making claims we could not support:
+ *   · "Meest populaire service" → "Duizenden reizigers per jaar". The
+ *     popularity claim was unfalsifiable and had a standing TODO against it in
+ *     the hero for the same reason. He has replaced it with the count.
+ *   · "24/7 zorg voor uw auto" → "24/7 camerabewaking". Narrower and true: the
+ *     cameras run around the clock, which is not the same as somebody watching.
+ */
 const REASONS: readonly Item[] = [
   {
     icon: Zap,
-    title: 'Super snel en probleemloos',
-    body: 'Kies uw parkeerservice, wij zorgen voor de rest.',
+    title: 'Snel en eenvoudig geregeld',
+    body: 'Kies uw parkeerservice en reserveer binnen enkele minuten online. U ontvangt direct een bevestiging.',
   },
   {
-    icon: ShieldCheck,
-    title: '24/7 zorg voor uw auto',
-    body: 'Video surveillance en ervaren chauffeurs in dienst.',
+    // Video, not ShieldCheck: the line is now specifically about cameras, and
+    // this is the mark the security band and the trust page already use for it.
+    icon: Video,
+    title: '24/7 camerabewaking',
+    body: 'Onze parkeerlocaties zijn voorzien van camerabewaking en worden 24 uur per dag gemonitord.',
   },
   {
     icon: Gauge,
-    title: 'Altijd inzicht en controle',
-    body: 'Digitale ritregistratie, inclusief snelheid en route.',
+    title: 'Digitale ritregistratie bij valet',
+    body: 'Bij valet parkeren wordt iedere rit met uw auto digitaal geregistreerd, inclusief gereden route en snelheid.',
   },
   {
     icon: Users,
-    title: 'Meest populaire service',
-    body: 'Duizenden tevreden reizigers per jaar.',
+    title: 'Duizenden reizigers per jaar',
+    body: 'Jaarlijks maken duizenden reizigers gebruik van onze valet- en shuttleservice bij Schiphol.',
   },
 ];
 
-/** The absorbed USP quad. Same copy, quieter treatment. */
+/**
+ * The absorbed USP quad. Same treatment, his new copy.
+ *
+ * The mixed form of address is gone from the last one here too — "Je auto in
+ * betrouwbare, ervaren handen" was the last "je" left in this component, under
+ * paragraphs written in "u". All four are now in "u".
+ */
 const USPS: readonly Item[] = [
   {
     icon: MousePointerClick,
-    title: 'Direct via onze site',
-    body: 'Direct geregeld bij ons, zonder tussenpartij.',
+    title: 'Direct bij ons gereserveerd',
+    body: 'U reserveert rechtstreeks via onze eigen website, zonder tussenpartij.',
   },
   {
     icon: BadgeCheck,
     title: 'Veilig en professioneel',
-    body: 'Je auto in betrouwbare, ervaren handen.',
+    body: 'Uw auto wordt tijdens uw reis geparkeerd op een afgesloten en bewaakte parkeerlocatie.',
   },
   {
     icon: FileCheck,
-    title: 'Digitale ritcontroles',
-    body: 'Veiligheid en controle dankzij digitale ritregistratie.',
+    title: 'Controle bij valet parkeren',
+    body: 'Bij valet parkeren registreren we de ritten met uw auto digitaal, inclusief route en snelheid.',
   },
   {
     icon: Timer,
-    title: 'Snel geregeld',
-    body: 'Reserveer binnen enkele minuten, zodat u zorgeloos op reis kunt.',
+    title: 'Binnen enkele minuten geregeld',
+    body: 'Reserveer eenvoudig online en ontvang direct uw reserveringsbevestiging.',
   },
 ];
 
@@ -114,20 +133,26 @@ export function WhyUs() {
           {/* ---------- The argument ---------- */}
           <div className="order-1 flex flex-col lg:order-2">
             <Reveal>
-              <Eyebrow rule>Waarom Lang Parkeren bij Schiphol?</Eyebrow>
+              <Eyebrow rule>Waarom Lang Parkeren Schiphol?</Eyebrow>
               <h2 id="waarom-heading" className="text-display-lg mt-5">
-                Al meer dan {siteConfig.yearsActive} jaar de vertrouwde keuze rond Schiphol
+                Al meer dan {siteConfig.yearsActive} jaar vertrouwd parkeren bij Schiphol
               </h2>
 
+              {/* Both paragraphs are his. The second one's "slimme tracking"
+                  is gone with it — a phrase that described the ride registration
+                  in vaguer and more surveillance-flavoured terms than the system
+                  itself warrants, and which the reasons list below now states
+                  properly and valet-only. */}
               <div className="text-muted mt-6 flex max-w-[52ch] flex-col gap-4">
                 <p>
-                  We weten precies wat reizigers nodig hebben: snelheid, zekerheid en gemak. Of u nu
-                  kiest voor valet of shuttle parkeren, we zorgen ervoor dat uw reis ontspannen
-                  begint vanaf het moment dat u aankomt.
+                  Wanneer u uw auto tijdens een reis achterlaat, wilt u weten dat deze in goede
+                  handen is. Daarom combineren wij een snelle parkeerservice met duidelijke
+                  afspraken en een veilige parkeerlocatie.
                 </p>
                 <p>
-                  Uw auto is bij ons in betrouwbare handen. Professionele chauffeurs, veilige
-                  parkeerplaatsen en slimme tracking bieden maximale controle en veiligheid.
+                  Of u nu kiest voor valet parkeren of shuttle parkeren bij Schiphol: wij zorgen
+                  ervoor dat uw reis zo makkelijk mogelijk begint en uw auto tijdens uw afwezigheid
+                  veilig geparkeerd staat.
                 </p>
               </div>
             </Reveal>
@@ -154,7 +179,7 @@ export function WhyUs() {
                 Bekijk tarieven
               </Button>
               <Button href="#zo-werkt-het" variant="link">
-                Hoe het werkt
+                Bekijk hoe het werkt
               </Button>
             </Reveal>
           </div>

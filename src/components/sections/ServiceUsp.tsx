@@ -1,3 +1,4 @@
+import type { LucideIcon } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { Section } from '@/components/ui/Section';
 import { Eyebrow } from '@/components/ui/Eyebrow';
@@ -28,13 +29,31 @@ export function ServiceUsp({
   service,
   eyebrow = 'Uw voordeel',
   heading,
+  subhead,
+  paragraphs,
+  bullets,
 }: {
   service: ServiceSlug;
   eyebrow?: string;
   heading: string;
+  /**
+   * The H2 under the heading. The client's August 2026 service documents write
+   * this block as a heading, a second line and two paragraphs of prose before
+   * the list — so the section now has somewhere to put all three.
+   */
+  subhead?: string;
+  /** Prose between the subhead and the benefit line. */
+  paragraphs?: readonly string[];
+  /**
+   * The list on the right. Defaults to the compact four in config/services.ts;
+   * the two service landing pages pass `detailBullets`, which is the longer list
+   * the client wrote for them (six for shuttle, five for valet).
+   */
+  bullets?: readonly { icon: LucideIcon; text: string }[];
 }) {
   const copy = SERVICE_COPY[service];
   const Usp = copy.usp.icon;
+  const items = bullets ?? copy.bullets;
 
   return (
     <Section tone="surface" spacing="md" aria-labelledby="voordeel-heading">
@@ -46,6 +65,20 @@ export function ServiceUsp({
               {heading}
             </h2>
 
+            {subhead ? (
+              <p className="text-heading mt-4 max-w-[30ch] text-lg font-medium">{subhead}</p>
+            ) : null}
+
+            {paragraphs?.length ? (
+              <div className="mt-6 flex flex-col gap-4">
+                {paragraphs.map((paragraph) => (
+                  <p key={paragraph} className="text-body max-w-[52ch] leading-relaxed">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            ) : null}
+
             {/* The benefit line itself, set apart from the bullets under it.
                 This is the client's own one-liner for the service — the line
                 his ticket stub shows — so it is quoted rather than paraphrased,
@@ -56,16 +89,20 @@ export function ServiceUsp({
             </p>
           </Reveal>
 
+          {/* <div>, not <li>: <Stagger as="ul"> emits the <li> itself, so an <li>
+              here nested one inside another — invalid markup, and a hydration
+              mismatch on both service pages. Pre-existing; found while verifying
+              the August 2026 copy pass. */}
           <Stagger as="ul" className="divide-line border-line divide-y border-y">
-            {copy.bullets.map((bullet) => (
-              <li key={bullet.text} className="flex items-start gap-5 py-5">
+            {items.map((bullet) => (
+              <div key={bullet.text} className="flex items-start gap-5 py-5">
                 <bullet.icon
                   className="text-accent mt-0.5 size-5 shrink-0"
                   strokeWidth={2}
                   aria-hidden
                 />
                 <span className="text-base sm:text-lg">{bullet.text}</span>
-              </li>
+              </div>
             ))}
           </Stagger>
         </div>

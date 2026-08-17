@@ -61,26 +61,59 @@ const CRUMBS = [{ name: 'Waarom Lang Parkeren Schiphol', path: '/waarom-lang-par
    nowhere else on the site: this is a genuine sequence and the order is
    information the reader needs.
    ══════════════════════════════════════════════════════════════════════════ */
-const PROCESS: readonly { title: string; body: string; car: string }[] = [
+/**
+ * The client's four steps, August 2026 — and his document keeps the "Uw auto"
+ * column, which is the thing that makes this page different from the homepage's
+ * four steps. It is his structure as well as ours now.
+ *
+ * `body` and `car` take arrays, because several of his run to two or three
+ * paragraphs — step 4's body is one paragraph per service plus the call, and
+ * running those together loses the parallel.
+ */
+const PROCESS: readonly {
+  title: string;
+  body: readonly string[];
+  car: readonly string[];
+}[] = [
   {
-    title: 'U reserveert online',
-    body: 'In twee minuten geregeld. U kiest valet of shuttle, uw aankomst- en retourmoment en eventuele opties.',
-    car: 'Wij leggen uw kenteken en uw vluchtgegevens vast. Die vluchtgegevens zijn geen formaliteit — daarmee volgen wij later uw vlucht.',
+    title: 'U reserveert eenvoudig online',
+    body: [
+      'Uw parkeerplaats bij Schiphol reserveert u binnen enkele minuten. Kies tussen valet parkeren en shuttle parkeren, vul uw aankomst- en retourgegevens in en selecteer eventueel aanvullende opties.',
+    ],
+    car: [
+      'Tijdens de reservering registreren wij onder andere uw kenteken en vluchtgegevens. Aan de hand van uw vluchtgegevens kunnen wij uw vlucht volgen en rekening houden met eventuele vertragingen of een eerdere landing.',
+    ],
   },
   {
-    title: 'Wij nemen uw auto over',
-    body: 'Bij valet parkeren rijdt u naar de Vertrekpassage op Schiphol — vertrekhal, 1e verdieping — waar onze chauffeur u opwacht. Bij shuttle parkeren rijdt u naar ons terrein aan de Tupolevlaan in Schiphol-Rijk en brengt de shuttlebus u binnen 5 tot 8 minuten naar de vertrekhal.',
-    car: 'Voordat wij de auto overnemen doen wij een korte controle van het voertuig. Kiest u shuttle parkeren, dan kunt u uw sleutels meenemen op reis.',
+    title: 'U draagt uw auto over',
+    body: [
+      'Kiest u voor valet parkeren bij Schiphol? Dan rijdt u rechtstreeks naar de vertrekpassage van Schiphol, waar onze chauffeur u opwacht en uw auto van u overneemt.',
+      'Kiest u voor shuttle parkeren bij Schiphol? Dan rijdt u naar onze parkeerlocatie aan de Tupolevlaan in Schiphol-Rijk. Vanaf daar brengt onze shuttlebus u in ongeveer 5 tot 8 minuten naar de vertrekhal.',
+    ],
+    car: [
+      'Voordat wij uw auto overnemen, voeren we een korte voertuigcontrole uit. Kiest u voor shuttle parkeren? Dan kunt u uw autosleutels gewoon meenemen op reis.',
+    ],
   },
   {
-    title: 'Uw auto staat op een bewaakt terrein',
-    body: 'De auto wordt geparkeerd op een afgesloten en gecontroleerd parkeerterrein met 24/7 camerabewaking. Overdekt parkeren is mogelijk.',
-    car: 'De rit ernaartoe wordt digitaal geregistreerd, inclusief snelheid en route. Bij valet parkeren gaan uw sleutels in een brandwerende kluis op ons kantoor, dat eveneens onder camerabewaking staat.',
+    title: 'Uw auto wordt veilig geparkeerd',
+    body: [
+      'Tijdens uw reis staat uw auto op een afgesloten en gecontroleerd parkeerterrein met 24/7 camerabewaking. Wilt u uw auto liever binnen parkeren? Dan kunt u ook kiezen voor overdekt parkeren.',
+    ],
+    car: [
+      'Bij valet parkeren wordt de rit naar de parkeerlocatie digitaal geregistreerd. Daarbij worden onder andere de gereden route en snelheid vastgelegd.',
+      'Uw autosleutel wordt vervolgens veilig opgeborgen in een brandwerende sleutelkluis op ons kantoor. Ook deze locatie is voorzien van camerabewaking.',
+    ],
   },
   {
-    title: 'Uw auto staat klaar bij terugkomst',
-    body: 'Bel ons direct na de landing op Schiphol. Bij valet parkeren staat uw auto voor u klaar bij de luchthaven; bij shuttle parkeren haalt de bus u op en brengt u terug naar uw auto.',
-    car: 'Wij volgen de actuele vluchtinformatie en passen de ophaaltijd aan bij vertraging of een vervroegde landing.',
+    title: 'U haalt uw auto weer op',
+    body: [
+      'Na uw landing op Schiphol neemt u telefonisch contact met ons op.',
+      'Bij valet parkeren zorgen wij ervoor dat uw auto weer voor u klaarstaat bij de luchthaven.',
+      'Bij shuttle parkeren wordt u met onze shuttlebus opgehaald en teruggebracht naar de parkeerlocatie, waar uw auto op u wacht.',
+    ],
+    car: [
+      'Wij volgen uw vluchtinformatie en houden rekening met eventuele vertragingen of een eerdere landing. Zo kunnen wij onze planning zo goed mogelijk afstemmen op uw daadwerkelijke aankomsttijd.',
+    ],
   },
 ];
 
@@ -90,36 +123,45 @@ const PROCESS: readonly { title: string; body: string; car: string }[] = [
    deliberately no camera count, no retention period and no capacity number,
    because nobody has supplied them.
    ══════════════════════════════════════════════════════════════════════════ */
+/**
+ * His six, August 2026 — same six measures, same order, his sentences.
+ *
+ * One correction lands here rather than in a comment: the ride-registration
+ * measure now says "Bij valet parkeren wordt iedere rit …". Ours said "Iedere rit
+ * met uw auto wordt digitaal vastgelegd" without the qualifier, on a page that
+ * covers both services — which read as a promise to shuttle customers whose cars
+ * nobody drives. It is valet-only and now says so.
+ */
 const MEASURES: readonly { icon: LucideIcon; title: string; body: string }[] = [
   {
     icon: Video,
     title: '24/7 camerabewaking',
-    body: 'Onze parkeerlocaties worden vierentwintig uur per dag bewaakt en gemonitord met camera’s.',
+    body: 'Onze parkeerlocaties zijn voorzien van camerabewaking en worden 24 uur per dag gemonitord.',
   },
   {
     icon: Lock,
-    title: 'Afgesloten terreinen',
-    body: 'De terreinen zijn afgesloten en gecontroleerd. Er komt niemand op die er niet hoort te zijn.',
+    title: 'Afgesloten parkeerterreinen',
+    body: 'Uw auto staat tijdens uw reis op een afgesloten en gecontroleerde parkeerlocatie. De parkeerterreinen zijn niet vrij toegankelijk voor onbevoegden.',
   },
   {
     icon: Warehouse,
     title: 'Overdekt parkeren mogelijk',
-    body: 'U kunt kiezen voor een plek in de overdekte garage in plaats van buiten op het terrein.',
+    body: 'Wilt u uw auto beschermen tegen regen, hagel en andere weersomstandigheden? Dan kunt u kiezen voor een overdekte parkeerplaats.',
   },
   {
     icon: Route,
     title: 'Digitale ritregistratie',
-    body: 'Iedere rit met uw auto wordt digitaal vastgelegd, inclusief snelheid en route. Er is dus altijd inzicht in de verplaatsingen van uw voertuig.',
+    body: 'Bij valet parkeren wordt iedere rit met uw auto digitaal geregistreerd. Onder andere de gereden route en snelheid worden vastgelegd. Zo is inzichtelijk wanneer en hoe uw auto is verplaatst.',
   },
   {
     icon: Flame,
     title: 'Brandwerende sleutelkluis',
-    body: 'Bij valet parkeren worden uw autosleutels opgeborgen in een brandwerende kluis op ons kantoor, dat is voorzien van camerabewaking.',
+    body: 'Bij valet parkeren worden uw autosleutels na het parkeren opgeborgen in een brandwerende sleutelkluis op ons kantoor. Ook het kantoor is voorzien van camerabewaking.',
   },
   {
     icon: UserCheck,
-    title: 'Gescreende chauffeurs',
-    body: 'Onze chauffeurs zijn gescreend, in dienst en ervaren. Zij rijden dagelijks bij de vertrekhal van Schiphol.',
+    title: 'Ervaren chauffeurs',
+    body: 'Onze chauffeurs zijn gescreend en ervaren in het ophalen, parkeren en terugbrengen van voertuigen. Zij rijden dagelijks van en naar Schiphol en onze parkeerlocaties.',
   },
 ];
 
@@ -128,25 +170,44 @@ const MEASURES: readonly { icon: LucideIcon; title: string; body: string }[] = [
    Four of the client's own, shot at the airport. Every vehicle in frame
    carries a Dutch yellow plate, which is the point — see config/images.ts.
    ══════════════════════════════════════════════════════════════════════════ */
-const GALLERY: readonly { photo: PhotoName; caption: string; aspect: string }[] = [
+/**
+ * His four captions, August 2026, and they arrive in exactly the order the four
+ * frames were already in — so this is a caption rewrite, not a re-ordering.
+ *
+ * Each is now a bold label plus a sentence, which is how his document writes
+ * them. The label is what the frame IS; the sentence is what happens there.
+ */
+const GALLERY: readonly {
+  photo: PhotoName;
+  label: string;
+  caption: string;
+  aspect: string;
+}[] = [
   {
     photo: 'crewTerminal',
-    caption: 'Onze chauffeur bij Vertrek 2, waar de overdracht plaatsvindt.',
+    label: 'Onze chauffeur bij Schiphol',
+    caption: 'Hier vindt de overdracht van uw auto plaats wanneer u kiest voor valet parkeren.',
     aspect: 'aspect-3/4',
   },
   {
     photo: 'crewHandover',
-    caption: 'De overdracht zelf: bagage eruit, auto over, u loopt door.',
+    label: 'Een snelle en duidelijke overdracht',
+    caption:
+      'U haalt uw bagage uit de auto, draagt de auto over aan onze chauffeur en kunt vervolgens direct door naar de vertrekhal.',
     aspect: 'aspect-4/3',
   },
   {
     photo: 'lotShuttle',
-    caption: 'Ons parkeerterrein, met de shuttlebus die naar de vertrekhal rijdt.',
+    label: 'Onze parkeerlocatie',
+    caption:
+      'Hier staat uw auto tijdens uw reis geparkeerd. Onze shuttlebus rijdt vanaf deze locatie naar de vertrekhal van Schiphol.',
     aspect: 'aspect-4/3',
   },
   {
     photo: 'crewCheck',
-    caption: 'Elke auto wordt bij overdracht gecontroleerd en vastgelegd.',
+    label: 'Controle van uw auto',
+    caption:
+      'Bij de overdracht voeren we een korte controle van uw auto uit voordat deze wordt geparkeerd.',
     aspect: 'aspect-3/4',
   },
 ];
@@ -172,23 +233,36 @@ const GALLERY: readonly { photo: PhotoName; caption: string; aspect: string }[] 
 const SCENARIOS: readonly FaqItem[] = [
   {
     question: 'Wat gebeurt er als mijn vlucht vertraagd is?',
-    answer:
-      'Geen zorgen. Wij volgen de actuele vluchtinformatie en passen de ophaaltijd indien nodig aan. Bij een vertraging zorgen wij ervoor dat uw auto weer op het afgesproken moment beschikbaar is. Vergeet niet direct te bellen na uw landing op Schiphol, dan weten wij dat u er bent.',
+    answer: [
+      'Wij volgen de actuele vluchtinformatie en houden rekening met eventuele vertragingen. Daardoor kunnen wij de planning van uw auto of shuttle aanpassen aan uw werkelijke aankomsttijd.',
+      'Bel ons na uw landing op Schiphol. Dan weten wij dat u bent aangekomen en kunnen we de laatste stap van uw terugkomst in gang zetten.',
+    ],
   },
   {
-    question: 'En als ik juist eerder land dan gepland?',
-    answer:
-      'Dat werkt precies zo. Omdat wij uw vlucht volgen, zien wij een vervroegde landing net zo goed als een vertraging, en passen wij de ophaaltijd daarop aan. Bel ons direct na de landing; dan staat uw auto klaar zodra u bij de vertrekhal bent.',
+    question: 'Wat gebeurt er als mijn vlucht eerder landt?',
+    answer: [
+      'Ook een eerdere landing kunnen wij via de vluchtinformatie zien. Wij proberen onze planning hier zo goed mogelijk op aan te passen.',
+      'Bel ons zodra u bent geland. Bij valet parkeren zorgen we er vervolgens voor dat uw auto zo snel mogelijk voor u klaarstaat.',
+    ],
   },
   {
-    question: 'Ik kom later terug dan ik had gereserveerd. Wat nu?',
-    answer:
-      'Neem contact met ons op zodra u weet dat u later terug bent. Uw auto blijft gewoon op onze parkeerlocatie staan; wij verlengen de reservering en de extra dagen worden aan uw reservering toegevoegd. Wijzigen kan telefonisch, per e-mail of zelf in het klantenportaal.',
+    question: 'Wat als ik later terugkom dan ik heb gereserveerd?',
+    answer: [
+      'Weet u dat uw reis langer duurt? Neem dan zo snel mogelijk contact met ons op.',
+      'Uw auto blijft veilig op onze parkeerlocatie staan en uw reservering kan worden verlengd. Eventuele extra parkeerdagen worden aan uw reservering toegevoegd.',
+      'Uw reservering wijzigen kan telefonisch, per e-mail of via het klantenportaal.',
+    ],
   },
   {
-    question: 'Wat als er schade aan mijn auto is?',
-    answer:
-      'Voordat wij uw auto overnemen voeren wij een korte controle van het voertuig uit, en iedere rit met uw auto wordt digitaal geregistreerd inclusief snelheid en route. Constateert u bij terugkomst toch iets, meld het dan direct bij de chauffeur die uw auto terugbrengt, zodat het ter plaatse kan worden vastgelegd. Wat er verder geldt, staat in onze algemene voorwaarden.',
+    // Still procedural, still claims nothing about liability, and still ends by
+    // pointing at the terms — which is what the standing TODO above asked for.
+    // He has now written it in his own words, so that TODO is answered.
+    question: 'Wat als ik schade aan mijn auto constateer?',
+    answer: [
+      'Voordat wij uw auto overnemen, voeren we een korte voertuigcontrole uit. Bij valet parkeren worden ritten met uw auto daarnaast digitaal geregistreerd, inclusief route en snelheid.',
+      'Constateert u bij terugkomst schade die er bij de overdracht nog niet was? Meld dit dan direct bij de chauffeur, zodat de situatie ter plaatse kan worden vastgelegd.',
+      'De voorwaarden rondom schade en aansprakelijkheid vindt u in onze algemene voorwaarden.',
+    ],
   },
 ];
 
@@ -197,8 +271,12 @@ export default function WhyPage() {
     <>
       <PageHero
         eyebrow="Waarom ons"
-        title={`Al meer dan ${siteConfig.yearsActive} jaar uw auto op Schiphol`}
-        lead="Uw auto achterlaten bij een onbekende is een kwestie van vertrouwen. Deze pagina laat precies zien wat er met uw auto gebeurt: wie hem overneemt, waar hij staat, wat er wordt vastgelegd, en wat wij doen als uw reis anders loopt dan gepland."
+        title="Waarom kiezen voor Lang Parkeren Schiphol?"
+        subhead={`Al meer dan ${siteConfig.yearsActive} jaar vertrouwd parkeren bij Schiphol`}
+        lead={[
+          'Uw auto achterlaten tijdens uw reis vraagt om vertrouwen. Daarom vinden wij het belangrijk dat u precies weet waar u aan toe bent. Van het moment van reserveren tot het moment waarop u uw auto na uw reis weer terugkrijgt.',
+          'Bij Lang Parkeren Schiphol kiest u voor valet parkeren of shuttle parkeren bij Schiphol. Uw auto wordt tijdens uw reis geparkeerd op een afgesloten en bewaakte parkeerlocatie.',
+        ]}
         photo="crewTerminal"
         objectPosition="object-[center_38%]"
         crumbs={CRUMBS}
@@ -207,8 +285,28 @@ export default function WhyPage() {
           Reserveer nu
           <ArrowRight data-arrow className="size-4" aria-hidden />
         </Button>
-        <Button href="#wat-als" variant="outline" size="lg">
-          Wat als er iets misgaat?
+        {/* ⚠ His label, and it is 54 characters — by far the longest button on
+            the site, against "Wat als er iets misgaat?" at 24. Kept as written
+            rather than trimmed, because it is client-approved copy; flagged in
+            the handover as the one label worth shortening if he is willing.
+
+            `whitespace-normal` is REQUIRED here, not cosmetic. <Button>'s base
+            sets `whitespace-nowrap`, which is right for every other label on the
+            site and wrong for this one: at 375px the button rendered 463px wide
+            and pushed the whole document 108px past the viewport — a horizontal
+            scrollbar on the page, measured, not guessed. Allowing it to wrap
+            gives a two-line button on a phone and changes nothing at lg, where
+            it still fits on one line. `text-center` because a wrapped label in a
+            `justify-center` flex would otherwise set its second line ragged.
+            twMerge makes the override replace the base utility rather than sit
+            beside it — see lib/cn.ts. */}
+        <Button
+          href="#wat-als"
+          variant="outline"
+          size="lg"
+          className="text-center whitespace-normal"
+        >
+          Bekijk wat er gebeurt als iets anders loopt dan gepland
         </Button>
       </PageHero>
 
@@ -219,11 +317,12 @@ export default function WhyPage() {
             <div>
               <Eyebrow rule>Van reservering tot terugkomst</Eyebrow>
               <h2 id="proces-heading" className="text-display-lg mt-5 max-w-[18ch]">
-                Wat er met uw auto gebeurt
+                Zo werkt parkeren bij Schiphol
               </h2>
             </div>
             <p className="text-muted max-w-[36ch] lg:pb-2 lg:text-right">
-              Vier stappen, en bij elke stap wat er op dat moment met het voertuig zelf gebeurt.
+              Van uw reservering tot uw terugkomst: in vier eenvoudige stappen ziet u precies hoe
+              onze parkeerservice werkt en wat er met uw auto gebeurt.
             </p>
           </Reveal>
 
@@ -246,7 +345,13 @@ export default function WhyPage() {
                     <span className="sr-only">Stap {index + 1}: </span>
                     {step.title}
                   </h3>
-                  <p className="text-muted mt-4 max-w-[44ch] leading-relaxed">{step.body}</p>
+                  <div className="mt-4 flex flex-col gap-3">
+                    {step.body.map((paragraph) => (
+                      <p key={paragraph} className="text-muted max-w-[44ch] leading-relaxed">
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
                 </div>
 
                 {/* The car column. Set apart with a rule and the accent label,
@@ -259,7 +364,13 @@ export default function WhyPage() {
                       >=24px display text, icons and non-text borders. navy-600
                       is 6.29:1 here. */}
                   <p className="eyebrow text-brand">Uw auto</p>
-                  <p className="text-body mt-3 max-w-[44ch] leading-relaxed">{step.car}</p>
+                  <div className="mt-3 flex flex-col gap-3">
+                    {step.car.map((paragraph) => (
+                      <p key={paragraph} className="text-body max-w-[44ch] leading-relaxed">
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
                 </div>
               </Reveal>
             ))}
@@ -277,13 +388,14 @@ export default function WhyPage() {
         <Container>
           <div className="grid gap-12 lg:grid-cols-[5fr_7fr] lg:gap-20">
             <Reveal className="lg:sticky lg:top-32 lg:self-start">
-              <Eyebrow rule>Beveiliging</Eyebrow>
+              <Eyebrow rule>Veilig lang parkeren bij Schiphol</Eyebrow>
               <h2 id="beveiliging-heading" className="text-display-lg mt-5 max-w-[16ch]">
-                Zes maatregelen, geen van alle vrijblijvend
+                Zo zorgen wij goed voor uw auto
               </h2>
               <p className="text-body mt-6 max-w-[42ch] leading-relaxed">
-                Dit is wat er concreet geregeld is rond uw voertuig — niet als geruststelling, maar
-                als opsomming van wat er staat, draait en wordt vastgelegd.
+                Uw auto veilig achterlaten tijdens uw vakantie of zakenreis vinden wij minstens zo
+                belangrijk als u. Daarom nemen wij verschillende maatregelen om uw auto tijdens de
+                parkeerperiode goed te beschermen.
               </p>
             </Reveal>
 
@@ -329,18 +441,24 @@ export default function WhyPage() {
           */}
           <Reveal className="border-line mt-16 border-t pt-10">
             <h3 className="text-heading text-lg font-semibold">Verzekering en aansprakelijkheid</h3>
+            {/* His two paragraphs. The insurance TODO above is NOT closed by
+                them — he still names no insurer, policy or certification, and
+                this block still asserts nothing beyond the terms' existence. */}
             <p className="text-body mt-4 max-w-[68ch] leading-relaxed">
-              Wat er precies geldt terwijl uw auto bij ons staat — waarvoor wij aansprakelijk zijn
-              en onder welke voorwaarden — is vastgelegd in onze algemene voorwaarden. Heeft u hier
-              vooraf een concrete vraag over, bel ons dan even; wij beantwoorden die liever
-              persoonlijk dan met een algemene zin op een website.
+              Wat er tijdens de parkeerperiode precies geldt op het gebied van aansprakelijkheid en
+              verzekering, hebben wij vastgelegd in onze algemene voorwaarden.
+            </p>
+            <p className="text-body mt-4 max-w-[68ch] leading-relaxed">
+              Heeft u vóór uw reservering een specifieke vraag over uw auto, verzekering of
+              aansprakelijkheid? Neem dan gerust contact met ons op. We leggen het u liever
+              duidelijk uit dan dat u met vragen op reis gaat.
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-3">
               <Button href={termsUrl} variant="outline">
-                Lees de algemene voorwaarden
+                Lees onze algemene voorwaarden
               </Button>
               <Button href="/contact/" variant="outline">
-                Stel uw vraag
+                Neem contact met ons op
               </Button>
             </div>
           </Reveal>
@@ -351,14 +469,17 @@ export default function WhyPage() {
       <Section tone="surface" spacing="lg" aria-labelledby="team-heading">
         <Container>
           <Reveal className="max-w-[46ch]">
-            <Eyebrow rule>Het team en de auto&#39;s</Eyebrow>
+            <Eyebrow rule>Onze mensen en onze parkeerlocatie</Eyebrow>
             <h2 id="team-heading" className="text-display-lg mt-5">
-              Dit zijn wij, en dit is waar uw auto staat
+              Bekijk waar uw auto wordt geparkeerd
             </h2>
             <p className="text-muted mt-6 leading-relaxed">
-              Geen stockfoto&#39;s van een parkeergarage in een ander land. Dit zijn onze eigen
-              mensen, ons eigen busje en ons eigen terrein, gefotografeerd bij Vertrek 2 op
-              Schiphol.
+              Wij vinden dat u moet kunnen zien aan wie u uw auto toevertrouwt. Daarom gebruiken we
+              hier geen algemene stockfoto&#39;s van buitenlandse parkeerterreinen.
+            </p>
+            <p className="text-muted mt-4 leading-relaxed">
+              Dit zijn onze eigen medewerkers, onze shuttlebus en de parkeerlocatie die wij
+              gebruiken voor lang parkeren bij Schiphol.
             </p>
           </Reveal>
 
@@ -380,8 +501,9 @@ export default function WhyPage() {
                     imageClassName="object-cover object-center"
                   />
                 </div>
-                <figcaption className="text-muted mt-4 text-sm leading-relaxed">
-                  {item.caption}
+                <figcaption className="mt-4 text-sm leading-relaxed">
+                  <span className="text-heading block font-semibold">{item.label}</span>
+                  <span className="text-muted mt-1 block">{item.caption}</span>
                 </figcaption>
               </figure>
             ))}
@@ -394,19 +516,26 @@ export default function WhyPage() {
         <Container>
           <div className="grid gap-12 lg:grid-cols-[5fr_7fr] lg:gap-20">
             <Reveal className="lg:sticky lg:top-32 lg:self-start">
-              <Eyebrow rule>Als het anders loopt</Eyebrow>
+              <Eyebrow rule>Als uw reis anders loopt dan gepland</Eyebrow>
               <h2 id="wat-als-heading" className="text-display-lg mt-5 max-w-[14ch]">
-                Wat gebeurt er als…
+                Wat gebeurt er als…?
               </h2>
               <p className="text-muted mt-6 max-w-[40ch] leading-relaxed">
-                Reizen loopt zelden precies volgens plan. Dit zijn de vier situaties waar reizigers
-                ons het vaakst naar vragen, en wat er in elk van die gevallen gebeurt.
+                Een vlucht kan vertraagd zijn, eerder landen of uw reis kan onverwacht langer duren.
+                Daarom proberen wij onze parkeerservice zo flexibel mogelijk aan te laten sluiten op
+                uw reis.
+              </p>
+              <p className="text-muted mt-4 max-w-[40ch] leading-relaxed">
+                Hieronder beantwoorden we een aantal veelgestelde vragen.
               </p>
 
               <div className="border-line mt-10 border-t pt-8">
-                <p className="text-heading text-base font-semibold">Zit uw situatie er niet bij?</p>
+                <p className="text-heading text-base font-semibold">
+                  Staat uw situatie er niet tussen?
+                </p>
                 <p className="text-muted mt-2 max-w-[36ch] text-sm leading-relaxed">
-                  Bel ons. Bij iets rond een lopende reis is dat altijd sneller dan mailen.
+                  Neem dan gerust contact met ons op. Bij vragen over een lopende reservering kunt u
+                  ons het beste bellen.
                 </p>
                 <a
                   href={siteConfig.phone.href}
@@ -425,9 +554,25 @@ export default function WhyPage() {
         </Container>
       </Section>
 
+      {/* His closing block gives no H2, only a heading and two paragraphs, so no
+          `subhead` is passed here.
+          ⚠ His five reassurances are written with a literal "✓ " in front of each
+          one. Stripped: the strip draws no marks of its own, so keeping them
+          would put a tick in running text — and on the pages where the same list
+          appears without ticks it would be inconsistent. The words are his. */}
       <ClosingCta
-        heading="Uw auto in vertrouwde handen"
-        lead={`Al meer dan ${siteConfig.yearsActive} jaar de keuze van reizigers die vanaf Schiphol vertrekken. Reserveer in twee minuten.`}
+        heading="Lang parkeren bij Schiphol met een vertrouwd gevoel"
+        lead={[
+          `Al meer dan ${siteConfig.yearsActive} jaar helpen wij reizigers met parkeren bij Schiphol. Of u nu kiest voor het gemak van valet parkeren of liever uw autosleutels meeneemt met shuttle parkeren: wij zorgen ervoor dat uw parkeerplaats geregeld is terwijl u op reis bent.`,
+          'Reserveer uw parkeerplaats eenvoudig online en begin uw reis zonder onnodig gedoe.',
+        ]}
+        reassurances={[
+          'Flexibel annuleren tot 24 uur voor aankomst met annuleringsdekking',
+          'Binnen 2 minuten online gereserveerd',
+          '24/7 bewaakte parkeerlocatie',
+          'Keuze uit valet en shuttle parkeren',
+          'Overdekt parkeren mogelijk',
+        ]}
         photo="terminalDeparture"
       />
 
