@@ -23,7 +23,8 @@
         "name": "DLV - value",
         "type": "v",
         "parameter": [
-          { "type": "BOOLEAN", "key": "setDefaultValue", "value": "false" },
+          { "type": "BOOLEAN", "key": "setDefaultValue", "value": "true" },
+          { "type": "TEMPLATE", "key": "defaultValue", "value": "50" },
           { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" },
           { "type": "TEMPLATE", "key": "name", "value": "value" }
         ],

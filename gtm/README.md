@@ -77,3 +77,35 @@ Nothing to do — do not add a second.
   value could not be read. The conversion still counts, so the failure is
   invisible in the conversion column — it shows up only as revenue that is
   quietly too low. Worth an alert.
+
+## Why `DLV - value` has a default of 50
+
+Because without one, a booking whose value we never received is reported to
+Google Ads as **worth €0**, not as "value unknown".
+
+Observed on production 2026-08-19. When ParkingPro's redirect carries no
+`totalWithTax`, the site correctly emits `value_missing: true` and omits the
+value — but GTM still sends the tag's value parameter, and an empty variable
+serialises as `value=0` in the conversion ping:
+
+```
+/pagead/conversion/934465672/?oid=CHECK-NOVALUE&value=0&currency_code=EUR
+```
+
+The €50 fallback configured on the conversion action in Google Ads never
+applies, because that only fires when the tag sends **no** value at all. So the
+booking counts, with zero revenue attached.
+
+That is worse than not counting it. A ROAS strategy reads a €0 conversion as
+proof that whatever produced it is worthless and bids away from it — so a run of
+value-less bookings actively teaches Smart Bidding to avoid the traffic that
+books.
+
+Setting the default here puts the €50 back one layer earlier, where it does
+apply. It is the same number and the same intent as the conversion action's
+fallback, enforced in the only place that works.
+
+**This is a floor, not a fix.** Every conversion arriving at exactly €50 means
+ParkingPro is not sending `totalWithTax` — check that before trusting the
+revenue figures. `DLV - value_missing` is the field that tells you which is
+which.
