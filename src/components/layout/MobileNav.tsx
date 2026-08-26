@@ -27,6 +27,10 @@ const FOCUSABLE =
  *   Tab / Shift+Tab cycles within the panel and cannot escape it
  *   opening         moves focus into the panel
  *   route change    closes
+ *
+ * The button trigger uses dark navy text on the solid light header for
+ * excellent contrast. The mobile menu panel uses a light background with
+ * dark text, maintaining consistent legibility.
  */
 export function MobileNav() {
   const panelRef = useRef<HTMLDivElement>(null);
@@ -111,14 +115,11 @@ export function MobileNav() {
         aria-controls={panelId}
         aria-label={open ? 'Menu sluiten' : 'Menu openen'}
         onClick={() => setOpenedOn(open ? null : pathname)}
-        // Light over the transparent header, dark once HeaderShell marks itself
-        // scrolled — the same contract the logo and nav links follow.
+        // Dark navy border and text on the solid light header for excellent contrast.
         className={cn(
           'grid size-11 place-items-center rounded-md border lg:hidden',
           'ease-settle transition-colors duration-300',
-          'border-navy-600 text-navy-100 hover:border-navy-300 hover:text-white',
-          'group-data-[scrolled=true]/header:border-line-strong group-data-[scrolled=true]/header:text-heading',
-          'group-data-[scrolled=true]/header:hover:border-navy-600 group-data-[scrolled=true]/header:hover:text-brand',
+          'border-navy-300 text-brand hover:border-navy-600 hover:text-navy-700',
         )}
       >
         {open ? <X className="size-5" /> : <Menu className="size-5" />}
@@ -186,7 +187,7 @@ export function MobileNav() {
                     type="button"
                     onClick={close}
                     aria-label="Menu sluiten"
-                    className="border-line-strong text-heading hover:border-navy-600 hover:text-brand ease-settle grid size-11 place-items-center rounded-md border transition-colors duration-(--duration-micro)"
+                    className="border-line-strong text-heading hover:border-navy-600 hover:text-brand ease-settle grid size-11 place-items-center rounded-md border transition-colors duration-300"
                   >
                     <X className="size-5" />
                   </button>
@@ -202,7 +203,7 @@ export function MobileNav() {
                             href={item.href}
                             aria-current={isCurrent ? 'page' : undefined}
                             className={cn(
-                              'ease-settle flex min-h-[3.25rem] items-center text-lg font-medium transition-colors duration-(--duration-micro)',
+                              'ease-settle flex min-h-[3.25rem] items-center text-lg font-medium transition-colors duration-300',
                               isCurrent ? 'text-brand' : 'text-heading hover:text-brand',
                             )}
                           >
