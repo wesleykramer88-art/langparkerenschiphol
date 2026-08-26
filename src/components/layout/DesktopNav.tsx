@@ -15,6 +15,10 @@ import { mainNav } from '@/config/site';
  * The current page is marked three ways — aria-current for AT, weight for
  * scanning, and an underline rule — because colour alone is never a sufficient
  * signal.
+ *
+ * On the solid light header, all links use dark navy text for excellent
+ * contrast. Current page is bold with an orange underline. Hover state
+ * uses navy-700 for visual feedback.
  */
 export function DesktopNav() {
   const pathname = usePathname();
@@ -32,10 +36,10 @@ export function DesktopNav() {
                 className={cn(
                   'group/link relative inline-flex h-11 items-center rounded-sm px-4 text-[0.9375rem]',
                   'ease-settle transition-colors duration-(--duration-micro)',
-                  // Light type over the transparent header, dark once scrolled.
+                  // Dark navy text on solid light header.
                   isCurrent
-                    ? 'group-data-[scrolled=true]/header:text-brand font-semibold text-white'
-                    : 'text-navy-100 group-data-[scrolled=true]/header:text-body group-data-[scrolled=true]/header:hover:text-brand font-medium hover:text-white',
+                    ? 'font-semibold text-brand'
+                    : 'text-brand font-medium hover:text-navy-700',
                 )}
               >
                 {item.label}
