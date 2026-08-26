@@ -169,7 +169,7 @@ export function HeroSection({
       {/* ========================================================================
           MOBILE LAYOUT (below lg)
           ======================================================================== */}
-      <div className="flex flex-col lg:hidden">
+      <div className="flex flex-col pt-3 lg:hidden">
         {/* --- BOOKING WIDGET AT TOP --- */}
         {/* The widget lives here on mobile for maximum conversion. Moved from
             the right column to top of page, so users see the booking form before
