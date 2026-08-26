@@ -8,26 +8,30 @@ import { MobileNav } from '@/components/layout/MobileNav';
 import { siteConfig } from '@/config/site';
 
 /**
- * Transparent over a dark hero, solid once scrolled past it.
+ * Header: solid from the first paint with proper contrast.
  *
- * `border-transparent` rather than no border, so the bar's height does not
- * change by a pixel as the border appears — that would nudge everything below.
+ * The header now uses a solid light background (bg-surface/92) with
+ * subtle border and backdrop-blur from the start. Dark navy text provides
+ * excellent contrast against the light cream background.
+ *
+ * `border-transparent` is included rather than omitted, so the bar's height
+ * does not change by a pixel when the border appears on scroll — that would
+ * nudge everything below.
+ *
+ * On non-homepage routes the header was already solid; on homepage it now
+ * starts solid instead of transparent, ensuring legible navigation text
+ * from first paint.
  */
 const barClasses = [
-  'border-b border-transparent bg-transparent',
+  'border-b border-line bg-surface/92 backdrop-blur-md',
   'transition-[background-color,border-color] duration-300 ease-settle',
-  'group-data-[scrolled=true]/header:border-line',
-  'group-data-[scrolled=true]/header:bg-surface/92',
-  'group-data-[scrolled=true]/header:backdrop-blur-md',
 ].join(' ');
 
 /**
  * Site header.
  *
- * A Server Component. Three client leaves only: HeaderShell (scroll state),
- * DesktopNav (pathname, for aria-current) and MobileNav (open state). Everything
- * that restyles on scroll does it through the `group-data-[scrolled]` attribute
- * HeaderShell publishes, so no state is drilled through the tree.
+ * A Server Component. Two client leaves: HeaderShell (currently read-only,
+ * as scrolled state is no longer used for styling) and MobileNav (open state).
  *
  * The phone number comes from config/site.ts. On the site this replaces, every
  * subpage header linked to `tel:123456789` — a placeholder that was never filled
@@ -51,7 +55,7 @@ export function SiteHeader() {
       <div className={barClasses}>
         <Container>
           <div className="ease-settle flex h-20 items-center justify-between gap-6 transition-[height] duration-300 group-data-[scrolled=true]/header:h-[4.5rem]">
-            <Logo tone="auto" />
+            <Logo tone="solid" />
 
             <div className="flex items-center gap-2">
               <DesktopNav />
@@ -60,7 +64,7 @@ export function SiteHeader() {
                 <Button
                   href={siteConfig.phone.href}
                   variant="link"
-                  className="text-navy-100 decoration-navy-500 hover:decoration-navy-200 group-data-[scrolled=true]/header:text-brand group-data-[scrolled=true]/header:decoration-navy-300 px-3 text-sm"
+                  className="text-brand decoration-navy-300 hover:decoration-navy-500 px-3 text-sm"
                 >
                   <Phone className="size-4" aria-hidden />
                   <span className="sr-only">Bel ons: </span>
@@ -81,7 +85,7 @@ export function SiteHeader() {
                 <Button
                   href="/login/"
                   variant="link"
-                  className="text-navy-100 group-data-[scrolled=true]/header:text-body group-data-[scrolled=true]/header:hover:text-brand px-3 text-sm no-underline hover:text-white"
+                  className="text-brand hover:text-navy-700 px-3 text-sm no-underline"
                 >
                   <LogIn className="size-4" aria-hidden />
                   Inloggen
