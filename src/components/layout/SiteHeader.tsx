@@ -8,21 +8,14 @@ import { MobileNav } from '@/components/layout/MobileNav';
 import { siteConfig } from '@/config/site';
 
 /**
- * Transparent over a dark hero on desktop, solid on mobile once the booking
- * widget moved to the top.
+ * Transparent over a dark hero, solid once scrolled past it.
  *
  * `border-transparent` rather than no border, so the bar's height does not
  * change by a pixel as the border appears — that would nudge everything below.
- *
- * Mobile uses bg-surface immediately (not transparent) because the widget now
- * sits directly below the header. Desktop stays transparent over the hero photo.
  */
 const barClasses = [
-  'border-b border-transparent',
+  'border-b border-transparent bg-transparent',
   'transition-[background-color,border-color] duration-300 ease-settle',
-  // Mobile: solid surface background from start (widget is below)
-  'lg:bg-transparent bg-surface',
-  // Desktop: transparent at start, becomes solid on scroll
   'group-data-[scrolled=true]/header:border-line',
   'group-data-[scrolled=true]/header:bg-surface/92',
   'group-data-[scrolled=true]/header:backdrop-blur-md',
