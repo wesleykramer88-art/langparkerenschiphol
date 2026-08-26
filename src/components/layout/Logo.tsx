@@ -22,15 +22,15 @@ export function Logo({
 }: {
   className?: string;
   /**
-   * 'light' — dark type, for light surfaces.
-   * 'dark'  — light type, for navy surfaces.
-   * 'auto'  — light type over the transparent header, flipping to dark type
-   *           once HeaderShell marks itself scrolled. Header use only.
+   * 'light' — muted type, for light surfaces.
+   * 'dark'  — heading-inverse type, for navy surfaces.
+   * 'solid' — brand/heading type, for the solid light header on all routes.
    */
-  tone?: 'light' | 'dark' | 'auto';
+  tone?: 'light' | 'dark' | 'solid';
 }) {
   const isDark = tone === 'dark';
-  const isAuto = tone === 'auto';
+  const isSolid = tone === 'solid';
+  const isLight = tone === 'light';
 
   return (
     <Link
@@ -53,8 +53,8 @@ export function Logo({
           className={cn(
             'eyebrow ease-settle transition-colors duration-300',
             isDark && 'text-navy-300',
-            isAuto && 'text-navy-300 group-data-[scrolled=true]/header:text-muted',
-            !isDark && !isAuto && 'text-muted',
+            isSolid && 'text-brand',
+            isLight && 'text-muted',
           )}
         >
           Lang Parkeren
@@ -78,8 +78,8 @@ export function Logo({
           className={cn(
             'ease-settle mt-1 text-xl font-bold tracking-[-0.02em] transition-colors duration-300',
             isDark && 'text-heading-inverse',
-            isAuto && 'text-heading-inverse group-data-[scrolled=true]/header:text-heading',
-            !isDark && !isAuto && 'text-heading',
+            isSolid && 'text-heading',
+            isLight && 'text-heading',
           )}
         >
           Schiphol
