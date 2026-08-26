@@ -173,8 +173,8 @@ export function HeroSection({
         {/* --- BOOKING WIDGET AT TOP --- */}
         {/* The widget lives here on mobile for maximum conversion. Moved from
             the right column to top of page, so users see the booking form before
-            scrolling. The sticky header is h-20 (80px), so we account for that
-            with -mt-20 pt-20 on the desktop layout. On mobile, no offset needed. */}
+            scrolling. Notch is inverse because the widget sits on the dark
+            (navy-950) section background. */}
         <motion.div
           initial={
             prefersReduced ? { opacity: 1, y: 0, rotate: 0 } : { opacity: 0, y: 14, rotate: 0 }
@@ -186,7 +186,7 @@ export function HeroSection({
           id="hero-booking"
           className="relative z-10 w-full"
         >
-          <BookingPicker notch="default" bounds={bounds} />
+          <BookingPicker notch="inverse" bounds={bounds} />
         </motion.div>
 
         {/* --- HERO PHOTO --- */}
