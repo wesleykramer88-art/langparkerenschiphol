@@ -17,6 +17,7 @@
 
 @theme {
   /* -- Navy token ramp (mapped to Schiphol-style greys) --------------------
+     Legacy "navy" token names are kept for compatibility with existing usage.
      950 / 900 / 600 remain the visual anchors; the rest preserve hierarchy. */
   --color-navy-50: #f7f7f7;
   --color-navy-100: #ededed;
