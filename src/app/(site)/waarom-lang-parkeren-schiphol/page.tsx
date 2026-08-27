@@ -197,7 +197,7 @@ export default function WhyPage() {
     <>
       <PageHero
         eyebrow="Waarom ons"
-        title={`Al meer dan ${siteConfig.yearsActive} jaar uw auto op Schiphol`}
+        title="Uw auto in vertrouwde handen op Schiphol"
         lead="Uw auto achterlaten bij een onbekende is een kwestie van vertrouwen. Deze pagina laat precies zien wat er met uw auto gebeurt: wie hem overneemt, waar hij staat, wat er wordt vastgelegd, en wat wij doen als uw reis anders loopt dan gepland."
         photo="crewTerminal"
         objectPosition="object-[center_38%]"
@@ -427,7 +427,7 @@ export default function WhyPage() {
 
       <ClosingCta
         heading="Uw auto in vertrouwde handen"
-        lead={`Al meer dan ${siteConfig.yearsActive} jaar de keuze van reizigers die vanaf Schiphol vertrekken. Reserveer in twee minuten.`}
+        lead="De keuze van reizigers die vanaf Schiphol vertrekken. Reserveer in twee minuten."
         photo="terminalDeparture"
       />
 

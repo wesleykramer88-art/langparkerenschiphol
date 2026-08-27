@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/Button';
 import { HeroPhoto } from '@/components/ui/HeroPhoto';
 import { BookingPicker } from '@/components/booking/BookingPicker';
 import { PromoCoupon } from '@/components/sections/PromoCoupon';
-import { siteConfig } from '@/config/site';
 import type { PickerBounds } from '@/lib/parkingpro-config';
 
 /**
@@ -90,7 +89,7 @@ const HEADLINE_LINES = ['Lang Parkeren', 'op Schiphol'] as const;
  * needs. That figure is what stopped the scrim going lighter still. If you
  * change this colour or this size, re-measure the whole band.
  */
-const SUBHEAD = 'Zorgeloos geregeld.';
+const SUBHEAD = 'Uw auto veilig. U zorgeloos op reis.';
 
 /**
  * Set as a hairline row, not as a bullet list.
@@ -109,24 +108,9 @@ const SUBHEAD = 'Zorgeloos geregeld.';
  * it and we will state that instead.
  */
 const PROOF = [
-  'Shuttle van en naar de vertrekhal inbegrepen',
+  'Op 5 tot 8 minuten van Schiphol',
+  'Sleutels mee op reis bij Shuttle',
   '24/7 camerabewaking en monitoring',
-  // ── The proximity claim. Local SEO, August 2026 ──────────────────────────
-  // Replaces 'Boek direct via de website', which said nothing a visitor
-  // looking at a booking form needed to be told.
-  //
-  // The brief asked for "Op 5 minuten van Schiphol". It is deliberately NOT
-  // that. This site already publishes "5 tot 8 minuten" for the shuttle in six
-  // separate places — the FAQ, the service chooser, /onze-services/, the trust
-  // page and twice in schema-adjacent copy — and a shorter figure here would be
-  // the client's own claim disagreeing with itself, in the one row on the page
-  // whose entire job is to be checkable. So this states the published number.
-  //
-  // TODO(client): if you would rather state a DISTANCE ("op 5 minuten rijden",
-  // "3 km van de terminal"), send the figure and we will use it — but it then
-  // has to replace the 5–8 minute claim everywhere or sit clearly beside it as
-  // a different measurement. One number in two sizes is worse than either.
-  'Op 5 tot 8 minuten van de vertrekhal',
 ] as const;
 
 export function HeroSection({
@@ -208,8 +192,7 @@ export function HeroSection({
             <motion.div {...rise(0)} className="flex items-center gap-3">
               <span aria-hidden className="bg-valet-400 size-2 shrink-0 rotate-45 rounded-xs" />
               <p className="eyebrow text-paper-50">
-                <span className="numeric">{siteConfig.yearsActive}+</span> jaar op Schiphol ·
-                Duizenden reizigers per jaar
+                PREMIUM SHUTTLE- EN VALETPARKEREN BIJ SCHIPHOL
               </p>
             </motion.div>
 
@@ -240,8 +223,10 @@ export function HeroSection({
 
             {/* Lead paragraph */}
             <motion.p {...rise(0.42)} className="text-lead text-navy-100 max-w-[46ch]">
-              Binnen 2 minuten geregeld. Kies voor Shuttle met een gratis transfer naar de
-              vertrekhal of voor Valet, waarbij onze chauffeur uw auto direct voor u parkeert.
+              Kies voor Shuttle en neem uw autosleutels mee op reis, of laat uw auto bij Valet
+              comfortabel overnemen bij de vertrekhal. Uw auto staat op een afgesloten, 24/7
+              gemonitorde parkeerlocatie. Valetritten worden digitaal geregistreerd voor extra
+              controle en zekerheid.
             </motion.p>
 
             {/* Proof row */}
@@ -317,8 +302,7 @@ export function HeroSection({
             <motion.div {...rise(0)} className="flex items-center gap-3">
               <span aria-hidden className="bg-valet-400 size-2 shrink-0 rotate-45 rounded-xs" />
               <p className="eyebrow text-paper-50">
-                <span className="numeric">{siteConfig.yearsActive}+</span> jaar op Schiphol ·
-                Duizenden reizigers per jaar
+                PREMIUM SHUTTLE- EN VALETPARKEREN BIJ SCHIPHOL
               </p>
             </motion.div>
 
@@ -349,8 +333,10 @@ export function HeroSection({
 
             {/* Lead paragraph */}
             <motion.p {...rise(0.42)} className="text-lead text-navy-100 mt-7 max-w-[46ch]">
-              Binnen 2 minuten geregeld. Kies voor Shuttle met een gratis transfer naar de
-              vertrekhal of voor Valet, waarbij onze chauffeur uw auto direct voor u parkeert.
+              Kies voor Shuttle en neem uw autosleutels mee op reis, of laat uw auto bij Valet
+              comfortabel overnemen bij de vertrekhal. Uw auto staat op een afgesloten, 24/7
+              gemonitorde parkeerlocatie. Valetritten worden digitaal geregistreerd voor extra
+              controle en zekerheid.
             </motion.p>
 
             {/* Proof row */}

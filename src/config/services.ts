@@ -75,7 +75,7 @@ export const SERVICE_COPY: Record<ServiceSlug, ServiceCopy> = {
     usp: { icon: KeyRound, text: 'Sleutels mee op reis · Gratis transfer naar Schiphol' },
     bullets: [
       { icon: KeyRound, text: 'Zelf parkeren, sleutels mee op reis' },
-      { icon: BusFront, text: 'Snelle transfer zonder wachttijd' },
+      { icon: BusFront, text: 'Transfer op 5 tot 8 minuten van Schiphol' },
       { icon: LayoutGrid, text: 'Duidelijk en strak georganiseerd' },
       { icon: ShieldCheck, text: 'Veilig terrein, betrouwbare service' },
     ],

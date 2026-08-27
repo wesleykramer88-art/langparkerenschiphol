@@ -75,12 +75,9 @@ export const pageSeo = {
     path: '/login/',
   },
   why: {
-    // The slug IS the query. Dutch travellers type "waarom lang parkeren
-    // schiphol" and variants of it, and no page on the live site answers that
-    // question in one place.
-    title: 'Waarom Lang Parkeren Schiphol | 15 Jaar Ervaring & Beveiligd Parkeren',
+    title: 'Waarom Lang Parkeren Schiphol | Beveiligd Valet & Shuttle Parkeren',
     description:
-      'Al meer dan 15 jaar valet en shuttle parkeren op Schiphol. Lees hoe wij uw auto beveiligen, wat er stap voor stap gebeurt en wat we doen bij vertraging of vervroegde landing.',
+      'Valet en shuttle parkeren op Schiphol met 24/7 camerabewaking en digitale ritregistratie. Lees hoe wij uw auto beveiligen, wat er stap voor stap gebeurt en wat we doen bij vertraging.',
     path: '/waarom-lang-parkeren-schiphol/',
   },
   reviews: {
