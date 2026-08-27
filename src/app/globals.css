@@ -16,20 +16,20 @@
    ========================================================================== */
 
 @theme {
-  /* -- Navy ramp -----------------------------------------------------------
-     950 / 900 / 600 are the client-approved anchors; the rest are interpolated
-     to sit on the same hue line (~207°). */
-  --color-navy-50: #f0f5fa;
-  --color-navy-100: #dde9f3;
-  --color-navy-200: #bfd5e8;
-  --color-navy-300: #93b8d6;
-  --color-navy-400: #5f94bf;
-  --color-navy-500: #3b77a6;
-  --color-navy-600: #1e5c8c; /* anchor — brand blue, links, secondary UI */
-  --color-navy-700: #194b71;
-  --color-navy-800: #123a57;
-  --color-navy-900: #0a2942; /* anchor — dark section variation */
-  --color-navy-950: #071e33; /* anchor — dark sections, headings */
+  /* -- Navy token ramp (mapped to Schiphol-style greys) --------------------
+     Legacy "navy" token names are kept for compatibility with existing usage.
+     950 / 900 / 600 remain the visual anchors; the rest preserve hierarchy. */
+  --color-navy-50: #f4f7f8;
+  --color-navy-100: #e6ecee;
+  --color-navy-200: #cfdade;
+  --color-navy-300: #b1c1c6;
+  --color-navy-400: #90a6ad;
+  --color-navy-500: #5c757d;
+  --color-navy-600: #49636a; /* anchor — brand neutral, links, secondary UI */
+  --color-navy-700: #3d535a;
+  --color-navy-800: #30444a;
+  --color-navy-900: #24353b; /* anchor — dark section variation */
+  --color-navy-950: #172226; /* anchor — dark sections, headings */
 
   /* -- Valet ramp (hi-vis) -------------------------------------------------
      600 and 100 are the client-approved anchors (~22°). */
