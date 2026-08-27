@@ -119,7 +119,7 @@ const CONCERNS: readonly FaqItem[] = [
   {
     question: 'Wat als ik midden in de nacht aankom of terugkom?',
     answer:
-      'Onze shuttleservice is 24 uur per dag beschikbaar, dus ook een vroege vlucht of een late landing is geen probleem. Geef uw werkelijke aankomst- en retourtijd op bij het reserveren, zodat wij daarop kunnen plannen. Bel ons direct na de landing, ook als het laat is.',
+      'Onze shuttleservice is 24 uur per dag beschikbaar, dus ook een vroege vlucht of een late landing is geen probleem. Geef uw werkelijke aankomst- en retourtijd op bij het reserveren, zodat wij daarop kunnen plannen. Bel ons direct na de landing, ook als het laat is. Let op: voor een aankomst of terugkomst tussen 00:00 en 07:00 geldt een nachttoeslag van €15.',
   },
   {
     question: 'Wat gebeurt er als mijn vlucht vertraging heeft?',
@@ -210,7 +210,19 @@ export default async function ShuttleParkingPage() {
         ]}
         photo="crewShuttleTerminal"
         objectPosition="object-[center_45%]"
-      />
+      >
+        <p className="text-muted mt-5 max-w-[52ch] text-sm leading-relaxed">
+          De shuttletransfer van en naar Schiphol is inbegrepen voor maximaal 5 personen. Voor een
+          aankomst of terugkomst tussen 00:00 en 07:00 of voor meer dan 5 personen kunnen toeslagen
+          gelden.{' '}
+          <a
+            href="/tarieven/#voorwaarden-en-toeslagen"
+            className="text-accent underline underline-offset-2 hover:text-accent-hover"
+          >
+            Bekijk de voorwaarden en toeslagen
+          </a>
+        </p>
+      </ContentSection>
 
       {/* ---------- The process ---------- */}
       <Section tone="surface" spacing="lg" aria-labelledby="proces-heading">

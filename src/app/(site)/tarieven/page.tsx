@@ -63,7 +63,12 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Is de shuttlebus gratis inbegrepen bij het parkeertarief?',
     answer:
-      'Ja, de shuttleservice van en naar de luchthaven is volledig inbegrepen in onze tarieven voor Shuttle Parking. Er zijn dus geen verborgen extra kosten. De shuttlebus brengt je in een paar minuten rechtstreeks naar de vertrekhal en haalt je bij terugkomst ook weer op.',
+      'Ja. Bij Shuttle Parking is de transfer van de parkeerlocatie naar Schiphol en terug inbegrepen voor maximaal 5 personen. Vanaf de 6e persoon geldt een toeslag van €10 per extra persoon per reservering. Voor Valet Parking geldt geen personentoeslag.',
+  },
+  {
+    question: 'Wanneer betaal ik een nachttoeslag?',
+    answer:
+      'Voor een aankomst of terugkomst tussen 00:00 en 07:00 geldt een nachttoeslag van €15. Dit geldt voor zowel Shuttle Parking als Valet Parking. Vallen zowel uw aankomst als terugkomst binnen dit tijdvak, dan kan de totale nachttoeslag €30 bedragen.',
   },
   {
     question: 'Is het mogelijk om mijn elektrische auto op te laden tijdens het parkeren?',
@@ -144,6 +149,48 @@ export default function RatesPage() {
           has, on a page nothing links to. */}
       {/* <AccountDiscountBar /> */}
 
+      {/* ---------- Toeslagen informatieblok ---------- */}
+      <Section
+        id="voorwaarden-en-toeslagen"
+        tone="surface"
+        spacing="md"
+        aria-labelledby="toeslagen-heading"
+        className="scroll-mt-28"
+      >
+        <Container>
+          <Reveal className="max-w-[46ch]">
+            <Eyebrow rule>Toeslagen</Eyebrow>
+            <h2 id="toeslagen-heading" className="text-display-md mt-5">
+              Goed om te weten over toeslagen
+            </h2>
+          </Reveal>
+          <div className="border-line mt-10 grid border-t sm:grid-cols-2">
+            <div className="py-8 sm:pr-10">
+              <h3 className="text-heading text-base font-semibold">
+                Nachttoeslag – Shuttle en Valet
+              </h3>
+              <p className="text-muted mt-3 max-w-[38ch] text-sm leading-relaxed">
+                Voor een aankomst of terugkomst tussen 00:00 en 07:00 geldt een nachttoeslag van
+                €15. Dit geldt voor zowel Shuttle Parking als Valet Parking. Vallen zowel uw
+                aankomst als terugkomst binnen dit tijdvak, dan kan de totale nachttoeslag €30
+                bedragen.
+              </p>
+            </div>
+            <div className="border-line py-8 sm:border-l sm:pl-10">
+              <h3 className="text-heading text-base font-semibold">
+                Aantal personen – uitsluitend Shuttle
+              </h3>
+              <p className="text-muted mt-3 max-w-[38ch] text-sm leading-relaxed">
+                Bij Shuttle Parking is de transfer van en naar Schiphol inbegrepen voor maximaal 5
+                personen. Vanaf de 6e persoon betaalt u €10 per extra persoon per reservering. Voor
+                Valet Parking geldt geen personentoeslag.
+              </p>
+            </div>
+          </div>
+          <p className="text-muted mt-4 text-xs">Alle genoemde bedragen zijn inclusief btw.</p>
+        </Container>
+      </Section>
+
       {/* ---------- Paid options ----------
           The only hard price we publish, because it is fixed and the client
           wrote it down himself. Set in the mono face with tabular figures, the
@@ -198,8 +245,7 @@ export default function RatesPage() {
                 Wat zit er in de prijs?
               </h2>
               <p className="text-muted mt-6 max-w-[40ch] leading-relaxed">
-                Drie vragen over hoe het tarief tot stand komt en wat er wel en niet bij inbegrepen
-                is.
+                Vier vragen over hoe het tarief tot stand komt en welke toeslagen kunnen gelden.
               </p>
               <Button href="/waarom-lang-parkeren-schiphol/" variant="link" className="mt-7">
                 Alle vragen over onze service
