@@ -4,11 +4,11 @@ import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LogIn, Menu, X, Phone } from 'lucide-react';
+import { ChevronDown, LogIn, Menu, X, Phone } from 'lucide-react';
 import { cn } from '@/lib/cn';
 import { Button } from '@/components/ui/Button';
 import { useIsMounted } from '@/hooks/useIsMounted';
-import { mainNav, siteConfig } from '@/config/site';
+import { headerNav, headerLinks, siteConfig } from '@/config/site';
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
@@ -22,32 +22,31 @@ const FOCUSABLE =
  * fold. motion is reserved for the homepage hero, the one place it earns its
  * weight.
  *
- * Keyboard contract:
- *   Escape          closes and returns focus to the trigger
- *   Tab / Shift+Tab cycles within the panel and cannot escape it
- *   opening         moves focus into the panel
- *   route change    closes
+ * The two dropdown groups from the desktop nav become accordion sections here.
+ * Each section has a disclosure button that toggles its child links. Standalone
+ * links remain as flat entries. The rest of the panel (Reserveer nu, Inloggen,
+ * phone) is unchanged.
  *
- * The button trigger uses dark navy text on the solid light header for
- * excellent contrast. The mobile menu panel uses a light background with
- * dark text, maintaining consistent legibility.
+ * Keyboard contract:
+ *   Escape          closes the panel, returns focus to the trigger
+ *   Tab / Shift+Tab cycles within the panel and cannot escape it
+ *   Enter / Space   toggle accordion sections
+ *   opening panel   moves focus into the panel
+ *   route change    closes the panel
  */
 export function MobileNav() {
   const panelRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
   const panelId = useId();
+  const uid = useId();
   const mounted = useIsMounted();
 
-  /**
-   * Open state is stored as the path the panel was opened ON, and "open" is
-   * derived by comparing it with the current path. Navigating therefore closes
-   * the panel as a consequence of the route changing, with no effect watching
-   * the pathname to push state — which would cost an extra render on every
-   * navigation, open or not.
-   */
   const [openedOn, setOpenedOn] = useState<string | null>(null);
   const open = openedOn === pathname;
+
+  // Track which accordion group is open (index into headerNav).
+  const [openAccordion, setOpenAccordion] = useState<number | null>(null);
 
   const close = useCallback(() => {
     setOpenedOn(null);
@@ -57,8 +56,6 @@ export function MobileNav() {
   useEffect(() => {
     if (!open) return;
 
-    // Lock the page behind the panel, compensating for the scrollbar so the
-    // layout underneath does not jump sideways as it disappears.
     const { body, documentElement } = document;
     const scrollbar = window.innerWidth - documentElement.clientWidth;
     const previousOverflow = body.style.overflow;
@@ -66,7 +63,6 @@ export function MobileNav() {
     body.style.overflow = 'hidden';
     if (scrollbar > 0) body.style.paddingRight = `${scrollbar}px`;
 
-    // Move focus into the panel.
     const panel = panelRef.current;
     panel?.querySelector<HTMLElement>(FOCUSABLE)?.focus();
 
@@ -88,7 +84,6 @@ export function MobileNav() {
       const last = focusable[focusable.length - 1];
       const active = document.activeElement;
 
-      // Wrap at both ends so focus can never land on the inert page behind.
       if (event.shiftKey && (active === first || !panel.contains(active))) {
         event.preventDefault();
         last.focus();
@@ -115,7 +110,6 @@ export function MobileNav() {
         aria-controls={panelId}
         aria-label={open ? 'Menu sluiten' : 'Menu openen'}
         onClick={() => setOpenedOn(open ? null : pathname)}
-        // Dark navy border and text on the solid light header for excellent contrast.
         className={cn(
           'grid size-11 place-items-center rounded-md border lg:hidden',
           'ease-settle transition-colors duration-300',
@@ -125,22 +119,10 @@ export function MobileNav() {
         {open ? <X className="size-5" /> : <Menu className="size-5" />}
       </button>
 
-      {/*
-        The scrim and panel are portalled to <body>.
-
-        They must escape the header's subtree: SiteHeader applies backdrop-blur,
-        and a backdrop-filter establishes a containing block for `position:
-        fixed` descendants. Left inside it, `fixed inset-0` resolved against the
-        72px header bar rather than the viewport — so the scrim covered only the
-        header strip, the page behind was never dimmed, and tapping below the
-        panel did not dismiss it.
-      */}
       {mounted
         ? createPortal(
             <>
-              {/* A real button so it is dismissible by pointer, but kept out of
-                  the tab order and hidden from AT — Escape and the close control
-                  are the keyboard affordances. */}
+              {/* Scrim */}
               <button
                 type="button"
                 tabIndex={-1}
@@ -153,34 +135,21 @@ export function MobileNav() {
                 )}
               />
 
+              {/* Panel */}
               <div
                 ref={panelRef}
                 id={panelId}
-                // Hidden from AT and from the tab order while closed, so the
-                // panel's links are not reachable behind the scrim.
                 inert={!open}
                 className={cn(
                   'fixed inset-x-0 top-0 z-50 lg:hidden',
                   'border-line bg-surface shadow-lifted border-b',
-                  // `invisible` is not redundant with the off-canvas translate:
-                  // sliding the panel up still leaves its drop shadow painting
-                  // over the marquee strip below, which turned the navy band
-                  // white on mobile. visibility:hidden stops it painting at all,
-                  // and unlike `hidden` it keeps the element around so the slide
-                  // still animates.
-                  //
-                  // The transitions are spelled out because the two properties
-                  // need different timing: the transform always animates over
-                  // 300ms, while visibility must flip instantly on open but wait
-                  // for the slide to finish on close. A plain `delay-300` would
-                  // delay the transform too, leaving the panel hanging for a beat
-                  // before it moved.
                   open
                     ? 'visible translate-y-0 [transition:transform_300ms_var(--ease-settle)]'
                     : 'invisible -translate-y-full [transition:transform_300ms_var(--ease-settle),visibility_0s_300ms]',
                   'motion-reduce:transition-none',
                 )}
               >
+                {/* Header row */}
                 <div className="border-line flex items-center justify-between border-b px-5 py-4">
                   <span className="eyebrow text-muted">Menu</span>
                   <button
@@ -195,13 +164,88 @@ export function MobileNav() {
 
                 <nav aria-label="Hoofdmenu" className="px-5 py-2">
                   <ul className="divide-line divide-y">
-                    {mainNav.map((item) => {
+                    {/* ── Accordion groups ── */}
+                    {headerNav.map((group, index) => {
+                      const isExpanded = openAccordion === index;
+                      const sectionId = `${uid}-acc-${index}`;
+                      const btnId = `${uid}-accbtn-${index}`;
+                      const hasActive = group.items.some((item) => {
+                        const base = item.href.split('#')[0];
+                        return pathname === base || pathname === item.href;
+                      });
+
+                      return (
+                        <li key={group.label}>
+                          <button
+                            id={btnId}
+                            type="button"
+                            aria-expanded={isExpanded}
+                            aria-controls={sectionId}
+                            onClick={() =>
+                              setOpenAccordion((prev) => (prev === index ? null : index))
+                            }
+                            className={cn(
+                              'ease-settle flex w-full min-h-[3.25rem] items-center justify-between text-lg font-medium transition-colors duration-300',
+                              hasActive ? 'text-brand' : 'text-heading',
+                            )}
+                          >
+                            <span>{group.label}</span>
+                            <ChevronDown
+                              className={cn(
+                                'size-4 shrink-0 transition-transform duration-200 ease-settle',
+                                isExpanded && 'rotate-180',
+                              )}
+                              aria-hidden
+                            />
+                          </button>
+
+                          {/* Accordion body */}
+                          <div
+                            id={sectionId}
+                            role="region"
+                            aria-labelledby={btnId}
+                            className={cn(
+                              'overflow-hidden transition-all duration-300 ease-settle',
+                              isExpanded ? 'max-h-96 pb-2' : 'max-h-0',
+                            )}
+                          >
+                            <ul className="flex flex-col">
+                              {group.items.map((item) => {
+                                const base = item.href.split('#')[0];
+                                const isCurrent = pathname === base || pathname === item.href;
+                                return (
+                                  <li key={item.href}>
+                                    <Link
+                                      href={item.href}
+                                      aria-current={isCurrent ? 'page' : undefined}
+                                      onClick={close}
+                                      className={cn(
+                                        'ease-settle flex min-h-11 items-center pl-4 text-base transition-colors duration-300',
+                                        isCurrent
+                                          ? 'font-semibold text-brand'
+                                          : 'text-muted hover:text-brand',
+                                      )}
+                                    >
+                                      {item.label}
+                                    </Link>
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          </div>
+                        </li>
+                      );
+                    })}
+
+                    {/* ── Standalone links ── */}
+                    {headerLinks.map((item) => {
                       const isCurrent = pathname === item.href;
                       return (
                         <li key={item.href}>
                           <Link
                             href={item.href}
                             aria-current={isCurrent ? 'page' : undefined}
+                            onClick={close}
                             className={cn(
                               'ease-settle flex min-h-[3.25rem] items-center text-lg font-medium transition-colors duration-300',
                               isCurrent ? 'text-brand' : 'text-heading hover:text-brand',
@@ -215,14 +259,11 @@ export function MobileNav() {
                   </ul>
                 </nav>
 
+                {/* CTA buttons */}
                 <div className="flex flex-col gap-3 px-5 pt-3 pb-6">
                   <Button href="/reservering/" size="lg">
                     Reserveer nu
                   </Button>
-                  {/* The portal, reachable on a phone. It carries the 10%
-                      account discount and is the only way to change a booking
-                      without calling — and before this pass nothing on the site
-                      linked to it at any width. */}
                   <Button href="/login/" variant="outline" size="lg">
                     <LogIn className="size-4" aria-hidden />
                     Inloggen op klantenportaal

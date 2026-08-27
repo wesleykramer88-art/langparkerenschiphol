@@ -46,8 +46,6 @@ const CRUMBS = [{ name: 'Reisbureaus', path: '/samenwerken/' }];
  *     contact op" and then offered two buttons: "Reserveer nu" and "Hoe het
  *     werkt". Neither goes to contact. A B2B page whose only call to action
  *     sends the prospect into a consumer booking flow converts nobody.
- *   · "10+ jaar" here against "meer dan 15 jaar" on the homepage and in the
- *     footer.
  *
  * What is KEPT verbatim: the H1, the lead, and the two argument paragraphs
  * ("Extra inkomsten, zonder extra werk" and "Een slimme extra service voor uw
@@ -71,7 +69,7 @@ const CRUMBS = [{ name: 'Reisbureaus', path: '/samenwerken/' }];
 const REASONS: readonly { icon: LucideIcon; title: string; body: string }[] = [
   {
     icon: Building2,
-    title: `Meer dan ${siteConfig.yearsActive} jaar op Schiphol`,
+    title: 'Gevestigde parkeerservice op Schiphol',
     body: 'Uw klanten komen terecht bij een gevestigde parkeerservice die dagelijks bij de vertrekhal rijdt — niet bij een tussenpersoon die het werk doorzet.',
   },
   {

@@ -15,7 +15,6 @@ import { Eyebrow } from '@/components/ui/Eyebrow';
 import { Button } from '@/components/ui/Button';
 import { Photo } from '@/components/ui/Photo';
 import { Reveal, Stagger } from '@/components/motion/Reveal';
-import { siteConfig } from '@/config/site';
 
 /**
  * Why us.
@@ -62,8 +61,8 @@ const REASONS: readonly Item[] = [
   },
   {
     icon: Users,
-    title: 'Meest populaire service',
-    body: 'Duizenden tevreden reizigers per jaar.',
+    title: 'Betrouwbare keuze',
+    body: 'Betrouwbare keuze voor reizigers van en naar Schiphol.',
   },
 ];
 
@@ -72,7 +71,7 @@ const USPS: readonly Item[] = [
   {
     icon: MousePointerClick,
     title: 'Direct via onze site',
-    body: 'Direct geregeld bij ons, zonder tussenpartij.',
+    body: 'Direct geregeld — reserveer, bevestig en betaal op één plek.',
   },
   {
     icon: BadgeCheck,
@@ -116,7 +115,7 @@ export function WhyUs() {
             <Reveal>
               <Eyebrow rule>Waarom Lang Parkeren bij Schiphol?</Eyebrow>
               <h2 id="waarom-heading" className="text-display-lg mt-5">
-                Al meer dan {siteConfig.yearsActive} jaar de vertrouwde keuze rond Schiphol
+                De vertrouwde keuze voor valet en shuttle parkeren op Schiphol
               </h2>
 
               <div className="text-muted mt-6 flex max-w-[52ch] flex-col gap-4">

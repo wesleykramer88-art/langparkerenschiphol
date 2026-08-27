@@ -78,8 +78,7 @@ export function SiteFooter() {
           <div className="max-w-sm">
             <Logo tone="dark" />
             <p className="text-navy-200 mt-6 text-sm leading-relaxed">
-              Al meer dan {siteConfig.yearsActive} jaar de betrouwbare keuze voor valet en shuttle
-              parkeren op Amsterdam Airport Schiphol.
+              De betrouwbare keuze voor valet en shuttle parkeren op Amsterdam Airport Schiphol.
             </p>
 
             {/* Where the unsourced "4,7 / 5" and its five stars used to sit.

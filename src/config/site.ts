@@ -174,11 +174,6 @@ export const siteConfig = {
     kvk: '74048856',
   },
 
-  /** Years in business. The live site says "meer dan 15 jaar" on the homepage and
-   *  footer, but "10+ jaar" on /samenwerken/. We use 15 — two authoritative
-   *  placements agree, and the partner page has documented copy-paste damage.
-   *  TODO(client): confirm 15. */
-  yearsActive: 15,
 } as const;
 
 /**
@@ -191,20 +186,20 @@ export const siteConfig = {
  */
 export const navigation = [
   { href: '/', label: 'Home', inNav: false, inSitemap: true, priority: 1.0 },
-  { href: '/onze-services/', label: 'Onze Services', inNav: true, inSitemap: true, priority: 0.9 },
+  { href: '/onze-services/', label: 'Onze Services', inNav: false, inSitemap: true, priority: 0.9 },
   { href: '/tarieven/', label: 'Tarieven', inNav: true, inSitemap: true, priority: 0.9 },
   // The trust page. In the nav under a short label — the slug is the long-tail
   // query ("waarom lang parkeren schiphol") and the label is what fits a header.
   {
     href: '/waarom-lang-parkeren-schiphol/',
     label: 'Waarom ons',
-    inNav: true,
+    inNav: false,
     inSitemap: true,
     priority: 0.8,
   },
   // Slug and label deliberately differ: /samenwerken/ ranks, "Reisbureaus" is
   // what the audience calls itself. Do not "fix" this to match.
-  { href: '/samenwerken/', label: 'Reisbureaus', inNav: true, inSitemap: true, priority: 0.6 },
+  { href: '/samenwerken/', label: 'Reisbureaus', inNav: false, inSitemap: true, priority: 0.6 },
   { href: '/contact/', label: 'Contact', inNav: true, inSitemap: true, priority: 0.7 },
   { href: '/reservering/', label: 'Reserveren', inNav: false, inSitemap: true, priority: 0.8 },
   // Kept OUT of the main nav on purpose. Six items plus a phone number plus the
@@ -515,3 +510,39 @@ export function isPromoActive(now: number = Date.now()): boolean {
  */
 export const independenceDisclaimer =
   'Lang Parkeren Schiphol is een onafhankelijke parkeerservice en is niet gelieerd aan Royal Schiphol Group.';
+
+
+/**
+ * Header dropdown navigation.
+ *
+ * Two groups with child links, used by DesktopNav (hover/click dropdowns) and
+ * MobileNav (accordion). Standalone links follow. All hrefs point at existing
+ * routes; none are invented. "Reisbureaus" is moved to the footer only.
+ */
+export const headerNav = [
+  {
+    label: 'Parkeermogelijkheden',
+    items: [
+      { href: '/shuttle-parkeren-schiphol/', label: 'Shuttle Parkeren' },
+      { href: '/valet-parking-schiphol/', label: 'Valet Parkeren' },
+      { href: '/onze-services/', label: 'Shuttle of Valet vergelijken' },
+      // Anchor points at the stappenplan section on the why-us page.
+      { href: '/waarom-lang-parkeren-schiphol/#proces-heading', label: 'Zo werkt het' },
+    ],
+  },
+  {
+    label: 'Veiligheid & service',
+    items: [
+      { href: '/waarom-lang-parkeren-schiphol/', label: 'Waarom Lang Parkeren Schiphol' },
+      { href: '/veilig-parkeren-schiphol/', label: 'Veilig parkeren' },
+      { href: '/digitale-ritregistratie/', label: 'Digitale ritregistratie' },
+      { href: '/reviews/', label: 'Ervaringen' },
+    ],
+  },
+] as const;
+
+/** Standalone links shown in the header between the dropdowns and the CTA buttons. */
+export const headerLinks = [
+  { href: '/tarieven/', label: 'Tarieven' },
+  { href: '/contact/', label: 'Contact' },
+] as const;

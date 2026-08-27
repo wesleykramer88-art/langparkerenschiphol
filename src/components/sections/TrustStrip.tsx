@@ -2,7 +2,6 @@ import { Container } from '@/components/ui/Container';
 import { Section } from '@/components/ui/Section';
 import { CountUp } from '@/components/motion/CountUp';
 import { Reveal } from '@/components/motion/Reveal';
-import { siteConfig } from '@/config/site';
 
 /**
  * The board.
@@ -50,8 +49,7 @@ type BoardItem = {
 };
 
 const ITEMS: readonly BoardItem[] = [
-  { number: siteConfig.yearsActive, numberSuffix: '+', label: 'jaar actief op Schiphol' },
-  { word: 'Duizenden', label: 'tevreden reizigers per jaar' },
+  { word: 'Premium', label: 'Parkeren met aandacht voor veiligheid en service' },
   // Not "gratis annuleren". The cancellation cover is a paid option, so the
   // free-cancellation framing sells a flexibility the visitor has to buy first
   // — and it contradicts "optionele annuleringsdekking" in the service chooser
