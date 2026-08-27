@@ -147,6 +147,15 @@ export default async function ValetParkingPage() {
         photo="crewTerminal"
         objectPosition="object-[center_30%]"
       >
+        <p className="text-muted mt-5 max-w-[52ch] text-sm leading-relaxed">
+          Voor een aankomst of terugkomst tussen 00:00 en 07:00 geldt een nachttoeslag van €15.{' '}
+          <a
+            href="/tarieven/#voorwaarden-en-toeslagen"
+            className="text-accent underline underline-offset-2 hover:text-accent-hover"
+          >
+            Bekijk de voorwaarden en toeslagen
+          </a>
+        </p>
         <Button href="/digitale-ritregistratie/" variant="link" className="mt-7">
           Lees hoe wij iedere rit registreren
         </Button>
