@@ -784,14 +784,14 @@
   will-change: transform;
 }
 
-@utility hero-home-desktop-photo {
+.hero-home-desktop-photo {
   background-image: url("/images/busjeschiphollangparkeren.png");
   background-position: 40% 46%;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
-@utility hero-home-desktop-left-scrim {
+.hero-home-desktop-left-scrim {
   background-image:
     linear-gradient(
       to right,
@@ -810,7 +810,7 @@
     );
 }
 
-@utility hero-home-desktop-right-fade {
+.hero-home-desktop-right-fade {
   background-image: linear-gradient(
     to right,
     transparent 47%,
