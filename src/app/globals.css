@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 /* ==========================================================================
    Lang Parkeren Schiphol — design tokens
@@ -100,7 +100,11 @@
 
   --color-line: var(--color-paper-300);
   --color-line-strong: var(--color-paper-400);
-  --color-line-inverse: color-mix(in srgb, var(--color-navy-200) 22%, transparent);
+  --color-line-inverse: color-mix(
+    in srgb,
+    var(--color-navy-200) 22%,
+    transparent
+  );
 
   --color-focus: var(--color-valet-600);
 
@@ -124,7 +128,8 @@
      src/lib/fonts.ts. Changing the active typeface is a one-line edit there;
      nothing in the CSS or the components needs to know which face is active. */
   --font-sans: var(--font-brand-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-brand-mono), ui-monospace, 'SFMono-Regular', monospace;
+  --font-mono:
+    var(--font-brand-mono), ui-monospace, "SFMono-Regular", monospace;
 
   /* Fluid display scale. Each clamp is min / preferred / max so type resolves
      without a media query between 360px and 1920px. */
@@ -208,7 +213,8 @@
   /* The primary CTA's shadow is tinted with the accent rather than navy. On the
      one control that matters most, a warm shadow reads as the button being lit
      from within; a neutral one reads as a rectangle sitting on a page. */
-  --shadow-accent: 0 8px 22px -10px color-mix(in srgb, var(--color-valet-700) 55%, transparent);
+  --shadow-accent: 0 8px 22px -10px
+    color-mix(in srgb, var(--color-valet-700) 55%, transparent);
   --shadow-accent-lifted: 0 12px 30px -10px
     color-mix(in srgb, var(--color-valet-700) 62%, transparent);
 }
@@ -231,8 +237,8 @@
     /* Dutch text is long-word heavy (parkeergelegenheid, camerabewaking);
        kerning and ligatures keep it even. */
     font-feature-settings:
-      'kern' 1,
-      'liga' 1;
+      "kern" 1,
+      "liga" 1;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
   }
@@ -345,8 +351,8 @@
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
   font-feature-settings:
-    'tnum' 1,
-    'zero' 1;
+    "tnum" 1,
+    "zero" 1;
   letter-spacing: -0.01em;
 }
 
@@ -375,7 +381,7 @@
 
   &::before,
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: var(--notch-y);
     width: var(--notch-size);
@@ -533,7 +539,7 @@
   }
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     background-color: color-mix(in srgb, var(--color-navy-950) 8%, transparent);
@@ -747,7 +753,11 @@
   border: 1px solid color-mix(in srgb, var(--color-navy-100) 14%, transparent);
 
   @supports (backdrop-filter: blur(1px)) {
-    background-color: color-mix(in srgb, var(--color-navy-950) 44%, transparent);
+    background-color: color-mix(
+      in srgb,
+      var(--color-navy-950) 44%,
+      transparent
+    );
     backdrop-filter: blur(20px) saturate(1.2);
   }
 }
@@ -775,7 +785,7 @@
 }
 
 @utility hero-home-desktop-photo {
-  background-image: url('/images/busjeschiphollangparkeren.png');
+  background-image: url("/images/busjeschiphollangparkeren.png");
   background-position: 40% 46%;
   background-repeat: no-repeat;
   background-size: cover;
