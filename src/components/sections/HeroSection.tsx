@@ -149,7 +149,7 @@ export function HeroSection({
         };
 
   return (
-    <section className="bg-surface-inverse relative overflow-hidden">
+    <section className="bg-surface-inverse lg:bg-canvas relative overflow-hidden">
       {/* ========================================================================
           MOBILE LAYOUT (below lg)
           ======================================================================== */}
@@ -276,22 +276,13 @@ export function HeroSection({
           DESKTOP LAYOUT (lg and above)
           Booking widget on right, copy on left, photograph as background
           ======================================================================== */}
-      <div aria-hidden className="hidden lg:absolute lg:inset-0 lg:overflow-hidden">
-        <HeroPhoto
-          name="crewShuttleTerminal"
-          portraitName="crewShuttleTerminalPortrait"
-          className="absolute inset-0 h-full w-full"
-          imageClassName="photo-drift object-[center_62%] sm:object-[42%_50%] lg:object-[center_45%]"
-        />
-
-        {/* Two scrims for desktop composition */}
-        <div className="scrim-hero absolute inset-0" />
-
-        {/* Header scrim */}
-        <div
-          aria-hidden
-          className="from-navy-950/88 via-navy-950/46 absolute inset-x-0 top-0 h-32 bg-linear-to-b to-transparent"
-        />
+      <div
+        aria-hidden
+        className="pointer-events-none hidden lg:absolute lg:inset-0 lg:overflow-hidden"
+      >
+        <div className="hero-home-desktop-photo photo-drift absolute inset-0" />
+        <div className="hero-home-desktop-left-scrim absolute inset-0" />
+        <div className="hero-home-desktop-right-fade absolute inset-0" />
       </div>
 
       <Container className="relative hidden lg:block">
@@ -392,7 +383,7 @@ export function HeroSection({
             id="hero-booking-desktop"
             className="relative z-10 -mb-32 w-full"
           >
-            <BookingPicker notch="inverse" bounds={bounds} />
+            <BookingPicker notch="canvas" bounds={bounds} />
           </motion.div>
         </div>
       </Container>
