@@ -38,6 +38,12 @@ import {
 export const serviceSlugs = ['shuttle', 'valet'] as const;
 export type ServiceSlug = (typeof serviceSlugs)[number];
 
+/**
+ * Whether the visitor chose covered (overdekt) or outdoor (buiten) parking.
+ * Null means no choice has been made yet — both options are shown.
+ */
+export type CoveredChoice = boolean | null;
+
 export const SERVICE_BY_SLUG: Record<ServiceSlug, ServiceTypeValue> = {
   shuttle: ServiceType.Shuttle,
   valet: ServiceType.Valet,
@@ -78,6 +84,17 @@ export function locationsFor(slug: ServiceSlug): readonly ParkingLocation[] {
 /** Ids only, for `showLocations`. */
 export function locationChoicesFor(slug: ServiceSlug): readonly string[] {
   return locationsFor(slug).map((location) => location.id);
+}
+
+/**
+ * Resolve the exact ParkingPro location for a service + covered combination.
+ *
+ * Returns null when `covered` is null (no choice made yet) — callers fall back
+ * to `showLocations` to let the visitor pick inside the flow.
+ */
+export function locationFor(slug: ServiceSlug, covered: boolean | null): ParkingLocation | null {
+  if (covered === null) return null;
+  return locationsFor(slug).find((l) => l.covered === covered) ?? null;
 }
 
 /** Minimum lead time for a service, in hours. Valet needs 1, shuttle none. */
@@ -147,10 +164,13 @@ export type BookingSelection = z.infer<typeof bookingSelectionSchema>;
  * booking form rather than an error page. Anything that does not parse is simply
  * dropped, and the flow opens unprefilled — exactly what it did before this
  * feature existed.
+ *
+ * `covered` is optional and absent from old links — those still work, the frame
+ * just opens with both locations visible via `showLocations`.
  */
 export function parseSelectionParams(
   params: Record<string, string | string[] | undefined>,
-): Partial<BookingSelection> {
+): Partial<BookingSelection> & { covered: boolean | null } {
   const read = (key: string): string | undefined => {
     const value = params[key];
     return typeof value === 'string' ? value : undefined;
@@ -171,7 +191,12 @@ export function parseSelectionParams(
     if (value && /^\d{2}:\d{2}$/.test(value)) out[key] = value;
   }
 
-  return out;
+  // `covered` arrives as 'true' or 'false'. Absent = null (no choice yet).
+  const coveredRaw = read('covered');
+  const covered: boolean | null =
+    coveredRaw === 'true' ? true : coveredRaw === 'false' ? false : null;
+
+  return { ...out, covered };
 }
 
 /**
@@ -193,8 +218,17 @@ export function parseSelectionParams(
  * A date is only sent WITH its time, and vice versa. The frame treats them as
  * one moment; handing it a date whose time was rejected prefills midnight, which
  * is a wrong answer wearing the clothes of a right one.
+ *
+ * ── covered handling ────────────────────────────────────────────────────────
+ * When the visitor has chosen buiten or overdekt, `locationId` is set to the
+ * exact ParkingPro location so the frame lands directly on that product.
+ * When no choice has been made (covered === null), `showLocations` limits the
+ * flow to the service's two products so the visitor picks with both prices in
+ * front of them.
  */
-export function toParkingProParams(selection: Partial<BookingSelection>) {
+export function toParkingProParams(
+  selection: Partial<BookingSelection> & { covered?: boolean | null },
+) {
   const moment = (iso: string | undefined, time: string | undefined) =>
     iso && fromIso(iso) && time && /^\d{2}:\d{2}$/.test(time)
       ? { date: iso, time }
@@ -203,15 +237,19 @@ export function toParkingProParams(selection: Partial<BookingSelection>) {
   const arrival = moment(selection.arrivalDate, selection.arrivalTime);
   const departure = moment(selection.departureDate, selection.departureTime);
   const service = selection.service;
+  const covered = selection.covered ?? null;
+
+  // When both service and covered are known, resolve to the exact locationId.
+  const exactLocation = service != null ? locationFor(service, covered) : null;
 
   return {
     arrivalDate: arrival.date,
     arrivalTime: arrival.time,
     departureDate: departure.date,
     departureTime: departure.time,
-    // No `locationId`: narrowing the choice is right, preselecting one of two
-    // prices for the visitor is not. See locationsFor().
-    showLocations: service ? locationChoicesFor(service) : undefined,
+    // Use the exact location when known; fall back to showing both products.
+    locationId: exactLocation?.id,
+    showLocations: !exactLocation && service ? locationChoicesFor(service) : undefined,
   };
 }
 

@@ -19,7 +19,7 @@ import {
 import { SERVICE_COPY } from '@/config/services';
 import { isBefore, isoToShortLabel } from '@/lib/date';
 import { DEFAULT_BOUNDS, type PickerBounds } from '@/lib/parkingpro-config';
-import { formatPrice, useLivePrice } from '@/hooks/useLivePrice';
+import { formatPrice, useLivePrices, type LivePriceEntry } from '@/hooks/useLivePrice';
 import { cn } from '@/lib/cn';
 
 /**
@@ -107,6 +107,8 @@ export function BookingPicker({
     departureDate: '',
     departureTime: bounds.defaultDepartureTime,
   });
+  // null = no choice yet, false = outdoor (buiten), true = covered (overdekt)
+  const [covered, setCovered] = useState<boolean | null>(null);
   const [errors, setErrors] = useState<Partial<Record<keyof BookingSelection, string>>>({});
   const [submitting, setSubmitting] = useState(false);
 
@@ -132,13 +134,20 @@ export function BookingPicker({
         : bounds.minTime
       : (noticeMin ?? bounds.minTime ?? undefined);
 
-  // The real price, in our own typography, before the visitor has seen a single
-  // ParkingPro screen. Never blocks and never fails loudly — see useLivePrice.
-  const price = useLivePrice({
+  // The real prices, in our own typography, before the visitor has seen a single
+  // ParkingPro screen. Both outdoor and covered are fetched simultaneously.
+  // Never blocks and never fails loudly — see useLivePrices.
+  const prices = useLivePrices({
     service: values.service,
     arrivalDate: values.arrivalDate,
     departureDate: values.departureDate,
   });
+
+  // Price for whichever product the visitor has actively selected.
+  // null while no selection is made (covered === null) or prices haven't
+  // arrived yet — the CTA falls back to "Bekijk mijn prijs" in that case.
+  const selectedPrice: LivePriceEntry | null =
+    covered === null ? null : covered ? (prices?.covered ?? null) : (prices?.outdoor ?? null);
 
   const setField = <K extends keyof BookingSelection>(key: K, value: BookingSelection[K]) => {
     setValues((current) => {
@@ -167,6 +176,8 @@ export function BookingPicker({
         if (next.arrivalDate === limit.date && next.arrivalTime < limit.time) {
           next.arrivalTime = limit.time;
         }
+        // Reset the product choice: buiten/overdekt prices differ per service.
+        setCovered(null);
       }
 
       return next;
@@ -190,6 +201,10 @@ export function BookingPicker({
 
     setSubmitting(true);
     const params = new URLSearchParams(result.data);
+    // Pass the covered choice so /reservering/ can prefill the exact locationId.
+    // Absent means no choice was made; parseSelectionParams treats that as null
+    // and falls back to showLocations, which is backward-compatible.
+    if (covered !== null) params.set('covered', String(covered));
     router.push(`/reservering/?${params.toString()}`);
   };
 
@@ -205,9 +220,9 @@ export function BookingPicker({
       <form onSubmit={onSubmit} noValidate>
         <div className="px-6 pt-7 pb-6 sm:px-7">
           {headingLevel === 'h1' ? (
-            <h1 className="text-display-sm">Reserveer uw parkeerplaats</h1>
+            <h1 className="text-display-sm">Bekijk direct uw parkeerprijs</h1>
           ) : (
-            <h2 className="text-display-sm">Reserveer uw parkeerplaats</h2>
+            <h2 className="text-display-sm">Bekijk direct uw parkeerprijs</h2>
           )}
 
           {/* ---------- Service ----------
@@ -291,6 +306,44 @@ export function BookingPicker({
             />
           </fieldset>
 
+          {/* ---------- Product cards (Buiten / Overdekt) ----------
+              Shown once the visitor has entered both dates. The cards load their
+              prices from ParkingPro in the background; while waiting they render
+              without a price and become selectable the moment a number arrives.
+              A product that ParkingPro marks unavailable is shown greyed out and
+              cannot be selected.
+
+              NOTE — Valet Buiten pricing anomaly:
+              Valet outdoor (LPS-V) is currently priced ~€184 ABOVE valet
+              covered, which is the reverse of what shuttle does and of what a
+              visitor would expect. This is reported directly from ParkingPro's
+              own /api/widget/price endpoint and is NOT a code issue. The client
+              should verify the LPS-V rate configuration in the ParkingPro back
+              office. No correction or workaround has been applied here. */}
+          {nights ? (
+            <div className="mt-5">
+              <p className="eyebrow text-muted mb-2.5">Parkeeroptie</p>
+              <div className="grid grid-cols-2 gap-2">
+                <ProductCard
+                  label="Buiten"
+                  description="Beveiligd buitenterrein"
+                  price={prices?.outdoor ?? null}
+                  loading={prices === null}
+                  active={covered === false}
+                  onSelect={() => setCovered(false)}
+                />
+                <ProductCard
+                  label="Overdekt"
+                  description="Droog en beschermd"
+                  price={prices?.covered ?? null}
+                  loading={prices === null}
+                  active={covered === true}
+                  onSelect={() => setCovered(true)}
+                />
+              </div>
+            </div>
+          ) : null}
+
           {/* One live region for the whole form. Always present, so the region
               exists before a message arrives — a region inserted at the same
               moment as its text is often not announced. */}
@@ -311,7 +364,9 @@ export function BookingPicker({
           </p>
 
           <Button type="submit" size="lg" disabled={submitting} className="mt-5 w-full">
-            Reserveer nu
+            {selectedPrice
+              ? `Reserveer voor ${formatPrice(selectedPrice.total, selectedPrice.currency)}`
+              : 'Bekijk mijn prijs'}
             <ArrowRight data-arrow className="size-4" aria-hidden />
           </Button>
         </div>
@@ -376,13 +431,12 @@ export function BookingPicker({
               holds a number, plain and wrappable while it holds a label — so
               "Betaal bij aankomst" stops claiming half the row on a phone. */}
           <div className={cn('text-right', nights ? 'numeric shrink-0' : 'shrink')}>
-            {nights && price ? (
+            {nights && selectedPrice ? (
               <>
                 <span className="text-heading block text-xl leading-none font-semibold">
-                  {formatPrice(price.total, price.currency)}
+                  {formatPrice(selectedPrice.total, selectedPrice.currency)}
                 </span>
                 <span className="text-muted mt-1 block text-xs">
-                  {price.from ? 'vanaf · ' : ''}
                   {nights} {nights === 1 ? 'nacht' : 'nachten'}
                 </span>
               </>
@@ -480,5 +534,65 @@ function DateTimeRow({
         />
       </div>
     </div>
+  );
+}
+
+/**
+ * A selectable product card for buiten or overdekt.
+ *
+ * The card is a button (not a radio) because it also shows the price — a
+ * radio's label cannot contain interactive content in some AT implementations,
+ * and the price is the whole point. `aria-pressed` signals the selected state.
+ *
+ * When `loading` is true the price area is withheld: rendering a placeholder
+ * keeps the layout stable while the fetch is in flight. When `price` is null
+ * after loading the card is disabled — ParkingPro has indicated unavailability
+ * or returned no valid price.
+ */
+function ProductCard({
+  label,
+  description,
+  price,
+  loading,
+  active,
+  onSelect,
+}: {
+  label: string;
+  description: string;
+  price: LivePriceEntry | null;
+  /** True while prices are still fetching — withholds the price area. */
+  loading: boolean;
+  active: boolean;
+  onSelect: () => void;
+}) {
+  const unavailable = !loading && price === null;
+
+  return (
+    <button
+      type="button"
+      onClick={unavailable || active ? undefined : onSelect}
+      disabled={unavailable}
+      aria-pressed={active}
+      className={cn(
+        'ease-settle flex w-full flex-col rounded-md border px-3 py-3 text-left text-sm',
+        'transition-[background-color,border-color,color] duration-(--duration-micro)',
+        'focus-visible:outline-focus focus-visible:outline-2 focus-visible:outline-offset-2',
+        active
+          ? 'border-accent bg-accent-wash text-heading'
+          : unavailable
+            ? 'border-line text-muted cursor-not-allowed opacity-50'
+            : 'border-line text-heading hover:border-accent/60',
+      )}
+    >
+      <span className="font-semibold">{label}</span>
+      <span className="text-muted mt-0.5 block text-xs leading-snug">{description}</span>
+      {!loading && price ? (
+        <span className="numeric text-accent mt-2 block text-base font-semibold leading-none">
+          {formatPrice(price.total, price.currency)}
+        </span>
+      ) : !loading && unavailable ? (
+        <span className="mt-2 block text-xs">Niet beschikbaar</span>
+      ) : null}
+    </button>
   );
 }

@@ -4,7 +4,7 @@ import { locationsFor, serviceSlugs, type ServiceSlug } from '@/lib/booking';
 import { fromIso } from '@/lib/date';
 
 /**
- * Live price for a service and a date range.
+ * Live prices for a service and a date range.
  *
  * ── Why this exists rather than calling ParkingPro from the browser ─────────
  * Three reasons, in order of how much they matter:
@@ -20,11 +20,15 @@ import { fromIso } from '@/lib/date';
  *     onto somebody else's server.
  *
  * ── What it returns ────────────────────────────────────────────────────────
- * The CHEAPEST of the chosen service's two products, so the figure can honestly
- * be labelled "vanaf". It deliberately does not assume which of the two that is
- * — on this instance valet-covered is cheaper than valet-outdoor, which is
- * probably a misconfigured rate list and is flagged in the handover. Taking the
- * minimum is correct whichever way that turns out.
+ * Both outdoor and covered prices for the chosen service, each from ParkingPro's
+ * /api/widget/price endpoint with the exact locationId. An entry is omitted from
+ * the response when ParkingPro marks it unavailable or returns no valid price.
+ *
+ * NOTE — Valet Buiten pricing anomaly:
+ * During investigation, valet-outdoor was found to be consistently ~€184 MORE
+ * expensive than valet-covered. This is not a code issue — the prices come
+ * directly from ParkingPro per locationId and are returned as-is. The client
+ * should verify LPS-V's rate configuration in the ParkingPro back office.
  *
  * Never throws and never 500s: a price we cannot fetch is a price we do not
  * show, and the booking card has to keep working either way.
@@ -35,6 +39,12 @@ export const dynamic = 'force-dynamic';
 /** ParkingPro wants ISO here — `dd-mm-yyyy` 400s. See toPriceApiDates(). */
 const isServiceSlug = (value: string | null): value is ServiceSlug =>
   value !== null && (serviceSlugs as readonly string[]).includes(value);
+
+export type PriceEntry = {
+  total: number;
+  currency: string;
+  covered: boolean;
+};
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -54,7 +64,7 @@ export async function GET(request: Request) {
     !fromIso(departureDate) ||
     departureDate <= arrivalDate
   ) {
-    return NextResponse.json({ price: null }, { status: 400 });
+    return NextResponse.json({ prices: null }, { status: 400 });
   }
 
   const locations = locationsFor(service);
@@ -65,33 +75,29 @@ export async function GET(request: Request) {
     ),
   );
 
-  const available = quotes
+  const prices: PriceEntry[] = quotes
     .map((quote, index) => ({ quote, location: locations[index] }))
     .filter(
-      (
-        entry,
-      ): entry is {
-        quote: NonNullable<(typeof quotes)[number]>;
-        location: (typeof locations)[number];
-      } => entry.quote !== null && !entry.quote.isUnavailable && entry.quote.totalWithTax > 0,
-    );
+      (entry): entry is { quote: NonNullable<typeof entry.quote>; location: (typeof locations)[number] } =>
+        entry.quote !== null && !entry.quote.isUnavailable && entry.quote.totalWithTax > 0,
+    )
+    .map((entry) => ({
+      total: entry.quote.totalWithTax,
+      currency: entry.quote.currency,
+      covered: entry.location.covered,
+    }));
 
-  if (available.length === 0) {
-    return NextResponse.json({ price: null });
-  }
-
-  const cheapest = available.reduce((best, entry) =>
-    entry.quote.totalWithTax < best.quote.totalWithTax ? entry : best,
-  );
+  // Maintain backward-compatible `price` field (cheapest) alongside new `prices`.
+  const cheapest = prices.length > 0
+    ? prices.reduce((best, p) => p.total < best.total ? p : best)
+    : null;
 
   return NextResponse.json({
-    price: {
-      total: cheapest.quote.totalWithTax,
-      currency: cheapest.quote.currency,
-      // True whenever the service has more than one product and they differ, so
-      // the card can say "vanaf" only when that is actually the case.
-      from: available.length > 1,
-      covered: cheapest.location.covered,
-    },
+    // New: per-product prices so the widget can show both.
+    prices: prices.length > 0 ? prices : null,
+    // Legacy: single cheapest price — keeps any existing consumers working.
+    price: cheapest
+      ? { total: cheapest.total, currency: cheapest.currency, from: prices.length > 1, covered: cheapest.covered }
+      : null,
   });
 }
