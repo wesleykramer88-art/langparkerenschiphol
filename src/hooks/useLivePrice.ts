@@ -3,6 +3,13 @@
 import { useEffect, useState } from 'react';
 import type { ServiceSlug } from '@/lib/booking';
 
+export type LivePriceEntry = {
+  total: number;
+  currency: string;
+  covered: boolean;
+};
+
+/** @deprecated Use `LivePrices` instead. Kept for backward compatibility. */
 export type LivePrice = {
   total: number;
   currency: string;
@@ -10,9 +17,24 @@ export type LivePrice = {
   covered: boolean;
 };
 
+export type LivePrices = {
+  /** Outdoor (buiten) price, or null when unavailable. */
+  outdoor: LivePriceEntry | null;
+  /** Covered (overdekt) price, or null when unavailable. */
+  covered: LivePriceEntry | null;
+};
+
+type ApiResponse = {
+  prices: LivePriceEntry[] | null;
+  price: LivePrice | null;
+};
+
 /**
- * The real price for a service and date range, fetched through our own route
+ * The real prices for a service and date range, fetched through our own route
  * handler.
+ *
+ * Returns both outdoor and covered prices so the widget can render them side by
+ * side and let the visitor make an informed choice.
  *
  * ── Rules this follows, in order of importance ─────────────────────────────
  *  1. It never blocks anything. There is no loading state that hides the
@@ -31,13 +53,13 @@ export type LivePrice = {
  * without it, two in-flight requests can resolve out of order and the card
  * settles on the price for a date range the visitor has already moved off.
  */
-export function useLivePrice(input: {
+export function useLivePrices(input: {
   service: ServiceSlug;
   arrivalDate: string;
   departureDate: string;
   /** Milliseconds of quiet before asking. */
   delay?: number;
-}): LivePrice | null {
+}): LivePrices | null {
   const { service, arrivalDate, departureDate, delay = 450 } = input;
 
   /**
@@ -48,19 +70,15 @@ export function useLivePrice(input: {
    * hook safe without a single reset:
    *
    *  - a stale response cannot be shown, because its key no longer matches
-   *  - changing the dates does not need `setPrice(null)` to clear the old
-   *    figure; the mismatch clears it during render
-   *
-   * The second point is not only tidiness. Calling setState synchronously
-   * inside an effect forces a second render pass on every date change, and the
-   * React Compiler flags it — correctly, since the value is derivable.
+   *  - changing the dates does not need `setPrices(null)` to clear the old
+   *    figures; the mismatch clears them during render
    */
   const key =
     arrivalDate && departureDate && departureDate > arrivalDate
       ? `${service}|${arrivalDate}|${departureDate}`
       : null;
 
-  const [answer, setAnswer] = useState<{ key: string; price: LivePrice | null } | null>(null);
+  const [answer, setAnswer] = useState<{ key: string; prices: LivePrices | null } | null>(null);
 
   useEffect(() => {
     if (!key) return;
@@ -76,11 +94,24 @@ export function useLivePrice(input: {
         // an extra round trip on every keystroke-triggered lookup, which is
         // exactly what the debounce exists to avoid.
         const response = await fetch(`/api/prijs/?${params}`, { signal: controller.signal });
-        const data = response.ok ? ((await response.json()) as { price: LivePrice | null }) : null;
-        setAnswer({ key, price: data?.price ?? null });
+        if (!response.ok) {
+          setAnswer({ key, prices: null });
+          return;
+        }
+        const data = (await response.json()) as ApiResponse;
+        const entries = data.prices;
+
+        if (!entries || entries.length === 0) {
+          setAnswer({ key, prices: null });
+          return;
+        }
+
+        const outdoor = entries.find((e) => !e.covered) ?? null;
+        const covered = entries.find((e) => e.covered) ?? null;
+        setAnswer({ key, prices: { outdoor, covered } });
       } catch {
         // Includes the abort. Silent by design — see rule 2.
-        setAnswer({ key, price: null });
+        setAnswer({ key, prices: null });
       }
     }, delay);
 
@@ -90,7 +121,39 @@ export function useLivePrice(input: {
     };
   }, [key, service, arrivalDate, departureDate, delay]);
 
-  return key && answer?.key === key ? answer.price : null;
+  return key && answer?.key === key ? answer.prices : null;
+}
+
+/**
+ * @deprecated Prefer `useLivePrices`. Kept so any call site that still uses the
+ * single-price interface continues to compile and work unchanged.
+ */
+export function useLivePrice(input: {
+  service: ServiceSlug;
+  arrivalDate: string;
+  departureDate: string;
+  delay?: number;
+}): LivePrice | null {
+  const prices = useLivePrices(input);
+  if (!prices) return null;
+
+  const { outdoor, covered } = prices;
+  if (!outdoor && !covered) return null;
+
+  // Return the cheapest available as the legacy single-price shape.
+  const cheapest =
+    outdoor && covered
+      ? outdoor.total <= covered.total
+        ? outdoor
+        : covered
+      : (outdoor ?? covered)!;
+
+  return {
+    total: cheapest.total,
+    currency: cheapest.currency,
+    from: Boolean(outdoor && covered && outdoor.total !== covered.total),
+    covered: cheapest.covered,
+  };
 }
 
 /** €&nbsp;201,49 — Dutch formatting, which puts the symbol before the amount
