@@ -9,7 +9,7 @@ export type LivePriceEntry = {
   covered: boolean;
 };
 
-/** @deprecated Use `LivePrices` instead. Kept for backward compatibility. */
+/** @deprecated Use `useLivePrices` hook instead. Kept for backward compatibility. */
 export type LivePrice = {
   total: number;
   currency: string;

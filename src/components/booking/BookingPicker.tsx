@@ -364,7 +364,9 @@ export function BookingPicker({
           </p>
 
           <Button type="submit" size="lg" disabled={submitting} className="mt-5 w-full">
-            Reserveer nu
+            {selectedPrice
+              ? `Reserveer voor ${formatPrice(selectedPrice.total, selectedPrice.currency)}`
+              : 'Bekijk mijn prijs'}
             <ArrowRight data-arrow className="size-4" aria-hidden />
           </Button>
         </div>
@@ -429,13 +431,12 @@ export function BookingPicker({
               holds a number, plain and wrappable while it holds a label — so
               "Betaal bij aankomst" stops claiming half the row on a phone. */}
           <div className={cn('text-right', nights ? 'numeric shrink-0' : 'shrink')}>
-            {nights && price ? (
+            {nights && selectedPrice ? (
               <>
                 <span className="text-heading block text-xl leading-none font-semibold">
-                  {formatPrice(price.total, price.currency)}
+                  {formatPrice(selectedPrice.total, selectedPrice.currency)}
                 </span>
                 <span className="text-muted mt-1 block text-xs">
-                  {price.from ? 'vanaf · ' : ''}
                   {nights} {nights === 1 ? 'nacht' : 'nachten'}
                 </span>
               </>
@@ -533,5 +534,65 @@ function DateTimeRow({
         />
       </div>
     </div>
+  );
+}
+
+/**
+ * A selectable product card for buiten or overdekt.
+ *
+ * The card is a button (not a radio) because it also shows the price — a
+ * radio's label cannot contain interactive content in some AT implementations,
+ * and the price is the whole point. `aria-pressed` signals the selected state.
+ *
+ * When `loading` is true the price area is withheld: rendering a placeholder
+ * keeps the layout stable while the fetch is in flight. When `price` is null
+ * after loading the card is disabled — ParkingPro has indicated unavailability
+ * or returned no valid price.
+ */
+function ProductCard({
+  label,
+  description,
+  price,
+  loading,
+  active,
+  onSelect,
+}: {
+  label: string;
+  description: string;
+  price: LivePriceEntry | null;
+  /** True while prices are still fetching — withholds the price area. */
+  loading: boolean;
+  active: boolean;
+  onSelect: () => void;
+}) {
+  const unavailable = !loading && price === null;
+
+  return (
+    <button
+      type="button"
+      onClick={unavailable || active ? undefined : onSelect}
+      disabled={unavailable}
+      aria-pressed={active}
+      className={cn(
+        'ease-settle flex w-full flex-col rounded-md border px-3 py-3 text-left text-sm',
+        'transition-[background-color,border-color,color] duration-(--duration-micro)',
+        'focus-visible:outline-focus focus-visible:outline-2 focus-visible:outline-offset-2',
+        active
+          ? 'border-accent bg-accent-wash text-heading'
+          : unavailable
+            ? 'border-line text-muted cursor-not-allowed opacity-50'
+            : 'border-line text-heading hover:border-accent/60',
+      )}
+    >
+      <span className="font-semibold">{label}</span>
+      <span className="text-muted mt-0.5 block text-xs leading-snug">{description}</span>
+      {!loading && price ? (
+        <span className="numeric text-accent mt-2 block text-base font-semibold leading-none">
+          {formatPrice(price.total, price.currency)}
+        </span>
+      ) : !loading && unavailable ? (
+        <span className="mt-2 block text-xs">Niet beschikbaar</span>
+      ) : null}
+    </button>
   );
 }
