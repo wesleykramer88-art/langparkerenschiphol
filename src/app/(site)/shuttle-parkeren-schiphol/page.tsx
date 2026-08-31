@@ -188,7 +188,7 @@ export default async function ShuttleParkingPage() {
       <PageHero
         eyebrow="Shuttle Parkeren"
         title="Shuttle parkeren bij Schiphol"
-        lead="U parkeert uw auto zelf op ons beveiligde terrein, houdt uw eigen sleutel en stapt in de shuttle. Binnen 5 tot 8 minuten staat u bij de vertrekhal."
+        lead="Shuttle parkeren Schiphol is de ideale keuze als u zelf wilt parkeren en snel naar de terminal wilt reizen. U parkeert uw auto veilig op ons terrein, houdt uw autosleutel bij u en onze shuttle brengt u comfortabel naar Schiphol."
         photo="lotShuttle"
         objectPosition="object-[center_35%]"
         crumbs={CRUMBS}
@@ -209,6 +209,7 @@ export default async function ShuttleParkingPage() {
           'Het verschil met valet parking zit in wie er rijdt. Bij valet geeft u uw auto af bij de vertrekhal en parkeert onze chauffeur hem voor u. Bij shuttle parkeren doet u dat zelf en houdt u uw sleutel. Dat is voor veel reizigers precies de reden om hiervoor te kiezen.',
         ]}
         photo="crewShuttleTerminal"
+        photoAlt="shuttle parkeren bij Schiphol"
         objectPosition="object-[center_45%]"
       >
         <p className="text-muted mt-5 max-w-[52ch] text-sm leading-relaxed">
@@ -253,6 +254,7 @@ export default async function ShuttleParkingPage() {
           'Reken voor het hele proces op ongeveer een kwartier: parkeren, instappen, rijden en uitstappen. Wij adviseren om minimaal 3 uur voor vertrek op het terrein te zijn, zodat u daarna in alle rust kunt inchecken.',
         ]}
         photo="terminalDeparture"
+        photoAlt="shuttle transfer naar Schiphol"
         objectPosition="object-[center_55%]"
         reversed
         tone="canvas"
@@ -327,6 +329,7 @@ export default async function ShuttleParkingPage() {
         // homepage band, because the charge point is not competing with a
         // heading beside it.
         photo="evCharging"
+        photoAlt="veilig shuttle parkeren Schiphol"
         objectPosition="object-[45%_50%]"
       >
         <Button href="/veilig-parkeren-schiphol/" variant="link" className="mt-7">

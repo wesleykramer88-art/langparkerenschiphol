@@ -126,7 +126,7 @@ export default async function ValetParkingPage() {
       <PageHero
         eyebrow="Valet Parking"
         title="Valet parking op Schiphol"
-        lead="U rijdt tot de vertrekhal, geeft uw auto af aan onze chauffeur en loopt direct door naar uw vlucht. Wij parkeren hem op onze beveiligde locatie."
+        lead="Valet parking Schiphol is de ideale keuze als je comfortabel en zonder gedoe op reis wilt. Rijd naar de vertrekhal, geef je auto af aan onze valet en wij parkeren hem veilig voor je."
         photo="crewHandover"
         objectPosition="object-[center_40%]"
         crumbs={CRUMBS}
@@ -145,6 +145,7 @@ export default async function ValetParkingPage() {
           'De rit ernaartoe is geen blinde vlek. Route, snelheid en duur worden digitaal geregistreerd, zodat achteraf inzichtelijk is wat er met uw auto is gebeurd — ook de terugrit, wanneer hij weer naar de Vertrekpassage wordt gebracht.',
         ]}
         photo="crewTerminal"
+        photoAlt="valet parking bij Schiphol vertrekhal"
         objectPosition="object-[center_30%]"
       >
         <p className="text-muted mt-5 max-w-[52ch] text-sm leading-relaxed">
@@ -244,6 +245,7 @@ export default async function ValetParkingPage() {
         heading="Geef uw auto af bij de hal"
         lead="Reserveer valet parking en rijd op de dag zelf rechtstreeks naar de vertrekhal van Schiphol."
         photo="crewShuttleTerminal"
+        photoAlt="auto afgeven valet parking Schiphol"
         bookingHref="/reservering/?service=valet"
         bookingLabel="Reserveer valet parking"
       />

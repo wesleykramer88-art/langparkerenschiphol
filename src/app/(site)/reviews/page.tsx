@@ -93,8 +93,9 @@ export default function ReviewsPage() {
       <PageHero
         eyebrow="Ervaringen"
         title="Wat reizigers over ons zeggen"
-        lead="Drie reacties van klanten die hun auto bij ons achterlieten — over de overdracht bij de vertrekhal, de shuttle en de staat van de auto bij terugkomst."
+        lead="Lees hier lang parkeren schiphol ervaringen van klanten die hun auto bij ons achterlieten — over de overdracht bij de vertrekhal, de shuttle en de staat van de auto bij terugkomst."
         photo="crewHandover"
+        photoAlt="lang parkeren schiphol ervaringen"
         objectPosition="object-[center_55%]"
         crumbs={CRUMBS}
       />
@@ -235,6 +236,7 @@ export default function ReviewsPage() {
         heading="Ervaar het zelf"
         lead="Reserveer in twee minuten en beoordeel ons daarna gerust zelf — wij horen het graag, goed of slecht."
         photo="terminalDeparture"
+        photoAlt="reizigers ervaringen Schiphol parkeren"
         notch="surface"
       />
 

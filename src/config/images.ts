@@ -110,7 +110,7 @@ export const photos = {
     src: '/images/chauffeur-shuttle-vertrekhal.webp',
     width: 1678,
     height: 937,
-    alt: 'Chauffeur van Lang Parkeren Schiphol in oranje bedrijfsjas begeleidt een reizigster naar de shuttlebus bij de vertrekhal op Schiphol.',
+    alt: 'Parkeren Schiphol met chauffeur van Lang Parkeren Schiphol bij de vertrekhal.',
     blurDataURL:
       'data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAAAwAgCdASoMAAcAAsBIJbACdDBAAalJOmb9XAD+8E12fgRV3CFuU41G3kqWYZY1LmnZ3GmbgsFweo9MwlO2zKyCKlgifSQ8vWVm3A4OO3uuMB5lGgOEqrXx/my8AA==',
   },
@@ -139,7 +139,7 @@ export const photos = {
     src: '/images/chauffeur-shuttle-vertrekhal-portret.webp',
     width: 703,
     height: 937,
-    alt: 'Chauffeur van Lang Parkeren Schiphol in oranje jas met het logo op de rug, voor de openstaande shuttlebus bij de vertrekhal op Schiphol.',
+    alt: 'Valet parkeren bij Schiphol met chauffeur en shuttlebus van Lang Parkeren Schiphol.',
     blurDataURL:
       'data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAADQAQCdASoJAAwAAsBIJbACdAEONNiYEAD+919tNwUJ9k6m1E4pc98fy5PAAgOQjN+FyJ5VvY8fTcLLqtYYuAGrWFzLY3tfQrdwUJ7d/5rfz7I3rUzhIBTwVTmv9K2FQAA=',
   },
@@ -161,7 +161,7 @@ export const photos = {
     src: '/images/terminal-vertrekhal.webp',
     width: 2400,
     height: 1340,
-    alt: 'Shuttlebus van Lang Parkeren Schiphol bij de ingang Vertrek 2 van de vertrekhal op Schiphol.',
+    alt: 'Shuttle parkeren bij Schiphol met de shuttlebus van Lang Parkeren Schiphol bij Vertrek 2.',
     blurDataURL:
       'data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAAAQAgCdASoMAAcAAsBIJZQCdAEfbLPZCIsAAP6mzonKXr8HEcWHLK9TYQkMPs6VJnKsLoCnIcUqAeI3oD2ty4sQGkAAAA==',
   },
@@ -186,7 +186,7 @@ export const photos = {
     src: '/images/terminal-vertrekhal-portret.webp',
     width: 1005,
     height: 1340,
-    alt: 'Shuttlebus van Lang Parkeren Schiphol bij de ingang Vertrek 2 van de vertrekhal op Schiphol.',
+    alt: 'Veilig parkeren Schiphol met shuttlebus bij de vertrekhal van Amsterdam Airport Schiphol.',
     blurDataURL:
       'data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADQAQCdASoJAAwAAsBIJQBOgB5wa12cAAD+5TpQ5LC6FUYks7ERV3gZuPfnbCDYFa6FEp1pdEhEErt+vIodSNjLasAj6lfICgITXGaEXAA=',
   },
@@ -233,7 +233,7 @@ export const photos = {
     src: '/images/terminal-vertrek3-vito.webp',
     width: 2400,
     height: 1340,
-    alt: 'Zwarte bus met Lang Parkeren Schiphol belettering bij de ingang Vertrek 3 van de vertrekhal op Schiphol, met een medewerker in oranje jas.',
+    alt: 'Auto parkeren bij Schiphol met de bus van Lang Parkeren Schiphol bij Vertrek 3.',
     blurDataURL:
       'data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADwAQCdASoMAAcAAsBIJQBOgCLs4munfMAA/u9cbf6BfnJ0MOqWHrcC8fhsCzJM6zaC6tlG1u1WIiE2XHOiZ2enAAA=',
   },
@@ -260,7 +260,7 @@ export const photos = {
     src: '/images/terminal-vertrek3-vito-portret.webp',
     width: 1150,
     height: 1536,
-    alt: 'Zwarte bus met Lang Parkeren Schiphol belettering en Nederlands geel kenteken voor de vertrekhal Vertrek 3 op Schiphol.',
+    alt: 'Parkeerplaats bij Schiphol met Lang Parkeren Schiphol vervoer voor de vertrekhal.',
     blurDataURL:
       'data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADwAQCdASoJAAwAAsBIJYwCdAD5+xCHCgAA9qjI5gv+G/hK1upqe2/KJnG1DXW64sTw7nWMZM+bukqSpOFqiH5AAAA=',
   },
@@ -305,7 +305,7 @@ export const photos = {
     src: '/images/terminal-vertrek3.webp',
     width: 2400,
     height: 1341,
-    alt: 'Bus van Lang Parkeren Schiphol bij de ingang Vertrek 3 van de vertrekhal op Schiphol, met een medewerker in oranje jas.',
+    alt: 'Lang parkeren bij Schiphol met shuttlebus en medewerker van Lang Parkeren Schiphol.',
     blurDataURL:
       'data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAQCdASoMAAcAA4BaJQBOgB5vxedgAP7aoWnGCkvDyS2Zi2hrxC8dmCVc/+zWmR1F71DuzU3X34SbHLCi10VmPkFBpQAA',
   },
@@ -326,7 +326,7 @@ export const photos = {
     src: '/images/terminal-vertrek3-portret.webp',
     width: 1800,
     height: 2400,
-    alt: 'Bus van Lang Parkeren Schiphol bij de ingang Vertrek 3 van de vertrekhal op Schiphol.',
+    alt: 'Schiphol parkeerplaats met shuttlebus van Lang Parkeren Schiphol bij Vertrek 3.',
     blurDataURL:
       'data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAAAwAgCdASoMABAAA4BaJQBOgCHgvfMQ3BAzAAD+ibx+xyaVv38FkuDGvt9DQ1CFQggHsosI9oX2OdTK9UOBn2Rm+g/fxv3Bct5MuZKAOFEUQDctzFqAAA==',
   },
@@ -343,7 +343,7 @@ export const photos = {
     src: '/images/chauffeur-vertrekhal.webp',
     width: 2048,
     height: 2048,
-    alt: 'Chauffeur van Lang Parkeren Schiphol in oranje bedrijfsjas voor de vertrekhal Vertrek 2 op Schiphol.',
+    alt: 'Valet parking Schiphol met chauffeur van Lang Parkeren Schiphol bij de vertrekhal.',
     blurDataURL:
       'data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAAAwAgCdASoMAAwAAsBIJZgCdAEPDTwrHB6YAAD+2+vxyrrDZaUTg0mcvM2Hlm2NudetvcIaKCRtIzB8k1P3cA8XXWPZl5JxK2h+f6NS1UYUZDGVtkIr9VKhmXZ3msHXlygAAA==',
   },
@@ -361,7 +361,7 @@ export const photos = {
     src: '/images/bagage-overdracht.webp',
     width: 2048,
     height: 2048,
-    alt: 'Medewerker van Lang Parkeren Schiphol tilt een koffer uit de kofferbak terwijl de reiziger toekijkt bij de vertrekhal.',
+    alt: 'Parkeren Schiphol bij de luchthaven met bagageservice van Lang Parkeren Schiphol.',
     blurDataURL:
       'data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAAAwAgCdASoMAAwAAsBIJZACdAEfn6bmXw16AAD5agaH0X9fw5H1Rxz2Rzs8b/5OWX4p7NK3XwZLnHQWSdruqVNtERPsUkIQoYPcxKIlu/p/8Z2qjNEZiUjOzSK4/aJv/+2ygvpVpANxcmbh3l6BOQn1t3BRBgAA',
   },

@@ -64,6 +64,7 @@ export function PageHero({
   crumbs,
   /** Vertical crop of the photograph. Each frame has its own subject. */
   objectPosition = 'object-center',
+  photoAlt = '',
   children,
   aside,
 }: {
@@ -73,6 +74,8 @@ export function PageHero({
   photo: PhotoName;
   crumbs: readonly Crumb[];
   objectPosition?: string;
+  /** Optional descriptive alt text for the hero photograph. */
+  photoAlt?: string;
   /** Buttons or a note, under the lead. */
   children?: React.ReactNode;
   /**
@@ -136,7 +139,7 @@ export function PageHero({
             <div className="shadow-photo relative aspect-4/3 overflow-hidden rounded-xl lg:aspect-square">
               <Photo
                 name={photo}
-                alt=""
+                alt={photoAlt}
                 fill
                 // Above the fold on its own route, so it is the LCP element
                 // here and must not be lazy.

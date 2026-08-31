@@ -53,6 +53,7 @@ type ServiceBlock = {
   closing: string;
   photo: PhotoName;
   objectPosition: string;
+  photoAlt: string;
 };
 
 const SERVICES: readonly ServiceBlock[] = [
@@ -75,6 +76,7 @@ const SERVICES: readonly ServiceBlock[] = [
       'Bij terugkomst staat uw auto weer voor u klaar bij de luchthaven. Snel, comfortabel en volledig zorgeloos.',
     photo: 'crewHandover',
     objectPosition: 'object-[center_40%]',
+    photoAlt: 'Schiphol parkeerplaats met valet bij de vertrekhal',
   },
   {
     // Capital S. See the note above — do not normalise this.
@@ -95,6 +97,7 @@ const SERVICES: readonly ServiceBlock[] = [
     closing: 'Bij terugkomst wordt u weer opgehaald en teruggebracht naar uw auto.',
     photo: 'lotShuttle',
     objectPosition: 'object-[center_35%]',
+    photoAlt: 'Schiphol parkeerplaats met shuttle op het parkeerterrein',
   },
 ];
 
@@ -153,8 +156,9 @@ export default function ServicesPage() {
       <PageHero
         eyebrow="Onze Services"
         title="Parkeren bij Schiphol — op uw manier."
-        lead="Bij Lang Parkeren Schiphol begrijpen we dat iedere reiziger andere wensen heeft. Daarom bieden wij twee hoogwaardige parkeerservices: Valet Parking en Shuttle Parking. U bent altijd verzekerd van veilig parkeren, professionele service en volledige controle."
+        lead="Een goede Schiphol parkeerplaats vinden hoeft niet ingewikkeld of duur te zijn. Bij Lang Parkeren Schiphol kiest u eenvoudig de parkeerservice die bij uw reis past: Valet Parking bij de vertrekhal of Shuttle Parking op ons veilige parkeerterrein."
         photo="crewTerminal"
+        photoAlt="Schiphol parkeerplaats en parkeerservice bij de luchthaven"
         objectPosition="object-[center_30%]"
         crumbs={CRUMBS}
       >
@@ -297,6 +301,7 @@ export default function ServicesPage() {
         heading="Reserveer eenvoudig uw parkeerplek."
         lead="Binnen enkele minuten geregeld. Kies de service die bij u past en start uw reis zonder zorgen."
         photo="terminalDeparture"
+        photoAlt="Schiphol parkeerplaats bij Vertrek 2 van de luchthaven"
       />
 
       <script
@@ -362,6 +367,7 @@ function ServiceSection({
             <div className="shadow-photo relative aspect-4/3 overflow-hidden rounded-xl">
               <Photo
                 name={service.photo}
+                alt={service.photoAlt}
                 fill
                 sizes="(min-width: 1024px) 34rem, 100vw"
                 className="absolute inset-0 h-full w-full"

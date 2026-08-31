@@ -136,9 +136,10 @@ export default async function BookingPage({
       <PageHero
         eyebrow="Reserveren"
         title="Boek uw parkeerplaats"
-        lead="Wilt u lang parkeren op Schiphol? Maak direct uw reservering en zorg voor een ontspannen begin van de reis."
+        lead="Wilt u een parkeerplaats Schiphol reserveren? Maak direct uw reservering en zorg voor een ontspannen begin van de reis."
         photo="terminalDeparture"
         objectPosition="object-[center_50%]"
+        photoAlt="parkeerplaats Schiphol reserveren bij Lang Parkeren Schiphol"
         crumbs={CRUMBS}
       />
 

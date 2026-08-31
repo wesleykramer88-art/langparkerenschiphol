@@ -83,9 +83,10 @@ export default function RatesPage() {
       <PageHero
         eyebrow="Tarieven"
         title="Kosten lang parkeren Schiphol"
-        lead="Bekijk de actuele tarieven voor lang parkeren bij Schiphol. Kies uit veilige shuttle- of valet service en bereken direct uw prijs online."
+        lead="Bekijk de actuele parkeren Schiphol kosten voor uw parkeerduur. U ziet direct de prijs voor valet- of shuttle parkeren en kunt uw plek eenvoudig online reserveren."
         photo="lotShuttle"
         objectPosition="object-[center_45%]"
+        photoAlt="parkeren Schiphol kosten en parkeertarieven"
         crumbs={CRUMBS}
       />
 
@@ -264,6 +265,7 @@ export default function RatesPage() {
         heading="Klaar om te reserveren?"
         lead="Bereken de exacte prijs in de boekingsmodule — inclusief alle gekozen opties."
         photo="terminalDeparture"
+        photoAlt="parkeerprijzen Schiphol per dag bij Vertrek 2"
       />
 
       <script

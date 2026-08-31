@@ -88,11 +88,13 @@ export function BookingPicker({
    */
   bounds = DEFAULT_BOUNDS,
   className,
+  headingLevel = 'h2',
 }: {
   notch?: NotchColor;
   defaultService?: ServiceSlug;
   bounds?: PickerBounds;
   className?: string;
+  headingLevel?: 'h1' | 'h2';
 }) {
   const router = useRouter();
   const errorId = useId();
@@ -202,7 +204,11 @@ export function BookingPicker({
     <Ticket notch={notch} className={className}>
       <form onSubmit={onSubmit} noValidate>
         <div className="px-6 pt-7 pb-6 sm:px-7">
-          <h2 className="text-display-sm">Reserveer uw parkeerplaats</h2>
+          {headingLevel === 'h1' ? (
+            <h1 className="text-display-sm">Reserveer uw parkeerplaats</h1>
+          ) : (
+            <h2 className="text-display-sm">Reserveer uw parkeerplaats</h2>
+          )}
 
           {/* ---------- Service ----------
               A radiogroup rather than a select: two options, both worth reading,

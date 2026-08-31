@@ -71,6 +71,7 @@ export function ClosingCta({
   heading = 'Begin uw reis ontspannen',
   lead = 'Kies zekerheid, snelheid en gemak. Reserveer vandaag nog uw parkeerplaats op Schiphol.',
   photo = 'terminalDeparture',
+  photoAlt = '',
   /** The section the seam above sits on, so the perforation punches its colour. */
   notch = 'canvas',
   /**
@@ -87,6 +88,8 @@ export function ClosingCta({
   heading?: string;
   lead?: string;
   photo?: PhotoName;
+  /** Optional descriptive alt text for service-specific CTA imagery. */
+  photoAlt?: string;
   notch?: NotchColor;
   bookingHref?: string;
   bookingLabel?: string;
@@ -114,7 +117,7 @@ export function ClosingCta({
           <div className="shadow-photo relative aspect-video w-full max-w-4xl overflow-hidden rounded-xl sm:aspect-21/9">
             <Photo
               name={photo}
-              alt=""
+              alt={photoAlt}
               fill
               sizes="(min-width: 1024px) 56rem, 100vw"
               className="absolute inset-0 h-full w-full"

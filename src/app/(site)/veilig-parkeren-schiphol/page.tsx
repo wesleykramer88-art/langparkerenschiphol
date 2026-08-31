@@ -121,8 +121,9 @@ export default function SafeParkingPage() {
       <PageHero
         eyebrow="Veilig parkeren"
         title="Veilig parkeren bij Schiphol"
-        lead="Een afgesloten terrein, 24 uur per dag camerabewaking en een vaste procedure bij afgifte en terugkomst. U weet vooraf wat er met uw auto gebeurt."
+        lead="Een veilige reis begint bij een veilige parkeerplaats. Met beveiligd parkeren Schiphol staat uw auto op een afgesloten en goed bewaakt terrein, zodat u met een gerust gevoel op reis kunt."
         photo="lotShuttle"
+        photoAlt="beveiligd parkeren Schiphol"
         objectPosition="object-[center_30%]"
         crumbs={CRUMBS}
       >
@@ -207,6 +208,7 @@ export default function SafeParkingPage() {
           'Geef bij het reserveren even door dat u elektrisch rijdt. Dan houden wij daar rekening mee bij het toewijzen van uw plek, en staat u niet bij aankomst te zoeken.',
         ]}
         photo="evCharging"
+        photoAlt="beveiligde parkeerplaats bij Schiphol"
         objectPosition="object-[42%_50%]"
         reversed
       />
@@ -220,6 +222,7 @@ export default function SafeParkingPage() {
           'U ziet met eigen ogen waar hij staat en op wat voor terrein. U bepaalt zelf hoe u hem achterlaat. En omdat u de sleutel meeneemt, blijft hij staan waar u hem heeft neergezet — er is niemand die hem verplaatst en er ligt geen sleutel op een kantoor.',
         ]}
         photo="crewShuttleTerminal"
+        photoAlt="auto beveiligd parkeren Schiphol"
         objectPosition="object-[center_45%]"
       >
         <Button href="/zelf-parkeren-schiphol/" variant="link" className="mt-7">
@@ -265,6 +268,7 @@ export default function SafeParkingPage() {
         heading="Parkeer met een gerust gevoel"
         lead="Een afgesloten terrein onder camerabewaking, en een vaste procedure van afgifte tot terugkomst."
         photo="lotShuttle"
+        photoAlt="24/7 beveiligd parkeren Schiphol"
       />
 
       <script

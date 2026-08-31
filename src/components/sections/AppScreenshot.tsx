@@ -36,7 +36,16 @@ import { photos, type PhotoName } from '@/config/images';
  * Both captures then come out the same height, the width follows from each
  * one's own ratio, and the panel is proportionate to the copy it sits beside.
  */
-export function AppScreenshot({ name, className }: { name: PhotoName; className?: string }) {
+export function AppScreenshot({
+  name,
+  className,
+  alt,
+}: {
+  name: PhotoName;
+  className?: string;
+  /** Optional page-specific alt text; falls back to the manifest description. */
+  alt?: string;
+}) {
   const photo = photos[name];
 
   return (
@@ -45,7 +54,7 @@ export function AppScreenshot({ name, className }: { name: PhotoName; className?
     >
       <Image
         src={photo.src}
-        alt={photo.alt}
+        alt={alt ?? photo.alt}
         width={photo.width}
         height={photo.height}
         blurDataURL={photo.blurDataURL}

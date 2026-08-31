@@ -170,7 +170,7 @@ export function HeroSection({
           id="hero-booking"
           className="relative z-10 w-full"
         >
-          <BookingPicker notch="inverse" bounds={bounds} />
+          <BookingPicker notch="inverse" bounds={bounds} headingLevel="h1" />
         </motion.div>
 
         {/* --- HERO PHOTO --- */}
@@ -197,7 +197,7 @@ export function HeroSection({
             </motion.div>
 
             {/* Headline */}
-            <h1 className="text-display-2xl text-heading-inverse">
+            <h2 className="text-display-2xl text-heading-inverse">
               {HEADLINE_LINES.map((line, index) => (
                 <span key={line} className="block overflow-hidden pb-[0.08em]">
                   <motion.span
@@ -214,7 +214,7 @@ export function HeroSection({
                   </motion.span>
                 </span>
               ))}
-            </h1>
+            </h2>
 
             {/* Subhead */}
             <motion.p {...rise(0.34)} className="text-display-md text-valet-300">
@@ -223,10 +223,10 @@ export function HeroSection({
 
             {/* Lead paragraph */}
             <motion.p {...rise(0.42)} className="text-lead text-navy-100 max-w-[46ch]">
-              Kies voor Shuttle en neem uw autosleutels mee op reis, of laat uw auto bij Valet
-              comfortabel overnemen bij de vertrekhal. Uw auto staat op een afgesloten, 24/7
-              gemonitorde parkeerlocatie. Valetritten worden digitaal geregistreerd voor extra
-              controle en zekerheid.
+              Voor parkeren Schiphol kiest u voor Shuttle en neemt u uw autosleutels mee op reis, of laat
+              u uw auto bij Valet comfortabel overnemen bij de vertrekhal. Uw auto staat op een
+              afgesloten, 24/7 gemonitorde parkeerlocatie. Valetritten worden digitaal
+              geregistreerd voor extra controle en zekerheid.
             </motion.p>
 
             {/* Proof row */}
@@ -307,7 +307,7 @@ export function HeroSection({
             </motion.div>
 
             {/* Headline */}
-            <h1 className="text-display-2xl text-heading-inverse mt-7">
+            <h2 className="text-display-2xl text-heading-inverse mt-7">
               {HEADLINE_LINES.map((line, index) => (
                 <span key={line} className="block overflow-hidden pb-[0.08em]">
                   <motion.span
@@ -324,7 +324,7 @@ export function HeroSection({
                   </motion.span>
                 </span>
               ))}
-            </h1>
+            </h2>
 
             {/* Subhead */}
             <motion.p {...rise(0.34)} className="text-display-md text-valet-300 mt-4">
@@ -333,10 +333,10 @@ export function HeroSection({
 
             {/* Lead paragraph */}
             <motion.p {...rise(0.42)} className="text-lead text-navy-100 mt-7 max-w-[46ch]">
-              Kies voor Shuttle en neem uw autosleutels mee op reis, of laat uw auto bij Valet
-              comfortabel overnemen bij de vertrekhal. Uw auto staat op een afgesloten, 24/7
-              gemonitorde parkeerlocatie. Valetritten worden digitaal geregistreerd voor extra
-              controle en zekerheid.
+              Voor parkeren Schiphol kiest u voor Shuttle en neemt u uw autosleutels mee op reis, of laat
+              u uw auto bij Valet comfortabel overnemen bij de vertrekhal. Uw auto staat op een
+              afgesloten, 24/7 gemonitorde parkeerlocatie. Valetritten worden digitaal
+              geregistreerd voor extra controle en zekerheid.
             </motion.p>
 
             {/* Proof row */}
@@ -392,7 +392,7 @@ export function HeroSection({
             id="hero-booking-desktop"
             className="relative z-10 -mb-32 w-full"
           >
-            <BookingPicker notch="inverse" bounds={bounds} />
+            <BookingPicker notch="inverse" bounds={bounds} headingLevel="h2" />
           </motion.div>
         </div>
       </Container>

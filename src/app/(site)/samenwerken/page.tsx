@@ -127,7 +127,8 @@ export default function PartnersPage() {
       <PageHero
         eyebrow="Samenwerken?"
         title="Verdien eenvoudig extra aan iedere reis die u verkoopt."
-        lead="Bij Lang Parkeren Schiphol bieden wij reisbureaus de mogelijkheid om hun service uit te breiden met een waardevolle en winstgevende toevoeging: betrouwbaar parkeren bij Schiphol. Uw klanten boeken bij u hun reis — wij zorgen ervoor dat hun reis ontspannen begint, vanaf het moment dat zij van huis vertrekken."
+        lead="Bij Lang Parkeren Schiphol bieden wij reisbureaus de mogelijkheid om als parkeerpartner Schiphol hun service uit te breiden met een waardevolle en winstgevende toevoeging: betrouwbaar parkeren bij Schiphol. Uw klanten boeken bij u hun reis — wij zorgen ervoor dat hun reis ontspannen begint, vanaf het moment dat zij van huis vertrekken."
+        photoAlt="parkeerpartner Schiphol voor reisbureaus"
         photo="crewTerminal"
         objectPosition="object-[center_28%]"
         crumbs={CRUMBS}
@@ -214,6 +215,7 @@ export default function PartnersPage() {
               <div className="shadow-photo relative aspect-4/3 overflow-hidden rounded-xl">
                 <Photo
                   name="lotShuttle"
+                  alt="parkeerterrein zakelijke partner Schiphol"
                   fill
                   sizes="(min-width: 1024px) 28rem, 100vw"
                   className="absolute inset-0 h-full w-full"

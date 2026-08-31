@@ -123,8 +123,9 @@ export default function RideRegistrationPage() {
         // sentence is what states the purpose, and without it the first is a
         // description of a feature rather than a reason to trust it.
         title="Iedere rit digitaal geregistreerd. Voor maximale veiligheid en transparantie."
-        lead="Tijdens iedere valetrit wordt de route, snelheid en duur digitaal geregistreerd. Zo zorgen wij voor volledige transparantie en extra zekerheid voor onze klanten."
+        lead="Tijdens iedere valetrit wordt uw auto met ons ritregistratie systeem digitaal gevolgd. Zo zorgen wij voor volledige transparantie en kunt u altijd zien wat er met uw auto is gebeurd."
         photo="crewHandover"
+        photoAlt="Ritregistratie systeem valet parking"
         objectPosition="object-[center_35%]"
         crumbs={CRUMBS}
       >
@@ -157,7 +158,7 @@ export default function RideRegistrationPage() {
             </Reveal>
 
             <Reveal delay={80}>
-              <AppScreenshot name="appReservation" />
+              <AppScreenshot name="appReservation" alt="Digitaal ritregistratie systeem" />
             </Reveal>
           </div>
         </Container>
@@ -183,7 +184,7 @@ export default function RideRegistrationPage() {
             </Reveal>
 
             <Reveal delay={80} className="lg:order-1">
-              <AppScreenshot name="appRideRegistration" />
+              <AppScreenshot name="appRideRegistration" alt="Snelheidsregistratie tijdens autorit" />
             </Reveal>
           </div>
         </Container>
@@ -292,6 +293,7 @@ export default function RideRegistrationPage() {
               <div className="shadow-photo relative aspect-3/4 overflow-hidden rounded-xl">
                 <Photo
                   name="crewPaperwork"
+                  alt="Digitale registratie van autoritten"
                   fill
                   sizes="(min-width: 1024px) 36rem, 100vw"
                   className="absolute inset-0 h-full w-full"
@@ -305,6 +307,7 @@ export default function RideRegistrationPage() {
                 <div className="shadow-photo relative aspect-4/3 overflow-hidden rounded-xl">
                   <Photo
                     name="crewTerminal"
+                    alt="Valetrit digitaal geregistreerd"
                     fill
                     sizes="(min-width: 1024px) 36rem, 100vw"
                     className="absolute inset-0 h-full w-full"
@@ -317,6 +320,7 @@ export default function RideRegistrationPage() {
                 <div className="shadow-photo relative aspect-21/9 overflow-hidden rounded-xl">
                   <Photo
                     name="crewCheck"
+                    alt="Controle van valetritten"
                     fill
                     sizes="(min-width: 1024px) 36rem, 100vw"
                     className="absolute inset-0 h-full w-full"
@@ -339,6 +343,7 @@ export default function RideRegistrationPage() {
         heading="Reserveer veilig"
         lead="Valet parking bij de vertrekhal van Schiphol, met iedere rit digitaal geregistreerd."
         photo="crewShuttleTerminal"
+        photoAlt="Registratie van voertuigritten"
         bookingHref="/reservering/?service=valet"
         bookingLabel="Reserveer veilig"
       />

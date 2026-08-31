@@ -49,7 +49,7 @@ const devConnectSrc = isDev ? ' ws://localhost:* http://localhost:* ws://127.0.0
  * actually broken in production — noise that buries real violations, which is
  * exactly how the blocked Ads collector above went unnoticed.
  */
-const devScriptSrc = isDev ? ' https://va.vercel-scripts.com' : '';
+const devScriptSrc = isDev ? " 'unsafe-eval' https://va.vercel-scripts.com" : '';
 
 /**
  * Hosts the Google tagging stack needs, split by what each one is for.

@@ -128,25 +128,29 @@ const MEASURES: readonly { icon: LucideIcon; title: string; body: string }[] = [
    Four of the client's own, shot at the airport. Every vehicle in frame
    carries a Dutch yellow plate, which is the point — see config/images.ts.
    ══════════════════════════════════════════════════════════════════════════ */
-const GALLERY: readonly { photo: PhotoName; caption: string; aspect: string }[] = [
+const GALLERY: readonly { photo: PhotoName; caption: string; aspect: string; alt: string }[] = [
   {
     photo: 'crewTerminal',
     caption: 'Onze chauffeur bij Vertrek 2, waar de overdracht plaatsvindt.',
+    alt: 'medewerkers veilig parkeren Schiphol',
     aspect: 'aspect-3/4',
   },
   {
     photo: 'crewHandover',
     caption: 'De overdracht zelf: bagage eruit, auto over, u loopt door.',
+    alt: 'auto veilig parkeren Schiphol',
     aspect: 'aspect-4/3',
   },
   {
     photo: 'lotShuttle',
     caption: 'Ons parkeerterrein, met de shuttlebus die naar de vertrekhal rijdt.',
+    alt: 'veilig parkeerterrein bij Schiphol',
     aspect: 'aspect-4/3',
   },
   {
     photo: 'crewCheck',
     caption: 'Elke auto wordt bij overdracht gecontroleerd en vastgelegd.',
+    alt: 'beveiligd parkeren bij Schiphol',
     aspect: 'aspect-3/4',
   },
 ];
@@ -198,8 +202,9 @@ export default function WhyPage() {
       <PageHero
         eyebrow="Waarom ons"
         title="Uw auto in vertrouwde handen op Schiphol"
-        lead="Uw auto achterlaten bij een onbekende is een kwestie van vertrouwen. Deze pagina laat precies zien wat er met uw auto gebeurt: wie hem overneemt, waar hij staat, wat er wordt vastgelegd, en wat wij doen als uw reis anders loopt dan gepland."
+        lead="Uw auto is bij ons in vertrouwde handen. Met veilig parkeren Schiphol kiest u voor een zorgeloze start van uw reis. Onze medewerkers zorgen zorgvuldig voor uw auto, terwijl u met een gerust gevoel op reis kunt."
         photo="crewTerminal"
+        photoAlt="veilig parkeren Schiphol"
         objectPosition="object-[center_38%]"
         crumbs={CRUMBS}
       >
@@ -374,6 +379,7 @@ export default function WhyPage() {
                 <div className={`shadow-photo relative overflow-hidden rounded-xl ${item.aspect}`}>
                   <Photo
                     name={item.photo}
+                    alt={item.alt}
                     fill
                     sizes="(min-width: 1024px) 18rem, (min-width: 640px) 45vw, 100vw"
                     className="absolute inset-0 h-full w-full"
@@ -429,6 +435,7 @@ export default function WhyPage() {
         heading="Uw auto in vertrouwde handen"
         lead="De keuze van reizigers die vanaf Schiphol vertrekken. Reserveer in twee minuten."
         photo="terminalDeparture"
+        photoAlt="veilige parkeerlocatie bij Schiphol"
       />
 
       <script
