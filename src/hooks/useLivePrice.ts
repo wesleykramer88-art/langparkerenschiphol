@@ -56,11 +56,13 @@ type ApiResponse = {
 export function useLivePrices(input: {
   service: ServiceSlug;
   arrivalDate: string;
+  arrivalTime: string;
   departureDate: string;
+  departureTime: string;
   /** Milliseconds of quiet before asking. */
   delay?: number;
 }): LivePrices | null {
-  const { service, arrivalDate, departureDate, delay = 450 } = input;
+  const { service, arrivalDate, arrivalTime, departureDate, departureTime, delay = 450 } = input;
 
   /**
    * One key identifies one question. Null means there is nothing to ask yet.
@@ -74,8 +76,12 @@ export function useLivePrices(input: {
    *    figures; the mismatch clears them during render
    */
   const key =
-    arrivalDate && departureDate && departureDate > arrivalDate
-      ? `${service}|${arrivalDate}|${departureDate}`
+    arrivalDate &&
+    arrivalTime &&
+    departureDate &&
+    departureTime &&
+    `${departureDate}T${departureTime}` > `${arrivalDate}T${arrivalTime}`
+      ? `${service}|${arrivalDate}|${arrivalTime}|${departureDate}|${departureTime}`
       : null;
 
   const [answer, setAnswer] = useState<{ key: string; prices: LivePrices | null } | null>(null);
@@ -87,7 +93,13 @@ export function useLivePrices(input: {
 
     const timer = setTimeout(async () => {
       try {
-        const params = new URLSearchParams({ service, arrivalDate, departureDate });
+        const params = new URLSearchParams({
+          service,
+          arrivalDate,
+          arrivalTime,
+          departureDate,
+          departureTime,
+        });
         // The trailing slash is load-bearing. `trailingSlash: true` applies to
         // route handlers as well as pages, so `/api/prijs?…` 308s to
         // `/api/prijs/?…`. fetch follows it, so nothing breaks — it just pays
@@ -119,7 +131,7 @@ export function useLivePrices(input: {
       clearTimeout(timer);
       controller.abort();
     };
-  }, [key, service, arrivalDate, departureDate, delay]);
+  }, [key, service, arrivalDate, arrivalTime, departureDate, departureTime, delay]);
 
   return key && answer?.key === key ? answer.prices : null;
 }
@@ -131,7 +143,9 @@ export function useLivePrices(input: {
 export function useLivePrice(input: {
   service: ServiceSlug;
   arrivalDate: string;
+  arrivalTime: string;
   departureDate: string;
+  departureTime: string;
   delay?: number;
 }): LivePrice | null {
   const prices = useLivePrices(input);

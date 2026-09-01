@@ -140,7 +140,9 @@ export function BookingPicker({
   const prices = useLivePrices({
     service: values.service,
     arrivalDate: values.arrivalDate,
+    arrivalTime: values.arrivalTime,
     departureDate: values.departureDate,
+    departureTime: values.departureTime,
   });
 
   // Price for whichever product the visitor has actively selected.

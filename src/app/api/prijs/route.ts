@@ -36,9 +36,12 @@ import { fromIso } from '@/lib/date';
 
 export const dynamic = 'force-dynamic';
 
-/** ParkingPro wants ISO here — `dd-mm-yyyy` 400s. See toPriceApiDates(). */
+/** ParkingPro wants ISO dates plus `HH:mm`; the external request becomes datetime. */
 const isServiceSlug = (value: string | null): value is ServiceSlug =>
   value !== null && (serviceSlugs as readonly string[]).includes(value);
+
+const isTime = (value: string | null): value is string =>
+  value !== null && /^\d{2}:\d{2}$/.test(value);
 
 export type PriceEntry = {
   total: number;
@@ -51,7 +54,9 @@ export async function GET(request: Request) {
 
   const service = searchParams.get('service');
   const arrivalDate = searchParams.get('arrivalDate');
+  const arrivalTime = searchParams.get('arrivalTime');
   const departureDate = searchParams.get('departureDate');
+  const departureTime = searchParams.get('departureTime');
 
   // Validated strictly, not because a bad value is dangerous — the upstream
   // call is a fixed shape with a whitelisted location id — but so this endpoint
@@ -59,10 +64,12 @@ export async function GET(request: Request) {
   if (
     !isServiceSlug(service) ||
     !arrivalDate ||
+    !isTime(arrivalTime) ||
     !departureDate ||
+    !isTime(departureTime) ||
     !fromIso(arrivalDate) ||
     !fromIso(departureDate) ||
-    departureDate <= arrivalDate
+    `${departureDate}T${departureTime}` <= `${arrivalDate}T${arrivalTime}`
   ) {
     return NextResponse.json({ prices: null }, { status: 400 });
   }
@@ -71,7 +78,7 @@ export async function GET(request: Request) {
 
   const quotes = await Promise.all(
     locations.map((location) =>
-      fetchPrice({ locationId: location.id, arrivalDate, departureDate }),
+      fetchPrice({ locationId: location.id, arrivalDate, arrivalTime, departureDate, departureTime }),
     ),
   );
 
