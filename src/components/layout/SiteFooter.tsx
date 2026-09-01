@@ -4,6 +4,7 @@ import {
   Landmark,
   Mail,
   MapPin,
+  MessageCircle,
   Phone,
   Smartphone,
   Wallet,
@@ -64,6 +65,8 @@ const PAYMENT_ICONS: Record<PaymentMethod, LucideIcon> = {
   'Belfius-betaalknop': Landmark,
 };
 
+const WHATSAPP_HREF = 'https://wa.me/31615634297';
+
 export function SiteFooter() {
   // Evaluated at build time. The site is statically rendered, so a rebuild is
   // what rolls this over — Vercel redeploys handle it in practice.
@@ -74,10 +77,10 @@ export function SiteFooter() {
     // arrives rather than sitting on top of its links.
     <footer id="site-footer" className="bg-surface-inverse text-body-inverse">
       <Container>
-        <div className="grid gap-12 py-16 lg:grid-cols-[1.6fr_1fr_1fr_1.2fr] lg:gap-12 lg:py-24">
+        <div className="grid gap-8 py-10 md:gap-12 md:py-16 lg:grid-cols-[1.6fr_1fr_1fr_1.2fr] lg:gap-12 lg:py-24">
           <div className="max-w-sm">
             <Logo tone="dark" />
-            <p className="text-navy-200 mt-6 text-sm leading-relaxed">
+            <p className="text-navy-200 mt-4 text-sm leading-relaxed md:mt-6">
               De betrouwbare keuze voor valet en shuttle parkeren op Amsterdam Airport Schiphol.
             </p>
 
@@ -86,7 +89,7 @@ export function SiteFooter() {
                 business already has written down and the only reason a returning
                 visitor has to scroll this far. See config/site.ts for why the
                 score went. */}
-            <div className="border-line-inverse mt-8 border-t pt-8">
+            <div className="border-line-inverse mt-6 border-t pt-6 md:mt-8 md:pt-8">
               <p className="text-heading-inverse text-sm font-semibold">
                 {accountDiscount.percentage}% korting met een gratis account
               </p>
@@ -155,21 +158,32 @@ export function SiteFooter() {
                 {siteConfig.address.locality}
               </address>
             </li>
+            <li className="mt-2 md:hidden">
+              <a
+                href={WHATSAPP_HREF}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-accent text-on-accent hover:bg-accent-hover focus-visible:outline-focus focus-visible:outline-2 focus-visible:outline-offset-2 ease-settle inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-md px-4 text-sm font-semibold transition-colors duration-(--duration-micro)"
+              >
+                <MessageCircle className="size-4 shrink-0" aria-hidden />
+                WhatsApp ons
+              </a>
+            </li>
           </FooterColumn>
         </div>
 
-        <div className="border-line-inverse border-t py-8">
+        <div className="border-line-inverse border-t py-6 md:py-8">
           <p className="eyebrow text-navy-400">Betaalmethoden</p>
           {/* Nine chips rather than four, so they wrap to two rows on a laptop
               and several on a phone. `items-center` on the chip and `shrink-0`
               on the mark keep a wrapped row's baselines together. */}
-          <ul className="mt-4 flex flex-wrap gap-2">
+          <ul className="mt-3 flex flex-wrap gap-2 md:mt-4">
             {paymentMethods.map((method) => {
               const Mark = PAYMENT_ICONS[method];
               return (
                 <li
                   key={method}
-                  className="border-line-inverse text-navy-200 flex items-center gap-2 rounded-md border px-3 py-1.5 text-xs font-medium"
+                  className="border-line-inverse text-navy-200 flex items-center gap-2 rounded-md border px-2.5 py-1 text-[11px] font-medium md:px-3 md:py-1.5 md:text-xs"
                 >
                   {/* aria-hidden: the mark says "bank button", the text says
                       which bank button. Announcing both would read every row
@@ -182,7 +196,7 @@ export function SiteFooter() {
           </ul>
         </div>
 
-        <div className="border-line-inverse flex flex-col gap-4 border-t pt-8 sm:flex-row sm:items-center sm:justify-between">
+        <div className="border-line-inverse flex flex-col gap-3 border-t pt-6 md:gap-4 md:pt-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-navy-400 text-xs">
             &copy; {year} {siteConfig.name}.
           </p>
@@ -224,7 +238,7 @@ export function SiteFooter() {
           passes AA at this size; it is quiet, but a disclaimer that cannot be
           read is not a disclaimer.
         */}
-        <p className="text-navy-400 max-w-[68ch] pt-5 pb-8 text-xs leading-relaxed">
+        <p className="text-navy-400 max-w-[68ch] pt-4 pb-6 text-xs leading-relaxed md:pt-5 md:pb-8">
           {independenceDisclaimer}
         </p>
       </Container>

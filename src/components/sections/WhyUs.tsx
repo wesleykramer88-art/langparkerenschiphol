@@ -92,7 +92,7 @@ const USPS: readonly Item[] = [
 
 export function WhyUs() {
   return (
-    <Section tone="surface" spacing="lg" aria-labelledby="waarom-heading">
+    <Section tone="surface" spacing="lg" aria-labelledby="waarom-heading" className="hidden md:block">
       <Container>
         <div className="grid gap-12 lg:grid-cols-[5fr_6fr] lg:items-stretch lg:gap-16">
           {/* ---------- The photograph ----------

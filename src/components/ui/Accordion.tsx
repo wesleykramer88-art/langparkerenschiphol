@@ -57,6 +57,7 @@ export function Accordion({
                 className={cn(
                   'flex w-full items-start justify-between gap-6 py-5 text-left',
                   'ease-settle min-h-[3.25rem] transition-colors duration-(--duration-micro)',
+                  'focus-visible:outline-focus focus-visible:outline-2 focus-visible:outline-offset-4',
                   'hover:text-brand',
                   isOpen && 'text-brand',
                 )}

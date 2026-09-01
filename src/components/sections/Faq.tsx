@@ -69,14 +69,34 @@ const FAQS: readonly FaqItem[] = [
   },
 ];
 
+const MOBILE_FAQS: readonly FaqItem[] = [FAQS[0], FAQS[1], FAQS[2], FAQS[5]];
+
 /** The homepage FAQ. Its seven answers stay exactly where they were. */
 export function Faq() {
   return (
-    <FaqSection
-      items={FAQS}
-      heading="Alles over onze dienstverlening"
-      lead="De vragen die reizigers ons het vaakst stellen, over veiligheid, annuleren en de overdracht van uw auto."
-    />
+    <>
+      <Section spacing="none" aria-labelledby="faq-heading-mobile" className="py-14 md:hidden">
+        <Container>
+          <Reveal>
+            <Eyebrow rule>Veelgestelde vragen</Eyebrow>
+            <h2 id="faq-heading-mobile" className="text-display-md mt-4 max-w-[12ch]">
+              De belangrijkste vragen, direct beantwoord
+            </h2>
+          </Reveal>
+          <Reveal delay={80} className="mt-6">
+            <Accordion items={MOBILE_FAQS} defaultOpen={null} />
+          </Reveal>
+        </Container>
+      </Section>
+
+      <div className="hidden md:block">
+        <FaqSection
+          items={FAQS}
+          heading="Alles over onze dienstverlening"
+          lead="De vragen die reizigers ons het vaakst stellen, over veiligheid, annuleren en de overdracht van uw auto."
+        />
+      </div>
+    </>
   );
 }
 

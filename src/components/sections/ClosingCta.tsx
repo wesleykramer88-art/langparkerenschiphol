@@ -84,6 +84,11 @@ export function ClosingCta({
    */
   bookingHref = '/reservering/',
   bookingLabel = 'Reserveer nu',
+  compactOnMobile = false,
+  mobileHeading = heading,
+  mobileLead = lead,
+  mobileBookingHref = bookingHref,
+  mobileBookingLabel = bookingLabel,
 }: {
   heading?: string;
   lead?: string;
@@ -93,9 +98,14 @@ export function ClosingCta({
   notch?: NotchColor;
   bookingHref?: string;
   bookingLabel?: string;
+  compactOnMobile?: boolean;
+  mobileHeading?: string;
+  mobileLead?: string;
+  mobileBookingHref?: string;
+  mobileBookingLabel?: string;
 } = {}) {
   return (
-    <Section tone="surface" spacing="lg" aria-labelledby="cta-heading">
+    <Section tone="surface" spacing="lg" aria-labelledby="cta-heading" className="py-14 md:py-24 lg:py-40">
       {/* The perforation on the seam. `tone` is not passed: it defaults to
           'light', which is what this band now is — the dash reverts to
           --color-line-strong on its own. `notch` is still the colour of the
@@ -106,7 +116,31 @@ export function ClosingCta({
 
       <Container className="relative">
         <Reveal className="flex flex-col items-center text-center">
-          {/* Contained rather than full-bleed. Decorative: the heading beneath
+          {compactOnMobile ? (
+            <div className="w-full md:hidden">
+              <h2 className="text-display-md text-heading mx-auto max-w-[13ch]">
+                {mobileHeading}
+              </h2>
+              <p className="text-muted mt-3 text-sm leading-relaxed">{mobileLead}</p>
+              <div className="mt-6 flex flex-col items-center gap-3">
+                <Button href={mobileBookingHref} size="lg" className="w-full sm:w-auto">
+                  {mobileBookingLabel}
+                  <ArrowRight data-arrow className="size-4" aria-hidden />
+                </Button>
+                <a
+                  href={siteConfig.phone.href}
+                  className="text-brand inline-flex min-h-11 items-center text-sm font-medium underline decoration-navy-300 underline-offset-4"
+                >
+                  <Phone className="mr-2 size-4" aria-hidden />
+                  <span className="sr-only">Bel ons: </span>
+                  <span className="numeric">{siteConfig.phone.display}</span>
+                </a>
+              </div>
+            </div>
+          ) : null}
+
+          <div className={compactOnMobile ? 'hidden w-full md:block' : 'w-full'}>
+            {/* Contained rather than full-bleed. Decorative: the heading beneath
               says where this is, and the frame is here to carry the place
               rather than to be described.
 
@@ -114,39 +148,40 @@ export function ClosingCta({
               width would be a letterbox slot two hundred pixels tall, which
               shows nothing. Capped at max-w-4xl so it stays a panel on the page
               instead of quietly becoming the full-bleed band it replaced. */}
-          <div className="shadow-photo relative aspect-video w-full max-w-4xl overflow-hidden rounded-xl sm:aspect-21/9">
-            <Photo
-              name={photo}
-              alt={photoAlt}
-              fill
-              sizes="(min-width: 1024px) 56rem, 100vw"
-              className="absolute inset-0 h-full w-full"
-              imageClassName="object-cover object-[center_62%]"
-            />
+            <div className="shadow-photo relative aspect-video w-full max-w-4xl overflow-hidden rounded-xl sm:aspect-21/9">
+              <Photo
+                name={photo}
+                alt={photoAlt}
+                fill
+                sizes="(min-width: 1024px) 56rem, 100vw"
+                className="absolute inset-0 h-full w-full"
+                imageClassName="object-cover object-[center_62%]"
+              />
+            </div>
+
+            <h2 id="cta-heading" className="text-display-lg text-heading mt-12 max-w-[16ch]">
+              {heading}
+            </h2>
+            <p className="text-lead text-muted mt-6 max-w-[46ch]">{lead}</p>
+
+            <div className="mt-10 flex flex-wrap justify-center gap-3">
+              <Button href={bookingHref} size="lg">
+                {bookingLabel}
+                <ArrowRight data-arrow className="size-4" aria-hidden />
+              </Button>
+              <Button href={siteConfig.phone.href} variant="secondary" size="lg">
+                <Phone className="size-4" aria-hidden />
+                <span className="sr-only">Bel ons: </span>
+                <span className="numeric">{siteConfig.phone.display}</span>
+              </Button>
+            </div>
+
+            <ul className="border-line text-muted mt-12 flex flex-col items-center gap-3 border-t pt-8 text-sm sm:flex-row sm:gap-8">
+              {REASSURANCES.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
           </div>
-
-          <h2 id="cta-heading" className="text-display-lg text-heading mt-12 max-w-[16ch]">
-            {heading}
-          </h2>
-          <p className="text-lead text-muted mt-6 max-w-[46ch]">{lead}</p>
-
-          <div className="mt-10 flex flex-wrap justify-center gap-3">
-            <Button href={bookingHref} size="lg">
-              {bookingLabel}
-              <ArrowRight data-arrow className="size-4" aria-hidden />
-            </Button>
-            <Button href={siteConfig.phone.href} variant="secondary" size="lg">
-              <Phone className="size-4" aria-hidden />
-              <span className="sr-only">Bel ons: </span>
-              <span className="numeric">{siteConfig.phone.display}</span>
-            </Button>
-          </div>
-
-          <ul className="border-line text-muted mt-12 flex flex-col items-center gap-3 border-t pt-8 text-sm sm:flex-row sm:gap-8">
-            {REASSURANCES.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
         </Reveal>
       </Container>
     </Section>
