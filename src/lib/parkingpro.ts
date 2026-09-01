@@ -261,17 +261,32 @@ export type PriceQuote = {
   totalWithTax: number;
 };
 
+function toPriceDateTime(date: string, time: string): string | null {
+  const match = /^(\d{2}):(\d{2})(?::\d{2})?$/.exec(time);
+  return match ? `${date} ${match[1]}:${match[2]}:00` : null;
+}
+
 export async function fetchPrice(input: {
   locationId: string;
   arrivalDate: string;
+  arrivalTime: string;
   departureDate: string;
+  departureTime: string;
   signal?: AbortSignal;
 }): Promise<PriceQuote | null> {
-  const url =
-    `${PARKINGPRO_ORIGIN}/api/widget/price` +
-    `?locationId=${encodeURIComponent(input.locationId)}` +
-    `&arrivalDate=${encodeURIComponent(input.arrivalDate)}` +
-    `&departureDate=${encodeURIComponent(input.departureDate)}`;
+  const arrivalDateTime = toPriceDateTime(input.arrivalDate, input.arrivalTime);
+  const departureDateTime = toPriceDateTime(input.departureDate, input.departureTime);
+  if (!arrivalDateTime || !departureDateTime) return null;
+
+  const url = new URL('/api/widget/price', PARKINGPRO_ORIGIN);
+  url.search = new URLSearchParams({
+    locationId: input.locationId,
+    // ParkingPro's own widget sends time-aware quotes by appending the time to
+    // the two date fields, not by adding separate arrivalTime/departureTime
+    // parameters. Mirror that request shape exactly.
+    arrivalDate: arrivalDateTime,
+    departureDate: departureDateTime,
+  }).toString();
 
   try {
     const response = await fetch(url, {
