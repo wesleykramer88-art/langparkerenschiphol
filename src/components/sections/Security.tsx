@@ -157,7 +157,7 @@ export function Security() {
 
         <Stagger as="ul" className="mt-14 grid gap-4 sm:grid-cols-2 lg:mt-16 lg:grid-cols-5">
           {MEASURES.map((measure) => (
-            <li
+            <div
               key={measure.label}
               className="border-line bg-canvas flex h-full flex-col gap-3 rounded-xl border px-6 py-7"
             >
@@ -166,7 +166,7 @@ export function Security() {
                 {measure.label}
               </span>
               <span className="text-muted text-sm leading-relaxed">{measure.body}</span>
-            </li>
+            </div>
           ))}
         </Stagger>
       </Container>

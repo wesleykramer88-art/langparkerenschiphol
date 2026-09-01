@@ -174,7 +174,7 @@ export function HeroSection({
         </motion.div>
 
         {/* --- HERO PHOTO --- */}
-        <div aria-hidden className="relative h-52 overflow-hidden md:h-96">
+        <div aria-hidden className="relative h-60 overflow-hidden md:h-96">
           <HeroPhoto
             name="crewShuttleTerminal"
             portraitName="crewShuttleTerminalPortrait"

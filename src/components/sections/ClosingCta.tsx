@@ -116,8 +116,21 @@ export function ClosingCta({
 
       <Container className="relative">
         <Reveal className="flex flex-col items-center text-center">
+          <span id="cta-heading" className="sr-only">
+            Reserveer uw parkeerplaats
+          </span>
           {compactOnMobile ? (
             <div className="w-full md:hidden">
+              <div className="shadow-photo relative mb-5 aspect-[16/8] overflow-hidden rounded-xl">
+                <Photo
+                  name={photo}
+                  alt={photoAlt}
+                  fill
+                  sizes="100vw"
+                  className="absolute inset-0 h-full w-full"
+                  imageClassName="object-cover object-[center_62%]"
+                />
+              </div>
               <h2 className="text-display-md text-heading mx-auto max-w-[13ch]">
                 {mobileHeading}
               </h2>
@@ -159,7 +172,7 @@ export function ClosingCta({
               />
             </div>
 
-            <h2 id="cta-heading" className="text-display-lg text-heading mt-12 max-w-[16ch]">
+            <h2 className="text-display-lg text-heading mt-12 max-w-[16ch]">
               {heading}
             </h2>
             <p className="text-lead text-muted mt-6 max-w-[46ch]">{lead}</p>

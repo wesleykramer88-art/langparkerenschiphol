@@ -189,7 +189,7 @@ export function ServiceChooser() {
 
         <Stagger as="ul" className="mt-8 grid gap-4 md:hidden">
           {MOBILE_SERVICES.map((service) => (
-            <ServiceCard key={service.id} service={service} />
+            <ServiceCard key={service.id} service={service} uspCount={3} />
           ))}
         </Stagger>
 
@@ -203,14 +203,14 @@ export function ServiceChooser() {
   );
 }
 
-function ServiceCard({ service }: { service: Service }) {
+function ServiceCard({ service, uspCount }: { service: Service; uspCount?: number }) {
   return (
     <article
       id={service.id}
       className="group border-line bg-surface shadow-photo hover:shadow-lifted ease-settle flex h-full flex-col overflow-hidden rounded-xl border transition-[transform,box-shadow] duration-300 hover:-translate-y-1.5"
     >
       {/* The frame clips the zoom; the photograph itself is what moves. */}
-      <div className="relative hidden aspect-16/10 overflow-hidden md:block">
+      <div className="relative aspect-[16/8] overflow-hidden md:aspect-16/10">
         <Photo
           name={service.photo}
           fill
@@ -223,11 +223,11 @@ function ServiceCard({ service }: { service: Service }) {
             what the photograph is doing at its foot. */}
         <div aria-hidden className="scrim-card absolute inset-0" />
 
-        <Badge tone={service.badgeTone} className="absolute top-5 left-5 z-10">
+        <Badge tone={service.badgeTone} className="absolute top-5 left-5 z-10 hidden md:inline-flex">
           {service.badge}
         </Badge>
 
-        <h3 className="text-display-sm text-heading-inverse absolute right-6 bottom-5 left-6 z-10">
+        <h3 className="text-display-sm text-heading-inverse absolute right-6 bottom-5 left-6 z-10 hidden md:block">
           {service.title}
         </h3>
       </div>
@@ -254,7 +254,7 @@ function ServiceCard({ service }: { service: Service }) {
             back under it. Every icon is aria-hidden — each one restates the
             sentence beside it, so announcing both would read the list twice. */}
         <ul className="border-line mt-5 flex flex-col gap-3 border-t pt-5 md:mt-6 md:gap-3.5 md:pt-6">
-          {service.usps.slice(0, 3).map((usp) => (
+          {(uspCount ? service.usps.slice(0, uspCount) : service.usps).map((usp) => (
             <li key={usp.text} className="flex items-start gap-3">
               <usp.icon
                 className="text-accent mt-0.5 size-4 shrink-0"

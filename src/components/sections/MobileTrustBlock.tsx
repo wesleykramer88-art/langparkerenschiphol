@@ -3,6 +3,7 @@ import { Container } from '@/components/ui/Container';
 import { Section } from '@/components/ui/Section';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { Button } from '@/components/ui/Button';
+import { Photo } from '@/components/ui/Photo';
 
 const ITEMS = [
   '24/7 camerabewaking en monitoring',
@@ -21,6 +22,15 @@ export function MobileTrustBlock() {
     >
       <Container>
         <div className="border-line rounded-xl border bg-canvas p-5">
+          <div className="shadow-photo relative aspect-[16/8] overflow-hidden rounded-lg">
+            <Photo
+              name="evCharging"
+              fill
+              sizes="100vw"
+              className="absolute inset-0 h-full w-full"
+              imageClassName="object-cover object-[38%_50%]"
+            />
+          </div>
           <Eyebrow>Vertrouwen en veiligheid</Eyebrow>
           <div className="mt-4 flex items-start gap-3">
             <ShieldCheck className="text-accent mt-0.5 size-5 shrink-0" strokeWidth={1.75} aria-hidden />

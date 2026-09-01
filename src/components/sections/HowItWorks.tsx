@@ -50,12 +50,20 @@ const MOBILE_STEPS = [
 
 export function HowItWorks() {
   return (
-    <Section id="zo-werkt-het" spacing="lg" aria-labelledby="stappen-heading" className="py-14 md:py-24 lg:py-40">
+    <Section
+      id="zo-werkt-het"
+      spacing="lg"
+      aria-labelledby="stappen-heading"
+      className="py-14 md:py-24 lg:py-40"
+    >
       <Container>
+        <span id="stappen-heading" className="sr-only">
+          Zo werkt het
+        </span>
         <div className="md:hidden">
           <Reveal>
             <Eyebrow rule>Zo werkt het</Eyebrow>
-            <h2 id="stappen-heading" className="text-display-md mt-4">
+            <h2 className="text-display-md mt-4">
               In 3 korte stappen geregeld
             </h2>
             <p className="text-muted mt-3 max-w-[34ch] text-sm leading-relaxed">
