@@ -186,7 +186,7 @@ export function HeroSection({
         </div>
 
         {/* --- COPY COLUMN --- */}
-        <Container className="relative py-8 md:py-12">
+        <Container className="relative pt-10 pb-8 md:py-12">
           <div className="flex flex-col items-start gap-4 md:gap-6">
             {/* Eyebrow */}
            <motion.div {...rise(0)} className="hidden items-center gap-3 md:flex">
