@@ -54,6 +54,7 @@ type Service = {
   /** accent = the recommended option; there is only ever one. */
   badgeTone: 'accent' | 'brand';
   description: string;
+  mobileDescription: string;
   /**
    * The client's USPs for this service, each with its own mark.
    *
@@ -93,6 +94,7 @@ const SERVICES: readonly Service[] = [
     badgeTone: 'accent',
     description:
       'Rijd rechtstreeks naar de vertrekhal van Schiphol. Onze chauffeur staat klaar, controleert uw auto en rijdt deze naar onze veilige parkeerlocatie.',
+    mobileDescription: 'Geef uw auto af bij de vertrekhal en loop direct door naar de check-in.',
     // Read from the one place the client's compact USPs live, rather than
     // retyped. This card, the ticket stub and the two service landing pages all
     // render them; three transcriptions of the same four lines is three chances
@@ -115,6 +117,7 @@ const SERVICES: readonly Service[] = [
     badgeTone: 'brand',
     description:
       'Parkeer uw auto op ons terrein. Onze shuttlebus brengt u comfortabel binnen 5 tot 8 minuten naar de vertrekhal van Schiphol.',
+    mobileDescription: 'Parkeer zelf op ons terrein en reis in 5 tot 8 minuten met de shuttle naar Schiphol.',
     usps: SERVICE_COPY.shuttle.bullets,
     cta: 'Reserveer Shuttle Parkeren',
     // His own terrain, with the shuttle bus running along the top of the frame
@@ -124,6 +127,8 @@ const SERVICES: readonly Service[] = [
     where: SERVICE_COPY.shuttle.where,
   },
 ];
+
+const MOBILE_SERVICES: readonly Service[] = [SERVICES[1], SERVICES[0]];
 
 /**
  * Outdoor or covered — the half of the product range the site never mentioned.
@@ -151,36 +156,44 @@ const COVER_OPTIONS = [
   {
     label: 'Buitenterrein',
     body: 'Uw auto staat op ons afgesloten, bewaakte buitenterrein.',
+    mobileBody: 'Afgesloten buitenterrein',
   },
   {
     label: 'Overdekt',
     body: 'Uw auto staat binnen, uit weer en wind. Beperkt beschikbaar.',
+    mobileBody: 'Binnen, uit weer en wind',
   },
 ] as const;
 
 export function ServiceChooser() {
   return (
-    <Section id="diensten" spacing="lg" aria-labelledby="diensten-heading">
+    <Section id="diensten" spacing="lg" aria-labelledby="diensten-heading" className="py-14 md:py-24 lg:py-40">
       <Container>
         {/* The heading and its supporting line sit side by side rather than
             stacked and centred. Centred eyebrow-over-title-over-grid is the
             default rhythm of every generated page; splitting the header across
             the measure gives the section its own shape before a single card
             has been drawn. */}
-        <Reveal className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
+        <Reveal className="grid gap-4 md:gap-6 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
           <div>
             <Eyebrow rule>Welke parkeeroptie past bij u?</Eyebrow>
-            <h2 id="diensten-heading" className="text-display-lg mt-5 max-w-[16ch]">
+            <h2 id="diensten-heading" className="text-display-md mt-4 max-w-[14ch] md:text-display-lg md:mt-5 md:max-w-[16ch]">
               Kies uw parkeerwijze bij Schiphol
             </h2>
           </div>
-          <p className="text-muted max-w-[36ch] text-base lg:pb-2 lg:text-right">
+          <p className="text-muted max-w-[32ch] text-sm leading-relaxed md:max-w-[36ch] md:text-base lg:pb-2 lg:text-right">
             Twee manieren om bij de vertrekhal te komen. Beide met bewaakte parkeerplaats en een
             optionele annuleringsdekking.
           </p>
         </Reveal>
 
-        <Stagger as="ul" className="mt-12 grid gap-6 lg:mt-16 lg:grid-cols-2 lg:gap-8">
+        <Stagger as="ul" className="mt-8 grid gap-4 md:hidden">
+          {MOBILE_SERVICES.map((service) => (
+            <ServiceCard key={service.id} service={service} uspCount={3} />
+          ))}
+        </Stagger>
+
+        <Stagger as="ul" className="mt-12 hidden gap-6 md:grid lg:mt-16 lg:grid-cols-2 lg:gap-8">
           {SERVICES.map((service) => (
             <ServiceCard key={service.id} service={service} />
           ))}
@@ -190,14 +203,14 @@ export function ServiceChooser() {
   );
 }
 
-function ServiceCard({ service }: { service: Service }) {
+function ServiceCard({ service, uspCount }: { service: Service; uspCount?: number }) {
   return (
     <article
       id={service.id}
       className="group border-line bg-surface shadow-photo hover:shadow-lifted ease-settle flex h-full flex-col overflow-hidden rounded-xl border transition-[transform,box-shadow] duration-300 hover:-translate-y-1.5"
     >
       {/* The frame clips the zoom; the photograph itself is what moves. */}
-      <div className="relative aspect-16/10 overflow-hidden">
+      <div className="relative aspect-[16/8] overflow-hidden md:aspect-16/10">
         <Photo
           name={service.photo}
           fill
@@ -210,17 +223,25 @@ function ServiceCard({ service }: { service: Service }) {
             what the photograph is doing at its foot. */}
         <div aria-hidden className="scrim-card absolute inset-0" />
 
-        <Badge tone={service.badgeTone} className="absolute top-5 left-5 z-10">
+        <Badge tone={service.badgeTone} className="absolute top-5 left-5 z-10 hidden md:inline-flex">
           {service.badge}
         </Badge>
 
-        <h3 className="text-display-sm text-heading-inverse absolute right-6 bottom-5 left-6 z-10">
+        <h3 className="text-display-sm text-heading-inverse absolute right-6 bottom-5 left-6 z-10 hidden md:block">
           {service.title}
         </h3>
       </div>
 
-      <div className="flex flex-1 flex-col p-6 sm:p-8">
-        <p className="max-w-[46ch]">{service.description}</p>
+      <div className="flex flex-1 flex-col p-5 md:p-6 lg:p-8">
+        <div className="flex flex-wrap items-start justify-between gap-3 md:hidden">
+          <div>
+            <h3 className="text-display-sm text-heading">{service.title}</h3>
+            <p className="text-muted mt-2 text-sm leading-relaxed">{service.mobileDescription}</p>
+          </div>
+          <Badge tone={service.badgeTone}>{service.badge}</Badge>
+        </div>
+
+        <p className="hidden max-w-[46ch] md:block">{service.description}</p>
 
         {/* The USP block.
 
@@ -232,15 +253,15 @@ function ServiceCard({ service }: { service: Service }) {
             wraps on a narrow card stays hung off its mark rather than sliding
             back under it. Every icon is aria-hidden — each one restates the
             sentence beside it, so announcing both would read the list twice. */}
-        <ul className="border-line mt-6 flex flex-col gap-3.5 border-t pt-6">
-          {service.usps.map((usp) => (
+        <ul className="border-line mt-5 flex flex-col gap-3 border-t pt-5 md:mt-6 md:gap-3.5 md:pt-6">
+          {(uspCount ? service.usps.slice(0, uspCount) : service.usps).map((usp) => (
             <li key={usp.text} className="flex items-start gap-3">
               <usp.icon
                 className="text-accent mt-0.5 size-4 shrink-0"
                 strokeWidth={2.25}
                 aria-hidden
               />
-              <span className="text-sm sm:text-base">{usp.text}</span>
+              <span className="text-sm md:text-base">{usp.text}</span>
             </li>
           ))}
         </ul>
@@ -250,13 +271,14 @@ function ServiceCard({ service }: { service: Service }) {
             booking flow has always offered the choice — the site simply never
             said so. Set as a hairline pair rather than two more cards: this is
             a variant of the product above it, not a third and fourth product. */}
-        <div className="border-line mt-6 border-t pt-6">
+        <div className="border-line mt-5 border-t pt-5 md:mt-6 md:pt-6">
           <p className="eyebrow text-muted">Kies uw parkeerlocatie</p>
-          <dl className="mt-3 grid gap-3 sm:grid-cols-2">
+          <dl className="mt-3 grid gap-2 md:gap-3 sm:grid-cols-2">
             {COVER_OPTIONS.map((option) => (
-              <div key={option.label} className="border-line rounded-md border p-3.5">
+              <div key={option.label} className="border-line rounded-md border p-3 md:p-3.5">
                 <dt className="text-heading text-sm font-semibold">{option.label}</dt>
-                <dd className="text-muted mt-1 text-xs leading-relaxed">{option.body}</dd>
+                <dd className="text-muted mt-1 text-xs leading-relaxed md:hidden">{option.mobileBody}</dd>
+                <dd className="text-muted mt-1 hidden text-xs leading-relaxed md:block">{option.body}</dd>
               </div>
             ))}
           </dl>
@@ -266,7 +288,7 @@ function ServiceCard({ service }: { service: Service }) {
           </p>
         </div>
 
-        <div className="mt-auto pt-8">
+        <div className="mt-auto pt-6 md:pt-8">
           {/* Carries the service into the booking flow, which narrows it to
               that service's two products. The picker's own format — see
               src/lib/booking.ts. */}
@@ -289,7 +311,7 @@ function ServiceCard({ service }: { service: Service }) {
           <Button
             href={SERVICE_COPY[service.slug].href}
             variant="link"
-            className="mt-4 block sm:mt-5"
+            className="mt-3 block text-sm sm:mt-5"
           >
             Meer over {service.title.toLowerCase()}
           </Button>

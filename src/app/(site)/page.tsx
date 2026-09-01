@@ -3,6 +3,7 @@ import { jsonLd, breadcrumbSchema } from '@/lib/schema';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { TrustStrip } from '@/components/sections/TrustStrip';
 import { ServiceChooser } from '@/components/sections/ServiceChooser';
+import { MobileTrustBlock } from '@/components/sections/MobileTrustBlock';
 import { WhyUs } from '@/components/sections/WhyUs';
 import { Security } from '@/components/sections/Security';
 import { HowItWorks } from '@/components/sections/HowItWorks';
@@ -48,6 +49,7 @@ export default async function HomePage() {
       <HeroSection bounds={bounds} showPromo={showPromo} />
       <TrustStrip />
       <ServiceChooser />
+      <MobileTrustBlock />
       <WhyUs />
       <Security />
       <HowItWorks />
@@ -57,7 +59,13 @@ export default async function HomePage() {
           eslint, and the section order note above still assumes it. */}
       {/* <Testimonials /> */}
       <Faq />
-      <ClosingCta />
+      <ClosingCta
+        compactOnMobile
+        mobileHeading="Klaar om uw parkeerplek te regelen?"
+        mobileLead="Bekijk direct uw prijs en rond uw reservering af wanneer het u uitkomt."
+        mobileBookingHref="#hero-booking"
+        mobileBookingLabel="Bekijk mijn prijs"
+      />
 
       {/* Watches the hero's booking card; stands down at the footer. */}
       <StickyBookingBar watchId="hero-booking" hideAfterId="site-footer" />

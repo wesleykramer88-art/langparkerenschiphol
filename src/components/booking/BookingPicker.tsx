@@ -220,7 +220,7 @@ export function BookingPicker({
   return (
     <Ticket notch={notch} className={className}>
       <form onSubmit={onSubmit} noValidate>
-        <div className="px-6 pt-7 pb-6 sm:px-7">
+        <div className="px-5 pt-6 pb-5 sm:px-7 sm:pt-7 sm:pb-6">
           {headingLevel === 'h1' ? (
             <h1 className="text-display-sm">Bekijk direct uw parkeerprijs</h1>
           ) : (
@@ -232,7 +232,7 @@ export function BookingPicker({
               and the choice changes what the rest of the form allows. Rendered
               as real radio inputs with the label styled — so it is operable with
               arrow keys and announced as a group, which a row of buttons is not. */}
-          <fieldset className="mt-6 border-0 p-0">
+          <fieldset className="mt-5 border-0 p-0 sm:mt-6">
             <legend id={serviceLabelId} className="eyebrow text-muted mb-2.5">
               Welke service?
             </legend>
@@ -273,7 +273,7 @@ export function BookingPicker({
             </p>
           </fieldset>
 
-          <fieldset className="mt-6 flex flex-col gap-4 border-0 p-0">
+          <fieldset className="mt-5 flex flex-col gap-3.5 border-0 p-0 sm:mt-6 sm:gap-4">
             <legend className="eyebrow text-muted mb-1">Parkeerperiode</legend>
 
             <DateTimeRow
@@ -323,7 +323,7 @@ export function BookingPicker({
               should verify the LPS-V rate configuration in the ParkingPro back
               office. No correction or workaround has been applied here. */}
           {nights ? (
-            <div className="mt-5">
+            <div className="mt-4 sm:mt-5">
               <p className="eyebrow text-muted mb-2.5">Parkeeroptie</p>
               <div className="grid grid-cols-2 gap-2">
                 <ProductCard
@@ -365,7 +365,7 @@ export function BookingPicker({
             ) : null}
           </p>
 
-          <Button type="submit" size="lg" disabled={submitting} className="mt-5 w-full">
+          <Button type="submit" size="lg" disabled={submitting} className="mt-4 w-full sm:mt-5">
             {selectedPrice
               ? `Reserveer voor ${formatPrice(selectedPrice.total, selectedPrice.currency)}`
               : 'Bekijk mijn prijs'}
@@ -387,7 +387,7 @@ export function BookingPicker({
             whole point of quoting it here: the visitor sees what it costs, set
             in our own typography, before ParkingPro renders anything. It
             appears when it appears and its absence is not signalled. */}
-        <div className="flex items-end justify-between gap-4 px-6 pt-4 pb-6 sm:px-7">
+        <div className="flex items-end justify-between gap-4 px-5 pt-3 pb-5 sm:px-7 sm:pt-4 sm:pb-6">
           <div className="min-w-0">
             <p className="eyebrow text-muted">{nights ? 'Parkeerperiode' : 'Uw voordeel'}</p>
             {/* The period is a departure-board value — mono, tabular, one line,
@@ -497,7 +497,7 @@ function DateTimeRow({
   const timeId = useId();
 
   return (
-    <div className="grid gap-3 sm:grid-cols-[1fr_7.5rem]">
+    <div className="grid gap-2.5 sm:grid-cols-[1fr_7.5rem] sm:gap-3">
       <div className="flex flex-col gap-1.5">
         <label htmlFor={dateId} className="text-heading text-sm font-medium">
           {label}{' '}

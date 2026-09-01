@@ -153,7 +153,7 @@ export function HeroSection({
       {/* ========================================================================
           MOBILE LAYOUT (below lg)
           ======================================================================== */}
-      <div className="flex flex-col pt-3 lg:hidden">
+      <div className="flex flex-col pt-2 lg:hidden">
         {/* --- BOOKING WIDGET AT TOP --- */}
         {/* The widget lives here on mobile for maximum conversion. Moved from
             the right column to top of page, so users see the booking form before
@@ -174,7 +174,7 @@ export function HeroSection({
         </motion.div>
 
         {/* --- HERO PHOTO --- */}
-        <div aria-hidden className="relative h-96 overflow-hidden">
+        <div aria-hidden className="relative h-60 overflow-hidden md:h-96">
           <HeroPhoto
             name="crewShuttleTerminal"
             portraitName="crewShuttleTerminalPortrait"
@@ -186,10 +186,10 @@ export function HeroSection({
         </div>
 
         {/* --- COPY COLUMN --- */}
-        <Container className="relative py-12">
-          <div className="flex flex-col items-start gap-6">
+        <Container className="relative py-8 md:py-12">
+          <div className="flex flex-col items-start gap-4 md:gap-6">
             {/* Eyebrow */}
-            <motion.div {...rise(0)} className="flex items-center gap-3">
+           <motion.div {...rise(0)} className="hidden items-center gap-3 md:flex">
               <span aria-hidden className="bg-valet-400 size-2 shrink-0 rotate-45 rounded-xs" />
               <p className="eyebrow text-paper-50">
                 PREMIUM SHUTTLE- EN VALETPARKEREN BIJ SCHIPHOL
@@ -197,7 +197,7 @@ export function HeroSection({
             </motion.div>
 
             {/* Headline */}
-            <h2 className="text-display-2xl text-heading-inverse">
+            <h2 className="text-display-xl md:text-display-2xl text-heading-inverse">
               {HEADLINE_LINES.map((line, index) => (
                 <span key={line} className="block overflow-hidden pb-[0.08em]">
                   <motion.span
@@ -216,23 +216,19 @@ export function HeroSection({
               ))}
             </h2>
 
-            {/* Subhead */}
-            <motion.p {...rise(0.34)} className="text-display-md text-valet-300">
-              {SUBHEAD}
-            </motion.p>
-
             {/* Lead paragraph */}
-            <motion.p {...rise(0.42)} className="text-lead text-navy-100 max-w-[46ch]">
-              Voor parkeren Schiphol kiest u voor Shuttle en neemt u uw autosleutels mee op reis, of laat
-              u uw auto bij Valet comfortabel overnemen bij de vertrekhal. Uw auto staat op een
-              afgesloten, 24/7 gemonitorde parkeerlocatie. Valetritten worden digitaal
-              geregistreerd voor extra controle en zekerheid.
+             <motion.p
+               {...rise(0.34)}
+               className="text-navy-100 max-w-[34ch] text-base leading-relaxed md:text-lead md:max-w-[46ch]"
+             >
+              Kies Shuttle als u zelf parkeert en uw sleutels meeneemt, of Valet voor een snelle
+              overdracht direct bij de vertrekhal.
             </motion.p>
 
             {/* Proof row */}
             <motion.ul
-              {...rise(0.51)}
-              className="border-line-inverse mt-3 grid w-full max-w-lg gap-3 border-t pt-4"
+              {...rise(0.42)}
+              className="border-line-inverse grid w-full max-w-md gap-3 border-t pt-4 md:mt-3 md:max-w-lg"
             >
               {PROOF.map((item) => (
                 <li key={item} className="text-navy-100 flex items-start gap-2.5">
@@ -247,24 +243,16 @@ export function HeroSection({
             </motion.ul>
 
             {/* CTAs */}
-            <motion.div {...rise(0.6)} className="mt-4 flex flex-wrap items-center gap-3">
-              <Button href="/reservering/" size="lg">
-                Reserveer nu
+            <motion.div {...rise(0.5)} className="mt-2 flex flex-wrap items-center gap-3 md:mt-4">
+              <Button href="#diensten" size="lg" className="w-full sm:w-auto">
+                Vergelijk Shuttle en Valet
                 <ArrowRight data-arrow className="size-4" aria-hidden />
-              </Button>
-              <Button href="/tarieven/" variant="onDark" size="lg">
-                Bekijk tarieven
               </Button>
             </motion.div>
 
-            {/* Reassurance line */}
-            <motion.p {...rise(0.66)} className="text-navy-300 text-sm">
-              Online reserveren met directe bevestiging
-            </motion.p>
-
             {/* Promo */}
             {showPromo ? (
-              <motion.div {...rise(0.74)}>
+              <motion.div {...rise(0.74)} className="hidden md:block">
                 <PromoCoupon />
               </motion.div>
             ) : null}

@@ -61,7 +61,7 @@ const ITEMS: readonly BoardItem[] = [
 
 export function TrustStrip() {
   return (
-    <Section tone="canvas" spacing="none" className="pt-32 pb-14 lg:pt-44 lg:pb-20">
+    <Section tone="canvas" spacing="none" className="hidden pt-32 pb-14 md:block lg:pt-44 lg:pb-20">
       <Container>
         {/* A list, because it is one: four parallel claims about the service. */}
         <ul className="grid grid-cols-2 gap-x-8 gap-y-10 lg:grid-cols-4 lg:gap-x-12">

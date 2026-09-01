@@ -91,7 +91,7 @@ const MEASURES: readonly { icon: LucideIcon; label: string; body: string }[] = [
 
 export function Security() {
   return (
-    <Section tone="surface" spacing="lg" aria-labelledby="beveiliging-heading">
+    <Section tone="surface" spacing="lg" aria-labelledby="beveiliging-heading" className="hidden md:block">
       {/* The seam with the canvas section above. `tone` is not passed — it
           defaults to light, which is what this band now is. */}
       <Container className="absolute inset-x-0 top-0 z-10">
@@ -157,7 +157,7 @@ export function Security() {
 
         <Stagger as="ul" className="mt-14 grid gap-4 sm:grid-cols-2 lg:mt-16 lg:grid-cols-5">
           {MEASURES.map((measure) => (
-            <li
+            <div
               key={measure.label}
               className="border-line bg-canvas flex h-full flex-col gap-3 rounded-xl border px-6 py-7"
             >
@@ -166,7 +166,7 @@ export function Security() {
                 {measure.label}
               </span>
               <span className="text-muted text-sm leading-relaxed">{measure.body}</span>
-            </li>
+            </div>
           ))}
         </Stagger>
       </Container>
