@@ -52,7 +52,7 @@ const REASONS: readonly Item[] = [
   {
     icon: ShieldCheck,
     title: '24/7 zorg voor uw auto',
-    body: 'Video surveillance en ervaren chauffeurs in dienst.',
+    body: 'Camerabewaking en ervaren chauffeurs in dienst.',
   },
   {
     icon: Gauge,
@@ -76,7 +76,7 @@ const USPS: readonly Item[] = [
   {
     icon: BadgeCheck,
     title: 'Veilig en professioneel',
-    body: 'Je auto in betrouwbare, ervaren handen.',
+    body: 'Uw auto in betrouwbare, ervaren handen.',
   },
   {
     icon: FileCheck,
