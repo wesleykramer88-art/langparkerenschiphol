@@ -355,8 +355,8 @@ Do not silently "fix" these. Implement the sensible version, list them in the ha
 and let him confirm. Finding them is part of the value we're delivering.
 
 1. **NAP is inconsistent**, which actively hurts local SEO:
-   - Homepage header shows `085-4013918`; every other page's header shows `0297-785515`.
-   - Footer shows `085-4013918`; the contact page shows `0297 — 785 515`.
+   - Homepage header shows `020-303 3460`; every other page's header shows `0297-785515`.
+   - Footer shows `020-303 3460`; the contact page shows `0297 — 785 515`.
    - Footer e-mail is `klantenservice@…`; contact page e-mail is `info@…`.
    - Location is "Schiphol, Noord-Holland" in the footer and "Schiphol-Rijk, Nederland"
      on the contact page.
