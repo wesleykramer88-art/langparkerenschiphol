@@ -67,17 +67,16 @@ export function CountUp({
   const display = prefersReduced || !inView ? to : value;
 
   return (
-    <span ref={ref} className={cn('numeric tabular-nums', className)}>
-      {/* Reserves the final width so the layout cannot shift while counting. */}
+    <span
+      ref={ref}
+      className={cn('numeric tabular-nums', className)}
+      aria-label={`${prefix}${format(to)}${suffix}`}
+    >
+      {/* The visible value is hidden from assistive technology while counting;
+          the wrapper's stable label is announced once. */}
       <span aria-hidden className="inline-block" style={{ minWidth: '1ch' }}>
         {prefix}
         {format(display)}
-        {suffix}
-      </span>
-      {/* AT reads the destination once, not every intermediate frame. */}
-      <span className="sr-only">
-        {prefix}
-        {format(to)}
         {suffix}
       </span>
     </span>
