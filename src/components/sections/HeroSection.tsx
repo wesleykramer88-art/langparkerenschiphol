@@ -149,11 +149,21 @@ export function HeroSection({
         };
 
   return (
-    <section className="bg-surface-inverse relative overflow-hidden">
+    <section className="bg-surface relative overflow-hidden">
       {/* ========================================================================
           MOBILE LAYOUT (below lg)
           ======================================================================== */}
-      <div className="flex flex-col pt-2 lg:hidden">
+      <div className="relative flex flex-col overflow-hidden pt-3 lg:hidden">
+        <div aria-hidden className="absolute inset-0">
+          <HeroPhoto
+            name="crewShuttleTerminal"
+            portraitName="crewShuttleTerminalPortrait"
+            className="absolute inset-0 h-full w-full"
+            imageClassName="photo-drift object-cover object-[center_52%] opacity-42 md:object-[center_55%] md:opacity-48"
+          />
+          <div className="absolute inset-0 bg-linear-to-b from-white/96 via-white/88 to-white" />
+          <div className="absolute inset-0 bg-linear-to-r from-white/84 via-white/46 to-white/72" />
+        </div>
         {/* --- BOOKING WIDGET AT TOP --- */}
         {/* The widget lives here on mobile for maximum conversion. Moved from
             the right column to top of page, so users see the booking form before
@@ -164,40 +174,24 @@ export function HeroSection({
             prefersReduced ? { opacity: 1, y: 0, rotate: 0 } : { opacity: 0, y: 14, rotate: 0 }
           }
           animate={{ opacity: 1, y: 0, rotate: 0 }}
-          transition={
-            prefersReduced ? { duration: 0 } : { duration: 0.6, delay: 0.4, ease: EASE }
-          }
+          transition={prefersReduced ? { duration: 0 } : { duration: 0.6, delay: 0.4, ease: EASE }}
           id="hero-booking"
           className="relative z-10 w-full"
         >
-          <BookingPicker notch="inverse" bounds={bounds} headingLevel="h1" />
+          <BookingPicker notch="surface" bounds={bounds} headingLevel="h1" />
         </motion.div>
 
-        {/* --- HERO PHOTO --- */}
-        <div aria-hidden className="relative h-60 overflow-hidden md:h-96">
-          <HeroPhoto
-            name="crewShuttleTerminal"
-            portraitName="crewShuttleTerminalPortrait"
-            className="absolute inset-0 h-full w-full"
-            imageClassName="photo-drift object-[center_62%]"
-          />
-          {/* Mobile gradient scrim */}
-          <div className="from-navy-950/62 via-navy-950/38 to-navy-950 absolute inset-0 bg-linear-to-b" />
-        </div>
-
         {/* --- COPY COLUMN --- */}
-        <Container className="relative pt-10 pb-8 md:py-12">
+        <Container className="relative z-10 pt-14 pb-16 md:py-20">
           <div className="flex flex-col items-start gap-4 md:gap-6">
             {/* Eyebrow */}
-           <motion.div {...rise(0)} className="hidden items-center gap-3 md:flex">
+            <motion.div {...rise(0)} className="hidden items-center gap-3 md:flex">
               <span aria-hidden className="bg-valet-400 size-2 shrink-0 rotate-45 rounded-xs" />
-              <p className="eyebrow text-paper-50">
-                PREMIUM SHUTTLE- EN VALETPARKEREN BIJ SCHIPHOL
-              </p>
+              <p className="eyebrow text-brand">PREMIUM SHUTTLE- EN VALETPARKEREN BIJ SCHIPHOL</p>
             </motion.div>
 
             {/* Headline */}
-            <h2 className="text-display-xl md:text-display-2xl text-heading-inverse">
+            <h2 className="text-display-xl md:text-display-2xl text-heading">
               {HEADLINE_LINES.map((line, index) => (
                 <span key={line} className="block overflow-hidden pb-[0.08em]">
                   <motion.span
@@ -207,7 +201,11 @@ export function HeroSection({
                     transition={
                       prefersReduced
                         ? { duration: 0 }
-                        : { duration: 0.6, delay: 0.07 + index * 0.09, ease: EASE }
+                        : {
+                            duration: 0.6,
+                            delay: 0.07 + index * 0.09,
+                            ease: EASE,
+                          }
                     }
                   >
                     {line}
@@ -217,10 +215,10 @@ export function HeroSection({
             </h2>
 
             {/* Lead paragraph */}
-             <motion.p
-               {...rise(0.34)}
-               className="text-navy-100 max-w-[34ch] text-base leading-relaxed md:text-lead md:max-w-[46ch]"
-             >
+            <motion.p
+              {...rise(0.34)}
+              className="text-body max-w-[34ch] text-base leading-relaxed md:text-lead md:max-w-[46ch]"
+            >
               Kies Shuttle als u zelf parkeert en uw sleutels meeneemt, of Valet voor een snelle
               overdracht direct bij de vertrekhal.
             </motion.p>
@@ -228,10 +226,10 @@ export function HeroSection({
             {/* Proof row */}
             <motion.ul
               {...rise(0.42)}
-              className="border-line-inverse grid w-full max-w-md gap-3 border-t pt-4 md:mt-3 md:max-w-lg"
+              className="border-line grid w-full max-w-md gap-3 border-t pt-4 md:mt-3 md:max-w-lg"
             >
               {PROOF.map((item) => (
-                <li key={item} className="text-navy-100 flex items-start gap-2.5">
+                <li key={item} className="text-body flex items-start gap-2.5">
                   <Check
                     className="text-valet-400 mt-0.5 size-4 shrink-0"
                     strokeWidth={3}
@@ -272,14 +270,9 @@ export function HeroSection({
           imageClassName="photo-drift object-[center_62%] sm:object-[42%_50%] lg:object-[center_45%]"
         />
 
-        {/* Two scrims for desktop composition */}
+        {/* A pale photographic wash keeps the Schiphol setting visible without
+            turning the first viewport into a dark advertising banner. */}
         <div className="scrim-hero absolute inset-0" />
-
-        {/* Header scrim */}
-        <div
-          aria-hidden
-          className="from-navy-950/88 via-navy-950/46 absolute inset-x-0 top-0 h-32 bg-linear-to-b to-transparent"
-        />
       </div>
 
       <Container className="relative hidden lg:block">
@@ -289,13 +282,11 @@ export function HeroSection({
             {/* Eyebrow */}
             <motion.div {...rise(0)} className="flex items-center gap-3">
               <span aria-hidden className="bg-valet-400 size-2 shrink-0 rotate-45 rounded-xs" />
-              <p className="eyebrow text-paper-50">
-                PREMIUM SHUTTLE- EN VALETPARKEREN BIJ SCHIPHOL
-              </p>
+              <p className="eyebrow text-brand">PREMIUM SHUTTLE- EN VALETPARKEREN BIJ SCHIPHOL</p>
             </motion.div>
 
             {/* Headline */}
-            <h2 className="text-display-2xl text-heading-inverse mt-7">
+            <h2 className="text-display-2xl text-heading mt-7">
               {HEADLINE_LINES.map((line, index) => (
                 <span key={line} className="block overflow-hidden pb-[0.08em]">
                   <motion.span
@@ -305,7 +296,11 @@ export function HeroSection({
                     transition={
                       prefersReduced
                         ? { duration: 0 }
-                        : { duration: 0.6, delay: 0.07 + index * 0.09, ease: EASE }
+                        : {
+                            duration: 0.6,
+                            delay: 0.07 + index * 0.09,
+                            ease: EASE,
+                          }
                     }
                   >
                     {line}
@@ -315,25 +310,25 @@ export function HeroSection({
             </h2>
 
             {/* Subhead */}
-            <motion.p {...rise(0.34)} className="text-display-md text-valet-300 mt-4">
+            <motion.p {...rise(0.34)} className="text-display-md text-brand mt-4">
               {SUBHEAD}
             </motion.p>
 
             {/* Lead paragraph */}
-            <motion.p {...rise(0.42)} className="text-lead text-navy-100 mt-7 max-w-[46ch]">
-              Voor parkeren Schiphol kiest u voor Shuttle en neemt u uw autosleutels mee op reis, of laat
-              u uw auto bij Valet comfortabel overnemen bij de vertrekhal. Uw auto staat op een
-              afgesloten, 24/7 gemonitorde parkeerlocatie. Valetritten worden digitaal
-              geregistreerd voor extra controle en zekerheid.
+            <motion.p {...rise(0.42)} className="text-lead text-body mt-7 max-w-[46ch]">
+              Voor parkeren Schiphol kiest u voor Shuttle en neemt u uw autosleutels mee op reis, of
+              laat u uw auto bij Valet comfortabel overnemen bij de vertrekhal. Uw auto staat op een
+              afgesloten, 24/7 gemonitorde parkeerlocatie. Valetritten worden digitaal geregistreerd
+              voor extra controle en zekerheid.
             </motion.p>
 
             {/* Proof row */}
             <motion.ul
               {...rise(0.51)}
-              className="border-line-inverse mt-9 grid w-full max-w-lg gap-3 border-t pt-6 grid-cols-3 gap-x-5"
+              className="border-line mt-9 grid w-full max-w-lg gap-3 border-t pt-6 grid-cols-3 gap-x-5"
             >
               {PROOF.map((item) => (
-                <li key={item} className="text-navy-100 flex items-start gap-2.5">
+                <li key={item} className="text-body flex items-start gap-2.5">
                   <Check
                     className="text-valet-400 mt-0.5 size-4 shrink-0"
                     strokeWidth={3}
@@ -350,13 +345,13 @@ export function HeroSection({
                 Reserveer nu
                 <ArrowRight data-arrow className="size-4" aria-hidden />
               </Button>
-              <Button href="/tarieven/" variant="onDark" size="lg">
+              <Button href="/tarieven/" variant="outline" size="lg">
                 Bekijk tarieven
               </Button>
             </motion.div>
 
             {/* Reassurance line */}
-            <motion.p {...rise(0.66)} className="text-navy-300 mt-6 text-sm">
+            <motion.p {...rise(0.66)} className="text-muted mt-6 text-sm">
               Online reserveren met directe bevestiging
             </motion.p>
 
@@ -380,7 +375,7 @@ export function HeroSection({
             id="hero-booking-desktop"
             className="relative z-10 -mb-32 w-full"
           >
-            <BookingPicker notch="inverse" bounds={bounds} headingLevel="h2" />
+            <BookingPicker notch="surface" bounds={bounds} headingLevel="h2" />
           </motion.div>
         </div>
       </Container>
