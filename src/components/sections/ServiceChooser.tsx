@@ -54,7 +54,6 @@ type Service = {
   /** accent = the recommended option; there is only ever one. */
   badgeTone: 'accent' | 'brand';
   description: string;
-  mobileDescription: string;
   /**
    * The client's USPs for this service, each with its own mark.
    *
@@ -94,7 +93,6 @@ const SERVICES: readonly Service[] = [
     badgeTone: 'accent',
     description:
       'Rijd rechtstreeks naar de vertrekhal van Schiphol. Onze chauffeur staat klaar, controleert uw auto en rijdt deze naar onze veilige parkeerlocatie.',
-    mobileDescription: 'Geef uw auto af bij de vertrekhal en loop direct door naar de check-in.',
     // Read from the one place the client's compact USPs live, rather than
     // retyped. This card, the ticket stub and the two service landing pages all
     // render them; three transcriptions of the same four lines is three chances
@@ -117,7 +115,6 @@ const SERVICES: readonly Service[] = [
     badgeTone: 'brand',
     description:
       'Parkeer uw auto op ons terrein. Onze shuttlebus brengt u comfortabel binnen 5 tot 8 minuten naar de vertrekhal van Schiphol.',
-    mobileDescription: 'Parkeer zelf op ons terrein en reis in 5 tot 8 minuten met de shuttle naar Schiphol.',
     usps: SERVICE_COPY.shuttle.bullets,
     cta: 'Reserveer Shuttle Parkeren',
     // His own terrain, with the shuttle bus running along the top of the frame
@@ -127,8 +124,6 @@ const SERVICES: readonly Service[] = [
     where: SERVICE_COPY.shuttle.where,
   },
 ];
-
-const MOBILE_SERVICES: readonly Service[] = [SERVICES[1], SERVICES[0]];
 
 /**
  * Outdoor or covered — the half of the product range the site never mentioned.
@@ -187,14 +182,8 @@ export function ServiceChooser() {
           </p>
         </Reveal>
 
-        <Stagger as="ul" className="mt-8 grid gap-4 md:hidden">
-          {MOBILE_SERVICES.map((service) => (
-            <ServiceCard key={service.id} service={service} uspCount={3} />
-          ))}
-        </Stagger>
-
-        <Stagger as="ul" className="mt-12 hidden gap-6 md:grid lg:mt-16 lg:grid-cols-2 lg:gap-8">
-          {SERVICES.map((service) => (
+        <Stagger as="ul" className="mt-8 grid gap-4 md:mt-12 md:gap-6 lg:mt-16 lg:grid-cols-2 lg:gap-8">
+          {[SERVICES[1], SERVICES[0]].map((service) => (
             <ServiceCard key={service.id} service={service} />
           ))}
         </Stagger>
@@ -203,7 +192,7 @@ export function ServiceChooser() {
   );
 }
 
-function ServiceCard({ service, uspCount }: { service: Service; uspCount?: number }) {
+function ServiceCard({ service }: { service: Service }) {
   return (
     <article
       id={service.id}
@@ -223,25 +212,19 @@ function ServiceCard({ service, uspCount }: { service: Service; uspCount?: numbe
             what the photograph is doing at its foot. */}
         <div aria-hidden className="scrim-card absolute inset-0" />
 
-        <Badge tone={service.badgeTone} className="absolute top-5 left-5 z-10 hidden md:inline-flex">
+        <Badge tone={service.badgeTone} className="absolute top-5 left-5 z-10">
           {service.badge}
         </Badge>
 
-        <h3 className="text-display-sm text-heading-inverse absolute right-6 bottom-5 left-6 z-10 hidden md:block">
+        <h3 className="text-display-sm text-heading-inverse absolute right-6 bottom-5 left-6 z-10">
           {service.title}
         </h3>
       </div>
 
       <div className="flex flex-1 flex-col p-5 md:p-6 lg:p-8">
-        <div className="flex flex-wrap items-start justify-between gap-3 md:hidden">
-          <div>
-            <h3 className="text-display-sm text-heading">{service.title}</h3>
-            <p className="text-muted mt-2 text-sm leading-relaxed">{service.mobileDescription}</p>
-          </div>
-          <Badge tone={service.badgeTone}>{service.badge}</Badge>
-        </div>
-
-        <p className="hidden max-w-[46ch] md:block">{service.description}</p>
+        <p className="text-muted max-w-[46ch] text-sm leading-relaxed md:text-base">
+          {service.description}
+        </p>
 
         {/* The USP block.
 
@@ -254,7 +237,7 @@ function ServiceCard({ service, uspCount }: { service: Service; uspCount?: numbe
             back under it. Every icon is aria-hidden — each one restates the
             sentence beside it, so announcing both would read the list twice. */}
         <ul className="border-line mt-5 flex flex-col gap-3 border-t pt-5 md:mt-6 md:gap-3.5 md:pt-6">
-          {(uspCount ? service.usps.slice(0, uspCount) : service.usps).map((usp) => (
+          {service.usps.map((usp) => (
             <li key={usp.text} className="flex items-start gap-3">
               <usp.icon
                 className="text-accent mt-0.5 size-4 shrink-0"
@@ -277,8 +260,7 @@ function ServiceCard({ service, uspCount }: { service: Service; uspCount?: numbe
             {COVER_OPTIONS.map((option) => (
               <div key={option.label} className="border-line rounded-md border p-3 md:p-3.5">
                 <dt className="text-heading text-sm font-semibold">{option.label}</dt>
-                <dd className="text-muted mt-1 text-xs leading-relaxed md:hidden">{option.mobileBody}</dd>
-                <dd className="text-muted mt-1 hidden text-xs leading-relaxed md:block">{option.body}</dd>
+                <dd className="text-muted mt-1 text-xs leading-relaxed">{option.body}</dd>
               </div>
             ))}
           </dl>
