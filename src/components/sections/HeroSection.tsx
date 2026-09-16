@@ -53,10 +53,14 @@ export function HeroSection({
           name="crewShuttleTerminal"
           portraitName="crewShuttleTerminalPortrait"
           className="absolute inset-0 h-full w-full"
-          imageClassName="photo-drift object-cover object-[center_52%] opacity-40 md:object-[center_55%] md:opacity-48 lg:object-[center_45%] lg:opacity-100"
+          imageClassName="photo-drift object-cover object-[center_52%] opacity-75 md:object-[center_55%] md:opacity-70 lg:object-[center_45%] lg:opacity-100"
         />
-        <div className="absolute inset-0 bg-linear-to-b from-white/96 via-white/88 to-white lg:hidden" />
-        <div className="absolute inset-0 bg-linear-to-r from-white/84 via-white/46 to-white/72 lg:hidden" />
+        {/* On mobile the booking card stays visually white, while the middle of
+            the hero reveals the Schiphol photograph. The stronger white at the
+            top and bottom protects form and text contrast and creates a smooth
+            transition back into the page. */}
+        <div className="absolute inset-0 bg-linear-to-b from-white/98 via-white/35 to-white/90 lg:hidden" />
+        <div className="absolute inset-0 bg-linear-to-r from-white/65 via-white/15 to-white/45 lg:hidden" />
         <div className="scrim-hero absolute inset-0 hidden lg:block" />
       </div>
 
