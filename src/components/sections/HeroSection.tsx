@@ -9,117 +9,23 @@ import { BookingPicker } from '@/components/booking/BookingPicker';
 import { PromoCoupon } from '@/components/sections/PromoCoupon';
 import type { PickerBounds } from '@/lib/parkingpro-config';
 
-/**
- * The hero.
- *
- * MOBILE LAYOUT (below lg):
- * - Booking widget sits at the top (primary CTA, highest conversion point)
- * - Hero photograph below, occupying top band of section
- * - Copy column fills remainder, running full width
- *
- * DESKTOP LAYOUT (lg and above):
- * - Booking widget (ticket) sits on the right, overhanging into section below
- * - Photograph fills entire background
- * - Copy sits in left column, headline prominent over image
- *
- * The thesis of the whole page: the handover itself, at the terminal kerb, with
- * the booking ticket laid over it. The photograph is the argument — this
- * business sells a place to leave your car, and the flat navy field it replaces
- * asserted that in words while showing nothing. Everything else here is arranged
- * to stay out of its way.
- *
- * This is the one place on the site that uses motion/Framer. Everything else —
- * scroll reveals, hovers, the marquee, the photograph's drift — is CSS, so the
- * animation runtime loads for exactly one orchestrated moment rather than being
- * sprinkled across the page. Over-animation is the clearest tell of generated
- * work.
- *
- * The load sequence, finishing under 1.4s:
- *   1. eyebrow + rating fade in
- *   2. H1 reveals line by line, each line's inner span rising from y:100%
- *      behind an overflow:hidden mask, 90ms apart
- *   3. lead fades up
- *   4. the proof row fades up
- *   5. CTAs fade up
- *   6. the ticket arrives from x:32 / rotate:-2deg — it settles like a card
- *      being laid on a desk (on mobile, this is at the top instead)
- *   7. the ticket's perforation draws left to right (CSS, in globals.css)
- *
- * Behind all of it the photograph drifts from scale 1.04 to 1.13 over 30s, once
- * and never looping. Nothing below the fold animates on load.
- */
-
-// One curve for the whole sequence. ease-out-expo: it decelerates hard, which is
-// what makes the ticket read as being set down rather than sliding to a stop.
 const EASE = [0.16, 1, 0.3, 1] as const;
-
-/**
- * The H1, pre-split. Line breaks are a design decision, not a wrap artefact.
- *
- * ── Client copy, August 2026 ────────────────────────────────────────────────
- * Was ['Zorgeloos', 'lang parkeren', 'op Schiphol.'] — three lines opening on
- * an adjective. The brand name now leads and "Schiphol" closes the line, which
- * is also the local-SEO ask: the H1 is the strongest on-page signal the site
- * has for the query it is actually competing for.
- *
- * "Zorgeloos" is not lost — it moves to SUBHEAD below, where it reads as the
- * promise rather than as the first thing the page says about itself.
- *
- * ⚠ SCRIM. Two lines, not three, and no line wider than "lang parkeren" was, so
- * this copy change on its own neither widened nor extended the copy column.
- * The gradient WAS re-cut afterwards, for a different reason — the client asked
- * for a lighter hero — and every stop is now measured against the real
- * composited frame. If a future H1 runs longer than these lines, re-measure;
- * `scrim-hero` in globals.css says how, and warns against the shortcut that
- * produced the wrong numbers the first time.
- */
 const HEADLINE_LINES = ['Lang Parkeren', 'op Schiphol'] as const;
-
-/**
- * The promise, directly under the H1.
- *
- * Set at display-md rather than as another lead paragraph: it is a tagline, and
- * a tagline that shares the lead's size and weight simply reads as a first
- * sentence that failed to say anything.
- *
- * It is the last valet-300 element left in the hero — the eyebrow above it went
- * white when the scrim was lightened — which makes it the accent's only
- * appearance in the copy column, and also the tightest measurement in the band:
- * 3.38:1 over the real composited frame, against the 3.0 a 40px bold line
- * needs. That figure is what stopped the scrim going lighter still. If you
- * change this colour or this size, re-measure the whole band.
- */
-const SUBHEAD = 'Uw auto veilig. U zorgeloos op reis.';
-
-/**
- * Set as a hairline row, not as a bullet list.
- *
- * Shuttle leads, because shuttle is about 90% of bookings (client, 31 July
- * 2026) and nothing above the fold used to say so — the hero named valet first
- * and the proof row did not mention either service.
- *
- * "De meest gekozen parkeerservice" was the third line and is gone. It is
- * unfalsifiable — most-chosen by whom, measured against what — and it sat in
- * the one row on the page whose job is to be checkable. What replaces it is a
- * concrete fact the client already publishes on /tarieven/, and it happens to
- * answer the question shuttle customers actually ask, which is whether the ride
- * costs extra.
- * TODO(client): if you want a popularity claim back, give us the number behind
- * it and we will state that instead.
- */
 const PROOF = [
   'Op 5 tot 8 minuten van Schiphol',
   'Sleutels mee op reis bij Shuttle',
   '24/7 camerabewaking en monitoring',
 ] as const;
 
+/**
+ * One semantic hero for every screen size.
+ *
+ * The booking form and sales copy are each rendered exactly once. CSS changes
+ * their order and proportions between mobile and desktop; search engines and
+ * assistive technology no longer receive two competing versions of the hero.
+ */
 export function HeroSection({
   bounds,
-  /**
-   * Whether the seasonal coupon is still running. Decided on the server — see
-   * isPromoActive() — because comparing the visitor's clock against the build's
-   * would produce a hydration mismatch on the offer's last day.
-   */
   showPromo = false,
 }: {
   bounds?: PickerBounds;
@@ -127,14 +33,6 @@ export function HeroSection({
 }) {
   const prefersReduced = useReducedMotion();
 
-  /** Every animated element resolves through here, so reduced motion is handled
-   *  once rather than per-element.
-   *
-   *  Under reduced motion this returns the FINAL state explicitly — opacity 1,
-   *  no travel, zero duration — rather than `initial: false`. That shorthand
-   *  leaves an element with no `animate` target at all, and the hero rendered
-   *  with nothing below the H1: no lead, no proof row, no buttons. A
-   *  reduced-motion visitor is not asking for less content. */
   const rise = (delay: number) =>
     prefersReduced
       ? {
@@ -150,143 +48,43 @@ export function HeroSection({
 
   return (
     <section className="bg-surface relative overflow-hidden">
-      {/* ========================================================================
-          MOBILE LAYOUT (below lg)
-          ======================================================================== */}
-      <div className="relative flex flex-col overflow-hidden pt-3 lg:hidden">
-        <div aria-hidden className="absolute inset-0">
-          <HeroPhoto
-            name="crewShuttleTerminal"
-            portraitName="crewShuttleTerminalPortrait"
-            className="absolute inset-0 h-full w-full"
-            imageClassName="photo-drift object-cover object-[center_52%] opacity-42 md:object-[center_55%] md:opacity-48"
-          />
-          <div className="absolute inset-0 bg-linear-to-b from-white/96 via-white/88 to-white" />
-          <div className="absolute inset-0 bg-linear-to-r from-white/84 via-white/46 to-white/72" />
-        </div>
-        {/* --- BOOKING WIDGET AT TOP --- */}
-        {/* The widget lives here on mobile for maximum conversion. Moved from
-            the right column to top of page, so users see the booking form before
-            scrolling. Notch is inverse because the widget sits on the dark
-            (navy-950) section background. */}
-        <motion.div
-          initial={
-            prefersReduced ? { opacity: 1, y: 0, rotate: 0 } : { opacity: 0, y: 14, rotate: 0 }
-          }
-          animate={{ opacity: 1, y: 0, rotate: 0 }}
-          transition={prefersReduced ? { duration: 0 } : { duration: 0.6, delay: 0.4, ease: EASE }}
-          id="hero-booking"
-          className="relative z-10 w-full"
-        >
-          <BookingPicker notch="surface" bounds={bounds} headingLevel="h1" />
-        </motion.div>
-
-        {/* --- COPY COLUMN --- */}
-        <Container className="relative z-10 pt-14 pb-16 md:py-20">
-          <div className="flex flex-col items-start gap-4 md:gap-6">
-            {/* Eyebrow */}
-            <motion.div {...rise(0)} className="hidden items-center gap-3 md:flex">
-              <span aria-hidden className="bg-valet-400 size-2 shrink-0 rotate-45 rounded-xs" />
-              <p className="eyebrow text-brand">PREMIUM SHUTTLE- EN VALETPARKEREN BIJ SCHIPHOL</p>
-            </motion.div>
-
-            {/* Headline */}
-            <h2 className="text-display-xl md:text-display-2xl text-heading">
-              {HEADLINE_LINES.map((line, index) => (
-                <span key={line} className="block overflow-hidden pb-[0.08em]">
-                  <motion.span
-                    className="block"
-                    initial={prefersReduced ? { y: '0%' } : { y: '100%' }}
-                    animate={{ y: '0%' }}
-                    transition={
-                      prefersReduced
-                        ? { duration: 0 }
-                        : {
-                            duration: 0.6,
-                            delay: 0.07 + index * 0.09,
-                            ease: EASE,
-                          }
-                    }
-                  >
-                    {line}
-                  </motion.span>
-                </span>
-              ))}
-            </h2>
-
-            {/* Lead paragraph */}
-            <motion.p
-              {...rise(0.34)}
-              className="text-body max-w-[34ch] text-base leading-relaxed md:text-lead md:max-w-[46ch]"
-            >
-              Kies Shuttle als u zelf parkeert en uw sleutels meeneemt, of Valet voor een snelle
-              overdracht direct bij de vertrekhal.
-            </motion.p>
-
-            {/* Proof row */}
-            <motion.ul
-              {...rise(0.42)}
-              className="border-line grid w-full max-w-md gap-3 border-t pt-4 md:mt-3 md:max-w-lg"
-            >
-              {PROOF.map((item) => (
-                <li key={item} className="text-body flex items-start gap-2.5">
-                  <Check
-                    className="text-valet-400 mt-0.5 size-4 shrink-0"
-                    strokeWidth={3}
-                    aria-hidden
-                  />
-                  <span className="text-sm leading-snug">{item}</span>
-                </li>
-              ))}
-            </motion.ul>
-
-            {/* CTAs */}
-            <motion.div {...rise(0.5)} className="mt-2 flex flex-wrap items-center gap-3 md:mt-4">
-              <Button href="#diensten" size="lg" className="w-full sm:w-auto">
-                Vergelijk Shuttle en Valet
-                <ArrowRight data-arrow className="size-4" aria-hidden />
-              </Button>
-            </motion.div>
-
-            {/* Promo */}
-            {showPromo ? (
-              <motion.div {...rise(0.74)} className="hidden md:block">
-                <PromoCoupon />
-              </motion.div>
-            ) : null}
-          </div>
-        </Container>
-      </div>
-
-      {/* ========================================================================
-          DESKTOP LAYOUT (lg and above)
-          Booking widget on right, copy on left, photograph as background
-          ======================================================================== */}
-      <div aria-hidden className="hidden lg:absolute lg:inset-0 lg:overflow-hidden">
+      <div aria-hidden className="absolute inset-0 overflow-hidden">
         <HeroPhoto
           name="crewShuttleTerminal"
           portraitName="crewShuttleTerminalPortrait"
           className="absolute inset-0 h-full w-full"
-          imageClassName="photo-drift object-[center_62%] sm:object-[42%_50%] lg:object-[center_45%]"
+          imageClassName="photo-drift object-cover object-[center_52%] opacity-40 md:object-[center_55%] md:opacity-48 lg:object-[center_45%] lg:opacity-100"
         />
-
-        {/* A pale photographic wash keeps the Schiphol setting visible without
-            turning the first viewport into a dark advertising banner. */}
-        <div className="scrim-hero absolute inset-0" />
+        <div className="absolute inset-0 bg-linear-to-b from-white/96 via-white/88 to-white lg:hidden" />
+        <div className="absolute inset-0 bg-linear-to-r from-white/84 via-white/46 to-white/72 lg:hidden" />
+        <div className="scrim-hero absolute inset-0 hidden lg:block" />
       </div>
 
-      <Container className="relative hidden lg:block">
-        <div className="grid grid-cols-[minmax(0,7fr)_minmax(0,5fr)] items-center gap-16 min-h-[min(80vh,800px)] py-20">
-          {/* LEFT COLUMN - Copy */}
-          <div className="flex flex-col items-start">
-            {/* Eyebrow */}
-            <motion.div {...rise(0)} className="flex items-center gap-3">
+      <Container className="relative">
+        <div className="grid gap-12 pt-3 pb-16 md:gap-16 md:py-16 lg:min-h-[min(80vh,800px)] lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-center lg:gap-16 lg:py-20">
+          <motion.div
+            initial={
+              prefersReduced
+                ? { opacity: 1, x: 0, y: 0, rotate: 0 }
+                : { opacity: 0, x: 18, y: 14, rotate: -1 }
+            }
+            animate={{ opacity: 1, x: 0, y: 0, rotate: 0 }}
+            transition={
+              prefersReduced ? { duration: 0 } : { duration: 0.7, delay: 0.45, ease: EASE }
+            }
+            id="hero-booking"
+            className="relative z-10 order-1 w-full lg:order-2 lg:-mb-32"
+          >
+            <BookingPicker notch="surface" bounds={bounds} headingLevel="h2" />
+          </motion.div>
+
+          <div className="relative z-10 order-2 flex flex-col items-start lg:order-1">
+            <motion.div {...rise(0)} className="hidden items-center gap-3 md:flex">
               <span aria-hidden className="bg-valet-400 size-2 shrink-0 rotate-45 rounded-xs" />
-              <p className="eyebrow text-brand">PREMIUM SHUTTLE- EN VALETPARKEREN BIJ SCHIPHOL</p>
+              <p className="eyebrow text-brand">Premium shuttle- en valetparkeren bij Schiphol</p>
             </motion.div>
 
-            {/* Headline */}
-            <h2 className="text-display-2xl text-heading mt-7">
+            <h1 className="text-display-xl text-heading md:text-display-2xl md:mt-7">
               {HEADLINE_LINES.map((line, index) => (
                 <span key={line} className="block overflow-hidden pb-[0.08em]">
                   <motion.span
@@ -296,36 +94,31 @@ export function HeroSection({
                     transition={
                       prefersReduced
                         ? { duration: 0 }
-                        : {
-                            duration: 0.6,
-                            delay: 0.07 + index * 0.09,
-                            ease: EASE,
-                          }
+                        : { duration: 0.6, delay: 0.07 + index * 0.09, ease: EASE }
                     }
                   >
                     {line}
                   </motion.span>
                 </span>
               ))}
-            </h2>
+            </h1>
 
-            {/* Subhead */}
-            <motion.p {...rise(0.34)} className="text-display-md text-brand mt-4">
-              {SUBHEAD}
+            <motion.p {...rise(0.3)} className="text-display-sm text-brand mt-3 md:text-display-md md:mt-4">
+              Uw auto veilig. U zorgeloos op reis.
             </motion.p>
 
-            {/* Lead paragraph */}
-            <motion.p {...rise(0.42)} className="text-lead text-body mt-7 max-w-[46ch]">
-              Voor parkeren Schiphol kiest u voor Shuttle en neemt u uw autosleutels mee op reis, of
-              laat u uw auto bij Valet comfortabel overnemen bij de vertrekhal. Uw auto staat op een
-              afgesloten, 24/7 gemonitorde parkeerlocatie. Valetritten worden digitaal geregistreerd
-              voor extra controle en zekerheid.
+            <motion.p
+              {...rise(0.38)}
+              className="text-body mt-5 max-w-[46ch] text-base leading-relaxed md:mt-7 md:text-lg"
+            >
+              Kies Shuttle als u zelf parkeert en uw sleutels meeneemt, of Valet voor een snelle
+              overdracht direct bij de vertrekhal. Beide opties bieden een bewaakte parkeerlocatie
+              en een duidelijke reservering vooraf.
             </motion.p>
 
-            {/* Proof row */}
             <motion.ul
-              {...rise(0.51)}
-              className="border-line mt-9 grid w-full max-w-lg gap-3 border-t pt-6 grid-cols-3 gap-x-5"
+              {...rise(0.46)}
+              className="border-line mt-6 grid w-full max-w-lg gap-3 border-t pt-5 md:mt-9 md:grid-cols-3 md:gap-x-5 md:pt-6"
             >
               {PROOF.map((item) => (
                 <li key={item} className="text-body flex items-start gap-2.5">
@@ -339,44 +132,29 @@ export function HeroSection({
               ))}
             </motion.ul>
 
-            {/* CTAs */}
-            <motion.div {...rise(0.6)} className="mt-9 flex flex-wrap items-center gap-3">
-              <Button href="/reservering/" size="lg">
+            <motion.div
+              {...rise(0.54)}
+              className="mt-7 flex w-full flex-wrap items-center gap-3 md:mt-9"
+            >
+              <Button href="/reservering/" size="lg" className="w-full sm:w-auto">
                 Reserveer nu
                 <ArrowRight data-arrow className="size-4" aria-hidden />
               </Button>
-              <Button href="/tarieven/" variant="outline" size="lg">
-                Bekijk tarieven
+              <Button href="#diensten" variant="outline" size="lg" className="w-full sm:w-auto">
+                Vergelijk Shuttle en Valet
               </Button>
             </motion.div>
 
-            {/* Reassurance line */}
-            <motion.p {...rise(0.66)} className="text-muted mt-6 text-sm">
+            <motion.p {...rise(0.62)} className="text-muted mt-5 text-sm">
               Online reserveren met directe bevestiging
             </motion.p>
 
-            {/* Promo */}
             {showPromo ? (
-              <motion.div {...rise(0.74)} className="mt-7">
+              <motion.div {...rise(0.7)} className="mt-6">
                 <PromoCoupon />
               </motion.div>
             ) : null}
           </div>
-
-          {/* RIGHT COLUMN - Ticket (Desktop only) */}
-          <motion.div
-            initial={
-              prefersReduced ? { opacity: 1, x: 0, rotate: 0 } : { opacity: 0, x: 32, rotate: -2 }
-            }
-            animate={{ opacity: 1, x: 0, rotate: 0 }}
-            transition={
-              prefersReduced ? { duration: 0 } : { duration: 0.7, delay: 0.68, ease: EASE }
-            }
-            id="hero-booking-desktop"
-            className="relative z-10 -mb-32 w-full"
-          >
-            <BookingPicker notch="surface" bounds={bounds} headingLevel="h2" />
-          </motion.div>
         </div>
       </Container>
     </section>
