@@ -64,11 +64,6 @@ export function DesktopNav() {
     return () => document.removeEventListener('keydown', onKey);
   }, [openGroup]);
 
-  // Close on route change.
-  useEffect(() => {
-    setOpenGroup(null);
-  }, [pathname]);
-
   const open = useCallback((index: number) => setOpenGroup(index), []);
   const close = useCallback(() => setOpenGroup(null), []);
   const toggle = useCallback((index: number) => setOpenGroup((prev) => (prev === index ? null : index)), []);
