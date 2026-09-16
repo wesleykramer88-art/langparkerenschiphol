@@ -3,12 +3,12 @@
  * identity. Nothing in the app hard-codes a phone number, e-mail or URL —
  * everything reads from here, so a change lands everywhere at once.
  *
- * Why this file exists: the WordPress site it replaces showed 085-4013918 in the
+ * Why this file exists: the WordPress site it replaces showed 020-303 3460 in the
  * homepage header and footer, 0297-785515 on every other page's header and on
  * /contact/, and mixed klantenservice@ with info@. Inconsistent NAP actively
  * suppresses local-SEO ranking, so it is consolidated here.
  *
- * The phone half of that is now settled: 085-4013918 is the only number on the
+ * The phone half of that is now settled: 020-303 3460 is the only number on the
  * site. See `phone` below.
  */
 
@@ -18,7 +18,7 @@
  * Kept in E.164 here and expanded into display and `tel:` forms once, so the
  * site cannot end up showing one number and dialling another.
  */
-const PHONE_E164 = '+31854013918';
+const PHONE_E164 = '+31203033460';
 
 export const siteConfig = {
   name: 'Lang Parkeren Schiphol',
@@ -32,15 +32,15 @@ export const siteConfig = {
    * THE phone number, and the only one. Client decision, 29 July 2026.
    *
    * ── This closes the last open NAP question ─────────────────────────────────
-   * The old site ran two numbers: 085-4013918 in the homepage header and the
+   * The old site ran two numbers: 020-303 3460 in the homepage header and the
    * site-wide footer, 0297-785515 on every other page's header and on
    * /contact/. Earlier handovers picked 0297 as canonical — it was corroborated
    * by the algemene voorwaarden ("Telefoon Kantoor +31(0) 297 785 515") and it
-   * appeared in more places — and kept 085 as a secondary line on /contact/.
+   * appeared in more places — and kept 020 as a secondary line on /contact/.
    *
    * That reasoning was sound and the conclusion was wrong. Which number the
    * business actually answers is not something documents can settle, and the
-   * client has now said plainly: 085-4013918, everywhere, and nothing else.
+   * client has now said plainly: 020-303 3460, everywhere, and nothing else.
    *
    * `phoneSecondary` is gone rather than left unused. Two numbers in a config
    * file is how two numbers end up back on a page, and one consistent number is
@@ -53,7 +53,7 @@ export const siteConfig = {
    */
   phone: {
     /** Human-readable, as it should be rendered on screen. */
-    display: '085 - 401 3918',
+    display: '020-303 3460',
     /** E.164, for tel: hrefs and schema.org. Replaces the live site's broken
      *  placeholder `tel:123456789`, which called nothing when tapped. */
     href: `tel:${PHONE_E164}`,
