@@ -11,7 +11,6 @@ import { FaqSection } from '@/components/sections/Faq';
 import { ClusterLinks } from '@/components/sections/ClusterLinks';
 import { ClosingCta } from '@/components/sections/ClosingCta';
 import { Reveal, Stagger } from '@/components/motion/Reveal';
-import { siteConfig } from '@/config/site';
 
 export const metadata = createMetadata('safeParking');
 
