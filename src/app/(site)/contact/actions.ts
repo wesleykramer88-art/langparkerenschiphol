@@ -40,8 +40,9 @@ import { siteConfig } from '@/config/site';
  *   CONTACT_FROM          the From address. Its DOMAIN must be verified in
  *                         Resend or the API rejects the send. Defaults to
  *                         website@<the site's own domain>.
- *   CONTACT_TO            where messages land. Defaults to the canonical
- *                         address in config/site.ts.
+ *   Messages always go to the canonical address in config/site.ts. The
+ *   destination is deliberately not configurable, so a hosting setting cannot
+ *   silently redirect customer messages elsewhere.
  *   CONTACT_FORWARD_URL   the webhook alternative to Resend.
  */
 
@@ -92,7 +93,6 @@ function escapeHtml(value: string): string {
 async function sendViaResend(apiKey: string, payload: Payload): Promise<boolean> {
   const siteDomain = siteConfig.email.split('@')[1];
   const from = process.env.CONTACT_FROM ?? `website@${siteDomain}`;
-  const to = process.env.CONTACT_TO ?? siteConfig.email;
 
   const lines = [
     `Naam: ${payload.name}`,
@@ -111,7 +111,7 @@ async function sendViaResend(apiKey: string, payload: Payload): Promise<boolean>
       },
       body: JSON.stringify({
         from: `Lang Parkeren Schiphol <${from}>`,
-        to: [to],
+        to: [siteConfig.email],
         // The single most useful line in this file: hitting Reply in the
         // client's inbox answers the customer directly, rather than answering
         // the website. Without it every reply has to be copy-pasted.
