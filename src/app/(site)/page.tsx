@@ -6,7 +6,6 @@ import { ServiceChooser } from '@/components/sections/ServiceChooser';
 import { Security } from '@/components/sections/Security';
 import { HowItWorks } from '@/components/sections/HowItWorks';
 import { Faq } from '@/components/sections/Faq';
-import { Testimonials } from '@/components/sections/Testimonials';
 import { StickyBookingBar } from '@/components/booking/StickyBookingBar';
 import { fetchPickerBounds } from '@/lib/parkingpro-config';
 import { isPromoActive } from '@/config/site';
@@ -46,7 +45,6 @@ export default async function HomePage() {
       <ServiceChooser />
       <Security />
       <HowItWorks />
-      <Testimonials />
       <Faq />
 
       {/* Watches the hero's booking card; stands down at the footer. */}
