@@ -157,8 +157,8 @@ klantenservice@langparkerenschiphol.nl
 ```
 
 Use this in `config/site.ts` and in `LocalBusiness` schema. The new footer's
-`klantenservice@langparkerenschiphol.nl` / `085-4013918` are the outliers — ask the
-client whether `085` is a second sales line before dropping it.
+`klantenservice@langparkerenschiphol.nl` / `020-303 3460` are the outliers — ask the
+client whether `020` is a second sales line before dropping it.
 
 **New — critical.** A shadow set of old pages is still live and `index, follow`:
 
