@@ -8,7 +8,6 @@ import { WhyUs } from '@/components/sections/WhyUs';
 import { Security } from '@/components/sections/Security';
 import { HowItWorks } from '@/components/sections/HowItWorks';
 import { Faq } from '@/components/sections/Faq';
-import { ClosingCta } from '@/components/sections/ClosingCta';
 import { StickyBookingBar } from '@/components/booking/StickyBookingBar';
 import { fetchPickerBounds } from '@/lib/parkingpro-config';
 import { isPromoActive } from '@/config/site';
@@ -19,14 +18,11 @@ export const metadata = createMetadata('home');
  * The homepage.
  *
  * Section order differs from the live site, deliberately: the service chooser
- * moves up from position five, and the testimonials move ahead of the closing
- * CTA. Decision first, reassurance second, objections handled last, and the ask
- * at the point of highest confidence. Every line of copy is carried over.
+ * moves up from position five. Decision first, reassurance second, and
+ * objections handled last.
  *
- * Surfaces alternate so nine sections do not read as one stack of cards:
- *   navy → navy-900 → cream → white → navy → cream → white → cream → navy
- * The only navy adjacency is the hero and the trust strip, which are one block:
- * the hero's ticket card overhangs into the strip.
+ * The hero and trust strip form one visual block: the hero's ticket card
+ * overhangs into the strip.
  */
 export default async function HomePage() {
   // Opening hours and time-picker defaults, straight from the client's own
@@ -56,16 +52,9 @@ export default async function HomePage() {
       {/* Disabled, not deleted. To restore, add back
             import { Testimonials } from '@/components/sections/Testimonials';
           and uncomment. The import was removed because an unused one fails
-          eslint, and the section order note above still assumes it. */}
+          eslint. */}
       {/* <Testimonials /> */}
       <Faq />
-      <ClosingCta
-        compactOnMobile
-        mobileHeading="Klaar om uw parkeerplek te regelen?"
-        mobileLead="Bekijk direct uw prijs en rond uw reservering af wanneer het u uitkomt."
-        mobileBookingHref="#hero-booking"
-        mobileBookingLabel="Bekijk mijn prijs"
-      />
 
       {/* Watches the hero's booking card; stands down at the footer. */}
       <StickyBookingBar watchId="hero-booking" hideAfterId="site-footer" />
