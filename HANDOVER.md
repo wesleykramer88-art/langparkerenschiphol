@@ -44,7 +44,7 @@ this data. Answering just makes an assumption real.
 - **Phone.** We found it rather than asking you. Your algemene voorwaarden list
   "Telefoon Kantoor +31(0) 297 785 515", which corroborates the contact page and
   every subpage header. **0297-785515 is now canonical** everywhere, including
-  the structured data. `085-4013918` is kept as a secondary line for `/contact/`.
+  the structured data. `020-303 3460` is kept as a secondary line for `/contact/`.
 - **Reviews.** No `AggregateRating` markup, per your instruction. The 4,7/5 stays
   as plain text.
 
@@ -402,7 +402,7 @@ used anywhere.
 **What we need from you:**
 
 1. **Confirm the address is right** and that you are happy to publish it.
-2. **Is `085 - 401 3918` a real second line?** It is currently shown on the
+2. **Is `020-303 3460` a real second line?** It is currently shown on the
    contact page only. If it is an old number, we will remove it. If it is a
    sales line, tell us and we will label it as one.
 3. Same question for `klantenservice@langparkerenschiphol.nl`.
@@ -607,7 +607,7 @@ it is not worth changing.
 | 1   | Link to Google/Trustpilot reviews, or a decision | Gets your rating back, legally        |
 | 2   | Insurance details + certifications               | Biggest remaining win on the site     |
 | 3   | The damage procedure, in your words              | Reassures the most hesitant customers |
-| 4   | Confirm address, and the 085 number              | Local search ranking                  |
+| 4   | Confirm address, and the 020 number              | Local search ranking                  |
 | 5   | Confirm the disclaimer wording                   | Trademark protection                  |
 | 6   | Where contact form messages should go            | The form cannot send until then       |
 | 7   | Partner commission terms                         | Unblocks the reisbureau page          |
@@ -755,7 +755,7 @@ Only the business address goes into the Google listing data.
 ➜ **Please confirm the postcode 1119 PA for Tupolevlaan 39** — we took that from
 the street rather than from your records.
 
-**The phone-number question is closed.** You told us on 29 July: **085-4013918
+**The phone-number question is closed.** You told us on 29 July: **020-303 3460
 is the only number**, everywhere. It is now the single number on all ten pages,
 in the `tel:` links, and in the Google listing data. The 0297 line is gone, and
 so is the "or call…" second number that used to sit under it on the contact page.
