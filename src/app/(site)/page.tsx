@@ -3,11 +3,10 @@ import { jsonLd, breadcrumbSchema } from '@/lib/schema';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { TrustStrip } from '@/components/sections/TrustStrip';
 import { ServiceChooser } from '@/components/sections/ServiceChooser';
-import { MobileTrustBlock } from '@/components/sections/MobileTrustBlock';
-import { WhyUs } from '@/components/sections/WhyUs';
 import { Security } from '@/components/sections/Security';
 import { HowItWorks } from '@/components/sections/HowItWorks';
 import { Faq } from '@/components/sections/Faq';
+import { Testimonials } from '@/components/sections/Testimonials';
 import { StickyBookingBar } from '@/components/booking/StickyBookingBar';
 import { fetchPickerBounds } from '@/lib/parkingpro-config';
 import { isPromoActive } from '@/config/site';
@@ -45,15 +44,9 @@ export default async function HomePage() {
       <HeroSection bounds={bounds} showPromo={showPromo} />
       <TrustStrip />
       <ServiceChooser />
-      <MobileTrustBlock />
-      <WhyUs />
       <Security />
       <HowItWorks />
-      {/* Disabled, not deleted. To restore, add back
-            import { Testimonials } from '@/components/sections/Testimonials';
-          and uncomment. The import was removed because an unused one fails
-          eslint. */}
-      {/* <Testimonials /> */}
+      <Testimonials />
       <Faq />
 
       {/* Watches the hero's booking card; stands down at the footer. */}
