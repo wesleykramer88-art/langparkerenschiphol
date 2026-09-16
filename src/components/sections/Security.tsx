@@ -91,7 +91,7 @@ const MEASURES: readonly { icon: LucideIcon; label: string; body: string }[] = [
 
 export function Security() {
   return (
-    <Section tone="surface" spacing="lg" aria-labelledby="beveiliging-heading" className="hidden md:block">
+    <Section tone="surface" spacing="lg" aria-labelledby="beveiliging-heading" className="py-14 md:py-24 lg:py-40">
       {/* The seam with the canvas section above. `tone` is not passed — it
           defaults to light, which is what this band now is. */}
       <Container className="absolute inset-x-0 top-0 z-10">
