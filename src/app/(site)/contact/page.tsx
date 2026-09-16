@@ -28,7 +28,7 @@ const CRUMBS = [{ name: 'Contact', path: '/contact/' }];
  * with what happens there, because a customer who drives to the wrong one
  * misses their flight. Only the business address carries LocalBusiness markup.
  *
- * The phone question is closed: 085-4013918 is the only number on the site, per
+ * The phone question is closed: 020-303 3460 is the only number on the site, per
  * the client. The 0297 line and the secondary-number block that used to sit
  * under it are gone. See config/site.ts.
  */
@@ -79,9 +79,9 @@ export default function ContactPage() {
                         {siteConfig.phone.display}
                       </a>
                       {/* There is no second number any more. This page used to
-                          carry "Of 085 - 401 3918" underneath, from when the
+                          carry "Of 020-303 3460" underneath, from when the
                           site ran two lines and we had picked the wrong one as
-                          canonical. The client has settled it: 085 is the only
+                          canonical. The client has settled it: 020 is the only
                           number, and it is now the one above. */}
                       <p className="text-muted mt-1.5 text-sm">
                         Bereikbaar voor reserveringen, wijzigingen en vragen.
