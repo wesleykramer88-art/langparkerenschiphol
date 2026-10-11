@@ -46,7 +46,7 @@ export function Logo({
     >
       <span
         aria-hidden
-        className="bg-accent ease-settle h-9 w-1 shrink-0 rounded-full transition-[height] duration-(--duration-micro) group-hover:h-10"
+        className="bg-logo-accent ease-settle h-9 w-1 shrink-0 rounded-full transition-[height] duration-(--duration-micro) group-hover:h-10"
       />
       <span aria-hidden className="flex flex-col leading-none">
         <span

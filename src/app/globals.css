@@ -40,6 +40,7 @@
   --color-valet-800: #963509;
   --color-valet-900: #702809;
   --color-valet-950: #431907;
+  --color-logo-accent: #e8631c; /* keep the existing wordmark accent unchanged */
 
   /* -- Cool grey surfaces -------------------------------------------------- */
   --color-paper-50: #ffffff; /* anchor — cards and surfaces */
