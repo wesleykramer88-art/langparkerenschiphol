@@ -2,13 +2,10 @@
 
 /* ==========================================================================
    Lang Parkeren Schiphol — design tokens
-   "Navy runway, valet orange"
+   Cool grey, deep orange
 
-   Navy carries the trust and precision of aviation. The orange is NOT
-   decorative: it is the exact tone of the hi-vis jackets worn by the crew at
-   thevaletguys.nl, who physically take the customer's car at the kerb. The
-   screen and the kerbside match on purpose. Do not "improve" it to a friendlier
-   orange, and do not add a third accent hue.
+   The cool neutrals keep the interface calm and readable; deep orange marks
+   primary actions.
 
    Every colour the app uses is declared here. No hex value may appear in a
    component file — components reference the semantic aliases at the bottom of
@@ -16,9 +13,9 @@
    ========================================================================== */
 
 @theme {
-  /* -- Navy token ramp (mapped to Schiphol-style greys) --------------------
+  /* -- Navy token ramp -----------------------------------------------------
      Legacy "navy" token names are kept for compatibility with existing usage.
-     950 / 900 / 600 remain the visual anchors; the rest preserve hierarchy. */
+     950 remains the heading and dark-surface anchor. */
   --color-navy-50: #f4f7f8;
   --color-navy-100: #e6ecee;
   --color-navy-200: #cfdade;
@@ -29,48 +26,44 @@
   --color-navy-700: #3d535a;
   --color-navy-800: #30444a;
   --color-navy-900: #24353b; /* anchor — dark section variation */
-  --color-navy-950: #172226; /* anchor — dark sections, headings */
+  --color-navy-950: #172b40; /* anchor — dark sections, headings */
 
-  /* -- Valet ramp (hi-vis) -------------------------------------------------
-     600 and 100 are the client-approved anchors (~22°). */
-  --color-valet-50: #fef6f1;
-  --color-valet-100: #fdeee3; /* anchor — accent wash, highlight backgrounds */
-  --color-valet-200: #fad6be;
-  --color-valet-300: #f6b892;
-  --color-valet-400: #f09155;
-  --color-valet-500: #ec7734;
-  --color-valet-600: #e8631c; /* anchor — primary CTA, accent. Use sparingly. */
-  --color-valet-700: #c24d13;
-  --color-valet-800: #9a3e12;
-  --color-valet-900: #7c3413;
+  /* -- Deep orange --------------------------------------------------------- */
+  --color-valet-50: #f8fafc;
+  --color-valet-100: #f3f6f9; /* neutral accent wash */
+  --color-valet-200: #f0c2af;
+  --color-valet-300: #e98f6d;
+  --color-valet-400: #df7047;
+  --color-valet-500: #d95627;
+  --color-valet-600: #c94710; /* anchor — primary CTA */
+  --color-valet-700: #ad3d0d; /* anchor — primary CTA hover */
+  --color-valet-800: #963509;
+  --color-valet-900: #702809;
   --color-valet-950: #431907;
+  --color-logo-accent: #e8631c; /* keep the existing wordmark accent unchanged */
 
-  /* -- Paper (warm canvas, deliberately not grey) -------------------------- */
+  /* -- Cool grey surfaces -------------------------------------------------- */
   --color-paper-50: #ffffff; /* anchor — cards and surfaces */
-  --color-paper-100: #fbf9f5;
-  --color-paper-200: #f5f1ea; /* anchor — page canvas */
-  --color-paper-300: #e9e2d6;
-  --color-paper-400: #d8cebd;
+  --color-paper-100: #f3f6f9;
+  --color-paper-200: #f3f6f9; /* anchor — page canvas */
+  --color-paper-300: #dce3ea; /* anchor — subtle lines and borders */
+  --color-paper-400: #c8d2dc;
 
   /* -- Ink (text) ---------------------------------------------------------- */
   --color-ink-400: #8494a3;
-  --color-ink-500: #5a6b7c; /* anchor — muted / captions */
+  --color-ink-500: #475569; /* anchor — ordinary and muted text */
   --color-ink-600: #445a70;
-  --color-ink-700: #33475b; /* anchor — body text */
+  --color-ink-700: #475569; /* anchor — body text */
 
   /* -- Semantic aliases ----------------------------------------------------
      THIS is the layer components are allowed to touch.
 
      Verified contrast (WCAG 2.1, sRGB):
-       ink-700   on paper-200 .... 8.5:1  AAA
-       ink-500   on paper-200 .... 4.9:1  AA  (captions, normal text OK)
-       navy-600  on paper-50  .... 7.1:1  AAA (links)
-       paper-50  on navy-950  ... 16.9:1  AAA (dark sections)
-       valet-600 on navy-950  .... 5.0:1  AA  (eyebrows on dark)
-       navy-950  on valet-600 .... 5.0:1  AA  (see --color-on-accent below)
-       valet-600 on paper-50  .... 3.4:1  FAILS normal text — never body copy.
-                                          Permitted only for >=24px display text,
-                                          icons, and non-text borders (needs 3:1).
+       ink-700   on paper-200 .... >7:1  AAA
+       ink-500   on paper-200 .... >7:1  AAA
+       navy-950  on paper-50  .... >14:1 AAA
+       paper-50  on valet-600 .... 4.78:1 AA (button labels)
+       paper-50  on valet-700 .... >6:1  AA (hover button labels)
   */
   --color-canvas: var(--color-paper-200);
   --color-surface: var(--color-paper-50);
@@ -88,12 +81,8 @@
   --color-accent: var(--color-valet-600);
   --color-accent-hover: var(--color-valet-700);
   --color-accent-wash: var(--color-valet-100);
-  /* Text colour placed ON the accent fill.
-     Deliberately navy, not white. White on valet-600 is only 3.4:1, which fails
-     AA for button labels at normal size; navy-950 on valet-600 is 5.0:1 and
-     passes. It is also the more honest reference — hi-vis safety signage is dark
-     type on orange, never white on orange. */
-  --color-on-accent: var(--color-navy-950);
+  /* White on both requested orange button states clears AA for normal text. */
+  --color-on-accent: var(--color-paper-50);
 
   --color-brand: var(--color-navy-600);
   --color-brand-hover: var(--color-navy-700);
@@ -185,32 +174,29 @@
   --duration-reveal: 520ms; /* scroll reveals */
 
   /* -- Elevation -----------------------------------------------------------
-     Shadows are navy-tinted, never neutral black — on a warm paper canvas a
-     grey shadow reads as dirt. */
+     Subtle neutral shadows on cool grey and white surfaces. */
   --shadow-card:
-    0 1px 2px color-mix(in srgb, var(--color-navy-950) 5%, transparent),
-    0 8px 24px -12px color-mix(in srgb, var(--color-navy-950) 14%, transparent);
+    0 1px 2px color-mix(in srgb, black 5%, transparent),
+    0 8px 24px -12px color-mix(in srgb, black 10%, transparent);
   --shadow-lifted:
-    0 2px 4px color-mix(in srgb, var(--color-navy-950) 6%, transparent),
-    0 18px 40px -16px color-mix(in srgb, var(--color-navy-950) 20%, transparent);
+    0 2px 4px color-mix(in srgb, black 6%, transparent),
+    0 18px 40px -16px color-mix(in srgb, black 12%, transparent);
   --shadow-ticket:
-    0 2px 3px color-mix(in srgb, var(--color-navy-950) 6%, transparent),
-    0 24px 60px -24px color-mix(in srgb, var(--color-navy-950) 26%, transparent);
+    0 2px 3px color-mix(in srgb, black 6%, transparent),
+    0 24px 60px -24px color-mix(in srgb, black 14%, transparent);
 
   /* Photographic cards sit on the canvas carrying a full-bleed image. They need
      more separation than a text card or the image edge reads as a flat sticker,
      so this is deeper and travels further than --shadow-card. */
   --shadow-photo:
-    0 1px 2px color-mix(in srgb, var(--color-navy-950) 6%, transparent),
-    0 12px 28px -14px color-mix(in srgb, var(--color-navy-950) 22%, transparent),
-    0 32px 64px -32px color-mix(in srgb, var(--color-navy-950) 26%, transparent);
+    0 1px 2px color-mix(in srgb, black 6%, transparent),
+    0 12px 28px -14px color-mix(in srgb, black 12%, transparent),
+    0 32px 64px -32px color-mix(in srgb, black 14%, transparent);
 
-  /* The primary CTA's shadow is tinted with the accent rather than navy. On the
-     one control that matters most, a warm shadow reads as the button being lit
-     from within; a neutral one reads as a rectangle sitting on a page. */
-  --shadow-accent: 0 8px 22px -10px color-mix(in srgb, var(--color-valet-700) 55%, transparent);
+  /* CTA elevation stays neutral rather than echoing the orange fill. */
+  --shadow-accent: 0 8px 22px -10px color-mix(in srgb, black 12%, transparent);
   --shadow-accent-lifted: 0 12px 30px -10px
-    color-mix(in srgb, var(--color-valet-700) 62%, transparent);
+    color-mix(in srgb, black 16%, transparent);
 }
 
 /* ==========================================================================

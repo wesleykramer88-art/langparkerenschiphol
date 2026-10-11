@@ -221,6 +221,10 @@ export function BookingPicker({
     <Ticket notch={notch} className={className}>
       <form onSubmit={onSubmit} noValidate>
         <div className="px-5 pt-6 pb-5 sm:px-7 sm:pt-7 sm:pb-6">
+          <p className="border-line bg-canvas text-body mb-4 rounded-md border px-3.5 py-2.5 text-xs leading-relaxed">
+            U boekt bij The Parking Company, een onafhankelijke aanbieder. Dit is geen reservering
+            voor Schiphol P3.
+          </p>
           {headingLevel === 'h1' ? (
             <h1 className="text-display-sm">Bekijk direct uw parkeerprijs</h1>
           ) : (

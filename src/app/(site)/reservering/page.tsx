@@ -136,10 +136,10 @@ export default async function BookingPage({
       <PageHero
         eyebrow="Reserveren"
         title="Boek uw parkeerplaats"
-        lead="Wilt u een parkeerplaats Schiphol reserveren? Maak direct uw reservering en zorg voor een ontspannen begin van de reis."
+        lead="Wilt u een parkeerplaats bij Schiphol reserveren? Maak direct uw reservering en zorg voor een ontspannen begin van de reis."
         photo="terminalDeparture"
         objectPosition="object-[center_50%]"
-        photoAlt="parkeerplaats Schiphol reserveren bij Lang Parkeren Schiphol"
+        photoAlt="parkeerplaats bij Schiphol reserveren bij Lang Parkeren Schiphol"
         crumbs={CRUMBS}
       />
 
@@ -158,6 +158,10 @@ export default async function BookingPage({
                   all, it has to be mentioned before the total, not after. */}
               {/* <AccountDiscountBar variant="inline" className="mb-6" /> */}
 
+              <p className="border-line bg-surface text-body mb-4 rounded-md border px-4 py-3 text-sm leading-relaxed">
+                U boekt bij The Parking Company, een onafhankelijke aanbieder. Dit is geen
+                reservering voor Schiphol P3.
+              </p>
               <ParkingProFrame
                 src={src}
                 title="Reserveringssysteem van Lang Parkeren Schiphol"

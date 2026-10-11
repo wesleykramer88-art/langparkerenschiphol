@@ -22,25 +22,24 @@ export const metadata: Metadata = {
 
 /** Palette entries. Values are read from the tokens, never re-declared here. */
 const SWATCHES = [
-  { name: 'navy-950', className: 'bg-navy-950', hex: '#071E33', use: 'Donkere secties, koppen' },
+  { name: 'navy-950', className: 'bg-navy-950', hex: '#172B40', use: 'Donkere secties, koppen' },
   { name: 'navy-900', className: 'bg-navy-900', hex: '#0A2942', use: 'Variatie donkere sectie' },
   { name: 'navy-600', className: 'bg-navy-600', hex: '#1E5C8C', use: 'Merkblauw, links' },
-  { name: 'valet-600', className: 'bg-valet-600', hex: '#E8631C', use: 'Primaire CTA, accent' },
-  { name: 'valet-100', className: 'bg-valet-100', hex: '#FDEEE3', use: 'Accentvlak' },
-  { name: 'paper-200', className: 'bg-paper-200', hex: '#F5F1EA', use: 'Paginacanvas' },
+  { name: 'valet-600', className: 'bg-valet-600', hex: '#C94710', use: 'Primaire CTA, accent' },
+  { name: 'valet-100', className: 'bg-valet-100', hex: '#F3F6F9', use: 'Accentvlak' },
+  { name: 'paper-200', className: 'bg-paper-200', hex: '#F3F6F9', use: 'Paginacanvas' },
   { name: 'paper-50', className: 'bg-paper-50', hex: '#FFFFFF', use: 'Kaarten' },
-  { name: 'ink-700', className: 'bg-ink-700', hex: '#33475B', use: 'Bodytekst' },
-  { name: 'ink-500', className: 'bg-ink-500', hex: '#5A6B7C', use: 'Bijschriften' },
+  { name: 'ink-700', className: 'bg-ink-700', hex: '#475569', use: 'Bodytekst' },
+  { name: 'ink-500', className: 'bg-ink-500', hex: '#475569', use: 'Bijschriften' },
 ] as const;
 
 const CONTRAST = [
-  { pair: 'ink-700 op paper-200', ratio: '8,5:1', verdict: 'AAA', pass: true },
-  { pair: 'ink-500 op paper-200', ratio: '4,9:1', verdict: 'AA', pass: true },
-  { pair: 'navy-600 op wit', ratio: '7,1:1', verdict: 'AAA', pass: true },
-  { pair: 'wit op navy-950', ratio: '16,9:1', verdict: 'AAA', pass: true },
-  { pair: 'navy-950 op valet-600', ratio: '5,0:1', verdict: 'AA', pass: true },
-  { pair: 'wit op valet-600', ratio: '3,4:1', verdict: 'Alleen groot', pass: false },
-  { pair: 'valet-600 op wit', ratio: '3,4:1', verdict: 'Nooit bodytekst', pass: false },
+  { pair: 'ink-700 op paper-200', ratio: '7,1:1', verdict: 'AAA', pass: true },
+  { pair: 'ink-500 op paper-200', ratio: '7,1:1', verdict: 'AAA', pass: true },
+  { pair: 'navy-950 op wit', ratio: '14,4:1', verdict: 'AAA', pass: true },
+  { pair: 'wit op navy-950', ratio: '14,4:1', verdict: 'AAA', pass: true },
+  { pair: 'wit op valet-600', ratio: '4,78:1', verdict: 'AA', pass: true },
+  { pair: 'wit op valet-700', ratio: '6,09:1', verdict: 'AA', pass: true },
 ] as const;
 
 const DEMO_FAQ = [
@@ -93,7 +92,7 @@ export default function DesignSystemPage() {
           <div className="mb-8 flex flex-col gap-3">
             <Eyebrow rule>Vastgesteld</Eyebrow>
             <h2 id="palette" className="text-display-md">
-              Navy runway, valet orange
+              Koelgrijs en diep oranje
             </h2>
             <p className="text-muted max-w-[68ch]">
               Het navy staat voor de precisie van de luchtvaart. Het oranje is niet decoratief: het

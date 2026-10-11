@@ -115,7 +115,7 @@ export function WhyUs() {
             <Reveal>
               <Eyebrow rule>Waarom Lang Parkeren bij Schiphol?</Eyebrow>
               <h2 id="waarom-heading" className="text-display-lg mt-5">
-                De vertrouwde keuze voor valet en shuttle parkeren op Schiphol
+                De vertrouwde keuze voor valet en shuttle parkeren bij Schiphol
               </h2>
 
               <div className="text-muted mt-6 flex max-w-[52ch] flex-col gap-4">

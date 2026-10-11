@@ -110,7 +110,7 @@ const FAQS: readonly FaqItem[] = [
   },
   {
     question: 'Hoe lang bestaat dit bedrijf al?',
-    answer: 'Wij verzorgen valet en shuttle parkeren op Schiphol voor reizigers die hun auto betrouwbaar en beveiligd willen achterlaten.',
+    answer: 'Wij verzorgen valet en shuttle parkeren bij Schiphol voor reizigers die hun auto betrouwbaar en beveiligd willen achterlaten.',
   },
 ];
 

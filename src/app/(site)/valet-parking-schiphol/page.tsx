@@ -125,8 +125,8 @@ export default async function ValetParkingPage() {
     <>
       <PageHero
         eyebrow="Valet Parking"
-        title="Valet parking op Schiphol"
-        lead="Valet parking Schiphol is de ideale keuze als je comfortabel en zonder gedoe op reis wilt. Rijd naar de vertrekhal, geef je auto af aan onze valet en wij parkeren hem veilig voor je."
+        title="Valet parkeren bij Schiphol"
+        lead="Valet parkeren bij Schiphol is een comfortabele keuze. Rijd naar de vertrekhal, geef uw auto af aan onze chauffeur en vervolg uw reis."
         photo="crewHandover"
         objectPosition="object-[center_40%]"
         crumbs={CRUMBS}
