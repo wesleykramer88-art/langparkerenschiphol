@@ -58,7 +58,7 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Hoe worden de tarieven voor lang parkeren bij Schiphol berekend?',
     answer:
-      'Onze parkeertarieven zijn volledig transparant en inclusief BTW. De prijs wordt berekend op basis van het exacte aantal dagen dat je parkeert en de service die je kiest. Je hebt hierbij de keuze uit voordelig buiten parkeren of comfortabel overdekt parkeren, beschikbaar voor zowel onze Shuttle- als Valet-service.',
+      'Onze parkeertarieven zijn volledig transparant en inclusief btw. De prijs wordt berekend op basis van het exacte aantal dagen dat u parkeert en de service die u kiest. U heeft hierbij de keuze uit voordelig buiten parkeren of comfortabel overdekt parkeren, beschikbaar voor zowel onze shuttle- als valetservice.',
   },
   {
     question: 'Is de shuttlebus gratis inbegrepen bij het parkeertarief?',
@@ -73,7 +73,7 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Is het mogelijk om mijn elektrische auto op te laden tijdens het parkeren?',
     answer:
-      "Ja, wij beschikken over laadfaciliteiten op ons terrein. Voor € 35,00 kun je de optie 'Opladen' aan je reservering toevoegen. Wij zorgen er dan voor dat je elektrische auto met een volle accu voor je klaarstaat zodra je weer terugkomt van je reis.",
+      "Ja, wij beschikken over laadfaciliteiten op ons terrein. Voor € 35,00 kunt u de optie 'Opladen' aan uw reservering toevoegen. Wij zorgen er dan voor dat uw elektrische auto met een volle accu voor u klaarstaat zodra u terugkomt van uw reis.",
   },
 ];
 

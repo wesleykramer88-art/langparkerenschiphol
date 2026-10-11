@@ -26,7 +26,7 @@ export const pageSeo = {
   home: {
     title: 'Parkeren Schiphol Reserveren | Lang Parkeren Schiphol',
     description:
-      'Parkeren Schiphol met valet of shuttle. Reserveer eenvoudig je parkeerplaats en geniet van veilig, voordelig en betrouwbaar parkeren.',
+      'Lang parkeren bij Schiphol met valet of shuttle. Reserveer eenvoudig uw parkeerplaats bij een onafhankelijke aanbieder.',
     path: '/',
   },
   services: {
@@ -99,7 +99,7 @@ export const pageSeo = {
     // the hub of the cluster. "shuttle parkeren schiphol" is the head term.
     title: 'Shuttle Parkeren Schiphol | Veilig | Lang Parkeren Schiphol',
     description:
-      'Shuttle parkeren Schiphol met snelle transfer naar de terminal. Parkeer veilig, neem je sleutel mee en reserveer eenvoudig online.',
+      'Shuttle parkeren bij Schiphol met transfer naar de terminal. Parkeer zelf, neem uw sleutel mee en reserveer eenvoudig online.',
     path: '/shuttle-parkeren-schiphol/',
   },
   valetParking: {
@@ -108,7 +108,7 @@ export const pageSeo = {
     // page has always been headed Valet Parking.
     title: 'Valet Parking Schiphol | Veilig | Lang Parkeren Schiphol',
     description:
-      'Valet parking Schiphol zonder gedoe. Geef je auto af bij de vertrekhal, wij parkeren hem veilig en je kunt direct op reis.',
+      'Valet parkeren bij Schiphol zonder gedoe. Geef uw auto af bij de vertrekhal en vervolg uw reis.',
     path: '/valet-parking-schiphol/',
   },
   cheapShuttle: {

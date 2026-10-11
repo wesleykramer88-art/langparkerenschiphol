@@ -75,7 +75,7 @@ export function FontSwitcher() {
             <p className="eyebrow text-muted mb-5">
               <span className="numeric">4,7</span>/5 · Duizenden reizigers elk jaar
             </p>
-            <h2 className="text-display-xl">Zorgeloos lang parkeren op Schiphol.</h2>
+            <h2 className="text-display-xl">Zorgeloos lang parkeren bij Schiphol.</h2>
             <p className="text-lead text-muted mt-5 max-w-[52ch]">
               Binnen 2 minuten geregeld. Kies voor valet of shuttle parkeren — veilig, snel en
               professioneel.

@@ -9,8 +9,8 @@ export default function manifest(): MetadataRoute.Manifest {
     lang: siteConfig.locale,
     start_url: '/',
     display: 'standalone',
-    background_color: '#f5f1ea', // paper-200, the page canvas
-    theme_color: '#071e33', // navy-950
+    background_color: '#f3f6f9', // paper-200, the page canvas
+    theme_color: '#172b40', // navy-950
     icons: [
       { src: '/icon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any' },
       { src: '/icon-192.png', sizes: '192x192', type: 'image/png' },

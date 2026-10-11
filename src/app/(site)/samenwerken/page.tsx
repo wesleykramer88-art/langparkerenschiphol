@@ -69,7 +69,7 @@ const CRUMBS = [{ name: 'Reisbureaus', path: '/samenwerken/' }];
 const REASONS: readonly { icon: LucideIcon; title: string; body: string }[] = [
   {
     icon: Building2,
-    title: 'Gevestigde parkeerservice op Schiphol',
+    title: 'Gevestigde parkeerservice bij Schiphol',
     body: 'Uw klanten komen terecht bij een gevestigde parkeerservice die dagelijks bij de vertrekhal rijdt — niet bij een tussenpersoon die het werk doorzet.',
   },
   {

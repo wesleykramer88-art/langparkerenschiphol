@@ -10,7 +10,7 @@ import { PromoCoupon } from '@/components/sections/PromoCoupon';
 import type { PickerBounds } from '@/lib/parkingpro-config';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
-const HEADLINE_LINES = ['Lang Parkeren', 'op Schiphol'] as const;
+const HEADLINE_LINES = ['Lang parkeren bij', 'Schiphol'] as const;
 const PROOF = [
   'Op 5 tot 8 minuten van Schiphol',
   'Sleutels mee op reis bij Shuttle',
@@ -77,7 +77,7 @@ export function HeroSection({
               prefersReduced ? { duration: 0 } : { duration: 0.7, delay: 0.45, ease: EASE }
             }
             id="hero-booking"
-            className="relative z-10 order-1 w-full lg:order-2 lg:-mb-32"
+            className="relative z-10 order-1 w-full lg:order-2 lg:-mb-16"
           >
             <BookingPicker notch="surface" bounds={bounds} headingLevel="h2" />
           </motion.div>
@@ -107,17 +107,12 @@ export function HeroSection({
               ))}
             </h1>
 
-            <motion.p {...rise(0.3)} className="text-display-sm text-brand mt-3 md:text-display-md md:mt-4">
-              Uw auto veilig. U zorgeloos op reis.
-            </motion.p>
-
             <motion.p
               {...rise(0.38)}
-              className="text-body mt-5 max-w-[46ch] text-base leading-relaxed md:mt-7 md:text-lg"
+              className="text-body mt-5 max-w-[54ch] text-base leading-relaxed md:mt-7 md:text-lg"
             >
-              Kies Shuttle als u zelf parkeert en uw sleutels meeneemt, of Valet voor een snelle
-              overdracht direct bij de vertrekhal. Beide opties bieden een bewaakte parkeerlocatie
-              en een duidelijke reservering vooraf.
+              Boek shuttle- of valetparkeren bij Lang Parkeren Schiphol, een merk van The Parking
+              Company. Wij zijn een onafhankelijke aanbieder en geen onderdeel van Schiphol.
             </motion.p>
 
             <motion.ul

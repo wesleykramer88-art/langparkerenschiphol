@@ -81,7 +81,8 @@ export function SiteFooter() {
           <div className="max-w-sm">
             <Logo tone="dark" />
             <p className="text-navy-200 mt-4 text-sm leading-relaxed md:mt-6">
-              De betrouwbare keuze voor valet en shuttle parkeren op Amsterdam Airport Schiphol.
+              Onafhankelijke aanbieder van shuttle- en valetparkeren bij Schiphol. Een merk van The
+              Parking Company.
             </p>
 
             {/* Where the unsourced "4,7 / 5" and its five stars used to sit.
