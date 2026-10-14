@@ -169,6 +169,7 @@ export function DateField({
     positionPopover();
     window.addEventListener('resize', positionPopover);
     window.addEventListener('scroll', positionPopover, true);
+    document.addEventListener('transitionend', positionPopover, true);
     window.visualViewport?.addEventListener('resize', positionPopover);
     window.visualViewport?.addEventListener('scroll', positionPopover);
 
@@ -182,6 +183,7 @@ export function DateField({
     return () => {
       window.removeEventListener('resize', positionPopover);
       window.removeEventListener('scroll', positionPopover, true);
+      document.removeEventListener('transitionend', positionPopover, true);
       window.visualViewport?.removeEventListener('resize', positionPopover);
       window.visualViewport?.removeEventListener('scroll', positionPopover);
       observer?.disconnect();
