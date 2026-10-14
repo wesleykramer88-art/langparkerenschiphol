@@ -53,8 +53,8 @@ import { Reveal, Stagger } from '@/components/motion/Reveal';
 const MEASURES: readonly { icon: LucideIcon; label: string; body: string }[] = [
   {
     icon: Video,
-    label: '24/7 videobewaking',
-    body: 'Camerabewaking en monitoring, het hele jaar door.',
+    label: '24/7 camerabewaking',
+    body: 'Het terrein staat dag en nacht onder cameratoezicht. Dit betekent niet dat er permanent een fysieke bewaker aanwezig is.',
   },
   {
     icon: Lock,
@@ -101,13 +101,13 @@ export function Security() {
       <Container className="relative">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <Reveal>
-            <Eyebrow rule>Maximale beveiliging</Eyebrow>
+            <Eyebrow rule>Toezicht op de parkeerlocatie</Eyebrow>
             <h2 id="beveiliging-heading" className="text-display-lg mt-5 max-w-[18ch]">
-              Uw auto is veilig terwijl u zorgeloos reist
+              Welke maatregelen er op het terrein zijn
             </h2>
             <p className="text-lead text-muted mt-6 max-w-[52ch]">
-              Bij Lang Parkeren Schiphol staat veiligheid voorop. Vanaf het moment van inleveren tot
-              uw terugkeer, houden we volledige controle.
+              De parkeerlocatie is afgesloten en voorzien van camerabewaking. Bij Valet wordt ook de
+              rit met uw auto digitaal geregistreerd.
             </p>
 
             {/* The one link out of this band, and it belongs here rather than
@@ -117,8 +117,8 @@ export function Security() {
                 system rather than a claim. Valet-only, which the line says
                 rather than leaving a shuttle customer to click and find out. */}
             <p className="text-muted mt-8 max-w-[52ch] text-sm leading-relaxed">
-              Bij valet parking wordt daarnaast iedere rit met uw auto digitaal geregistreerd —
-              route, snelheid en duur.
+              Alleen bij Valet parkeren wordt de rit met uw auto digitaal geregistreerd — route,
+              snelheid en duur.
             </p>
             <Button href="/digitale-ritregistratie/" variant="outline" className="mt-5">
               Bekijk de digitale ritregistratie

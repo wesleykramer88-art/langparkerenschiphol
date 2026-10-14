@@ -142,7 +142,7 @@ export const pageSeo = {
     // not to be found cold.
     title: 'Ritregistratie Systeem | Veilig | Lang Parkeren Schiphol',
     description:
-      'Ritregistratie systeem voor volledige controle. Iedere valetrit wordt digitaal vastgelegd voor maximale veiligheid en transparantie.',
+      'Bij Valet parkeren worden route, snelheid en duur van de rit digitaal vastgelegd. Lees hoe de ritregistratie werkt.',
     path: '/digitale-ritregistratie/',
   },
 

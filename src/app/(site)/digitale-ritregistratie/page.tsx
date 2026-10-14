@@ -122,8 +122,8 @@ export default function RideRegistrationPage() {
         // The client's exact H1. Long for a heading, and kept whole: the second
         // sentence is what states the purpose, and without it the first is a
         // description of a feature rather than a reason to trust it.
-        title="Iedere rit digitaal geregistreerd. Voor maximale veiligheid en transparantie."
-        lead="Tijdens iedere valetrit wordt uw auto met ons ritregistratie systeem digitaal gevolgd. Zo zorgen wij voor volledige transparantie en kunt u altijd zien wat er met uw auto is gebeurd."
+        title="Valetritten digitaal geregistreerd. Inzicht in route en snelheid."
+        lead="Tijdens Valetritten worden route, snelheid en duur digitaal vastgelegd. Deze ritregistratie geldt voor Valet parkeren."
         photo="crewHandover"
         photoAlt="Ritregistratie systeem valet parking"
         objectPosition="object-[center_35%]"

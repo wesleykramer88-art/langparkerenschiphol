@@ -61,7 +61,7 @@ const STEPS: readonly TimelineStep[] = [
   },
   {
     title: 'De shuttle brengt u weg.',
-    body: 'In 5 tot 8 minuten naar de vertrekhal van Schiphol, waar u doorloopt naar de incheckbalie.',
+    body: 'De shuttlerit naar de vertrekhal van Schiphol duurt 5 tot 8 minuten; vanaf daar loopt u door naar de incheckbalie.',
   },
   {
     title: 'Terug bij uw eigen auto.',
@@ -88,7 +88,7 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Waar vertrekt de shuttle?',
     answer:
-      'Vanaf ons eigen terrein. U parkeert, loopt naar het opstappunt en stapt in. De rit naar de vertrekhal duurt 5 tot 8 minuten.',
+      'Vanaf ons eigen terrein parkeert u zelf en stapt u in bij het opstappunt. De shuttlerit naar de vertrekhal duurt 5 tot 8 minuten.',
   },
   {
     question: 'Hoe kom ik na mijn reis terug bij mijn auto?',

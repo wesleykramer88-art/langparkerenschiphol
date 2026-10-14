@@ -76,7 +76,7 @@ export function Logo({
         */}{' '}
         <span
           className={cn(
-            'ease-settle mt-1 text-xl font-bold tracking-[-0.02em] transition-colors duration-300',
+            'ease-settle mt-1 text-[1.375rem] font-bold tracking-[-0.02em] transition-colors duration-300 sm:text-2xl',
             isDark && 'text-heading-inverse',
             isSolid && 'text-heading',
             isLight && 'text-heading',

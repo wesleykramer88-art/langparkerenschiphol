@@ -69,7 +69,7 @@ const PROCESS: readonly { title: string; body: string; car: string }[] = [
   },
   {
     title: 'Wij nemen uw auto over',
-    body: 'Bij valet parkeren rijdt u naar de Vertrekpassage op Schiphol — vertrekhal, 1e verdieping — waar onze chauffeur u opwacht. Bij shuttle parkeren rijdt u naar ons terrein aan de Tupolevlaan in Schiphol-Rijk en brengt de shuttlebus u binnen 5 tot 8 minuten naar de vertrekhal.',
+    body: 'Bij valet parkeren rijdt u naar de Vertrekpassage op Schiphol — vertrekhal, 1e verdieping — waar onze chauffeur u opwacht. Bij shuttle parkeren rijdt u naar ons terrein aan de Tupolevlaan in Schiphol-Rijk. De shuttlerit naar de vertrekhal duurt 5 tot 8 minuten.',
     car: 'Voordat wij de auto overnemen doen wij een korte controle van het voertuig. Kiest u shuttle parkeren, dan kunt u uw sleutels meenemen op reis.',
   },
   {

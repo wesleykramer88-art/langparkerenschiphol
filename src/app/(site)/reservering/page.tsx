@@ -158,10 +158,25 @@ export default async function BookingPage({
                   all, it has to be mentioned before the total, not after. */}
               {/* <AccountDiscountBar variant="inline" className="mb-6" /> */}
 
-              <p className="border-line bg-surface text-body mb-4 rounded-md border px-4 py-3 text-sm leading-relaxed">
-                U boekt bij The Parking Company, een onafhankelijke aanbieder. Dit is geen
-                reservering voor Schiphol P3.
-              </p>
+              <div className="border-line bg-canvas mb-4 border-l-2 border-accent px-4 py-3 text-sm leading-relaxed">
+                <p className="text-heading font-semibold">
+                  U boekt bij The Parking Company, het bedrijf achter Lang Parkeren Schiphol.
+                </p>
+                <ul className="text-muted mt-2 space-y-1">
+                  <li>
+                    <strong className="text-heading">Shuttle:</strong> u parkeert zelf aan{' '}
+                    {siteConfig.address.display} en reist met de shuttle naar de vertrekhal.
+                  </li>
+                  <li>
+                    <strong className="text-heading">Valet:</strong> u draagt uw auto over bij de{' '}
+                    {siteConfig.valetHandover.display}; onze chauffeur parkeert hem op onze locatie.
+                  </li>
+                </ul>
+                <p className="text-muted mt-2">
+                  Controleer vóór betaling in het reserveringssysteem de gekozen service,
+                  parkeeroptie, reisdata, tijden en prijs.
+                </p>
+              </div>
               <ParkingProFrame
                 src={src}
                 title="Reserveringssysteem van Lang Parkeren Schiphol"
