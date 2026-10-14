@@ -24,21 +24,21 @@ type PageSeo = {
 
 export const pageSeo = {
   home: {
-    title: 'Parkeren Schiphol Reserveren | Lang Parkeren Schiphol',
+    title: 'Lang parkeren Schiphol | Shuttle & Valet',
     description:
       'Lang parkeren bij Schiphol met valet of shuttle. Reserveer eenvoudig uw parkeerplaats bij een onafhankelijke aanbieder.',
     path: '/',
   },
   services: {
-    title: 'Schiphol Parkeerplaats Reserveren | Lang Parkeren Schiphol',
+    title: 'Shuttle of valet parkeren bij Schiphol? Vergelijk',
     description:
-      'Schiphol parkeerplaats reserveren? Kies tussen valet en shuttle, parkeer veilig en begin comfortabel aan uw reis vanaf Schiphol.',
+      'Twijfelt u tussen shuttle en valet? Vergelijk aankomst, sleutel, transfer naar de vertrekhal en prijsberekening en kies wat bij uw reis past.',
     path: '/onze-services/',
   },
   rates: {
-    title: 'Parkeren Schiphol Kosten & Tarieven | Lang Parkeren Schiphol',
+    title: 'Kosten lang parkeren Schiphol | Shuttle & Valet',
     description:
-      'Parkeren Schiphol kosten bekijken? Bekijk onze tarieven voor valet en shuttle, kies uw reisduur en weet vooraf wat u betaalt.',
+      'Bereken de kosten voor lang parkeren bij Schiphol met shuttle of valet. Zie hoe de prijs ontstaat, welke opties gelden en reken uw reisduur door.',
     path: '/tarieven/',
   },
   partners: {
@@ -48,9 +48,9 @@ export const pageSeo = {
     path: '/samenwerken/',
   },
   contact: {
-    title: 'Lang Parkeren Schiphol Contact | Lang Parkeren Schiphol',
+    title: 'Contact & parkeerlocaties | Lang Parkeren Schiphol',
     description:
-      'Lang parkeren schiphol contact nodig? Bekijk telefoonnummer, e-mailadres en adres of stuur ons direct een bericht via het formulier.',
+      'Vragen over uw reservering of de aankomst? Bekijk telefoonnummer, e-mailadres, het adres van het shuttleterrein en de overdrachtslocatie voor valet.',
     path: '/contact/',
   },
   booking: {
@@ -97,7 +97,7 @@ export const pageSeo = {
   shuttleParking: {
     // The commercial page for the product that is roughly 90% of bookings, and
     // the hub of the cluster. "shuttle parkeren schiphol" is the head term.
-    title: 'Shuttle Parkeren Schiphol | Veilig | Lang Parkeren Schiphol',
+    title: 'Shuttle parkeren Schiphol | Sleutel mee op reis',
     description:
       'Shuttle parkeren bij Schiphol met transfer naar de terminal. Parkeer zelf, neem uw sleutel mee en reserveer eenvoudig online.',
     path: '/shuttle-parkeren-schiphol/',
@@ -106,9 +106,9 @@ export const pageSeo = {
     // Deliberately "valet parking", not "valet parkeren": the Dutch market
     // searches the English term for this service, and the client's own live
     // page has always been headed Valet Parking.
-    title: 'Valet Parking Schiphol | Veilig | Lang Parkeren Schiphol',
+    title: 'Valet parking Schiphol | Afgeven bij de vertrekhal',
     description:
-      'Valet parkeren bij Schiphol zonder gedoe. Geef uw auto af bij de vertrekhal en vervolg uw reis.',
+      'Valet parking bij Schiphol: u geeft uw auto af tussen Vertrekhal 2 en 3 en krijgt hem op dezelfde plek terug. Lees hoe overdracht en sleutelbeheer werken.',
     path: '/valet-parking-schiphol/',
   },
   cheapShuttle: {
@@ -120,19 +120,19 @@ export const pageSeo = {
   keepKeys: {
     title: 'Parkeren Schiphol Zonder Sleutel Inleveren | Sleutel Mee op Reis',
     description:
-      'Liever uw autosleutel meenemen op reis? Bij shuttle parkeren parkeert u zelf en houdt u uw sleutel. Lees hoe dat werkt en waarom het samengaat met een bewaakt terrein.',
+      'Liever uw autosleutel meenemen op reis? Bij shuttle parkeren parkeert u zelf en houdt u uw sleutel. Lees hoe dat werkt en wat dat betekent voor uw parkeerplek.',
     path: '/parkeren-schiphol-zonder-sleutel-inleveren/',
   },
   safeParking: {
-    title: 'Beveiligd Parkeren Schiphol | Lang Parkeren Schiphol',
+    title: 'Veilig parkeren Schiphol | Beveiligingsmaatregelen',
     description:
-      'Beveiligd parkeren Schiphol op een afgesloten terrein met 24/7 camerabewaking. Parkeer met een gerust gevoel en vertrek zorgeloos.',
+      'Welke maatregelen beschermen uw auto tijdens uw reis? Lees over cameratoezicht, toegang tot het terrein en ritregistratie bij valet.',
     path: '/veilig-parkeren-schiphol/',
   },
   selfParking: {
     title: 'Zelf Parkeren Schiphol | U Zet Uw Auto Zelf Neer',
     description:
-      'Zelf uw auto parkeren bij Schiphol op ons bewaakte terrein. U weet waar hij staat, houdt de sleutel en stapt in de shuttle naar de vertrekhal. Zo werkt het.',
+      'Zelf uw auto parkeren bij Schiphol op het shuttleterrein. U weet waar hij staat, houdt de sleutel en stapt in de shuttle naar de vertrekhal. Zo werkt het.',
     path: '/zelf-parkeren-schiphol/',
   },
   rideRegistration: {

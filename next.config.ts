@@ -302,6 +302,9 @@ const nextConfig: NextConfig = {
       // NOT /mijn-reservering/ — that directory exists but holds no page.
       { source: '/wijzig-uw-reservering/', destination: '/login/', permanent: true },
       { source: '/cart/', destination: '/reservering/', permanent: true },
+      // Historic URLs that returned 404; /reviews/ and /samenwerken/ cover the same intent.
+      { source: '/ervaringen/', destination: '/reviews/', permanent: true },
+      { source: '/reisbureaus/', destination: '/samenwerken/', permanent: true },
     ];
   },
 
