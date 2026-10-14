@@ -71,7 +71,7 @@ export function PageHero({
   eyebrow: string;
   title: string;
   lead?: string;
-  photo: PhotoName;
+  photo?: PhotoName;
   crumbs: readonly Crumb[];
   objectPosition?: string;
   /** Optional descriptive alt text for the hero photograph. */
@@ -135,7 +135,7 @@ export function PageHero({
 
           {aside ? <div className="relative z-10 w-full">{aside}</div> : null}
 
-          {showPhoto ? (
+          {showPhoto && photo ? (
             <div className="shadow-photo relative aspect-4/3 overflow-hidden rounded-xl lg:aspect-square">
               <Photo
                 name={photo}
