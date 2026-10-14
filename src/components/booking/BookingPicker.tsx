@@ -220,11 +220,7 @@ export function BookingPicker({
   return (
     <Ticket notch={notch} className={className}>
       <form onSubmit={onSubmit} noValidate>
-        <div className="px-5 pt-6 pb-5 sm:px-7 sm:pt-7 sm:pb-6">
-          <p className="border-line bg-canvas text-body mb-4 rounded-md border px-3.5 py-2.5 text-xs leading-relaxed">
-            U boekt bij The Parking Company, een onafhankelijke aanbieder. Dit is geen reservering
-            voor Schiphol P3.
-          </p>
+        <div className="px-5 pt-5 pb-5 sm:px-7 sm:pt-6 sm:pb-6">
           {headingLevel === 'h1' ? (
             <h1 className="text-display-sm">Bekijk direct uw parkeerprijs</h1>
           ) : (
@@ -236,7 +232,7 @@ export function BookingPicker({
               and the choice changes what the rest of the form allows. Rendered
               as real radio inputs with the label styled — so it is operable with
               arrow keys and announced as a group, which a row of buttons is not. */}
-          <fieldset className="mt-5 border-0 p-0 sm:mt-6">
+          <fieldset className="mt-4 border-0 p-0 sm:mt-5">
             <legend id={serviceLabelId} className="eyebrow text-muted mb-2.5">
               Welke service?
             </legend>
@@ -277,7 +273,7 @@ export function BookingPicker({
             </p>
           </fieldset>
 
-          <fieldset className="mt-5 flex flex-col gap-3.5 border-0 p-0 sm:mt-6 sm:gap-4">
+          <fieldset className="mt-4 flex flex-col gap-3.5 border-0 p-0 sm:mt-5 sm:gap-4">
             <legend className="eyebrow text-muted mb-1">Parkeerperiode</legend>
 
             <DateTimeRow
@@ -332,7 +328,7 @@ export function BookingPicker({
               <div className="grid grid-cols-2 gap-2">
                 <ProductCard
                   label="Buiten"
-                  description="Beveiligd buitenterrein"
+                  description="Afgesloten buitenterrein"
                   price={prices?.outdoor ?? null}
                   loading={prices === null}
                   active={covered === false}
