@@ -1,7 +1,7 @@
 import { Container } from '@/components/ui/Container';
 import { Section } from '@/components/ui/Section';
 import { Reveal } from '@/components/motion/Reveal';
-import { CalendarX2, MailCheck, Warehouse } from 'lucide-react';
+import { CalendarX2, MailCheck, Warehouse, type LucideIcon } from 'lucide-react';
 
 /**
  * The board.
@@ -10,7 +10,7 @@ import { CalendarX2, MailCheck, Warehouse } from 'lucide-react';
  */
 
 type TrustItem = {
-  icon: typeof Building2;
+  icon: LucideIcon;
   title: string;
   label: string;
 };
