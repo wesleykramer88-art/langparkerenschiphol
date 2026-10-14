@@ -218,10 +218,11 @@ export default function ServicesPage() {
             <Reveal>
               <Eyebrow rule>Veiligheid &amp; Kwaliteit</Eyebrow>
               <h2 id="veiligheid-heading" className="text-display-lg mt-5 max-w-[14ch]">
-                Altijd veilig parkeren bij Schiphol.
+                Concrete maatregelen op onze parkeerlocatie.
               </h2>
               <p className="text-lead text-body mt-6 max-w-[40ch]">
-                Welke service u ook kiest, uw auto is bij ons altijd in goede handen.
+                Het terrein is afgesloten en voorzien van camerabewaking. Digitale ritregistratie
+                geldt bij Valet.
               </p>
             </Reveal>
 

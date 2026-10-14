@@ -201,8 +201,8 @@ export default async function ValetParkingPage() {
                 Iedere valetrit wordt digitaal geregistreerd
               </h2>
               <p className="text-body mt-4 max-w-[58ch] leading-relaxed">
-                Tijdens iedere valetrit wordt de route, snelheid en duur digitaal geregistreerd. Zo
-                zorgen wij voor volledige transparantie en extra zekerheid voor onze klanten.
+                Tijdens iedere valetrit worden route, snelheid en duur digitaal vastgelegd. Zo is
+                achteraf informatie beschikbaar over de rit met uw auto.
               </p>
             </div>
             <Button href="/digitale-ritregistratie/" variant="outline" size="lg">

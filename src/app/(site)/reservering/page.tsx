@@ -10,6 +10,7 @@ import { PageHero } from '@/components/sections/PageHero';
 import { ParkingProFrame } from '@/components/booking/ParkingProFrame';
 import { PARKINGPRO_DEFAULT_HEIGHTS, bookingUrl } from '@/lib/parkingpro';
 import { parseSelectionParams, toParkingProParams } from '@/lib/booking';
+import { SERVICE_COPY } from '@/config/services';
 import { siteConfig } from '@/config/site';
 import { env } from '@/lib/env';
 
@@ -161,6 +162,11 @@ export default async function BookingPage({
               <div className="border-line bg-canvas mb-4 border-l-2 border-accent px-4 py-3 text-sm leading-relaxed">
                 <p className="text-heading font-semibold">
                   U boekt bij The Parking Company, het bedrijf achter Lang Parkeren Schiphol.
+                </p>
+                <p className="text-heading mt-1">
+                  {selection.service
+                    ? `Voorselectie: ${SERVICE_COPY[selection.service].fullName}.`
+                    : 'Kies uw service in het reserveringssysteem.'}
                 </p>
                 <ul className="text-muted mt-2 space-y-1">
                   <li>

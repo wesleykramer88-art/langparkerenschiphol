@@ -153,7 +153,7 @@ export default function KeepKeysPage() {
         title="Zelf parkeren met sleutel, of valet met sleuteloverdracht"
         paragraphs={[
           'Wij bieden twee services aan en ze verschillen precies op dit punt. Het is de moeite waard om ze naast elkaar te zien, want de goedkoopste van de twee is toevallig ook de service waarbij u niets afgeeft.',
-          'Bij shuttle parkeren rijdt u naar ons terrein, parkeert u zelf en gaat uw sleutel mee. De shuttlebus brengt u in 5 tot 8 minuten naar de vertrekhal.',
+          'Bij shuttle parkeren rijdt u naar ons terrein, parkeert u zelf en neemt u uw sleutel mee. De shuttlerit naar de vertrekhal duurt 5 tot 8 minuten.',
           'Bij valet parking rijdt u tot de vertrekhal en neemt onze chauffeur de auto van u over. Daarvoor is de sleutel nodig. Hij wordt daarna opgeborgen in een brandwerende kluis op ons kantoor, dat onder camerabewaking staat, en u krijgt hem bij terugkomst persoonlijk terug. Iedere valetrit wordt bovendien digitaal geregistreerd.',
         ]}
         reversed
