@@ -61,7 +61,7 @@ export function HeroSection({
       </div>
 
       <Container className="relative">
-        <div className="grid gap-10 pt-3 pb-12 md:gap-12 md:py-12 lg:min-h-[min(72vh,720px)] lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-center lg:gap-12 lg:py-12">
+        <div className="grid gap-10 pt-3 pb-12 md:gap-12 md:py-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-center lg:gap-12 lg:py-12">
           <motion.div
             initial={
               prefersReduced
@@ -73,7 +73,7 @@ export function HeroSection({
               prefersReduced ? { duration: 0 } : { duration: 0.7, delay: 0.45, ease: EASE }
             }
             id="hero-booking"
-            className="relative z-10 order-1 w-full lg:order-2 lg:-mb-16"
+            className="relative z-10 order-1 w-full lg:order-2"
           >
             <BookingPicker notch="surface" bounds={bounds} headingLevel="h2" />
           </motion.div>

@@ -1,8 +1,10 @@
 'use client';
 
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { CalendarDays, ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/cn';
+import { useIsMounted } from '@/hooks/useIsMounted';
 import {
   MONTHS_NL,
   WEEKDAYS_NL_SHORT,
@@ -75,8 +77,10 @@ export function DateField({
   const [focusedDay, setFocusedDay] = useState(() => value || min || todayIso());
 
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
+  const mounted = useIsMounted();
   // Set when the calendar should move focus to the active day on next paint.
   const shouldFocusDay = useRef(false);
 
@@ -123,11 +127,66 @@ export function DateField({
   useEffect(() => {
     if (!open) return;
     const onPointerDown = (event: PointerEvent) => {
-      if (!wrapperRef.current?.contains(event.target as Node)) setOpen(false);
+      const target = event.target as Node;
+      if (!wrapperRef.current?.contains(target) && !popoverRef.current?.contains(target)) {
+        setOpen(false);
+      }
     };
     document.addEventListener('pointerdown', onPointerDown);
     return () => document.removeEventListener('pointerdown', onPointerDown);
   }, [open]);
+
+  useEffect(() => {
+    if (!open || !mounted) return;
+
+    const positionPopover = () => {
+      const wrapper = wrapperRef.current;
+      const popover = popoverRef.current;
+      if (!wrapper || !popover) return;
+
+      const margin = 12;
+      const gap = 8;
+      const anchor = wrapper.getBoundingClientRect();
+      const calendar = popover.getBoundingClientRect();
+      const viewportWidth = document.documentElement.clientWidth;
+      const viewportHeight = window.visualViewport?.height ?? window.innerHeight;
+      const viewportTop = window.visualViewport?.offsetTop ?? 0;
+      const spaceBelow = viewportTop + viewportHeight - margin - anchor.bottom - gap;
+      const spaceAbove = anchor.top - viewportTop - margin - gap;
+      const openAbove = spaceBelow < calendar.height && spaceAbove > spaceBelow;
+      const desiredTop = openAbove ? anchor.top - calendar.height - gap : anchor.bottom + gap;
+      const maxTop = viewportTop + viewportHeight - calendar.height - margin;
+
+      popover.style.left = `${Math.max(
+        margin,
+        Math.min(anchor.left, viewportWidth - calendar.width - margin),
+      )}px`;
+      popover.style.top = `${Math.max(viewportTop + margin, Math.min(desiredTop, maxTop))}px`;
+      popover.style.maxHeight = `${Math.max(0, viewportHeight - margin * 2)}px`;
+      popover.classList.remove('invisible');
+    };
+
+    positionPopover();
+    window.addEventListener('resize', positionPopover);
+    window.addEventListener('scroll', positionPopover, true);
+    window.visualViewport?.addEventListener('resize', positionPopover);
+    window.visualViewport?.addEventListener('scroll', positionPopover);
+
+    const observer =
+      typeof ResizeObserver === 'undefined'
+        ? null
+        : new ResizeObserver(positionPopover);
+    if (wrapperRef.current) observer?.observe(wrapperRef.current);
+    if (popoverRef.current) observer?.observe(popoverRef.current);
+
+    return () => {
+      window.removeEventListener('resize', positionPopover);
+      window.removeEventListener('scroll', positionPopover, true);
+      window.visualViewport?.removeEventListener('resize', positionPopover);
+      window.visualViewport?.removeEventListener('scroll', positionPopover);
+      observer?.disconnect();
+    };
+  }, [open, mounted]);
 
   // Move DOM focus onto the active day after the grid renders.
   useEffect(() => {
@@ -236,23 +295,24 @@ export function DateField({
         </button>
       </div>
 
-      {open ? (
-        <div
-          id={dialogId}
-          role="dialog"
-          aria-modal="false"
-          aria-label="Kies een datum"
-          onKeyDown={(event) => {
-            if (event.key === 'Escape') {
-              event.preventDefault();
-              close();
-            }
-          }}
-          className={cn(
-            'absolute top-[calc(100%+0.5rem)] left-0 z-30 w-[19.5rem] max-w-[calc(100vw-2.5rem)]',
-            'border-line bg-surface shadow-lifted rounded-xl border p-3',
-          )}
-        >
+      {open && mounted
+        ? createPortal(
+            <div
+              ref={popoverRef}
+              id={dialogId}
+              role="dialog"
+              aria-modal="false"
+              aria-label="Kies een datum"
+              onKeyDown={(event) => {
+                if (event.key === 'Escape') {
+                  event.preventDefault();
+                  close();
+                }
+              }}
+              className={cn(
+                'border-line bg-surface shadow-lifted invisible fixed top-3 left-3 z-50 w-[19.5rem] max-w-[calc(100vw-1.5rem)] overflow-y-auto rounded-xl border p-3',
+              )}
+            >
           <div className="flex items-center justify-between gap-2 px-1 pb-2">
             <button
               type="button"
@@ -340,8 +400,10 @@ export function DateField({
               );
             })}
           </div>
-        </div>
-      ) : null}
+            </div>,
+            document.body,
+          )
+        : null}
     </div>
   );
 }
