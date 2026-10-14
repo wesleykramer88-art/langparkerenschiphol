@@ -81,8 +81,7 @@ export function SiteFooter() {
           <div className="max-w-sm">
             <Logo tone="dark" />
             <p className="text-navy-200 mt-4 text-sm leading-relaxed md:mt-6">
-              Onafhankelijke aanbieder van shuttle- en valetparkeren bij Schiphol. Een merk van The
-              Parking Company.
+              Shuttle- en valetparkeren bij Schiphol, verzorgd door The Parking Company.
             </p>
 
             {/* Where the unsourced "4,7 / 5" and its five stars used to sit.
@@ -239,7 +238,7 @@ export function SiteFooter() {
           passes AA at this size; it is quiet, but a disclaimer that cannot be
           read is not a disclaimer.
         */}
-        <p className="text-navy-400 max-w-[68ch] pt-4 pb-6 text-xs leading-relaxed md:pt-5 md:pb-8">
+        <p className="text-navy-200 max-w-[68ch] pt-4 pb-6 text-sm leading-relaxed md:pt-5 md:pb-8">
           {independenceDisclaimer}
         </p>
       </Container>

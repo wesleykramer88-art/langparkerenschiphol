@@ -39,8 +39,8 @@ export function MobileTrustBlock() {
                 Uw auto staat veilig, uw keuze blijft helder
               </h2>
               <p className="text-muted mt-2 text-sm leading-relaxed">
-                Beide services werken vanuit een bewaakte parkeerlocatie, met digitale ritregistratie
-                als extra controle bij Valet.
+                Beide services gebruiken een afgesloten parkeerlocatie met camerabewaking. Digitale
+                ritregistratie geldt alleen voor Valet.
               </p>
             </div>
           </div>

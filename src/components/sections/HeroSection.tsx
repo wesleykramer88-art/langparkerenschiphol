@@ -11,11 +11,7 @@ import type { PickerBounds } from '@/lib/parkingpro-config';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 const HEADLINE_LINES = ['Lang parkeren bij', 'Schiphol'] as const;
-const PROOF = [
-  'Op 5 tot 8 minuten van Schiphol',
-  'Sleutels mee op reis bij Shuttle',
-  '24/7 camerabewaking en monitoring',
-] as const;
+const PROOF = ['Shuttlerit: 5 tot 8 minuten', '24/7 camerabewaking'] as const;
 
 /**
  * One semantic hero for every screen size.
@@ -65,7 +61,7 @@ export function HeroSection({
       </div>
 
       <Container className="relative">
-        <div className="grid gap-12 pt-3 pb-16 md:gap-16 md:py-16 lg:min-h-[min(80vh,800px)] lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-center lg:gap-16 lg:py-20">
+        <div className="grid gap-10 pt-3 pb-12 md:gap-12 md:py-12 lg:min-h-[min(72vh,720px)] lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-center lg:gap-12 lg:py-12">
           <motion.div
             initial={
               prefersReduced
@@ -88,7 +84,7 @@ export function HeroSection({
               <p className="eyebrow text-brand">Premium shuttle- en valetparkeren bij Schiphol</p>
             </motion.div>
 
-            <h1 className="text-display-xl text-heading md:text-display-2xl md:mt-7">
+            <h1 className="text-display-xl text-heading md:mt-5 md:text-display-xl">
               {HEADLINE_LINES.map((line, index) => (
                 <span key={line} className="block overflow-hidden pb-[0.08em]">
                   <motion.span
@@ -109,15 +105,15 @@ export function HeroSection({
 
             <motion.p
               {...rise(0.38)}
-              className="text-body mt-5 max-w-[54ch] text-base leading-relaxed md:mt-7 md:text-lg"
+              className="text-body mt-4 max-w-[54ch] text-base leading-relaxed md:mt-5 md:text-lg"
             >
-              Boek shuttle- of valetparkeren bij Lang Parkeren Schiphol, een merk van The Parking
-              Company. Wij zijn een onafhankelijke aanbieder en geen onderdeel van Schiphol.
+              Kies shuttle- of valetparkeren bij Lang Parkeren Schiphol. Bekijk de beschikbaarheid
+              voor uw reis en reserveer eenvoudig online.
             </motion.p>
 
             <motion.ul
               {...rise(0.46)}
-              className="border-line mt-6 grid w-full max-w-lg gap-3 border-t pt-5 md:mt-9 md:grid-cols-3 md:gap-x-5 md:pt-6"
+              className="border-line mt-5 grid w-full max-w-lg gap-3 border-t pt-4 md:mt-7 md:grid-cols-2 md:gap-x-5 md:pt-5"
             >
               {PROOF.map((item) => (
                 <li key={item} className="text-body flex items-start gap-2.5">
@@ -133,23 +129,19 @@ export function HeroSection({
 
             <motion.div
               {...rise(0.54)}
-              className="mt-7 flex w-full flex-wrap items-center gap-3 md:mt-9"
+              className="mt-6 flex w-full flex-wrap items-center gap-3 md:mt-7"
             >
-              <Button href="/reservering/" size="lg" className="w-full sm:w-auto">
+              <Button href="/reservering/" variant="outline" size="lg" className="w-full sm:w-auto">
                 Reserveer nu
                 <ArrowRight data-arrow className="size-4" aria-hidden />
               </Button>
-              <Button href="#diensten" variant="outline" size="lg" className="w-full sm:w-auto">
+              <Button href="#diensten" variant="link" size="lg" className="w-full sm:w-auto">
                 Vergelijk Shuttle en Valet
               </Button>
             </motion.div>
 
-            <motion.p {...rise(0.62)} className="text-muted mt-5 text-sm">
-              Online reserveren met directe bevestiging
-            </motion.p>
-
             {showPromo ? (
-              <motion.div {...rise(0.7)} className="mt-6">
+              <motion.div {...rise(0.62)} className="mt-5">
                 <PromoCoupon />
               </motion.div>
             ) : null}

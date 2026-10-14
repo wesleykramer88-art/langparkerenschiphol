@@ -114,7 +114,7 @@ const SERVICES: readonly Service[] = [
     badge: 'Meest betaalbare keuze',
     badgeTone: 'brand',
     description:
-      'Parkeer uw auto op ons terrein. Onze shuttlebus brengt u comfortabel binnen 5 tot 8 minuten naar de vertrekhal van Schiphol.',
+      'Parkeer uw auto op ons terrein. De rit met de shuttlebus naar de vertrekhal van Schiphol duurt 5 tot 8 minuten.',
     usps: SERVICE_COPY.shuttle.bullets,
     cta: 'Reserveer Shuttle Parkeren',
     // His own terrain, with the shuttle bus running along the top of the frame
@@ -150,7 +150,7 @@ const SERVICES: readonly Service[] = [
 const COVER_OPTIONS = [
   {
     label: 'Buitenterrein',
-    body: 'Uw auto staat op ons afgesloten, bewaakte buitenterrein.',
+    body: 'Afgesloten buitenterrein met 24/7 camerabewaking.',
     mobileBody: 'Afgesloten buitenterrein',
   },
   {

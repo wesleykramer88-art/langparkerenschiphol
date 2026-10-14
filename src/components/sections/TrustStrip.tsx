@@ -1,30 +1,30 @@
 import { Container } from '@/components/ui/Container';
 import { Section } from '@/components/ui/Section';
 import { Reveal } from '@/components/motion/Reveal';
-import { Building2, BusFront, CalendarX2 } from 'lucide-react';
+import { CalendarX2, MailCheck, Warehouse, type LucideIcon } from 'lucide-react';
 
 /**
  * The board.
  *
- * Three concise service and independence facts below the hero.
+ * Three concise booking benefits below the hero.
  */
 
 type TrustItem = {
-  icon: typeof Building2;
+  icon: LucideIcon;
   title: string;
   label: string;
 };
 
 const ITEMS: readonly TrustItem[] = [
   {
-    icon: Building2,
-    title: 'Onafhankelijke aanbieder',
-    label: 'Een merk van The Parking Company. Geen onderdeel van Schiphol.',
+    icon: MailCheck,
+    title: 'Directe boekingsbevestiging',
+    label: 'U ontvangt uw bevestiging per e-mail.',
   },
   {
-    icon: BusFront,
-    title: 'Shuttle of valet',
-    label: 'Zelf parkeren met transfer, of uw auto afgeven bij de vertrekhal.',
+    icon: Warehouse,
+    title: 'Buiten of overdekt',
+    label: 'Kies uw parkeeroptie tijdens het reserveren.',
   },
   {
     icon: CalendarX2,
@@ -35,7 +35,7 @@ const ITEMS: readonly TrustItem[] = [
 
 export function TrustStrip() {
   return (
-    <Section tone="canvas" spacing="none" className="pt-8 pb-6 md:pt-12 md:pb-8 lg:pt-20 lg:pb-10">
+    <Section tone="canvas" spacing="none" className="pt-7 pb-5 md:pt-10 md:pb-7 lg:pt-12 lg:pb-8">
       <Container>
         <ul className="grid gap-5 md:grid-cols-3 md:gap-8">
           {ITEMS.map((item, index) => (

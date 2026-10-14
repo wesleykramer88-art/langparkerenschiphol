@@ -14,6 +14,7 @@ import { FaqSection } from '@/components/sections/Faq';
 import { ClusterLinks } from '@/components/sections/ClusterLinks';
 import { ClosingCta } from '@/components/sections/ClosingCta';
 import { fetchPickerBounds } from '@/lib/parkingpro-config';
+import { siteConfig } from '@/config/site';
 
 export const metadata = createMetadata('shuttleParking');
 
@@ -63,7 +64,7 @@ const STEPS: readonly TimelineStep[] = [
   },
   {
     title: 'Shuttle naar de vertrekhal.',
-    body: 'Onze shuttlebus brengt u in 5 tot 8 minuten naar de vertrekhal van Schiphol.',
+    body: 'De shuttlerit van ons terrein naar de vertrekhal van Schiphol duurt 5 tot 8 minuten.',
   },
   {
     title: 'Bel bij terugkomst.',
@@ -142,7 +143,7 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Hoe lang duurt de rit naar de vertrekhal?',
     answer:
-      'De shuttlebus brengt u binnen 5 tot 8 minuten van ons terrein naar de vertrekhal van Schiphol.',
+      'De rit met de shuttlebus van ons terrein naar de vertrekhal duurt 5 tot 8 minuten.',
   },
   {
     question: 'Moet ik mijn autosleutel afgeven?',
@@ -188,7 +189,7 @@ export default async function ShuttleParkingPage() {
       <PageHero
         eyebrow="Shuttle Parkeren"
         title="Shuttle parkeren bij Schiphol"
-        lead="Shuttle parkeren Schiphol is de ideale keuze als u zelf wilt parkeren en snel naar de terminal wilt reizen. U parkeert uw auto veilig op ons terrein, houdt uw autosleutel bij u en onze shuttle brengt u comfortabel naar Schiphol."
+        lead={`U boekt Shuttle parkeren bij The Parking Company. U parkeert zelf op ons terrein aan de ${siteConfig.address.display} en neemt uw sleutel mee. De shuttlerit naar de vertrekhal duurt 5 tot 8 minuten.`}
         photo="lotShuttle"
         objectPosition="object-[center_35%]"
         crumbs={CRUMBS}
@@ -249,7 +250,7 @@ export default async function ShuttleParkingPage() {
         eyebrow="Reistijd en gemak"
         title="Vijf tot acht minuten naar de vertrekhal"
         paragraphs={[
-          'De rit van ons terrein naar de vertrekhal duurt 5 tot 8 minuten. Dat is de afstand die u niet zelf hoeft te rijden en waar u geen parkeerplaats voor hoeft te zoeken — bij aankomst niet, en bij terugkomst evenmin.',
+          'De rit met de shuttlebus van ons terrein naar de vertrekhal duurt 5 tot 8 minuten. Dit is alleen de rijtijd; parkeren, instappen en eventuele wachttijd komen daar nog bij.',
           'De shuttle rijdt op uw reservering. U geeft bij het boeken op wanneer u aankomt, zodat wij weten wanneer u er bent en daarop kunnen plannen. Voor de terugreis belt u ons na de landing; dan weten wij dat u er werkelijk bent, en niet alleen dat uw vlucht dat zou zijn.',
           'Reken voor het hele proces op ongeveer een kwartier: parkeren, instappen, rijden en uitstappen. Wij adviseren om minimaal 3 uur voor vertrek op het terrein te zijn, zodat u daarna in alle rust kunt inchecken.',
         ]}
@@ -364,7 +365,7 @@ export default async function ShuttleParkingPage() {
             serviceSchema({
               name: 'Shuttle Parkeren Schiphol',
               description:
-                'U parkeert zelf op ons beveiligde terrein aan de Tupolevlaan in Schiphol-Rijk, houdt uw eigen autosleutel en reist met onze shuttlebus in 5 tot 8 minuten naar de vertrekhal van Schiphol.',
+                'U parkeert zelf op ons afgesloten terrein aan de Tupolevlaan in Schiphol-Rijk, houdt uw autosleutel bij u en reist met de shuttlebus naar de vertrekhal. De rit duurt 5 tot 8 minuten.',
               serviceType: 'Airport shuttle parking',
             }),
           ),

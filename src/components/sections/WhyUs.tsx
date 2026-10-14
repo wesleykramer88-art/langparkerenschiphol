@@ -51,13 +51,13 @@ const REASONS: readonly Item[] = [
   },
   {
     icon: ShieldCheck,
-    title: '24/7 zorg voor uw auto',
-    body: 'Camerabewaking en ervaren chauffeurs in dienst.',
+    title: 'Afgesloten terrein met camerabewaking',
+    body: 'De parkeerterreinen zijn afgesloten en staan 24/7 onder camerabewaking.',
   },
   {
     icon: Gauge,
-    title: 'Altijd inzicht en controle',
-    body: 'Digitale ritregistratie, inclusief snelheid en route.',
+    title: 'Ritregistratie bij Valet',
+    body: 'Bij Valet wordt de rit digitaal geregistreerd, inclusief snelheid en route.',
   },
   {
     icon: Users,
@@ -80,8 +80,8 @@ const USPS: readonly Item[] = [
   },
   {
     icon: FileCheck,
-    title: 'Digitale ritcontroles',
-    body: 'Veiligheid en controle dankzij digitale ritregistratie.',
+    title: 'Ritregistratie bij Valet',
+    body: 'Route en snelheid van Valetritten worden digitaal vastgelegd.',
   },
   {
     icon: Timer,
@@ -126,7 +126,8 @@ export function WhyUs() {
                 </p>
                 <p>
                   Uw auto is bij ons in betrouwbare handen. Professionele chauffeurs, veilige
-                  parkeerplaatsen en slimme tracking bieden maximale controle en veiligheid.
+                  parkeerlocaties zijn afgesloten en voorzien van camerabewaking. Bij Valet wordt
+                  de rit digitaal geregistreerd.
                 </p>
               </div>
             </Reveal>

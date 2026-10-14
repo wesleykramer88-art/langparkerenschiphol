@@ -63,17 +63,17 @@ const SERVICES: readonly ServiceBlock[] = [
     badge: 'Snelste optie',
     badgeTone: 'accent',
     title: 'Valet Parking bij de vertrekhal van Schiphol',
-    body: 'De meest comfortabele manier van parkeren. U rijdt rechtstreeks naar de vertrekhal van Schiphol, waar één van onze professionele chauffeurs u opwacht. Na een korte controle van uw voertuig nemen wij uw auto direct van u over. Terwijl u zonder vertraging doorloopt naar uw vlucht, zorgen wij ervoor dat uw auto veilig wordt geparkeerd op onze beveiligde locatie.',
+    body: 'Bij Valet rijdt u naar de vertrekhal van Schiphol, waar een chauffeur uw auto na een controle overneemt. U loopt daarna door naar uw vlucht; uw auto wordt op onze parkeerlocatie geparkeerd.',
     benefitsTitle: 'Voordelen van Valet Parking',
     benefits: [
       'Direct uitstappen bij de vertrekhal',
-      'Geen tijdverlies of zoeken naar een parkeerplek',
+      'U hoeft niet zelf naar een parkeerplek op het terrein te zoeken',
       'Ideaal voor zakelijke reizigers en gezinnen',
       'Professionele en gescreende chauffeurs',
-      'Uw auto wordt veilig en gecontroleerd geparkeerd',
+      'Uw auto wordt op onze parkeerlocatie geparkeerd',
     ],
     closing:
-      'Bij terugkomst staat uw auto weer voor u klaar bij de luchthaven. Snel, comfortabel en volledig zorgeloos.',
+      'Bij terugkomst staat uw auto volgens afspraak bij de luchthaven klaar. De overdracht vindt plaats bij de vertrekhal.',
     photo: 'crewHandover',
     objectPosition: 'object-[center_40%]',
     photoAlt: 'Schiphol parkeerplaats met valet bij de vertrekhal',
@@ -85,12 +85,12 @@ const SERVICES: readonly ServiceBlock[] = [
     badge: 'Meest betaalbare keuze',
     badgeTone: 'brand',
     title: 'Shuttle Parking — voordelig en comfortabel',
-    body: 'Voordelig parkeren zonder in te leveren op comfort. U parkeert uw auto zelf in onze luxe en beveiligde parkeergarage. Vervolgens brengen wij u met een comfortabel shuttlebusje binnen 5 tot 8 minuten naar de vertrekhal van Schiphol.',
+    body: 'U parkeert uw auto zelf op ons afgesloten terrein, dat 24/7 onder camerabewaking staat. De rit met de shuttlebus naar de vertrekhal van Schiphol duurt 5 tot 8 minuten.',
     benefitsTitle: 'Voordelen van Shuttle Parking',
     benefits: [
-      'Parkeer uw auto zelf in onze moderne parkeergarage',
+      'Parkeer uw auto zelf op ons afgesloten terrein',
       'Luxe shuttlebus naar de luchthaven',
-      'Binnen 5–8 minuten bij de vertrekhal',
+      'Shuttlerit naar de vertrekhal: 5–8 minuten',
       'Voordelige oplossing zonder concessies op service',
       '24/7 beschikbaar',
     ],
@@ -111,12 +111,12 @@ const CLAIMS: readonly { icon: LucideIcon; title: string; body: string }[] = [
   {
     icon: ShieldCheck,
     title: 'Veilig & professioneel',
-    body: '24/7 camerabewaking, gecontroleerde terreinen en ervaren chauffeurs. Uw auto wordt altijd veilig geparkeerd.',
+    body: 'De terreinen zijn afgesloten en voorzien van 24/7 camerabewaking. Valetritten worden digitaal geregistreerd.',
   },
   {
     icon: Gauge,
-    title: 'Altijd inzicht & controle',
-    body: 'Uw auto en chauffeur zijn live traceerbaar tijdens de rit. Volledige transparantie, van afgifte tot terugkomst.',
+    title: 'Ritregistratie bij Valet',
+    body: 'Bij Valet worden route, snelheid en duur van de rit digitaal vastgelegd.',
   },
 ];
 
@@ -218,10 +218,11 @@ export default function ServicesPage() {
             <Reveal>
               <Eyebrow rule>Veiligheid &amp; Kwaliteit</Eyebrow>
               <h2 id="veiligheid-heading" className="text-display-lg mt-5 max-w-[14ch]">
-                Altijd veilig parkeren bij Schiphol.
+                Concrete maatregelen op onze parkeerlocatie.
               </h2>
               <p className="text-lead text-body mt-6 max-w-[40ch]">
-                Welke service u ook kiest, uw auto is bij ons altijd in goede handen.
+                Het terrein is afgesloten en voorzien van camerabewaking. Digitale ritregistratie
+                geldt bij Valet.
               </p>
             </Reveal>
 
@@ -241,8 +242,8 @@ export default function ServicesPage() {
 
               <Reveal>
                 <p className="text-muted mt-8 max-w-[52ch] text-sm leading-relaxed">
-                  Wij combineren jarenlange ervaring met moderne technologie om u maximale zekerheid
-                  te bieden.
+                  We beschrijven concreet welke maatregelen gelden: afgesloten parkeerlocaties,
+                  camerabewaking en digitale ritregistratie bij Valet.
                 </p>
                 <Button href="/waarom-lang-parkeren-schiphol/" variant="outline" className="mt-7">
                   Lees hoe wij uw auto beveiligen

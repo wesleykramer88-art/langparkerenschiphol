@@ -151,7 +151,7 @@ export default function CheapShuttlePage() {
         title="Van aankomst tot ophalen"
         paragraphs={[
           'U reserveert vooraf online en geeft door wanneer u aankomt en wanneer u terugkomt. Op de dag zelf rijdt u naar ons terrein aan de Tupolevlaan in Schiphol-Rijk — niet naar de terminal, dat is bij deze service een veelgemaakte vergissing.',
-          'U parkeert uw auto zelf op de plek die u krijgt aangewezen en neemt uw autosleutel mee. De shuttlebus brengt u in 5 tot 8 minuten naar de vertrekhal, waar u gewoon door kunt lopen naar de incheckbalie.',
+          'U parkeert uw auto zelf op de plek die u krijgt aangewezen en neemt uw autosleutel mee. De shuttlerit naar de vertrekhal duurt 5 tot 8 minuten; daarna loopt u door naar de incheckbalie.',
           // TODO(client): SHUTTLE PICKUP LOCATION — UNCONFIRMED.
           // The valet flow was corrected in August 2026: a valet car is handed over
           // AND returned between Vertrekhal 2 and 3, never at arrivals. Whether the
@@ -215,7 +215,7 @@ export default function CheapShuttlePage() {
               <h3 className="text-display-sm text-heading mt-3">Shuttle parkeren</h3>
               <p className="text-body mt-5 max-w-[44ch] leading-relaxed">
                 U rijdt naar ons terrein, parkeert zelf en houdt uw sleutel. De shuttle brengt u in
-                5 tot 8 minuten naar de vertrekhal. Dit is de goedkoopste manier om bij ons lang te
+                een shuttlerit van 5 tot 8 minuten naar de vertrekhal. Dit is de goedkoopste manier om bij ons lang te
                 parkeren, en verreweg het meest geboekt.
               </p>
               <Button href="/shuttle-parkeren-schiphol/" variant="link" className="mt-6">

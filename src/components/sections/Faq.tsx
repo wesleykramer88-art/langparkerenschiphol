@@ -31,7 +31,7 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Wat is het verschil tussen valet en shuttle parkeren?',
     answer:
-      'Bij valet parkeren rijdt u rechtstreeks naar de vertrekhal en parkeert onze chauffeur uw auto. Bij shuttle parkeren parkeert u uw eigen auto op onze locatie en brengt onze shuttlebus u binnen 5 tot 8 minuten naar de vertrekhal.',
+      'Bij valet parkeren rijdt u naar de vertrekhal en neemt onze chauffeur uw auto over. Bij shuttle parkeren parkeert u zelf op onze locatie; de shuttlerit naar de vertrekhal duurt 5 tot 8 minuten.',
   },
   {
     question: 'Hoe veilig is mijn auto geparkeerd?',
@@ -55,7 +55,7 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Worden mijn autosleutels veilig opgeborgen?',
     answer:
-      'Ja, uw autosleutels worden met de grootste zorg behandeld. Bij onze shuttle service kunt u ervoor kiezen om uw autosleutels zelf mee op reis te nemen. Maakt u gebruik van valet parking, dan worden uw sleutels veilig opgeborgen in een brandwerende kluis op ons kantoor, dat is voorzien van camerabewaking.',
+      'Bij Shuttle parkeren neemt u uw autosleutels zelf mee op reis. Bij Valet parkeren worden uw sleutels opgeborgen in een brandwerende kluis op ons kantoor, dat is voorzien van camerabewaking.',
   },
   {
     question: 'Wat gebeurt er als mijn vlucht vertraagd is?',

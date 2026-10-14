@@ -495,21 +495,9 @@ export function isPromoActive(now: number = Date.now()): boolean {
   return now < Date.parse(promo.endsAt);
 }
 
-/**
- * Independence disclaimer.
- *
- * The whole design resolves ambiguity towards "airport infrastructure" because
- * that is what the client asked for and what his domain is worth. This line is
- * the counterweight, and it is not optional: it states plainly that the business
- * is not part of Royal Schiphol Group, which is what keeps evoking the category
- * on the right side of a trademark challenge. Competitors on this keyword carry
- * the same sentence.
- *
- * TODO(client): confirm this exact wording — it is a legal statement about your
- * own business and you should be comfortable with every word of it.
- */
+/** Clear company and affiliation statement, shown in the footer. */
 export const independenceDisclaimer =
-  'Lang Parkeren Schiphol is een onafhankelijke parkeerservice en is niet gelieerd aan Royal Schiphol Group.';
+  'Lang Parkeren Schiphol is een merk van The Parking Company, een onafhankelijke parkeeraanbieder en geen onderdeel van Royal Schiphol Group.';
 
 
 /**

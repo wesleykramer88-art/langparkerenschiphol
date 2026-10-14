@@ -594,22 +594,14 @@
    The mobile gradient in HeroSection is separate and has less headroom: it runs
    top-to-bottom under full-width copy, so there is no quiet side to open. */
 @utility scrim-hero {
-  background-image:
-    linear-gradient(
-      to right,
-      color-mix(in srgb, white 96%, transparent) 0%,
-      color-mix(in srgb, white 91%, transparent) 32%,
-      color-mix(in srgb, white 72%, transparent) 49%,
-      color-mix(in srgb, white 18%, transparent) 70%,
-      color-mix(in srgb, white 8%, transparent) 100%
-    ),
-    linear-gradient(
-      to bottom,
-      color-mix(in srgb, white 62%, transparent) 0%,
-      color-mix(in srgb, white 8%, transparent) 34%,
-      color-mix(in srgb, white 18%, transparent) 68%,
-      color-mix(in srgb, var(--color-canvas) 92%, transparent) 100%
-    );
+  background-image: linear-gradient(
+    to right,
+    color-mix(in srgb, white 84%, transparent) 0%,
+    color-mix(in srgb, white 77%, transparent) 31%,
+    color-mix(in srgb, white 54%, transparent) 48%,
+    color-mix(in srgb, white 10%, transparent) 68%,
+    transparent 100%
+  );
 }
 
 /* ⚠ UNUSED SINCE AUGUST 2026, AND KEPT ON PURPOSE — as are `scrim-band`,

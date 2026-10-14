@@ -57,6 +57,10 @@ export default function ContactPage() {
               <h2 id="contact-heading" className="text-display-md mt-5 max-w-[14ch]">
                 Direct contact
               </h2>
+              <p className="text-muted mt-4 max-w-[42ch] text-sm leading-relaxed">
+                Lang Parkeren Schiphol is een merk van The Parking Company. Hieronder ziet u waar u
+                terechtkunt voor Shuttle parkeren en waar de Valet-overdracht plaatsvindt.
+              </p>
 
               <dl className="divide-line border-line mt-9 divide-y border-y">
                 <div className="flex items-start gap-4 py-5">
