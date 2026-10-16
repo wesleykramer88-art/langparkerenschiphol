@@ -38,7 +38,7 @@ export default function ContactPage() {
       <PageHero
         eyebrow="Contact"
         title="Persoonlijke service — voor, tijdens en na uw reis."
-        lead="Lang parkeren schiphol contact nodig voor een reservering, wijziging of vraag? Ons team is bereikbaar voor, tijdens en na uw reis. Doorgaans reageren wij binnen 1 uur."
+        lead="Een vraag over uw reservering, een wijziging of de aankomst? Ons team is bereikbaar voor, tijdens en na uw reis. Doorgaans reageren wij binnen 1 uur."
         photo="crewHandover"
         photoAlt="Lang Parkeren Schiphol contact bij de overdracht van een auto"
         objectPosition="object-[center_35%]"
