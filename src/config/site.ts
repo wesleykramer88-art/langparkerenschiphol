@@ -18,7 +18,7 @@
  * Kept in E.164 here and expanded into display and `tel:` forms once, so the
  * site cannot end up showing one number and dialling another.
  */
-const PHONE_E164 = '+31203033460';
+const PHONE_E164 = '+31854013918';
 
 export const siteConfig = {
   name: 'Lang Parkeren Schiphol',
@@ -53,7 +53,7 @@ export const siteConfig = {
    */
   phone: {
     /** Human-readable, as it should be rendered on screen. */
-    display: '020-303 3460',
+    display: '085 401 3918',
     /** E.164, for tel: hrefs and schema.org. Replaces the live site's broken
      *  placeholder `tel:123456789`, which called nothing when tapped. */
     href: `tel:${PHONE_E164}`,
