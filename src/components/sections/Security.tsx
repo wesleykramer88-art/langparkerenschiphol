@@ -1,8 +1,7 @@
-import { ArrowRight, Award, Lock, PlugZap, Video, Warehouse, type LucideIcon } from 'lucide-react';
+import { ClipboardCheck, KeyRound, Warehouse, type LucideIcon } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { Section } from '@/components/ui/Section';
 import { Eyebrow } from '@/components/ui/Eyebrow';
-import { Button } from '@/components/ui/Button';
 import { SectionTear } from '@/components/ui/Ticket';
 import { Photo } from '@/components/ui/Photo';
 import { Reveal, Stagger } from '@/components/motion/Reveal';
@@ -52,14 +51,9 @@ import { Reveal, Stagger } from '@/components/motion/Reveal';
 
 const MEASURES: readonly { icon: LucideIcon; label: string; body: string }[] = [
   {
-    icon: Video,
-    label: '24/7 camerabewaking',
-    body: 'Het terrein staat dag en nacht onder cameratoezicht. Dit betekent niet dat er permanent een fysieke bewaker aanwezig is.',
-  },
-  {
-    icon: Lock,
-    label: 'Afgesloten parkeerterreinen',
-    body: 'Afgesloten en gecontroleerd. Geen vrije toegang.',
+    icon: ClipboardCheck,
+    label: 'Vaste procedure',
+    body: 'Bij aankomst en bij terugkomst geldt een vaste procedure, zowel bij Shuttle als bij Valet.',
   },
   {
     icon: Warehouse,
@@ -67,25 +61,9 @@ const MEASURES: readonly { icon: LucideIcon; label: string; body: string }[] = [
     body: 'Liever binnen? Beperkt aantal overdekte plaatsen.',
   },
   {
-    icon: Award,
-    label: 'Vakbekwame chauffeurs',
-    body: 'Rijdt er iemand in uw auto, dan is dat onze eigen chauffeur.',
-  },
-  {
-    // ── EV charging. Client, August 2026: a real differentiator he wants
-    // surfaced, and none of the competitors on this keyword mention it.
-    //
-    // The claim is deliberately thin: that it exists, and where. We have not
-    // been told how many chargers there are, what a charge costs, whether it
-    // has to be requested at booking, or which connector — and every one of
-    // those is the first thing an EV driver will ask. Stating any of them
-    // without knowing is how a customer arrives expecting a charged car.
-    // TODO(client): aantal laadpunten, kosten, en of het vooraf aangevraagd
-    // moet worden. Zodra we die hebben, verdient dit een eigen blok in plaats
-    // van één regel.
-    icon: PlugZap,
-    label: 'Elektrisch opladen',
-    body: 'Laadpunten op onze eigen parkeerlocatie, voor wie elektrisch rijdt.',
+    icon: KeyRound,
+    label: 'Shuttle: uw sleutel blijft bij u',
+    body: 'Bij Shuttle parkeert u zelf en houdt u uw autosleutel. Bij Valet geeft u de sleutel af voor de chauffeur.',
   },
 ];
 
@@ -101,61 +79,30 @@ export function Security() {
       <Container className="relative">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <Reveal>
-            <Eyebrow rule>Toezicht op de parkeerlocatie</Eyebrow>
+            <Eyebrow rule>Op de parkeerlocatie</Eyebrow>
             <h2 id="beveiliging-heading" className="text-display-lg mt-5 max-w-[18ch]">
-              Welke maatregelen er op het terrein zijn
+              Wat u op de parkeerlocatie kunt verwachten
             </h2>
             <p className="text-lead text-muted mt-6 max-w-[52ch]">
-              De parkeerlocatie is afgesloten en voorzien van camerabewaking. Bij Valet wordt ook de
-              rit met uw auto digitaal geregistreerd.
+              Bij Shuttle parkeert u zelf aan de Schipholweg 181 in Badhoevedorp en houdt u uw
+              sleutel. Bij Valet rijdt u naar de vertrekhal en neemt de chauffeur uw auto over.
             </p>
-
-            {/* The one link out of this band, and it belongs here rather than
-                anywhere else on the homepage: this is the section that raises
-                the question "what happens to my car when I am not there", and
-                ride registration is the only answer on the site that is a
-                system rather than a claim. Valet-only, which the line says
-                rather than leaving a shuttle customer to click and find out. */}
-            <p className="text-muted mt-8 max-w-[52ch] text-sm leading-relaxed">
-              Alleen bij Valet parkeren wordt de rit met uw auto digitaal geregistreerd — route,
-              snelheid en duur.
-            </p>
-            <Button href="/digitale-ritregistratie/" variant="outline" className="mt-5">
-              Bekijk de digitale ritregistratie
-              <ArrowRight data-arrow className="size-4" aria-hidden />
-            </Button>
           </Reveal>
 
-          {/* ── The EV frame, and why it took this slot ─────────────────────
-              This was `lotShuttle` — his terrain under the shuttle. It moved
-              aside for `evCharging` because the EV claim is the newest thing on
-              this band and was the only measure here with nothing behind it:
-              four of the five are states of a car park, which the terrain photo
-              showed adequately, while "elektrisch opladen" was an assertion.
-              Now it is a photograph of his own charger, his own garage and his
-              own staff member plugging in.
-
-              The terrain is not lost — it still carries /veilig-parkeren-
-              schiphol/, the shuttle page's hero and the samenwerken band.
-
-              The frame is 3:2 and this slot is 4:3, so the crop trims the
-              sides. object-[38%_50%] keeps the charge point and the connector —
-              the part that makes the point — inside the frame; centred, the
-              charger's left edge falls off. */}
           <Reveal delay={80}>
             <div className="shadow-photo relative aspect-4/3 overflow-hidden rounded-xl">
               <Photo
-                name="evCharging"
+                name="lotShuttle"
                 fill
                 sizes="(min-width: 1024px) 34rem, 100vw"
                 className="absolute inset-0 h-full w-full"
-                imageClassName="object-cover object-[38%_50%]"
+                imageClassName="object-cover object-center"
               />
             </div>
           </Reveal>
         </div>
 
-        <Stagger as="ul" className="mt-14 grid gap-4 sm:grid-cols-2 lg:mt-16 lg:grid-cols-5">
+        <Stagger as="ul" className="mt-14 grid gap-4 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3">
           {MEASURES.map((measure) => (
             <div
               key={measure.label}

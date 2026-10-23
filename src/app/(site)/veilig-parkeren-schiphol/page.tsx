@@ -1,4 +1,4 @@
-import { Award, Lock, PlugZap, Video, Warehouse, type LucideIcon } from 'lucide-react';
+import { Award, Lock, Warehouse, type LucideIcon } from 'lucide-react';
 import { createMetadata } from '@/lib/seo';
 import { jsonLd, breadcrumbSchema, type FaqItem } from '@/lib/schema';
 import { Container } from '@/components/ui/Container';
@@ -25,28 +25,15 @@ const CRUMBS = [{ name: 'Veilig parkeren Schiphol', path: PATH }];
  * the right instruction: a list of security jargon reads as a company talking
  * about itself, not as an answer to "will my car be fine".
  *
- * ── This page must not out-shout the homepage security band ─────────────────
- * The homepage already spends a full-bleed photograph and the site's only
- * glassmorphism on exactly this argument. Repeating that treatment here would
- * make the stronger of the two weaker, so this page is typographic and states
- * the SAME four measures — 24/7 videobewaking, afgesloten terreinen, overdekte
- * garage, vakbekwame chauffeurs — in the same words, then goes further than the
- * homepage can: what actually happens at handover and at return.
- *
- * Nothing here is a new claim. Every measure is already on /onze-services/ and
- * in the homepage FAQ.
+ * Shuttle and valet are described separately. No claims about camera
+ * surveillance, fenced sites, charging or ride registration: none is verified.
  */
 
 const MEASURES: readonly { icon: LucideIcon; label: string; body: string }[] = [
   {
-    icon: Video,
-    label: '24/7 camerabewaking',
-    body: 'Het terrein staat 24 uur per dag onder camerabewaking en wordt gemonitord — ook ’s nachts en in het weekend.',
-  },
-  {
     icon: Lock,
-    label: 'Afgesloten terrein',
-    body: 'Onze parkeerterreinen zijn afgesloten en gecontroleerd. Er komt niemand op die er niet hoort te zijn.',
+    label: 'Shuttle: u houdt de sleutel',
+    body: 'U parkeert zelf op Schipholweg 181 in Badhoevedorp, bij het ibis hotel, en neemt uw sleutel mee op reis.',
   },
   {
     icon: Warehouse,
@@ -55,33 +42,21 @@ const MEASURES: readonly { icon: LucideIcon; label: string; body: string }[] = [
   },
   {
     icon: Award,
-    label: 'Vakbekwame chauffeurs',
-    body: 'Rijdt er iemand in uw auto, dan is dat een van onze eigen chauffeurs — en wordt die rit digitaal geregistreerd.',
-  },
-  {
-    // See the note on the same item in components/sections/Security.tsx: the
-    // claim is kept to what we actually know until the client sends specifics.
-    icon: PlugZap,
-    label: 'Elektrisch opladen',
-    body: 'Rijdt u elektrisch? Er zijn laadpunten op onze eigen parkeerlocatie.',
+    label: 'Valet: vaste overdracht',
+    body: 'Bij valet parking draagt u uw auto over tussen Vertrekhal 2 en 3 en krijgt u hem op dezelfde plek terug.',
   },
 ];
 
 const FAQS: readonly FaqItem[] = [
   {
-    question: 'Staat er toezicht op het parkeerterrein?',
-    answer:
-      'Ja. Het terrein is afgesloten en staat 24 uur per dag onder camerabewaking en monitoring. Dat geldt het hele jaar door, ook buiten kantooruren.',
-  },
-  {
     question: 'Weet ik waar mijn auto staat?',
     answer:
-      'Bij shuttle parkeren wel, want u zet hem zelf neer en u houdt de sleutel — hij staat bij terugkomst waar u hem heeft achtergelaten. Bij valet parking parkeert onze chauffeur hem op onze beveiligde locatie en staat hij bij uw terugkomst weer klaar op de Vertrekpassage, tussen Vertrekhal 2 en 3 — dezelfde plek als waar u hem heeft afgegeven.',
+      'Bij shuttle parkeren wel, want u zet hem zelf neer op Schipholweg 181 in Badhoevedorp en u houdt de sleutel. Bij valet parking parkeert de chauffeur hem op onze parkeerlocatie en staat hij bij uw terugkomst weer klaar op de Vertrekpassage, tussen Vertrekhal 2 en 3 — dezelfde plek als waar u hem heeft afgegeven.',
   },
   {
     question: 'Wie rijdt er in mijn auto bij valet parking?',
     answer:
-      'Een van onze eigen chauffeurs, en alleen over de route tussen de vertrekhal en onze parkeerlocatie. Die ritten worden digitaal geregistreerd, inclusief de gereden snelheid.',
+      'De chauffeur van onze uitvoerende partner, en alleen tussen de vertrekhal en onze parkeerlocatie. Bij shuttle parkeren rijdt niemand anders in uw auto.',
   },
   {
     question: 'Wordt de staat van mijn auto vastgelegd?',
@@ -91,26 +66,21 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Hoe worden mijn sleutels bewaard?',
     answer:
-      'Bij shuttle parkeren neemt u uw sleutels zelf mee op reis. Bij valet parking worden ze opgeborgen in een brandwerende kluis op ons kantoor, dat is voorzien van camerabewaking.',
+      'Bij shuttle parkeren neemt u uw sleutels zelf mee op reis. Bij valet parking nemen wij de sleutel over en krijgt u hem bij terugkomst persoonlijk terug.',
   },
   {
-    question: 'Rijdt de shuttle ook ’s nachts?',
+    question: 'Hoe werkt de terugkomst bij shuttle parkeren?',
     answer:
-      'Onze shuttleservice is 24 uur per dag beschikbaar, dus ook bij een vroeg vertrek of een late landing. Geef bij het reserveren uw werkelijke tijden op, en bel ons direct na de landing.',
+      'U hoeft niet te bellen na de landing. U loopt naar dezelfde bushalte op Schiphol Plaza waar u bent uitgestapt en stapt in wanneer de juiste shuttlebus langskomt. De rit duurt ongeveer 8 minuten. Houd daarnaast rekening met tijd voor parkeren, lopen naar de halte, wachten en instappen. Wij adviseren minimaal 3 uur voor vertrek aanwezig te zijn.',
   },
   {
-    question: 'Wat gebeurt er bij vertraging?',
+    question: 'Hoe werkt de terugkomst bij valet parking?',
     answer:
-      'Wij volgen de actuele vluchtinformatie en passen de ophaaltijd indien nodig aan. Bij een vertraging of een vervroegde landing zorgen wij dat u wordt opgehaald en dat uw auto beschikbaar is.',
-  },
-  {
-    question: 'Kan ik mijn elektrische auto opladen?',
-    answer:
-      'Op onze parkeerlocatie zijn laadpunten aanwezig. Geef bij het reserveren even door dat u elektrisch rijdt, dan houden wij daar rekening mee.',
+      'Bel ons direct na de landing. Uw auto staat dan klaar op de Vertrekpassage, tussen Vertrekhal 2 en 3.',
   },
   {
     question: 'Hoe lang bestaat dit bedrijf al?',
-    answer: 'Wij verzorgen valet en shuttle parkeren bij Schiphol voor reizigers die hun auto betrouwbaar en beveiligd willen achterlaten.',
+    answer: 'Wij verzorgen valet en shuttle parkeren bij Schiphol voor reizigers die hun auto betrouwbaar willen achterlaten.',
   },
 ];
 
@@ -120,9 +90,9 @@ export default function SafeParkingPage() {
       <PageHero
         eyebrow="Veilig parkeren"
         title="Veilig parkeren bij Schiphol"
-        lead="Een veilige reis begint bij een veilige parkeerplaats. Met beveiligd parkeren Schiphol staat uw auto op een afgesloten en goed bewaakt terrein, zodat u met een gerust gevoel op reis kunt."
+        lead="Een veilige reis begint bij een veilige parkeerplaats. Lees hoe shuttle en valet parking werken, wie uw sleutel heeft en wat er bij terugkomst gebeurt."
         photo="lotShuttle"
-        photoAlt="beveiligd parkeren Schiphol"
+        photoAlt="Parkeren bij Schiphol"
         objectPosition="object-[center_30%]"
         crumbs={CRUMBS}
       >
@@ -140,21 +110,16 @@ export default function SafeParkingPage() {
         title="Veiligheid weegt voor veel reizigers net zo zwaar als prijs"
         paragraphs={[
           'Wie voor het eerst zijn auto ergens anders dan op de luchthaven parkeert, vergelijkt eerst op prijs en twijfelt daarna over iets anders: staat hij daar straks nog, en in welke staat.',
-          'Dat is een redelijke vraag, en het antwoord hoort concreet te zijn in plaats van geruststellend. Daarom staat op deze pagina wat er feitelijk is geregeld — het terrein, het toezicht, wie er in uw auto mag rijden en wat er gebeurt op de dag dat u terugkomt.',
+          'Dat is een redelijke vraag, en het antwoord hoort concreet te zijn in plaats van geruststellend. Daarom staat op deze pagina wat er feitelijk is geregeld — het terrein, wie er in uw auto mag rijden en wat er gebeurt op de dag dat u terugkomt.',
         ]}
       />
 
-      {/* ---------- The five measures ----------
-          The same five the homepage security band names, in the same words, but
-          typographic instead of glass-on-photograph. See the note at the top.
-          ⚠ The heading below counts them. It said "Vier" for one pass after the
-          EV measure was added, which is the sort of thing nobody reads twice. */}
       <Section tone="surface" spacing="lg" aria-labelledby="maatregelen-heading">
         <Container>
           <Reveal className="max-w-[36ch]">
             <Eyebrow rule>Wat er geregeld is</Eyebrow>
             <h2 id="maatregelen-heading" className="text-display-md mt-5">
-              Vijf dingen die op orde zijn
+              Drie dingen die u vooraf weet
             </h2>
           </Reveal>
 
@@ -176,52 +141,16 @@ export default function SafeParkingPage() {
         </Container>
       </Section>
 
-      {/* ---------- Elektrisch opladen ----------
-          The EV claim appears twice on this page already — as a measure above
-          and as an FAQ below — and until now had nothing behind it. This is the
-          client's own charger, his own garage, and a member of his own crew
-          plugging in.
-
-          The copy stays as thin as it was: that laadpunten exist, on his own
-          location, and that it helps to say so when booking. How many there
-          are, what a charge costs and whether it must be requested are still
-          unknown, and an EV driver asks all three. See the TODO at the measure
-          in components/sections/Security.tsx.
-
-          <ContentSection> renders 4:3, same ratio as the homepage band, so this
-          needs the same kind of crop from a 3:2 frame — object-[42%] rather
-          than the homepage's 38%, which is as far right as the charge point can
-          go before its left edge starts to clip.
-
-          `reversed` puts the photograph on the right. That is about the page's
-          own rhythm, not about this section: the prose band above it carries no
-          image and the zelf-parkeren band below it sets its photograph on the
-          left, so an un-reversed frame here would stack two left-hand images
-          with only a text block between them. */}
-      <ContentSection
-        id="opladen"
-        eyebrow="Elektrisch rijden"
-        title="Laadpunten op onze eigen parkeerlocatie"
-        paragraphs={[
-          'Rijdt u elektrisch, dan hoeft u onderweg naar Schiphol geen omweg te maken om nog even te laden. Op onze eigen parkeerlocatie zijn laadpunten aanwezig.',
-          'Geef bij het reserveren even door dat u elektrisch rijdt. Dan houden wij daar rekening mee bij het toewijzen van uw plek, en staat u niet bij aankomst te zoeken.',
-        ]}
-        photo="evCharging"
-        photoAlt="beveiligde parkeerplaats bij Schiphol"
-        objectPosition="object-[42%_50%]"
-        reversed
-      />
-
       <ContentSection
         id="zelf-parkeren"
         eyebrow="Zelf parkeren"
         title="Zelf neerzetten geeft een eigen soort zekerheid"
         paragraphs={[
-          'Naast alles wat wij regelen, is er iets dat u zelf regelt. Bij shuttle parkeren zet u de auto zelf neer, en dat verandert het gevoel meer dan een extra camera zou doen.',
-          'U ziet met eigen ogen waar hij staat en op wat voor terrein. U bepaalt zelf hoe u hem achterlaat. En omdat u de sleutel meeneemt, blijft hij staan waar u hem heeft neergezet — er is niemand die hem verplaatst en er ligt geen sleutel op een kantoor.',
+          'Naast alles wat wij regelen, is er iets dat u zelf regelt. Bij shuttle parkeren zet u de auto zelf neer, en u weet dus zelf waar hij staat.',
+          'U bepaalt zelf hoe u hem achterlaat. En omdat u de sleutel meeneemt, blijft hij staan waar u hem heeft neergezet — er is niemand die hem verplaatst en er ligt geen sleutel op een kantoor.',
         ]}
         photo="crewShuttleTerminal"
-        photoAlt="auto beveiligd parkeren Schiphol"
+        photoAlt="Auto parkeren bij Schiphol"
         objectPosition="object-[center_45%]"
       >
         <Button href="/zelf-parkeren-schiphol/" variant="link" className="mt-7">
@@ -232,10 +161,10 @@ export default function SafeParkingPage() {
       <ContentSection
         id="sleutel"
         eyebrow="Uw sleutel"
-        title="Meenemen, of veilig opgeborgen"
+        title="Meenemen, of overdragen"
         paragraphs={[
           'Bij shuttle parkeren neemt u uw autosleutel mee op reis. Er blijft niets bij ons achter, en dat is voor veel reizigers precies waarom ze deze service kiezen.',
-          'Kiest u voor valet parking, dan is de sleutel nodig — onze chauffeur moet de auto immers kunnen verplaatsen. Hij wordt dan opgeborgen in een brandwerende kluis op ons kantoor, dat is voorzien van camerabewaking, en u krijgt hem bij terugkomst persoonlijk terug.',
+          'Kiest u voor valet parking, dan is de sleutel nodig — de chauffeur moet de auto immers kunnen verplaatsen. U krijgt de sleutel bij terugkomst persoonlijk terug.',
         ]}
         reversed
         tone="surface"
@@ -250,24 +179,24 @@ export default function SafeParkingPage() {
         eyebrow="Bij terugkomst"
         title="Wat er gebeurt op de dag dat u terugkomt"
         paragraphs={[
-          'Wij volgen de actuele vluchtinformatie, dus een vertraging of een vervroegde landing is bij ons bekend voordat u belt. Toch vragen wij u om direct na de landing even contact op te nemen — dan weten wij dat u er werkelijk bent, en niet alleen dat uw vlucht dat is.',
-          'Bij shuttle parkeren haalt de shuttle u op en brengt u terug naar het terrein, waar uw auto staat waar u hem heeft achtergelaten. Bij valet parking staat uw auto weer klaar op de Vertrekpassage, tussen Vertrekhal 2 en 3, en krijgt u uw sleutels persoonlijk terug.',
+          'Bij shuttle parkeren hoeft u na de landing niet te bellen. U loopt naar de bushalte op Schiphol Plaza waar u bent uitgestapt en stapt in wanneer de juiste shuttlebus langskomt. De rit naar de parkeerlocatie duurt ongeveer 8 minuten; houd daarnaast rekening met tijd voor lopen naar de halte, wachten en instappen. Uw auto staat waar u hem heeft achtergelaten.',
+          'Bij valet parking belt u direct na de landing. Uw auto staat dan klaar op de Vertrekpassage, tussen Vertrekhal 2 en 3, en u krijgt uw sleutels persoonlijk terug.',
         ]}
       />
 
       <FaqSection
         items={FAQS}
         heading="Vragen over veiligheid"
-        lead="Over toezicht, het terrein, wie er in uw auto rijdt en hoe het gaat bij terugkomst."
+        lead="Over het terrein, wie er in uw auto rijdt en hoe het gaat bij terugkomst."
       />
 
       <ClusterLinks currentPath={PATH} />
 
       <ClosingCta
         heading="Parkeer met een gerust gevoel"
-        lead="Een afgesloten terrein onder camerabewaking, en een vaste procedure van afgifte tot terugkomst."
+        lead="Een vaste procedure van afgifte tot terugkomst, voor zowel shuttle als valet."
         photo="lotShuttle"
-        photoAlt="24/7 beveiligd parkeren Schiphol"
+        photoAlt="Parkeren bij Schiphol"
       />
 
       <script

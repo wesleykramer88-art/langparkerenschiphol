@@ -1,116 +1,42 @@
-import { ArrowRight, Check } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { createMetadata } from '@/lib/seo';
 import { jsonLd, breadcrumbSchema, type FaqItem } from '@/lib/schema';
 import { Container } from '@/components/ui/Container';
 import { Section } from '@/components/ui/Section';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { Button } from '@/components/ui/Button';
-import { Photo } from '@/components/ui/Photo';
 import { PageHero } from '@/components/sections/PageHero';
-import { AppScreenshot } from '@/components/sections/AppScreenshot';
-import { Timeline, type TimelineStep } from '@/components/sections/Timeline';
 import { FaqSection } from '@/components/sections/Faq';
 import { ClosingCta } from '@/components/sections/ClosingCta';
-import { Reveal, Stagger } from '@/components/motion/Reveal';
+import { Reveal } from '@/components/motion/Reveal';
+import { siteConfig } from '@/config/site';
 
 export const metadata = createMetadata('rideRegistration');
 
 const PATH = '/digitale-ritregistratie/';
-const CRUMBS = [{ name: 'Digitale ritregistratie', path: PATH }];
+const CRUMBS = [{ name: 'Valet: overdracht en ritten', path: PATH }];
 
 /**
  * /digitale-ritregistratie/
  *
- * Valet-only. The page that answers the question the valet page raises and
- * cannot fully answer in a paragraph: what happens to my car while somebody
- * else is driving it.
- *
- * ── THE COPY ON THIS PAGE IS DELIBERATELY UNDERPOWERED. DO NOT STRENGTHEN IT ──
- * The client supplied the hero and the two section texts, and they are
- * reproduced verbatim. They are worded to build trust WITHOUT making a legal or
- * technical evidentiary claim, and that restraint is the entire point.
- *
- * Specifically, the speed section says the speed is registered so that the
- * company "kan controleren dat iedere chauffeur zich aan de interne
- * veiligheidsrichtlijnen houdt". It does NOT say the data proves anything, that
- * it is retained for any period, that a customer can request it, or that it
- * would settle a dispute. Every one of those would be a promise about a system
- * whose retention, accuracy and access rules we have not been told — and the
- * first customer to ask for a speed log after a scratch would find out.
- *
- * The FAQ answers below are written to the same standard: they describe what is
- * recorded and who sees it, and they stop there. If a future edit here starts a
- * sentence with "altijd", "volledig aantoonbaar" or "u kunt opvragen", it is
- * almost certainly overclaiming.
- *
- * TODO(client): if you want this page to promise a customer access to their own
- * ride data, tell us the retention period and the request procedure and we will
- * write that section properly. Until then it says what the system does, not
- * what it proves.
+ * Kept as a short, neutral page so the URL keeps working. It makes no claim
+ * about digital ride registration, GPS, speed logging or data retention: none
+ * of that is verified. Do not add such claims without confirmation.
  */
-
-/** The client's six steps, verbatim, with a supporting line under each. */
-const STEPS: readonly TimelineStep[] = [
-  {
-    title: 'Auto opgehaald',
-    body: 'Onze chauffeur neemt uw auto over bij de vertrekhal, met uw gegevens al digitaal in beeld.',
-  },
-  {
-    title: 'Rit gestart',
-    body: 'De rit wordt in de app gestart. Vanaf dat moment loopt de registratie.',
-  },
-  {
-    title: 'GPS actief',
-    body: 'De route van de vertrekhal naar onze parkeerlocatie wordt gevolgd.',
-  },
-  {
-    title: 'Snelheid geregistreerd',
-    body: 'De gereden snelheid wordt tijdens de rit digitaal vastgelegd.',
-  },
-  {
-    title: 'Auto veilig geparkeerd',
-    body: 'Uw auto komt aan op onze beveiligde locatie en de rit wordt afgesloten.',
-  },
-  {
-    title: 'Terugrit opnieuw geregistreerd',
-    body: 'De rit terug naar de Vertrekpassage wordt op dezelfde manier vastgelegd.',
-  },
-];
-
-/** "Waarom doen wij dit?" — the client's five reasons, verbatim. */
-const REASONS = [
-  'Meer veiligheid',
-  'Meer transparantie',
-  'Interne kwaliteitscontrole',
-  'Extra zekerheid voor onze klanten',
-  'Continue monitoring van onze dienstverlening',
-] as const;
 
 const FAQS: readonly FaqItem[] = [
   {
-    question: 'Wordt iedere rit geregistreerd?',
-    answer:
-      'Ja. Iedere valetrit wordt digitaal geregistreerd — zowel de rit van de vertrekhal naar onze parkeerlocatie als de rit terug. U geeft uw auto af en krijgt hem terug op dezelfde plek, tussen Vertrekhal 2 en 3. Bij shuttle parkeren rijdt niemand anders in uw auto, dus daar is dit niet van toepassing.',
+    question: 'Wat gebeurt er met mijn auto bij valet parking?',
+    answer: `U draagt uw auto over bij de ${siteConfig.valetHandover.display}. De chauffeur parkeert hem op onze parkeerlocatie. Bij terugkomst belt u ons na de landing en staat uw auto weer klaar tussen Vertrekhal 2 en 3.`,
   },
   {
-    question: 'Wordt mijn locatie gedeeld?',
+    question: 'Geldt dit ook voor shuttle parkeren?',
     answer:
-      'Nee. De registratie betreft de rit van uw auto tussen de vertrekhal en onze parkeerlocatie, en die gegevens zijn voor intern gebruik. Ze worden niet met derden gedeeld en er wordt niets van uw eigen telefoon of locatie gevolgd.',
+      'Nee. Bij shuttle parkeren parkeert u zelf op Schipholweg 181 in Badhoevedorp en houdt u de sleutel. Er rijdt dus niemand anders in uw auto.',
   },
   {
-    question: 'Worden snelheden opgeslagen?',
-    answer:
-      'Ja. De gereden snelheid wordt tijdens de rit vastgelegd, zodat wij kunnen controleren dat onze chauffeurs zich aan de interne veiligheidsrichtlijnen houden. Het gaat om onze eigen kwaliteitscontrole op onze eigen chauffeurs.',
-  },
-  {
-    question: 'Wie kan deze gegevens bekijken?',
-    answer:
-      'De gegevens zijn bedoeld voor intern gebruik binnen ons bedrijf en worden bekeken door de mensen die verantwoordelijk zijn voor de kwaliteit van onze dienstverlening. Heeft u een vraag over de rit met uw auto, neem dan contact met ons op.',
-  },
-  {
-    question: 'Waarom doen jullie dit?',
-    answer:
-      'Omdat wij u vragen uw auto aan een ander toe te vertrouwen. Door iedere rit vast te leggen, houden wij zicht op hoe er met uw auto wordt gereden en kunnen wij onze eigen dienstverlening blijven controleren. Dat is beter voor u en het houdt ons scherp.',
+    question: 'Heb ik vragen over de rit met mijn auto?',
+    answer: 'Neem dan contact met ons op. Wij helpen u graag verder.',
   },
 ];
 
@@ -118,19 +44,16 @@ export default function RideRegistrationPage() {
   return (
     <>
       <PageHero
-        eyebrow="Digitale ritregistratie"
-        // The client's exact H1. Long for a heading, and kept whole: the second
-        // sentence is what states the purpose, and without it the first is a
-        // description of a feature rather than a reason to trust it.
-        title="Valetritten digitaal geregistreerd. Inzicht in route en snelheid."
-        lead="Tijdens Valetritten worden route, snelheid en duur digitaal vastgelegd. Deze ritregistratie geldt voor Valet parkeren."
+        eyebrow="Valet parking"
+        title="Valet parking: overdracht en terugkomst"
+        lead="Bij Valet parkeren draagt u uw auto over bij de vertrekhal en krijgt u hem daar ook weer terug."
         photo="crewHandover"
-        photoAlt="Ritregistratie systeem valet parking"
+        photoAlt="Overdracht van de auto bij valet parking"
         objectPosition="object-[center_35%]"
         crumbs={CRUMBS}
       >
         <Button href="/reservering/?service=valet" size="lg">
-          Reserveer veilig
+          Reserveer valet
           <ArrowRight data-arrow className="size-4" aria-hidden />
         </Button>
         <Button href="/valet-parking-schiphol/" variant="outline" size="lg">
@@ -138,214 +61,33 @@ export default function RideRegistrationPage() {
         </Button>
       </PageHero>
 
-      {/* ---------- Reservation data ----------
-          The screenshot sits on the right and the argument on the left. The
-          panel it sits in is surface-sunken, so the capture's own near-white
-          ground reads as a screen inside a frame rather than as a bleed. */}
-      <Section tone="surface" spacing="lg" aria-labelledby="gegevens-heading">
+      <Section tone="surface" spacing="lg" aria-labelledby="overdracht-heading">
         <Container>
-          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-            <Reveal>
-              <Eyebrow rule>Voor de rit</Eyebrow>
-              <h2 id="gegevens-heading" className="text-display-md mt-5 max-w-[18ch]">
-                Iedere reservering digitaal vastgelegd
-              </h2>
-              <p className="text-body mt-6 max-w-[54ch] leading-relaxed">
-                Zodra uw reservering actief wordt, ontvangt onze chauffeur alle benodigde gegevens
-                digitaal. Van voertuiggegevens tot vluchtinformatie: alles wordt veilig verwerkt
-                zodat fouten worden voorkomen.
-              </p>
-            </Reveal>
-
-            <Reveal delay={80}>
-              <AppScreenshot name="appReservation" alt="Digitaal ritregistratie systeem" />
-            </Reveal>
-          </div>
-        </Container>
-      </Section>
-
-      {/* ---------- Speed registration ----------
-          Mirrored, so the two screenshot sections do not stack into the same
-          row twice. */}
-      <Section spacing="lg" aria-labelledby="snelheid-heading">
-        <Container>
-          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-            <Reveal className="lg:order-2">
-              <Eyebrow rule>Tijdens de rit</Eyebrow>
-              <h2 id="snelheid-heading" className="text-display-md mt-5 max-w-[18ch]">
-                Snelheidsregistratie tijdens iedere rit
-              </h2>
-              {/* Verbatim, and deliberately not stronger than this. See the
-                  note at the top of this file before editing a word of it. */}
-              <p className="text-body mt-6 max-w-[54ch] leading-relaxed">
-                Tijdens de rit wordt de gereden snelheid digitaal geregistreerd. Hierdoor kunnen wij
-                controleren dat iedere chauffeur zich aan de interne veiligheidsrichtlijnen houdt.
-              </p>
-            </Reveal>
-
-            <Reveal delay={80} className="lg:order-1">
-              <AppScreenshot name="appRideRegistration" alt="Snelheidsregistratie tijdens autorit" />
-            </Reveal>
-          </div>
-        </Container>
-      </Section>
-
-      {/* ---------- The six steps ---------- */}
-      <Section tone="surface" spacing="lg" aria-labelledby="stappen-heading">
-        <Container>
-          <Reveal className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
-            <div>
-              <Eyebrow rule>Van ophalen tot terugbrengen</Eyebrow>
-              <h2 id="stappen-heading" className="text-display-lg mt-5 max-w-[16ch]">
-                Wat er tijdens een valetrit wordt vastgelegd
-              </h2>
-            </div>
-            <p className="text-muted max-w-[34ch] text-base lg:pb-2 lg:text-right">
-              Zes momenten, van de overdracht bij de hal tot de terugrit na uw landing.
+          <Reveal className="max-w-[60ch]">
+            <Eyebrow rule>Hoe het werkt</Eyebrow>
+            <h2 id="overdracht-heading" className="text-display-md mt-5">
+              Afgeven en terugkrijgen bij de vertrekhal
+            </h2>
+            <p className="text-body mt-6 leading-relaxed">
+              {`U draagt uw auto over bij de ${siteConfig.valetHandover.display}. De chauffeur parkeert hem op onze parkeerlocatie. Na de landing belt u ons, waarna uw auto tussen Vertrekhal 2 en 3 voor u klaarstaat.`}
             </p>
           </Reveal>
-
-          <Timeline steps={STEPS} />
-        </Container>
-      </Section>
-
-      {/* ---------- Why ----------
-          The accent wash, used once on this page. Contrast on valet-100:
-          navy-950 heading 14.90:1 AAA, ink-700 body 8.44:1 AAA. */}
-      <Section tone="accent" spacing="md" aria-labelledby="waarom-heading">
-        <Container>
-          <div className="grid gap-10 lg:grid-cols-[5fr_7fr] lg:gap-20">
-            <Reveal>
-              <h2 id="waarom-heading" className="text-display-md max-w-[14ch]">
-                Waarom doen wij dit?
-              </h2>
-              <p className="text-body mt-6 max-w-[42ch] leading-relaxed">
-                Omdat wij u vragen uw auto aan iemand anders toe te vertrouwen. Dat is een
-                beslissing die u alleen neemt als u weet wat er in de tussentijd gebeurt.
-              </p>
-            </Reveal>
-
-            <Stagger as="ul" className="divide-valet-200 divide-y">
-              {REASONS.map((reason) => (
-                <li key={reason} className="flex items-start gap-4 py-4">
-                  <Check
-                    className="text-accent-hover mt-1 size-5 shrink-0"
-                    strokeWidth={2.5}
-                    aria-hidden
-                  />
-                  <span className="text-heading text-base font-medium sm:text-lg">{reason}</span>
-                </li>
-              ))}
-            </Stagger>
-          </div>
-        </Container>
-      </Section>
-
-      {/* ---------- The people and the place ----------
-          Real photographs only. This page's entire purpose is authenticity, so
-          a stock frame here would undo it — see the standing rule at the top of
-          config/images.ts.
-
-          The layout is deliberately uneven: one tall frame and two stacked, so
-          it does not read as a three-up grid of interchangeable tiles.
-
-          ── The lead frame is new, and it is the one this page wanted ──────
-          `crewPaperwork`, supplied 14 August 2026: the chauffeur on his own
-          terrain with a reservation's paperwork in his hand and the shuttle
-          behind him. It takes the tall slot, because it is the only photograph
-          in the library showing a named human doing the ADMINISTRATIVE half of
-          the job — which is precisely what this page is about. Everything else
-          here shows the driving half.
-
-          It arrived under a `ChatGPT Image …` filename and is nevertheless a
-          real photograph: the client's own frame with the crew jacket
-          recoloured from blue to the correct orange. That is retouching, not
-          generation, and the distinction is what makes it admissible on this
-          page at all. The reasoning and the inspection are recorded at its
-          manifest entry — read that note before adding any other file with
-          that filename shape here.
-
-          `crewCheck` keeps the wide inset. At 590px it can only work at that
-          size, and the two now sit together honestly: the wide one is the
-          clipboard detail, the tall one is the person.
-
-          ⚠ There is still no sleutelkluis photograph in the library, and the
-          brief asked for one. It is left out rather than substituted.
-          TODO(client): a frame of the brandwerende kluis on kantoor is now the
-          single most useful photograph you could send for this page — it is the
-          one thing the valet FAQ describes that nobody can currently see. */}
-      <Section spacing="lg" aria-labelledby="beeld-heading">
-        <Container>
-          <Reveal className="max-w-[38ch]">
-            <Eyebrow rule>Onze mensen en ons terrein</Eyebrow>
-            <h2 id="beeld-heading" className="text-display-md mt-5">
-              Geen voorraadbeelden, maar onze eigen locatie
-            </h2>
-          </Reveal>
-
-          <div className="mt-12 grid gap-6 lg:grid-cols-2 lg:gap-8">
-            <Reveal>
-              {/* object-[62%_50%] rather than centre: the frame is 3:2 and this
-                  slot is 3:4, so a centred crop keeps the empty tarmac on the
-                  left and pushes the shuttle out of the right edge. At 62% the
-                  chauffeur sits on the vertical third with the bus behind him
-                  and the yellow plate still in shot. */}
-              <div className="shadow-photo relative aspect-3/4 overflow-hidden rounded-xl">
-                <Photo
-                  name="crewPaperwork"
-                  alt="Digitale registratie van autoritten"
-                  fill
-                  sizes="(min-width: 1024px) 36rem, 100vw"
-                  className="absolute inset-0 h-full w-full"
-                  imageClassName="object-cover object-[62%_50%]"
-                />
-              </div>
-            </Reveal>
-
-            <div className="flex flex-col gap-6 lg:gap-8">
-              <Reveal delay={80}>
-                <div className="shadow-photo relative aspect-4/3 overflow-hidden rounded-xl">
-                  <Photo
-                    name="crewTerminal"
-                    alt="Valetrit digitaal geregistreerd"
-                    fill
-                    sizes="(min-width: 1024px) 36rem, 100vw"
-                    className="absolute inset-0 h-full w-full"
-                    imageClassName="object-cover object-[center_30%]"
-                  />
-                </div>
-              </Reveal>
-
-              <Reveal delay={160}>
-                <div className="shadow-photo relative aspect-21/9 overflow-hidden rounded-xl">
-                  <Photo
-                    name="crewCheck"
-                    alt="Controle van valetritten"
-                    fill
-                    sizes="(min-width: 1024px) 36rem, 100vw"
-                    className="absolute inset-0 h-full w-full"
-                    imageClassName="object-cover object-center"
-                  />
-                </div>
-              </Reveal>
-            </div>
-          </div>
         </Container>
       </Section>
 
       <FaqSection
         items={FAQS}
-        heading="Vragen over de registratie"
-        lead="Wat er wordt vastgelegd, wie het kan inzien en waarom wij het doen."
+        heading="Veelgestelde vragen"
+        lead="Kort over de overdracht bij valet parking."
       />
 
       <ClosingCta
-        heading="Reserveer veilig"
-        lead="Valet parking bij de vertrekhal van Schiphol, met iedere rit digitaal geregistreerd."
+        heading="Reserveer valet parking"
+        lead="Valet parking bij de vertrekhal van Schiphol."
         photo="crewShuttleTerminal"
-        photoAlt="Registratie van voertuigritten"
+        photoAlt="Valet parking bij Schiphol"
         bookingHref="/reservering/?service=valet"
-        bookingLabel="Reserveer veilig"
+        bookingLabel="Reserveer valet"
       />
 
       <script

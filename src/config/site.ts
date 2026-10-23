@@ -253,7 +253,7 @@ export const navigation = [
   // homepage security band, which is where the question it answers is raised.
   {
     href: '/digitale-ritregistratie/',
-    label: 'Digitale ritregistratie',
+    label: 'Valet: overdracht',
     inNav: false,
     inSitemap: true,
     priority: 0.6,
@@ -298,7 +298,7 @@ export const footerNav = {
   ],
   bedrijf: [
     { href: '/waarom-lang-parkeren-schiphol/', label: 'Waarom ons' },
-    { href: '/digitale-ritregistratie/', label: 'Digitale ritregistratie' },
+    { href: '/digitale-ritregistratie/', label: 'Valet: overdracht' },
     { href: '/reviews/', label: 'Ervaringen' },
     { href: '/samenwerken/', label: 'Reisbureaus' },
     { href: '/contact/', label: 'Contact' },
@@ -334,7 +334,7 @@ export const seoCluster = [
   {
     href: '/veilig-parkeren-schiphol/',
     label: 'Veilig parkeren Schiphol',
-    blurb: 'Het terrein, het toezicht en wat er bij terugkomst gebeurt.',
+    blurb: 'Hoe shuttle en valet parking werken en wat er bij terugkomst gebeurt.',
   },
   {
     href: '/zelf-parkeren-schiphol/',
@@ -505,7 +505,7 @@ export const headerNav = [
     items: [
       { href: '/waarom-lang-parkeren-schiphol/', label: 'Waarom Lang Parkeren Schiphol' },
       { href: '/veilig-parkeren-schiphol/', label: 'Veilig parkeren' },
-      { href: '/digitale-ritregistratie/', label: 'Digitale ritregistratie' },
+      { href: '/digitale-ritregistratie/', label: 'Valet: overdracht' },
       { href: '/reviews/', label: 'Ervaringen' },
     ],
   },

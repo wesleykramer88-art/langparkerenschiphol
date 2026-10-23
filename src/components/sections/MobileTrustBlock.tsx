@@ -6,10 +6,9 @@ import { Button } from '@/components/ui/Button';
 import { Photo } from '@/components/ui/Photo';
 
 const ITEMS = [
-  '24/7 camerabewaking en monitoring',
-  'Afgesloten parkeerlocatie',
-  'Sleutels mee bij Shuttle',
-  'Digitale ritregistratie bij Valet',
+  'Shuttle: zelf parkeren en sleutels mee',
+  'Valet: auto afgeven bij de vertrekhal',
+  'Vaste procedure bij aankomst en terugkomst',
 ] as const;
 
 export function MobileTrustBlock() {
@@ -24,23 +23,23 @@ export function MobileTrustBlock() {
         <div className="border-line rounded-xl border bg-canvas p-5">
           <div className="shadow-photo relative aspect-[16/8] overflow-hidden rounded-lg">
             <Photo
-              name="evCharging"
+              name="lotShuttle"
               fill
               sizes="100vw"
               className="absolute inset-0 h-full w-full"
-              imageClassName="object-cover object-[38%_50%]"
+              imageClassName="object-cover object-center"
             />
           </div>
-          <Eyebrow>Vertrouwen en veiligheid</Eyebrow>
+          <Eyebrow>Duidelijkheid vooraf</Eyebrow>
           <div className="mt-4 flex items-start gap-3">
             <ShieldCheck className="text-accent mt-0.5 size-5 shrink-0" strokeWidth={1.75} aria-hidden />
             <div>
               <h2 id="mobiel-vertrouwen-heading" className="text-display-sm text-heading">
-                Uw auto staat veilig, uw keuze blijft helder
+                Uw keuze blijft helder
               </h2>
               <p className="text-muted mt-2 text-sm leading-relaxed">
-                Beide services gebruiken een afgesloten parkeerlocatie met camerabewaking. Digitale
-                ritregistratie geldt alleen voor Valet.
+                Bij Shuttle parkeert u zelf en houdt u uw sleutel. Bij Valet geeft u uw auto af bij de
+                vertrekhal.
               </p>
             </div>
           </div>

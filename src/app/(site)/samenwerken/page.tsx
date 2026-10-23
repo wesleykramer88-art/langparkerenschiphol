@@ -74,13 +74,13 @@ const REASONS: readonly { icon: LucideIcon; title: string; body: string }[] = [
   },
   {
     icon: ShieldCheck,
-    title: 'Beveiligde, afgesloten locaties',
-    body: 'Afgesloten en gecontroleerde parkeerterreinen met 24/7 camerabewaking, en de mogelijkheid tot overdekt parkeren.',
+    title: 'Buiten of overdekt parkeren',
+    body: 'Uw klanten kiezen bij het reserveren tussen buiten en overdekt parkeren, in een beperkt aantal overdekte plaatsen.',
   },
   {
     icon: SquareUser,
-    title: 'Gescreende chauffeurs',
-    body: 'Onze chauffeurs zijn gescreend en ervaren. Iedere rit wordt digitaal geregistreerd, inclusief snelheid en route.',
+    title: 'Vaste procedure',
+    body: 'Bij Valet en Shuttle geldt een vaste procedure bij aankomst en bij terugkomst, zodat uw klanten weten waar ze aan toe zijn.',
   },
   {
     icon: Handshake,
@@ -178,8 +178,8 @@ export default function PartnersPage() {
               <p className="text-muted mt-4 max-w-[46ch] leading-relaxed">
                 Steeds meer reizigers zoeken naar gemak, zekerheid en comfort rondom hun reis. Door
                 onze parkeeroplossingen aan te bieden, biedt u uw klanten een complete reiservaring
-                — van valet parking bij de vertrekhal tot shuttle parking in een beveiligde
-                parkeergarage. Wij regelen het volledig.
+                — van valet parking bij de vertrekhal tot shuttle parking vlak bij
+                Schiphol. Wij regelen het volledig.
               </p>
             </Reveal>
           </div>

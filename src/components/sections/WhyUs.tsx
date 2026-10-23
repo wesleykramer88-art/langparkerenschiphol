@@ -51,13 +51,13 @@ const REASONS: readonly Item[] = [
   },
   {
     icon: ShieldCheck,
-    title: 'Afgesloten terrein met camerabewaking',
-    body: 'De parkeerterreinen zijn afgesloten en staan 24/7 onder camerabewaking.',
+    title: 'Shuttle: zelf parkeren, sleutel mee',
+    body: 'Bij Shuttle parkeert u zelf en houdt u uw autosleutel.',
   },
   {
     icon: Gauge,
-    title: 'Ritregistratie bij Valet',
-    body: 'Bij Valet wordt de rit digitaal geregistreerd, inclusief snelheid en route.',
+    title: 'Valet: direct bij de vertrekhal',
+    body: 'Bij Valet rijdt u tot de vertrekhal en neemt de chauffeur uw auto over.',
   },
   {
     icon: Users,
@@ -75,13 +75,13 @@ const USPS: readonly Item[] = [
   },
   {
     icon: BadgeCheck,
-    title: 'Veilig en professioneel',
-    body: 'Uw auto in betrouwbare, ervaren handen.',
+    title: 'Duidelijk en professioneel',
+    body: 'Heldere afspraken over aankomst, terugkomst en kosten.',
   },
   {
     icon: FileCheck,
-    title: 'Ritregistratie bij Valet',
-    body: 'Route en snelheid van Valetritten worden digitaal vastgelegd.',
+    title: 'Vaste procedure',
+    body: 'Bij aankomst en terugkomst geldt bij beide services een vaste procedure.',
   },
   {
     icon: Timer,
@@ -125,9 +125,9 @@ export function WhyUs() {
                   begint vanaf het moment dat u aankomt.
                 </p>
                 <p>
-                  Uw auto is bij ons in betrouwbare handen. Professionele chauffeurs, veilige
-                  parkeerlocaties zijn afgesloten en voorzien van camerabewaking. Bij Valet wordt
-                  de rit digitaal geregistreerd.
+                  Bij Shuttle parkeert u zelf aan de Schipholweg 181 in Badhoevedorp en
+                  houdt u uw sleutel. Bij Valet rijdt u naar de vertrekhal en neemt de chauffeur
+                  uw auto over.
                 </p>
               </div>
             </Reveal>

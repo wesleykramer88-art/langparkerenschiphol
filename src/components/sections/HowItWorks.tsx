@@ -16,7 +16,7 @@ const STEPS: readonly TimelineStep[] = [
   },
   {
     title: 'Parkeer zelf of geef uw auto af',
-    body: 'Bij Shuttle parkeert u op ons terrein; bij Valet staat onze chauffeur klaar bij de vertrekhal.',
+    body: 'Bij Shuttle parkeert u op ons terrein; bij Valet staat de chauffeur klaar bij de vertrekhal.',
   },
   {
     title: 'Ga verder naar de vertrekhal',
@@ -24,7 +24,7 @@ const STEPS: readonly TimelineStep[] = [
   },
   {
     title: 'Uw auto staat klaar bij terugkomst',
-    body: 'Na uw terugreis haalt de shuttle u op of staat uw auto volgens afspraak bij de vertrekhal klaar.',
+    body: 'Bij Shuttle loopt u na uw terugreis naar dezelfde bushalte op Schiphol Plaza en stapt u in zodra de juiste shuttlebus langskomt; u hoeft niet te bellen. Bij Valet belt u na de landing en staat uw auto klaar tussen Vertrekhal 2 en 3.',
   },
 ];
 

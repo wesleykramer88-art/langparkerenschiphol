@@ -6,7 +6,7 @@ import {
   Handshake,
   KeyRound,
   LayoutGrid,
-  ShieldCheck,
+  MapPin,
   Zap,
   type LucideIcon,
 } from 'lucide-react';
@@ -77,7 +77,7 @@ export const SERVICE_COPY: Record<ServiceSlug, ServiceCopy> = {
       { icon: KeyRound, text: 'Zelf parkeren, sleutels mee op reis' },
       { icon: BusFront, text: 'Shuttlerit naar Schiphol: ongeveer 8 minuten' },
       { icon: LayoutGrid, text: 'Duidelijk en strak georganiseerd' },
-      { icon: ShieldCheck, text: 'Afgesloten terrein met camerabewaking' },
+      { icon: MapPin, text: 'Parkeren bij het ibis hotel in Badhoevedorp' },
     ],
     where: `${siteConfig.shuttleParking.street}, ${siteConfig.shuttleParking.locality}`,
     href: '/shuttle-parkeren-schiphol/',

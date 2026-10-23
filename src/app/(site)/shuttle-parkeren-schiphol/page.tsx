@@ -41,8 +41,8 @@ const CRUMBS = [{ name: 'Shuttle parkeren Schiphol', path: PATH }];
  * back up to it.
  *
  * ── Every claim here is already published somewhere on this site ────────────
- * ongeveer 8 minuten, sleutel meenemen bij shuttle, 24/7 camerabewaking, afgesloten
- * terrein, overdekt beperkt beschikbaar, annuleringsdekking als betaalde optie,
+ * ongeveer 8 minuten, sleutel meenemen bij shuttle,
+ * overdekt beperkt beschikbaar, annuleringsdekking als betaalde optie,
  * 3 uur voor vertrek aanwezig zijn. Nothing is invented for SEO. Where the
  * document asked for something this business has not stated — how often the
  * shuttle runs, what happens on a 03:00 return — the copy says what is true
@@ -72,6 +72,29 @@ const STEPS: readonly TimelineStep[] = [
   },
 ];
 
+const QUICK_INFO = [
+  {
+    title: 'Waar parkeer ik?',
+    body: `${siteConfig.shuttleParking.display}, bij het ibis hotel. U parkeert zelf en neemt uw autosleutel mee.`,
+  },
+  {
+    title: 'Waar stap ik in?',
+    body: 'Bij de shuttlehalte bij de parkeerlocatie. Vanaf daar rijdt de shuttle naar Schiphol.',
+  },
+  {
+    title: 'Waar stap ik uit op Schiphol?',
+    body: `Bij de ${siteConfig.shuttleParking.stopName}.`,
+  },
+  {
+    title: 'Hoe kom ik terug?',
+    body: 'Loop naar dezelfde bushalte op Schiphol Plaza en stap in wanneer de juiste shuttlebus langskomt. U hoeft niet te bellen.',
+  },
+  {
+    title: 'Hoe lang duurt de rit?',
+    body: `Ongeveer ${siteConfig.shuttleParking.transferMinutes} minuten (alleen de geschatte rijtijd). Houd daarnaast rekening met tijd voor parkeren, lopen naar de halte, wachten en instappen.`,
+  },
+] as const;
+
 /** Who it suits. The document asks for this section by name. */
 const SUITS = [
   {
@@ -88,7 +111,7 @@ const SUITS = [
   },
   {
     title: 'Prijsbewuste reizigers die geen risico willen',
-    body: 'Voordelig parkeren zonder in te leveren op het terrein: afgesloten, 24 uur per dag onder camerabewaking en met een vaste procedure.',
+    body: 'Voordelig parkeren zonder in te leveren op het terrein: een vaste parkeerlocatie en een duidelijke procedure.',
   },
 ] as const;
 
@@ -106,22 +129,22 @@ const CONCERNS: readonly FaqItem[] = [
   {
     question: 'Moet ik lang wachten op de shuttle?',
     answer:
-      'De shuttle rijdt op uw reservering: wij weten wanneer u aankomt en stemmen daarop af. De rit duurt vervolgens ongeveer 8 minuten. Reken voor het geheel — parkeren, instappen en de rit — op ongeveer een kwartier, en houd daarnaast de normale tijd voor inchecken aan.',
+      'De rit duurt ongeveer 8 minuten. Houd daarnaast rekening met tijd voor parkeren, lopen naar de halte, wachten en instappen. Bij terugkomst loopt u naar de bushalte op Schiphol Plaza en stapt u in wanneer de juiste shuttlebus langskomt.',
   },
   {
     question: 'Hoe gaat het met veel bagage?',
     answer:
-      'U parkeert zelf, dus u laadt uw bagage uit naast uw eigen auto en niet op een stoep. De shuttlebus is een personenbusje met ruimte voor koffers, en onze chauffeur helpt met in- en uitladen.',
+      'U parkeert zelf, dus u laadt uw bagage uit naast uw eigen auto en niet op een stoep. De shuttlebus is een personenbusje met ruimte voor koffers.',
   },
   {
     question: 'Wat als ik midden in de nacht aankom of terugkom?',
     answer:
-      'Onze shuttleservice is 24 uur per dag beschikbaar, dus ook een vroege vlucht of een late landing is geen probleem. Geef uw werkelijke aankomst- en retourtijd op bij het reserveren, zodat wij daarop kunnen plannen. Bij terugkomst loopt u naar de bushalte op Schiphol Plaza en stapt u in wanneer de shuttlebus langskomt, ook als het laat is. Let op: voor een aankomst of terugkomst tussen 00:00 en 07:00 geldt een nachttoeslag van €15.',
+      'Geef uw werkelijke aankomst- en retourtijd op bij het reserveren. Bij terugkomst loopt u naar de bushalte op Schiphol Plaza en stapt u in wanneer de shuttlebus langskomt. Let op: voor een aankomst of terugkomst tussen 00:00 en 07:00 geldt een nachttoeslag van €15.',
   },
   {
     question: 'Wat gebeurt er als mijn vlucht vertraging heeft?',
     answer:
-      'Wij volgen de actuele vluchtinformatie en houden daar rekening mee. Bij vertraging of een vervroegde landing kunt u bij terugkomst gewoon met de shuttlebus terug. U loopt naar de bushalte op Schiphol Plaza en stapt in wanneer de shuttlebus langskomt.',
+      'U hoeft bij terugkomst niet te bellen, ook niet bij vertraging of een vervroegde landing. U loopt naar de bushalte op Schiphol Plaza en stapt in wanneer de juiste shuttlebus langskomt.',
   },
 ];
 
@@ -139,12 +162,12 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Hoe lang duurt de rit naar Schiphol?',
     answer:
-      'De rit met de shuttlebus van onze parkeerlocatie naar Schiphol duurt ongeveer 8 minuten. Dat is alleen de rijtijd, niet de totale tijd inclusief parkeren, wachten en instappen.',
+      'De rit met de shuttlebus van onze parkeerlocatie naar Schiphol duurt ongeveer 8 minuten. Dat is alleen de geschatte rijtijd. Houd daarnaast rekening met tijd voor parkeren, lopen naar de halte, wachten en instappen.',
   },
   {
     question: 'Moet ik mijn autosleutel afgeven?',
     answer:
-      'Nee. Bij shuttle parkeren parkeert u uw auto zelf en neemt u uw autosleutel mee op reis. Alleen bij valet parking nemen wij uw auto over; dan worden uw sleutels bewaard in een brandwerende kluis op ons kantoor, dat onder camerabewaking staat.',
+      'Nee. Bij shuttle parkeren parkeert u uw auto zelf en neemt u uw autosleutel mee op reis. Alleen bij valet parking draagt u uw auto en sleutel over.',
   },
   {
     question: 'Waar stap ik uit op Schiphol?',
@@ -184,6 +207,22 @@ export default async function ShuttleParkingPage() {
         // one service should not have to correct the form on it.
         aside={<BookingPicker notch="inverse" defaultService="shuttle" bounds={bounds} />}
       />
+
+      <Section spacing="md" aria-labelledby="shuttle-info-heading" id="shuttle-info">
+        <Container>
+          <h2 id="shuttle-info-heading" className="text-display-md max-w-[30ch]">
+            Shuttle in het kort
+          </h2>
+          <dl className="mt-8 grid gap-x-10 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
+            {QUICK_INFO.map((item) => (
+              <div key={item.title} className="border-line border-t pt-4">
+                <dt className="text-heading text-base font-semibold">{item.title}</dt>
+                <dd className="text-muted mt-1.5 text-sm leading-relaxed">{item.body}</dd>
+              </div>
+            ))}
+          </dl>
+        </Container>
+      </Section>
 
       <ServiceUsp service="shuttle" heading="Zelf parkeren, sleutels mee, transfer inbegrepen" />
 
@@ -240,9 +279,9 @@ export default async function ShuttleParkingPage() {
         eyebrow="Reistijd en gemak"
         title="Ongeveer 8 minuten naar Schiphol"
         paragraphs={[
-          'De rit met de shuttlebus van onze parkeerlocatie in Badhoevedorp naar Schiphol duurt ongeveer 8 minuten. Dit is de geschatte rijtijd, niet de totale tijd; parkeren, instappen en eventuele wachttijd komen daar nog bij.',
-          'De shuttle rijdt op uw reservering. U geeft bij het boeken op wanneer u aankomt, zodat wij weten wanneer u er bent en daarop kunnen plannen. Voor de terugreis hoeft u niet te bellen: u loopt naar de bushalte op Schiphol Plaza en stapt in wanneer de shuttlebus langskomt.',
-          'Reken voor het hele proces op ongeveer een kwartier: parkeren, instappen, rijden en uitstappen. Wij adviseren om minimaal 3 uur voor vertrek op het terrein te zijn, zodat u daarna in alle rust kunt inchecken.',
+          'De rit met de shuttlebus van onze parkeerlocatie in Badhoevedorp naar Schiphol duurt ongeveer 8 minuten. Dit is uitsluitend de geschatte rijtijd. Houd daarnaast rekening met tijd voor parkeren, lopen naar de halte, wachten en instappen.',
+          'Voor de terugreis hoeft u niet te bellen: u loopt naar de bushalte op Schiphol Plaza en stapt in wanneer de juiste shuttlebus langskomt.',
+          'Wij adviseren om minimaal 3 uur voor vertrek op het terrein te zijn, zodat u daarna in alle rust kunt inchecken.',
         ]}
         photo="shuttleRoute"
         photoAlt="Routekaart van de parkeerplaats naar Schiphol"
@@ -294,17 +333,14 @@ export default async function ShuttleParkingPage() {
 
       <ContentSection
         id="veiligheid"
-        eyebrow="Het terrein"
-        title="Voordelig parkeren, zonder concessies aan het terrein"
+        eyebrow="De parkeerlocatie"
+        title="Zelf parkeren, uw sleutel blijft bij u"
         paragraphs={[
-          'Voordelig parkeren wordt vaak verward met onbewaakt parkeren. Dat is bij ons niet aan de orde: het terrein is afgesloten, staat 24 uur per dag onder camerabewaking en wordt gemonitord.',
-          'Daarbij komt iets wat alleen voor deze service geldt. U parkeert zelf en houdt uw sleutel, dus uw auto blijft staan waar u hem heeft neergezet. Er is niemand die hem verplaatst en er ligt geen sleutel op kantoor.',
+          'U parkeert op een vaste parkeerlocatie aan de Schipholweg 181 in Badhoevedorp, bij het ibis hotel.',
+          'Daarbij komt iets wat alleen voor deze service geldt. U parkeert zelf en houdt uw sleutel, dus uw auto blijft staan waar u hem heeft neergezet. Uw sleutel blijft bij u.',
         ]}
         bullets={[
-          'Afgesloten en gecontroleerd parkeerterrein',
-          '24/7 camerabewaking en monitoring',
           'Overdekte plaatsen beschikbaar, in beperkt aantal',
-          'Laadpunten aanwezig voor elektrische auto\u2019s',
           'U parkeert zelf en houdt uw autosleutel',
         ]}
         // The EV frame carries this section rather than another shot of the
@@ -319,8 +355,8 @@ export default async function ShuttleParkingPage() {
         // placement can afford slightly more of the car on the right than the
         // homepage band, because the charge point is not competing with a
         // heading beside it.
-        photo="evCharging"
-        photoAlt="veilig shuttle parkeren Schiphol"
+        photo="lotShuttle"
+        photoAlt="Shuttleparkeerlocatie bij Schiphol"
         objectPosition="object-[45%_50%]"
       >
         <Button href="/veilig-parkeren-schiphol/" variant="link" className="mt-7">

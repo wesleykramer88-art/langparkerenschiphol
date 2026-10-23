@@ -46,8 +46,8 @@ const NEXT_STEPS = [
     body: 'Bij shuttle parkeren adviseren wij om minimaal 3 uur voor vertrek aanwezig te zijn, bij valet parkeren minimaal 2,5 uur.',
   },
   {
-    title: 'Bel ons direct na de landing',
-    body: 'Wij volgen uw vlucht, maar één telefoontje bij terugkomst zorgt ervoor dat uw auto klaarstaat op het moment dat u bij de vertrekhal bent.',
+    title: 'Terugkomst na uw reis',
+    body: 'Shuttle parkeren: u hoeft niet te bellen. Loop naar dezelfde bushalte op Schiphol Plaza en stap in wanneer de juiste shuttlebus langskomt. Valet parkeren: volg de instructies voor terugkomst in uw bevestiging.',
   },
 ] as const;
 

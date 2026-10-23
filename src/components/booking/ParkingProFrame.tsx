@@ -170,6 +170,15 @@ export function ParkingProFrame({
   /** Loaded AND measured. Until both, the visitor sees the loading state. */
   const ready = loaded && !probing;
 
+  /**
+   * The load event of a cross-origin frame is the only reliable signal we
+   * have; an error event is not fired for HTTP or script failures inside it.
+   * So "slow" is purely time-based: no load event within 12 seconds of the
+   * frame being requested. It is a hint, not a diagnosis, and it is rendered
+   * below the module (never over it) and only while the frame has not loaded.
+   */
+  const [slow, setSlow] = useState(false);
+
   // The vendor's JS and network cost must not compete with our own paint, so
   // the frame is given no `src` at all until it nears the viewport.
   const { ref: inViewRef, inView } = useInView<HTMLDivElement>({ rootMargin: '400px 0px' });
@@ -221,6 +230,12 @@ export function ParkingProFrame({
     }, 1500);
     return () => clearTimeout(timer);
   }, [loaded, probing]);
+
+  useEffect(() => {
+    if (!inView || loaded) return;
+    const timer = setTimeout(() => setSlow(true), 12000);
+    return () => clearTimeout(timer);
+  }, [inView, loaded]);
 
   // ---------------------------------------------------------------------------
   // Inbound messages
@@ -437,11 +452,14 @@ export function ParkingProFrame({
           >
             {!ready ? (
               <div
-                aria-hidden
-                className="bg-surface-sunken absolute inset-0 grid place-items-center"
+                role="status"
+                className="bg-surface-sunken absolute inset-0 grid place-items-start justify-items-center px-6 pt-16 text-center"
               >
                 <div className="flex flex-col items-center gap-3">
-                  <div className="border-line-strong border-t-accent size-6 animate-spin rounded-full border-2 motion-reduce:animate-none" />
+                  <div
+                    aria-hidden
+                    className="border-line-strong border-t-accent size-6 animate-spin rounded-full border-2 motion-reduce:animate-none"
+                  />
                   <p className="text-muted text-sm">Laden…</p>
                 </div>
               </div>
@@ -506,6 +524,20 @@ export function ParkingProFrame({
           blocker, a corporate proxy, a CSP we got wrong — there must still be a
           way through. Always visible, never revealed on failure: we cannot
           reliably detect the failure from out here. */}
+      {slow && !loaded ? (
+        <p role="status" className="text-muted mt-4 text-sm">
+          Duurt het laden langer?{' '}
+          <a
+            href={src}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand decoration-navy-300 hover:decoration-navy-600 underline underline-offset-4"
+          >
+            Open {fallbackLabel} in een nieuw tabblad
+          </a>
+          .
+        </p>
+      ) : null}
       <p className="text-muted mt-4 text-sm">
         Lukt het niet?{' '}
         <a
