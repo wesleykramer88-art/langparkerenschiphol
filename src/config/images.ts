@@ -381,6 +381,15 @@ export const photos = {
       'data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAABQAgCdASoMAAwAAsBIJZQC7AYsFqy3Fv/7alAA/p8DIy+jG9fV+OWCA8mPk9edkG+ozFf2ZUsQTos6B46J4oHc6CWJLSM6+iiZFhwnfnl0FAAA',
   },
 
+  shuttleRoute: {
+    src: '/images/shuttleroute-van-parkeerplaats-naar-schiphol.webp',
+    width: 1536,
+    height: 1024,
+    alt: 'Routekaart van de parkeerplaats aan de Schipholweg 181 naar Schiphol, met een shuttlerit van ongeveer 8 minuten.',
+    blurDataURL:
+      'data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAADQAQCdASoMAAgAAsBIJZwC7AEN5dVtCAD+9kmVDHgP5u5xAqfPKlCPoNJ7kXwlzt8P2hz+DHhhMAAA',
+  },
+
   /**
    * The digital check-in on the clipboard, in the covered garage — with a Dutch
    * yellow plate in shot. The evidence behind "digitale ritregistratie".

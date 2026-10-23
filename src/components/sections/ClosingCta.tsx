@@ -72,6 +72,7 @@ export function ClosingCta({
   lead = 'Kies zekerheid, snelheid en gemak. Reserveer vandaag nog uw parkeerplaats bij Schiphol.',
   photo = 'terminalDeparture',
   photoAlt = '',
+  photoAspect = 'wide',
   /** The section the seam above sits on, so the perforation punches its colour. */
   notch = 'canvas',
   /**
@@ -95,6 +96,7 @@ export function ClosingCta({
   photo?: PhotoName;
   /** Optional descriptive alt text for service-specific CTA imagery. */
   photoAlt?: string;
+  photoAspect?: 'wide' | 'original';
   notch?: NotchColor;
   bookingHref?: string;
   bookingLabel?: string;
@@ -104,6 +106,11 @@ export function ClosingCta({
   mobileBookingHref?: string;
   mobileBookingLabel?: string;
 } = {}) {
+  const photoAspectClassName =
+    photoAspect === 'original' ? 'aspect-[3/2]' : 'aspect-video sm:aspect-21/9';
+  const mobilePhotoAspectClassName =
+    photoAspect === 'original' ? 'aspect-[3/2]' : 'aspect-[16/8] sm:aspect-video';
+
   return (
     <Section tone="surface" spacing="lg" aria-labelledby="cta-heading" className="py-14 md:py-24 lg:py-40">
       {/* The perforation on the seam. `tone` is not passed: it defaults to
@@ -121,7 +128,9 @@ export function ClosingCta({
           </span>
           {compactOnMobile ? (
             <div className="w-full md:hidden">
-              <div className="shadow-photo relative mb-5 aspect-[16/8] overflow-hidden rounded-xl">
+              <div
+                className={`shadow-photo relative mb-5 overflow-hidden rounded-xl ${mobilePhotoAspectClassName}`}
+              >
                 <Photo
                   name={photo}
                   alt={photoAlt}
@@ -161,7 +170,9 @@ export function ClosingCta({
               width would be a letterbox slot two hundred pixels tall, which
               shows nothing. Capped at max-w-4xl so it stays a panel on the page
               instead of quietly becoming the full-bleed band it replaced. */}
-            <div className="shadow-photo relative aspect-video w-full max-w-4xl overflow-hidden rounded-xl sm:aspect-21/9">
+            <div
+              className={`shadow-photo relative w-full max-w-4xl overflow-hidden rounded-xl ${photoAspectClassName}`}
+            >
               <Photo
                 name={photo}
                 alt={photoAlt}
