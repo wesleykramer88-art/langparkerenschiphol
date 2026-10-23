@@ -71,8 +71,8 @@ const CHECKS = [
     body: `${siteConfig.legal.entity}, KvK ${siteConfig.legal.kvk}. Op te zoeken in het Handelsregister.`,
   },
   {
-    title: 'Een adres op de luchthaven zelf',
-    body: `${siteConfig.address.street}, ${siteConfig.address.postalCode} ${siteConfig.address.locality}. Geen postbus.`,
+    title: 'Een vaste shuttleparkeerlocatie',
+    body: `${siteConfig.shuttleParking.display}, bij het ibis hotel. Geen postbus.`,
   },
   {
     title: 'Een telefoonnummer dat wordt opgenomen',

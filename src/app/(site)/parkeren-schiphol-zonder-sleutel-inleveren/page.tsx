@@ -69,16 +69,7 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Hoe kom ik bij mijn auto als ik terugkom?',
     answer:
-      // TODO(client): SHUTTLE PICKUP LOCATION — UNCONFIRMED.
-      // The valet flow was corrected in August 2026: a valet car is handed over
-      // AND returned between Vertrekhal 2 and 3, never at arrivals. Whether the
-      // SHUTTLE collects a landed passenger at the aankomsthal or at that same
-      // departures point has not been answered, so this line is deliberately
-      // LEFT AS IT WAS rather than guessed at.
-      // There are five of these across the site — this file, zelf-parkeren,
-      // goedkoop-shuttle, zonder-sleutel (x2). Search "aankomsthal" and fix
-      // them together in one pass when the answer comes back.
-      'Bel ons zodra u geland bent en door de bagagehal bent. De shuttle haalt u op bij de aankomsthal en brengt u terug naar het terrein. U loopt naar uw auto en rijdt weg met uw eigen sleutel.',
+      'Bel ons zodra u geland bent en door de bagagehal bent. U keert terug naar dezelfde bushalte op Schiphol Plaza waar u bent uitgestapt. Daar haalt onze shuttlebus u weer op en brengt u terug naar uw auto. Bij uw auto rijdt u weg met uw eigen sleutel.',
   },
   {
     question: 'Staat mijn auto veilig als ik de sleutel meeneem?',
@@ -153,7 +144,7 @@ export default function KeepKeysPage() {
         title="Zelf parkeren met sleutel, of valet met sleuteloverdracht"
         paragraphs={[
           'Wij bieden twee services aan en ze verschillen precies op dit punt. Het is de moeite waard om ze naast elkaar te zien, want de goedkoopste van de twee is toevallig ook de service waarbij u niets afgeeft.',
-          'Bij shuttle parkeren rijdt u naar ons terrein, parkeert u zelf en neemt u uw sleutel mee. De shuttlerit naar de vertrekhal duurt 5 tot 8 minuten.',
+          'Bij shuttle parkeren rijdt u naar onze shuttleparkeerlocatie aan de Schipholweg 181 in Badhoevedorp, parkeert u zelf en neemt u uw sleutel mee. De shuttlerit naar Schiphol duurt ongeveer 8 minuten.',
           'Bij valet parking rijdt u tot de vertrekhal en neemt onze chauffeur de auto van u over. Daarvoor is de sleutel nodig. Hij wordt daarna opgeborgen in een brandwerende kluis op ons kantoor, dat onder camerabewaking staat, en u krijgt hem bij terugkomst persoonlijk terug. Iedere valetrit wordt bovendien digitaal geregistreerd.',
         ]}
         reversed
@@ -174,18 +165,9 @@ export default function KeepKeysPage() {
         eyebrow="In de praktijk"
         title="Hoe het op de dag zelf gaat"
         paragraphs={[
-          'U rijdt naar ons terrein aan de Tupolevlaan 39 in Schiphol-Rijk. Let op dat dit niet de terminal is — bij shuttle parkeren komt u eerst naar ons, en brengen wij u daarna naar Schiphol.',
+          'U rijdt naar onze shuttleparkeerlocatie aan de Schipholweg 181 in Badhoevedorp. Let op dat dit niet de terminal is — bij shuttle parkeren komt u eerst naar ons, en brengen wij u daarna naar Schiphol.',
           'Op het terrein wordt u ontvangen en krijgt u een plek aangewezen. U parkeert zelf, laadt uw bagage uit naast uw eigen auto en stapt in de shuttlebus. Uw sleutel houdt u bij u.',
-          // TODO(client): SHUTTLE PICKUP LOCATION — UNCONFIRMED.
-          // The valet flow was corrected in August 2026: a valet car is handed over
-          // AND returned between Vertrekhal 2 and 3, never at arrivals. Whether the
-          // SHUTTLE collects a landed passenger at the aankomsthal or at that same
-          // departures point has not been answered, so this line is deliberately
-          // LEFT AS IT WAS rather than guessed at.
-          // There are five of these across the site — this file, zelf-parkeren,
-          // goedkoop-shuttle, zonder-sleutel (x2). Search "aankomsthal" and fix
-          // them together in one pass when the answer comes back.
-          'Na de landing belt u ons zodra u door de bagagehal bent. De shuttle haalt u op bij de aankomsthal en brengt u terug naar het terrein. Daar loopt u naar uw auto, opent u hem met uw eigen sleutel en rijdt u naar huis.',
+          'Na de landing belt u ons zodra u door de bagagehal bent. U keert terug naar dezelfde bushalte op Schiphol Plaza waar u bent uitgestapt. Daar haalt onze shuttlebus u weer op en brengt u terug naar uw auto. Bij uw auto opent u hem met uw eigen sleutel en rijdt u naar huis.',
         ]}
       >
         <Button href="/zelf-parkeren-schiphol/" variant="link" className="mt-7">

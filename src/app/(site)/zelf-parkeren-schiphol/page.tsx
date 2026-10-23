@@ -45,7 +45,7 @@ const CRUMBS = [{ name: 'Zelf parkeren Schiphol', path: PATH }];
 const STEPS: readonly TimelineStep[] = [
   {
     title: 'U rijdt het terrein op.',
-    body: 'Tupolevlaan 39, Schiphol-Rijk. Niet de terminal — bij deze service komt u eerst naar ons toe.',
+    body: 'Schipholweg 181, 1171 PK Badhoevedorp. Niet de terminal — bij deze service komt u eerst naar ons toe.',
   },
   {
     title: 'U krijgt een plek aangewezen.',
@@ -61,11 +61,11 @@ const STEPS: readonly TimelineStep[] = [
   },
   {
     title: 'De shuttle brengt u weg.',
-    body: 'De shuttlerit naar de vertrekhal van Schiphol duurt 5 tot 8 minuten; vanaf daar loopt u door naar de incheckbalie.',
+    body: 'De shuttlerit naar de bushalte op Schiphol Plaza duurt ongeveer 8 minuten (alleen de rijtijd); vanaf daar loopt u door naar de incheckbalie.',
   },
   {
     title: 'Terug bij uw eigen auto.',
-    body: 'Na de landing belt u ons. De shuttle brengt u terug naar het terrein en u rijdt weg.',
+    body: 'Na de landing belt u ons. U keert terug naar dezelfde bushalte op Schiphol Plaza en de shuttle brengt u terug naar uw auto.',
   },
 ];
 
@@ -88,21 +88,12 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Waar vertrekt de shuttle?',
     answer:
-      'Vanaf ons eigen terrein parkeert u zelf en stapt u in bij het opstappunt. De shuttlerit naar de vertrekhal duurt 5 tot 8 minuten.',
+      'Bij onze shuttleparkeerlocatie parkeert u zelf en stapt u in de shuttlebus. De rit naar de bushalte op Schiphol Plaza duurt ongeveer 8 minuten.',
   },
   {
     question: 'Hoe kom ik na mijn reis terug bij mijn auto?',
     answer:
-      // TODO(client): SHUTTLE PICKUP LOCATION — UNCONFIRMED.
-      // The valet flow was corrected in August 2026: a valet car is handed over
-      // AND returned between Vertrekhal 2 and 3, never at arrivals. Whether the
-      // SHUTTLE collects a landed passenger at the aankomsthal or at that same
-      // departures point has not been answered, so this line is deliberately
-      // LEFT AS IT WAS rather than guessed at.
-      // There are five of these across the site — this file, zelf-parkeren,
-      // goedkoop-shuttle, zonder-sleutel (x2). Search "aankomsthal" and fix
-      // them together in one pass when the answer comes back.
-      'Bel ons zodra u geland bent en door de bagagehal bent. De shuttle haalt u op bij de aankomsthal en brengt u terug naar het terrein, waar uw auto staat.',
+      'Bel ons zodra u geland bent en door de bagagehal bent. U keert terug naar dezelfde bushalte op Schiphol Plaza waar u bent uitgestapt. Daar haalt onze shuttlebus u weer op en brengt u terug naar uw auto.',
   },
   {
     question: 'Hoe lang van tevoren moet ik op het terrein zijn?',
@@ -127,7 +118,7 @@ export default function SelfParkingPage() {
       <PageHero
         eyebrow="Zelf parkeren"
         title="Zelf parkeren bij Schiphol"
-        lead="U zet uw auto zelf neer op ons bewaakte terrein en ziet met eigen ogen waar hij staat. Daarna brengt de shuttle u naar de vertrekhal."
+        lead="U zet uw auto zelf neer op ons bewaakte terrein en ziet met eigen ogen waar hij staat. Daarna brengt de shuttle u naar de bushalte op Schiphol Plaza."
         photo="lotShuttle"
         objectPosition="object-[center_50%]"
         crumbs={CRUMBS}

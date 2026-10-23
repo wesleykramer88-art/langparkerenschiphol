@@ -70,7 +70,7 @@ const FAQS: readonly FaqItem[] = [
   },
   {
     question: 'Hoe lang duurt de shuttle naar de terminal?',
-    answer: 'De rit van ons terrein naar de vertrekhal van Schiphol duurt 5 tot 8 minuten.',
+    answer: 'De rit van onze parkeerlocatie in Badhoevedorp naar Schiphol duurt ongeveer 8 minuten (alleen de rijtijd).',
   },
   {
     question: 'Moet ik mijn sleutel afgeven bij de goedkoopste optie?',
@@ -95,7 +95,7 @@ export default function CheapShuttlePage() {
       <PageHero
         eyebrow="Goedkoop parkeren"
         title="Goedkoop lang parkeren bij Schiphol"
-        lead="Voordelig parkeren hoeft niet te betekenen dat u inlevert op zekerheid. U parkeert zelf op ons bewaakte terrein, houdt uw sleutel en wordt naar de vertrekhal gereden."
+        lead="Voordelig parkeren hoeft niet te betekenen dat u inlevert op zekerheid. U parkeert zelf op ons bewaakte terrein, houdt uw sleutel en wordt naar Schiphol Plaza gereden."
         photo="lotShuttle"
         objectPosition="object-[center_40%]"
         crumbs={CRUMBS}
@@ -113,7 +113,7 @@ export default function CheapShuttlePage() {
         eyebrow="Wat het is"
         title="Wat goedkoop shuttle parkeren precies inhoudt"
         paragraphs={[
-          'Goedkoop shuttle parkeren betekent dat u niet op de luchthaven zelf parkeert, maar op een eigen terrein een paar minuten daarvandaan. U rijdt daarheen, zet uw auto neer en wordt met onze shuttlebus naar de vertrekhal gebracht. Bij terugkomst gebeurt hetzelfde in omgekeerde volgorde.',
+          'Goedkoop shuttle parkeren betekent dat u niet op de luchthaven zelf parkeert, maar op een eigen terrein een paar minuten daarvandaan. U rijdt daarheen, zet uw auto neer en wordt met onze shuttlebus naar de bushalte op Schiphol Plaza gebracht. Bij terugkomst gebeurt hetzelfde in omgekeerde volgorde.',
           'Dat is de hele reden dat het voordeliger is. Ruimte pal naast een terminal is schaars en duur; ruimte op een paar minuten rijden is dat niet. Het verschil in grondprijs is wat u per dag terugziet, en de afstand ertussen wordt voor u gereden.',
           'Het is bedoeld voor mensen die langer wegblijven. Voor een dagtrip is het verschil klein, maar bij twee of drie weken tikt het per dag stevig aan — en dat is precies het soort reis waarvoor deze service bestaat.',
         ]}
@@ -150,18 +150,9 @@ export default function CheapShuttlePage() {
         eyebrow="Hoe het werkt"
         title="Van aankomst tot ophalen"
         paragraphs={[
-          'U reserveert vooraf online en geeft door wanneer u aankomt en wanneer u terugkomt. Op de dag zelf rijdt u naar ons terrein aan de Tupolevlaan in Schiphol-Rijk — niet naar de terminal, dat is bij deze service een veelgemaakte vergissing.',
-          'U parkeert uw auto zelf op de plek die u krijgt aangewezen en neemt uw autosleutel mee. De shuttlerit naar de vertrekhal duurt 5 tot 8 minuten; daarna loopt u door naar de incheckbalie.',
-          // TODO(client): SHUTTLE PICKUP LOCATION — UNCONFIRMED.
-          // The valet flow was corrected in August 2026: a valet car is handed over
-          // AND returned between Vertrekhal 2 and 3, never at arrivals. Whether the
-          // SHUTTLE collects a landed passenger at the aankomsthal or at that same
-          // departures point has not been answered, so this line is deliberately
-          // LEFT AS IT WAS rather than guessed at.
-          // There are five of these across the site — this file, zelf-parkeren,
-          // goedkoop-shuttle, zonder-sleutel (x2). Search "aankomsthal" and fix
-          // them together in one pass when the answer comes back.
-          'Bij terugkomst belt u ons zodra u door de bagagehal bent. De shuttle haalt u op bij de aankomsthal en brengt u terug naar het terrein, waar uw auto staat waar u hem heeft achtergelaten.',
+          'U reserveert vooraf online en geeft door wanneer u aankomt en wanneer u terugkomt. Op de dag zelf rijdt u naar onze shuttleparkeerlocatie aan de Schipholweg 181 in Badhoevedorp — niet naar de terminal, dat is bij deze service een veelgemaakte vergissing.',
+          'U parkeert uw auto zelf op de plek die u krijgt aangewezen en neemt uw autosleutel mee. Onze shuttlebus zet u af bij de bushalte op Schiphol Plaza; de rit duurt ongeveer 8 minuten (alleen de rijtijd). Daarna loopt u door naar de incheckbalie.',
+          'Bij terugkomst belt u ons zodra u door de bagagehal bent. U keert terug naar dezelfde bushalte op Schiphol Plaza waar u bent uitgestapt. Daar haalt onze shuttlebus u weer op en brengt u terug naar uw auto.',
         ]}
       >
         <Button href="/shuttle-parkeren-schiphol/" variant="link" className="mt-7">
@@ -215,7 +206,7 @@ export default function CheapShuttlePage() {
               <h3 className="text-display-sm text-heading mt-3">Shuttle parkeren</h3>
               <p className="text-body mt-5 max-w-[44ch] leading-relaxed">
                 U rijdt naar ons terrein, parkeert zelf en houdt uw sleutel. De shuttle brengt u in
-                een shuttlerit van 5 tot 8 minuten naar de vertrekhal. Dit is de goedkoopste manier om bij ons lang te
+                een shuttlerit van ongeveer 8 minuten naar de bushalte op Schiphol Plaza. Dit is de goedkoopste manier om bij ons lang te
                 parkeren, en verreweg het meest geboekt.
               </p>
               <Button href="/shuttle-parkeren-schiphol/" variant="link" className="mt-6">

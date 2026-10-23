@@ -167,8 +167,8 @@ export default async function BookingPage({
                 </p>
                 <ul className="text-muted mt-2 space-y-1">
                   <li>
-                    <strong className="text-heading">Shuttle:</strong> u parkeert zelf aan{' '}
-                    {siteConfig.address.display} en reist met de shuttle naar de vertrekhal.
+                    <strong className="text-heading">Shuttle:</strong> u parkeert zelf aan de{' '}
+                    {siteConfig.shuttleParking.display} en reist met de shuttle naar de bushalte op Schiphol Plaza.
                   </li>
                   <li>
                     <strong className="text-heading">Valet:</strong> u draagt uw auto over bij de{' '}

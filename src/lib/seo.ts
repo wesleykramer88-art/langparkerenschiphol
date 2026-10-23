@@ -32,7 +32,7 @@ export const pageSeo = {
   services: {
     title: 'Shuttle of valet parkeren bij Schiphol? Vergelijk',
     description:
-      'Twijfelt u tussen shuttle en valet? Vergelijk aankomst, sleutel, transfer naar de vertrekhal en prijsberekening en kies wat bij uw reis past.',
+      'Twijfelt u tussen shuttle en valet? Vergelijk aankomst, sleutel, transfer naar Schiphol en prijsberekening en kies wat bij uw reis past.',
     path: '/onze-services/',
   },
   rates: {
@@ -50,7 +50,7 @@ export const pageSeo = {
   contact: {
     title: 'Contact & parkeerlocaties | Lang Parkeren Schiphol',
     description:
-      'Vragen over uw reservering of de aankomst? Bekijk telefoonnummer, e-mailadres, het adres van het shuttleterrein en de overdrachtslocatie voor valet.',
+      'Vragen over uw reservering of de aankomst? Bekijk telefoonnummer, e-mailadres, het adres van de shuttleparkeerlocatie en de overdrachtslocatie voor valet.',
     path: '/contact/',
   },
   booking: {
@@ -132,7 +132,7 @@ export const pageSeo = {
   selfParking: {
     title: 'Zelf Parkeren Schiphol | U Zet Uw Auto Zelf Neer',
     description:
-      'Zelf uw auto parkeren bij Schiphol op het shuttleterrein. U weet waar hij staat, houdt de sleutel en stapt in de shuttle naar de vertrekhal. Zo werkt het.',
+      'Zelf uw auto parkeren bij Schiphol bij onze shuttleparkeerlocatie. U weet waar hij staat, houdt de sleutel en stapt in de shuttle naar Schiphol. Zo werkt het.',
     path: '/zelf-parkeren-schiphol/',
   },
   rideRegistration: {
