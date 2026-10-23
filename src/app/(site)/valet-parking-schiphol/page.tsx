@@ -38,9 +38,9 @@ const CRUMBS = [{ name: 'Valet parking Schiphol', path: PATH }];
  * it exists precisely because this is the service where trust has to be earned
  * rather than assumed.
  *
- * ── The address on this page is NOT the business address ────────────────────
- * Valet customers drive to the terminal, not to Tupolevlaan. A valet customer
- * who follows the footer address misses their flight. See the note on
+ * ── The address on this page is NOT the shuttle parking address ─────────────
+ * Valet customers drive to the terminal, not to the shuttle parking location. A
+ * valet customer who follows the footer address misses their flight. See the note on
  * `valetHandover` in config/site.ts — the two addresses are both correct and
  * are for different things.
  */

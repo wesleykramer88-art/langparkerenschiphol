@@ -31,7 +31,7 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Wat is het verschil tussen valet en shuttle parkeren?',
     answer:
-      'Bij valet parkeren rijdt u naar de vertrekhal en neemt onze chauffeur uw auto over. Bij shuttle parkeren parkeert u zelf op onze locatie; de shuttlerit naar de vertrekhal duurt 5 tot 8 minuten.',
+      'Bij valet parkeren rijdt u naar de vertrekhal en neemt onze chauffeur uw auto over. Bij shuttle parkeren parkeert u zelf bij onze shuttleparkeerlocatie aan de Schipholweg 181 in Badhoevedorp; de shuttlebus rijdt u in ongeveer 8 minuten naar Schiphol Plaza.',
   },
   {
     question: 'Hoe veilig is mijn auto geparkeerd?',

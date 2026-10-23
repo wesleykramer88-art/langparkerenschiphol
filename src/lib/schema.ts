@@ -27,11 +27,10 @@ const WEBSITE_ID = `${env.NEXT_PUBLIC_SITE_URL}/#website`;
  * Typed as ParkingFacility (a subtype of LocalBusiness) because that is what it
  * actually is, and it is the type Google maps to parking results.
  *
- * `streetAddress` and `postalCode` are now emitted. Handover 1 shipped this as a
- * service-area business because the address could not be found; it was on the
- * live site all along, in the footer of the old page set. A complete
- * PostalAddress is what makes a LocalBusiness eligible for the local pack, so
- * this is a real gain rather than tidying.
+ * The PostalAddress is the shuttle PARKING LOCATION (Schipholweg 181), i.e. where
+ * the facility physically is. It is not the registered business address, which
+ * the site does not publish. No geo coordinates are emitted: none are confirmed
+ * for this address.
  */
 export function organizationSchema() {
   return {
@@ -47,17 +46,13 @@ export function organizationSchema() {
     logo: `${env.NEXT_PUBLIC_SITE_URL}/icon.svg`,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: siteConfig.address.street,
-      postalCode: siteConfig.address.postalCode,
-      addressLocality: siteConfig.address.locality,
-      addressRegion: siteConfig.address.region,
-      addressCountry: siteConfig.address.country,
+      streetAddress: siteConfig.shuttleParking.street,
+      postalCode: siteConfig.shuttleParking.postalCode,
+      addressLocality: siteConfig.shuttleParking.locality,
+      addressRegion: siteConfig.shuttleParking.region,
+      addressCountry: siteConfig.shuttleParking.country,
     },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: siteConfig.geo.latitude,
-      longitude: siteConfig.geo.longitude,
-    },
+    hasMap: siteConfig.shuttleParking.mapsUrl,
     areaServed: {
       '@type': 'Airport',
       name: 'Amsterdam Airport Schiphol',
@@ -103,7 +98,7 @@ export function organizationSchema() {
             '@type': 'Service',
             name: 'Shuttle Parkeren Schiphol',
             description:
-              'U parkeert zelf op ons beveiligde terrein en reist met de shuttle naar de terminal.',
+              `U parkeert zelf bij de shuttleparkeerlocatie aan de ${siteConfig.shuttleParking.street} in ${siteConfig.shuttleParking.locality} en reist in ongeveer ${siteConfig.shuttleParking.transferMinutes} minuten met de shuttlebus naar Schiphol.`,
           },
         },
       ],

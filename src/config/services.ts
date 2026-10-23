@@ -72,14 +72,14 @@ export const SERVICE_COPY: Record<ServiceSlug, ServiceCopy> = {
     name: 'Shuttle',
     fullName: 'Shuttle Parkeren',
     note: 'U parkeert zelf · shuttle naar de vertrekhal',
-    usp: { icon: KeyRound, text: 'Sleutels mee op reis · Shuttlerit van 5 tot 8 minuten' },
+    usp: { icon: KeyRound, text: 'Sleutels mee op reis · Shuttlerit van ongeveer 8 minuten' },
     bullets: [
       { icon: KeyRound, text: 'Zelf parkeren, sleutels mee op reis' },
-      { icon: BusFront, text: 'Shuttlerit naar de vertrekhal: 5 tot 8 minuten' },
+      { icon: BusFront, text: 'Shuttlerit naar Schiphol: ongeveer 8 minuten' },
       { icon: LayoutGrid, text: 'Duidelijk en strak georganiseerd' },
       { icon: ShieldCheck, text: 'Afgesloten terrein met camerabewaking' },
     ],
-    where: `${siteConfig.address.street}, ${siteConfig.address.locality}`,
+    where: `${siteConfig.shuttleParking.street}, ${siteConfig.shuttleParking.locality}`,
     href: '/shuttle-parkeren-schiphol/',
   },
   valet: {

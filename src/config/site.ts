@@ -70,49 +70,34 @@ export const siteConfig = {
   emailSecondary: 'klantenservice@langparkerenschiphol.nl',
 
   /**
-   * ── THERE ARE TWO ADDRESSES, AND THAT IS CORRECT ───────────────────────────
+   * SHUTTLE PARKING LOCATION (at the ibis hotel). Client decision, October 2026.
    *
-   * Handover 3 recorded the site's three different location strings as a NAP
-   * consistency problem and collapsed them onto one. That was half right. Two
-   * of the three are the same place written badly; the third is a different
-   * place entirely, and merging it away lost real information.
-   *
-   * ParkingPro's own location data settles it. The four products carry two
-   * addresses between them:
-   *
-   *   shuttle (LPS-S, LPS-SO)   Tupolevlaan 39, Schiphol-Rijk
-   *   valet   (LPS-V, LPS-VO)   Vertrekpassage, Schiphol — Vertrekhal, 1e verd.
-   *
-   * They are not in conflict. The terrain, the office and the shuttle depot are
-   * at Tupolevlaan; the valet handover happens kerbside at the terminal,
-   * because that is the entire point of valet. A customer who drives to the
-   * wrong one of those misses their flight.
-   *
-   * So both are published, each labelled with what happens there. `address`
-   * below is the BUSINESS address — it is what goes in the LocalBusiness
-   * markup, the footer and the KvK-facing identity. `valetHandover` is an
-   * operational instruction, shown on the valet service and on /contact/, and
-   * deliberately absent from the structured data: two PostalAddress values on
-   * one LocalBusiness node is the inconsistency this was meant to fix.
+   * This is where a shuttle customer parks. It is NOT presented as the legal
+   * or registered business address — the site publishes no business address
+   * (see `legal` below). The previous shuttle address was removed entirely.
    */
-  address: {
-    street: 'Tupolevlaan 39',
-    postalCode: '1119 PA',
-    locality: 'Schiphol-Rijk',
+  shuttleParking: {
+    name: 'Lang Parkeren Schiphol – Shuttleparking',
+    street: 'Schipholweg 181',
+    postalCode: '1171 PK',
+    locality: 'Badhoevedorp',
     region: 'Noord-Holland',
     country: 'NL',
     countryName: 'Nederland',
-    /** One-line form, for the footer and the contact card. */
-    display: 'Tupolevlaan 39, Schiphol-Rijk',
+    /** One-line form, for running text and the contact card. */
+    display: 'Schipholweg 181, 1171 PK Badhoevedorp',
+    /** Google Maps directions URL; destination only, the device supplies the origin. */
+    mapsUrl:
+      'https://www.google.com/maps/dir/?api=1&destination=Schipholweg%20181%2C%201171%20PK%20Badhoevedorp%2C%20Nederland',
+    /** Estimated drive time only — not parking, waiting and boarding. */
+    transferMinutes: 8,
+    /** Departure and return use the same stop. No stop number is confirmed. */
+    stopName: 'bushalte op Schiphol Plaza',
   },
 
   /**
-   * Where a VALET customer actually drives to. Not the business address.
+   * Where a VALET customer actually drives to.
    *
-   * TODO(client): confirm the postcode for Tupolevlaan 39 above — 1119 PA is
-   * the postcode for that street, but we have it from the address rather than
-   * from you, and it is the one part of the NAP that is inferred rather than
-   * read off your own systems.
    */
   valetHandover: {
     street: 'Vertrekpassage',
@@ -138,9 +123,6 @@ export const siteConfig = {
      */
     returnNote: 'U krijgt uw auto op dezelfde plek terug: tussen Vertrekhal 2 en 3.',
   },
-
-  /** Amsterdam Airport Schiphol. Used for geo in ParkingFacility schema. */
-  geo: { latitude: 52.3105, longitude: 4.7683 },
 
   /**
    * Legal identity. The site this replaces published none of it; Dutch

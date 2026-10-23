@@ -5,7 +5,7 @@
 Canonical site: https://langparkerenschiphol.nl/
 Language: Dutch (nl-NL)
 Business: Lang Parkeren Schiphol
-Primary service area: Amsterdam Airport Schiphol, Schiphol-Rijk, Netherlands
+Primary service area: Amsterdam Airport Schiphol, Netherlands
 
 ## Core pages
 
@@ -21,7 +21,7 @@ Primary service area: Amsterdam Airport Schiphol, Schiphol-Rijk, Netherlands
 - [Waarom Lang Parkeren Schiphol](https://langparkerenschiphol.nl/waarom-lang-parkeren-schiphol/): Werkwijze, vertrouwen en veiligheidsmaatregelen.
 - [Beveiligd parkeren Schiphol](https://langparkerenschiphol.nl/veilig-parkeren-schiphol/): Informatie over het beveiligde parkeerterrein en toezicht.
 - [Parkeren zonder sleutel inleveren](https://langparkerenschiphol.nl/parkeren-schiphol-zonder-sleutel-inleveren/): Uitleg over shuttle parkeren waarbij de klant de autosleutel behoudt.
-- [Zelf parkeren Schiphol](https://langparkerenschiphol.nl/zelf-parkeren-schiphol/): Uitleg over zelf parkeren op het shuttleterrein.
+- [Zelf parkeren Schiphol](https://langparkerenschiphol.nl/zelf-parkeren-schiphol/): Uitleg over zelf parkeren op de shuttleparkeerlocatie.
 - [Goedkoop shuttle parkeren Schiphol](https://langparkerenschiphol.nl/goedkoop-shuttle-parkeren-schiphol/): Informatie over voordelig shuttle parkeren.
 - [Digitale ritregistratie](https://langparkerenschiphol.nl/digitale-ritregistratie/): Uitleg over digitale registratie van valetritten voor transparantie en controle.
 
@@ -37,7 +37,9 @@ Primary service area: Amsterdam Airport Schiphol, Schiphol-Rijk, Netherlands
 
 - Phone: +31 85 401 3918
 - Email: klantenservice@langparkerenschiphol.nl
-- Shuttle parking and office: Tupolevlaan 39, 1119 PA Schiphol-Rijk, Netherlands
+- Shuttle parking location (at the ibis hotel): Lang Parkeren Schiphol – Shuttleparking, Schipholweg 181, 1171 PK Badhoevedorp, Netherlands
+- Route: https://www.google.com/maps/dir/?api=1&destination=Schipholweg%20181%2C%201171%20PK%20Badhoevedorp%2C%20Nederland
+- Shuttle: the shuttle bus drives from the parking location to Schiphol in approximately 8 minutes (estimated driving time only, excluding parking, waiting and boarding). Customers are dropped off at the bus stop at Schiphol Plaza and are picked up again at the same bus stop on return.
 - Valet handover: Vertrekpassage, Schiphol, 1e verdieping, tussen Vertrekhal 2 en 3
 
 ## Crawling

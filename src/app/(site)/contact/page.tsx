@@ -5,6 +5,7 @@ import { Container } from '@/components/ui/Container';
 import { Section } from '@/components/ui/Section';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { Button } from '@/components/ui/Button';
+import { RouteButton } from '@/components/ui/RouteButton';
 import { Reveal } from '@/components/motion/Reveal';
 import { PageHero } from '@/components/sections/PageHero';
 import { ContactForm } from '@/components/contact/ContactForm';
@@ -17,16 +18,12 @@ const CRUMBS = [{ name: 'Contact', path: '/contact/' }];
 /**
  * /contact/
  *
- * ── The NAP, and the address that was not a mistake ────────────────────────
- * The live site shows three location strings. Handover 3 treated all three as
- * one inconsistency and collapsed them. Two of them are — "Schiphol-Rijk,
- * Nederland" and "Schiphol, Noord-Holland" are the same place written loosely.
- *
- * The third is a different place. ParkingPro's own product data shows shuttle
- * operating from Tupolevlaan 39 in Schiphol-Rijk and valet handing over at the
- * Vertrekpassage in the terminal itself. Both are published here, each labelled
- * with what happens there, because a customer who drives to the wrong one
- * misses their flight. Only the business address carries LocalBusiness markup.
+ * ── Two locations, both labelled ───────────────────────────────────────────
+ * Shuttle parks at Schipholweg 181 (Badhoevedorp, ibis hotel); valet hands
+ * over at the Vertrekpassage in the terminal itself. Both are published here,
+ * each labelled with what happens there, because a customer who drives to the
+ * wrong one misses their flight. Neither is presented as a registered
+ * business address.
  *
  * The phone question is closed: 020-303 3460 is the only number on the site, per
  * the client. The 0297 line and the secondary-number block that used to sit
@@ -115,7 +112,7 @@ export default function ContactPage() {
 
                 {/* ---------- Two locations, labelled ----------
                     Not a duplication bug. Shuttle customers drive to the
-                    terrain at Tupolevlaan; valet customers drive to the
+                    parking location at Schipholweg 181; valet customers drive to the
                     terminal kerb at Vertrekpassage. Somebody who goes to the
                     wrong one of these misses a flight, so both are stated with
                     what happens at each. See config/site.ts. */}
@@ -126,18 +123,27 @@ export default function ContactPage() {
                     aria-hidden
                   />
                   <div>
-                    <dt className="eyebrow text-muted">Shuttle parkeren &amp; kantoor</dt>
+                    <dt className="eyebrow text-muted">Shuttle parkeren — parkeerlocatie</dt>
                     <dd className="text-heading mt-2 text-lg font-medium">
                       <address className="not-italic">
-                        {siteConfig.address.street}
+                        {siteConfig.shuttleParking.name}
                         <br />
-                        <span className="numeric">{siteConfig.address.postalCode}</span>{' '}
-                        {siteConfig.address.locality}
+                        {siteConfig.shuttleParking.street}
+                        <br />
+                        <span className="numeric">{siteConfig.shuttleParking.postalCode}</span>{' '}
+                        {siteConfig.shuttleParking.locality}
+                        <br />
+                        {siteConfig.shuttleParking.countryName}
                       </address>
                     </dd>
                     <p className="text-muted mt-2 max-w-[34ch] text-sm leading-relaxed">
-                      Hier parkeert u zelf en vertrekt de shuttlebus naar de vertrekhal.
+                      Parkeerlocatie bij het ibis hotel. Hier parkeert u zelf; de shuttlebus rijdt u in
+                      ongeveer 8 minuten naar de bushalte op Schiphol Plaza, en haalt u daar bij
+                      terugkomst weer op.
                     </p>
+                    <div className="mt-3">
+                      <RouteButton />
+                    </div>
                   </div>
                 </div>
 

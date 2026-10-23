@@ -140,22 +140,18 @@ export function SiteFooter() {
                 {siteConfig.email}
               </a>
             </li>
-            {/* The BUSINESS address — the terrain and the office. This is the
-                one that carries the LocalBusiness markup and makes the listing
-                eligible for the local pack.
-
-                The valet handover point is a different address and is
-                deliberately not here: in a footer, two addresses with no room
-                to explain them reads as an error. It is stated on /contact/ and
-                on the valet service, where there is space to say which is
-                which. See config/site.ts. */}
+            {/* The shuttle PARKING LOCATION, labelled as such — it is not the
+                registered business address. The valet handover point is
+                stated on /contact/ and on the valet service. See
+                config/site.ts. */}
             <li className="text-navy-200 flex items-start gap-2.5 text-sm">
               <MapPin className="text-navy-400 mt-0.5 size-4 shrink-0" aria-hidden />
               <address className="not-italic">
-                {siteConfig.address.street}
+                <span className="block">Shuttleparkeerlocatie</span>
+                {siteConfig.shuttleParking.street}
                 <br />
-                <span className="numeric">{siteConfig.address.postalCode}</span>{' '}
-                {siteConfig.address.locality}
+                <span className="numeric">{siteConfig.shuttleParking.postalCode}</span>{' '}
+                {siteConfig.shuttleParking.locality}
               </address>
             </li>
             <li className="mt-2 md:hidden">

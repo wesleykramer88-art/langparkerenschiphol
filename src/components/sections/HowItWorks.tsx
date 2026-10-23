@@ -20,7 +20,7 @@ const STEPS: readonly TimelineStep[] = [
   },
   {
     title: 'Ga verder naar de vertrekhal',
-    body: 'De shuttlerit naar de vertrekhal duurt 5 tot 8 minuten. Bij Valet loopt u vanaf de overdracht door naar de check-in.',
+    body: 'De shuttlerit naar de bushalte op Schiphol Plaza duurt ongeveer 8 minuten. Bij Valet loopt u vanaf de overdracht door naar de check-in.',
   },
   {
     title: 'Uw auto staat klaar bij terugkomst',
