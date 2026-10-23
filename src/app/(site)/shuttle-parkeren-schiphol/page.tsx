@@ -42,7 +42,7 @@ const CRUMBS = [{ name: 'Shuttle parkeren Schiphol', path: PATH }];
  *
  * ── Every claim here is already published somewhere on this site ────────────
  * ongeveer 8 minuten, sleutel meenemen bij shuttle,
- * terrein, overdekt beperkt beschikbaar, annuleringsdekking als betaalde optie,
+ * overdekt beperkt beschikbaar, annuleringsdekking als betaalde optie,
  * 3 uur voor vertrek aanwezig zijn. Nothing is invented for SEO. Where the
  * document asked for something this business has not stated — how often the
  * shuttle runs, what happens on a 03:00 return — the copy says what is true
