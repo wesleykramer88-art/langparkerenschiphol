@@ -70,7 +70,7 @@ const REASSURANCES = [
 export function ClosingCta({
   heading = 'Begin uw reis ontspannen',
   lead = 'Kies zekerheid, snelheid en gemak. Reserveer vandaag nog uw parkeerplaats bij Schiphol.',
-  photo = 'terminalDeparture',
+  photo = 'crewHandover',
   photoAlt = '',
   photoAspect = 'wide',
   /** The section the seam above sits on, so the perforation punches its colour. */

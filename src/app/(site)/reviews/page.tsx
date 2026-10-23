@@ -235,7 +235,7 @@ export default function ReviewsPage() {
       <ClosingCta
         heading="Ervaar het zelf"
         lead="Reserveer in twee minuten en beoordeel ons daarna gerust zelf — wij horen het graag, goed of slecht."
-        photo="terminalDeparture"
+        photo="crewHandover"
         photoAlt="reizigers ervaringen Schiphol parkeren"
         notch="surface"
       />

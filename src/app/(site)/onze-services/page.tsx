@@ -301,7 +301,7 @@ export default function ServicesPage() {
       <ClosingCta
         heading="Reserveer eenvoudig uw parkeerplek."
         lead="Binnen enkele minuten geregeld. Kies de service die bij u past en start uw reis zonder zorgen."
-        photo="terminalDeparture"
+        photo="crewHandover"
         photoAlt="Schiphol parkeerplaats bij Vertrek 2 van de luchthaven"
       />
 

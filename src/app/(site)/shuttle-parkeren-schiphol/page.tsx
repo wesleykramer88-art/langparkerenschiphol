@@ -13,7 +13,6 @@ import { Eyebrow } from '@/components/ui/Eyebrow';
 import { Reveal } from '@/components/motion/Reveal';
 import { FaqSection } from '@/components/sections/Faq';
 import { ClusterLinks } from '@/components/sections/ClusterLinks';
-import { ClosingCta } from '@/components/sections/ClosingCta';
 import { fetchPickerBounds } from '@/lib/parkingpro-config';
 import { siteConfig } from '@/config/site';
 
@@ -245,9 +244,9 @@ export default async function ShuttleParkingPage() {
           'De shuttle rijdt op uw reservering. U geeft bij het boeken op wanneer u aankomt, zodat wij weten wanneer u er bent en daarop kunnen plannen. Voor de terugreis hoeft u niet te bellen: u loopt naar de bushalte op Schiphol Plaza en stapt in wanneer de shuttlebus langskomt.',
           'Reken voor het hele proces op ongeveer een kwartier: parkeren, instappen, rijden en uitstappen. Wij adviseren om minimaal 3 uur voor vertrek op het terrein te zijn, zodat u daarna in alle rust kunt inchecken.',
         ]}
-        photo="terminalDeparture"
-        photoAlt="shuttle transfer naar Schiphol"
-        objectPosition="object-[center_55%]"
+        photo="shuttleRoute"
+        photoAlt="Routekaart van de parkeerplaats naar Schiphol"
+        objectPosition="object-center"
         reversed
         tone="canvas"
       />
@@ -336,15 +335,6 @@ export default async function ShuttleParkingPage() {
       />
 
       <ClusterLinks currentPath={PATH} />
-
-      <ClosingCta
-        heading="Reserveer uw shuttle parkeerplaats"
-        lead="Kies uw aankomst- en retourmoment en zie direct wat het kost. Binnen een paar minuten geregeld."
-        photo="shuttleRoute"
-        photoAspect="original"
-        bookingHref="/reservering/?service=shuttle"
-        bookingLabel="Reserveer shuttle parkeren"
-      />
 
       <script
         type="application/ld+json"
