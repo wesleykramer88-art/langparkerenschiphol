@@ -344,7 +344,8 @@ export default async function ShuttleParkingPage() {
       <ClosingCta
         heading="Reserveer uw shuttle parkeerplaats"
         lead="Kies uw aankomst- en retourmoment en zie direct wat het kost. Binnen een paar minuten geregeld."
-        photo="lotShuttle"
+        photo="shuttleRoute"
+        photoAspect="original"
         bookingHref="/reservering/?service=shuttle"
         bookingLabel="Reserveer shuttle parkeren"
       />
