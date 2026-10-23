@@ -71,7 +71,7 @@ export const reviewSource: ReviewSource = { verified: false };
 export type Review = {
   quote: string;
   name: string;
-  /** Where the reviewer is coming from, in our own words. */
+  /** Where the reviewer is coming from. */
   role: string;
   /** Set only for reviews carried over from a real platform. */
   rating?: number;
@@ -80,43 +80,13 @@ export type Review = {
 };
 
 /**
- * The three testimonials carried over verbatim from the live site.
- *
- * They are first-party and unattributed beyond a first name, which is exactly
- * how both pages present them: three named people, no score, no count, no claim
- * about how many others there are.
- *
- * What is NOT emitted for these, on any page:
- *   · AggregateRating — nothing verifiable to average
- *   · Review markup   — Google does not grant review rich results for reviews a
- *                       business publishes about itself, and asking anyway is
- *                       how domains collect manual actions
- *   · star rows       — five stars beside a quote is a per-review score, and no
- *                       per-review score was ever collected
- *
- * When `reviewSource.verified` flips, replace these with the real ones and set
- * `rating` and `date` from the platform.
+ * Customer quotes. Deliberately empty: the three testimonials that used to live
+ * here had no recorded origin (no platform, date or confirmation from the
+ * reviewer), so they are not shown. Add a quote only together with its
+ * verifiable source. When `reviewSource.verified` is set, paste the real
+ * platform reviews here.
  */
-export const reviews: readonly Review[] = [
-  {
-    quote:
-      'Top service! Auto netjes afgegeven en bij terugkomst stond hij binnen 5 minuten weer klaar voor de vertrekhal. Vriendelijk personeel en heel snel geregeld.',
-    name: 'Mark v.D.',
-    role: 'Schiphol reiziger',
-  },
-  {
-    quote:
-      'Eerste keer valet parkeren via deze dienst en het is uitstekend bevallen. Duidelijke communicatie vooraf en geen gedoe met pendelbussen. Zeker voor herhaling vatbaar!',
-    name: 'Sandra & Peter',
-    role: 'Vakantiegangers',
-  },
-  {
-    quote:
-      'Snel, betrouwbaar en scherp geprijsd. Auto stond veilig geparkeerd en de sleuteloverdracht verliep heel soepel. Aanrader voor wie zorgeloos wil reizen.',
-    name: 'K. de Jong',
-    role: 'Zakelijke reiziger',
-  },
-];
+export const reviews: readonly Review[] = [];
 
 /** Dutch decimal comma — "4,7", never "4.7". */
 export function formatScore(score: number): string {

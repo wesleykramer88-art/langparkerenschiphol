@@ -55,12 +55,12 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Worden mijn autosleutels veilig opgeborgen?',
     answer:
-      'Bij Shuttle parkeren neemt u uw autosleutels zelf mee op reis. Bij Valet parkeren worden uw sleutels opgeborgen in een brandwerende kluis op ons kantoor, dat is voorzien van camerabewaking.',
+      'Bij Shuttle parkeren neemt u uw autosleutels zelf mee op reis. Bij Valet parkeren draagt u uw sleutel over bij de chauffeur; de overdracht en teruggave staan in uw bevestiging.',
   },
   {
     question: 'Wat gebeurt er als mijn vlucht vertraagd is?',
     answer:
-      'Geen zorgen. Wij volgen de actuele vluchtinformatie en passen de ophaaltijd indien nodig aan. Bij een vertraging of vervroegde landing zorgen wij ervoor dat uw auto weer op het afgesproken moment beschikbaar is. Vergeet niet direct te bellen na uw landing op Schiphol.',
+      'Shuttle parkeren: u hoeft bij terugkomst niet te bellen. Loop naar de bushalte op Schiphol Plaza en stap in wanneer de juiste shuttlebus langskomt, ook bij vertraging of een vervroegde landing. Valet parkeren: bel bij terugkomst volgens de instructies in uw bevestiging, zodat uw auto bij de overdrachtsplek klaarstaat.',
   },
   {
     question: 'Hoe laat moet ik aanwezig zijn voor mijn vlucht?',

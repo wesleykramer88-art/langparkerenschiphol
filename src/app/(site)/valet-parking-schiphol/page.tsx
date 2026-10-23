@@ -1,4 +1,3 @@
-import { ArrowRight, Gauge } from 'lucide-react';
 import { createMetadata } from '@/lib/seo';
 import { jsonLd, breadcrumbSchema, serviceSchema, type FaqItem } from '@/lib/schema';
 import { Container } from '@/components/ui/Container';
@@ -32,11 +31,7 @@ const CRUMBS = [{ name: 'Valet parking Schiphol', path: PATH }];
  * The reason a visitor does not book it is never that they doubt it is
  * convenient — it is that they are being asked to give away their car. So the
  * page states the mechanics of the handover early and in detail, and links to
- * /digitale-ritregistratie/ where the question gets its full answer.
- *
- * That link is the page's most important one. Ride registration is valet-only;
- * it exists precisely because this is the service where trust has to be earned
- * rather than assumed.
+ * /digitale-ritregistratie/ (a short valet handover page).
  *
  * ── The address on this page is NOT the shuttle parking address ─────────────
  * Valet customers drive to the terminal, not to the shuttle parking location. A
@@ -55,8 +50,8 @@ const STEPS: readonly TimelineStep[] = [
     body: 'U rijdt rechtstreeks naar de Vertrekpassage op Schiphol, tussen Vertrekhal 2 en 3.',
   },
   {
-    title: 'Onze chauffeur wacht u op.',
-    body: 'Hij ontvangt uw gegevens digitaal en weet welke auto en welke vlucht bij u horen.',
+    title: 'De chauffeur wacht u op.',
+    body: 'Hij staat op de afgesproken tijd voor u klaar bij de vertrekhal.',
   },
   {
     title: 'Samen langs de auto.',
@@ -64,18 +59,18 @@ const STEPS: readonly TimelineStep[] = [
   },
   {
     title: 'Wij parkeren, u loopt door.',
-    body: 'Uw auto gaat naar onze beveiligde locatie. De rit ernaartoe wordt digitaal geregistreerd.',
+    body: 'Uw auto gaat naar onze parkeerlocatie.',
   },
   {
     title: 'Terug tussen Vertrekhal 2 en 3.',
-    body: 'Bel na de landing. Uw auto staat op dezelfde plek als bij vertrek, en de terugrit is opnieuw geregistreerd.',
+    body: 'Bel na de landing. Uw auto staat op dezelfde plek als bij vertrek.',
   },
 ];
 
 const FAQS: readonly FaqItem[] = [
   {
     question: 'Waar moet ik zijn voor valet parking?',
-    answer: `Bij de ${siteConfig.valetHandover.display}. U rijdt dus rechtstreeks naar de luchthaven en niet naar ons parkeerterrein — dat laatste geldt alleen voor shuttle parkeren. Onze chauffeur staat op de afgesproken tijd voor u klaar.`,
+    answer: `Bij de ${siteConfig.valetHandover.display}. U rijdt dus rechtstreeks naar de luchthaven en niet naar ons parkeerterrein — dat laatste geldt alleen voor shuttle parkeren. De chauffeur staat op de afgesproken tijd voor u klaar.`,
   },
   {
     question: 'Hoe laat moet ik aanwezig zijn?',
@@ -85,7 +80,7 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Wat gebeurt er met mijn autosleutel?',
     answer:
-      'Uw sleutels worden opgeborgen in een brandwerende kluis op ons kantoor, dat onder camerabewaking staat. Bij terugkomst krijgt u ze weer persoonlijk overhandigd.',
+      'Bij de overdracht neemt de chauffeur uw sleutel over. Bij terugkomst krijgt u hem weer persoonlijk overhandigd.',
   },
   {
     question: 'Wordt de staat van mijn auto vastgelegd?',
@@ -99,7 +94,7 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Wie rijdt er in mijn auto?',
     answer:
-      'Een van onze eigen chauffeurs. Zij rijden alleen de route tussen de vertrekhal en onze parkeerlocatie, en die ritten worden digitaal geregistreerd — inclusief de gereden snelheid.',
+      'De chauffeur van onze uitvoerende partner. Hij rijdt alleen de route tussen de vertrekhal en onze parkeerlocatie.',
   },
   {
     question: 'Hoeveel kilometer wordt er op mijn auto gereden?',
@@ -114,7 +109,7 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Wat als mijn vlucht vertraagd is?',
     answer:
-      'Wij volgen de actuele vluchtinformatie en passen de ophaaltijd aan. Bij vertraging of een vervroegde landing staat uw auto op het aangepaste moment klaar. Bel ons wel direct na de landing.',
+      'Bel ons direct na de landing, ook bij een vertraging of een vervroegde landing. Uw auto staat dan klaar op de Vertrekpassage, tussen Vertrekhal 2 en 3.',
   },
 ];
 
@@ -140,9 +135,8 @@ export default async function ValetParkingPage() {
         eyebrow="De overdracht"
         title="Wat er precies gebeurt bij de vertrekhal"
         paragraphs={[
-          `U rijdt naar de ${siteConfig.valetHandover.display}. Onze chauffeur staat daar op u te wachten en heeft uw gegevens al digitaal ontvangen: welke auto, welke vlucht, hoe laat u terugkomt.`,
-          'Samen loopt u langs de auto en wordt de staat ervan vastgelegd. Daarna neemt hij de sleutel over en tekent u voor de overdracht. Vanaf dat moment loopt u door naar de incheckbalie, en gaat uw auto naar onze beveiligde parkeerlocatie.',
-          'De rit ernaartoe is geen blinde vlek. Route, snelheid en duur worden digitaal geregistreerd, zodat achteraf inzichtelijk is wat er met uw auto is gebeurd — ook de terugrit, wanneer hij weer naar de Vertrekpassage wordt gebracht.',
+          `U rijdt naar de ${siteConfig.valetHandover.display}. De chauffeur staat daar op u te wachten.`,
+          'Samen loopt u langs de auto en wordt de staat ervan vastgelegd. Daarna neemt hij de sleutel over en tekent u voor de overdracht. Vanaf dat moment loopt u door naar de incheckbalie, en gaat uw auto naar onze parkeerlocatie.',
         ]}
         photo="crewTerminal"
         photoAlt="valet parking bij Schiphol vertrekhal"
@@ -158,7 +152,7 @@ export default async function ValetParkingPage() {
           </a>
         </p>
         <Button href="/digitale-ritregistratie/" variant="link" className="mt-7">
-          Lees hoe wij iedere rit registreren
+          Lees meer over de overdracht
         </Button>
       </ContentSection>
 
@@ -173,43 +167,11 @@ export default async function ValetParkingPage() {
               </h2>
             </div>
             <p className="text-muted max-w-[34ch] text-base lg:pb-2 lg:text-right">
-              De overdracht bij de hal duurt een paar minuten. De rest gebeurt buiten uw zicht, en
-              wordt daarom vastgelegd.
+              De overdracht bij de hal duurt een paar minuten.
             </p>
           </Reveal>
 
           <Timeline steps={STEPS} />
-        </Container>
-      </Section>
-
-      {/* ---------- Ride registration, as a trust signal ----------
-          The one thing on this page that a competitor cannot copy by writing
-          better copy: it is a system the client actually runs, with screenshots
-          of it on the page it links to.
-
-          Accent wash rather than navy. The rebalance took the site lighter, and
-          this is the section that most wants to stand apart from the prose
-          around it — the wash does that without putting a fifth dark band on a
-          page that already opens on one. Contrast on valet-100: navy-950
-          heading 14.90:1, ink-700 body 8.44:1. Both AAA. */}
-      <Section tone="accent" spacing="md" aria-labelledby="ritregistratie-heading">
-        <Container>
-          <Reveal className="grid items-center gap-10 lg:grid-cols-[1fr_auto] lg:gap-16">
-            <div>
-              <Gauge className="text-accent-hover size-7" strokeWidth={1.75} aria-hidden />
-              <h2 id="ritregistratie-heading" className="text-display-sm mt-5 max-w-[24ch]">
-                Iedere valetrit wordt digitaal geregistreerd
-              </h2>
-              <p className="text-body mt-4 max-w-[58ch] leading-relaxed">
-                Tijdens iedere valetrit worden route, snelheid en duur digitaal vastgelegd. Zo is
-                achteraf informatie beschikbaar over de rit met uw auto.
-              </p>
-            </div>
-            <Button href="/digitale-ritregistratie/" variant="outline" size="lg">
-              Bekijk hoe dat werkt
-              <ArrowRight data-arrow className="size-4" aria-hidden />
-            </Button>
-          </Reveal>
         </Container>
       </Section>
 
@@ -223,9 +185,8 @@ export default async function ValetParkingPage() {
         ]}
         bullets={[
           'Uitstappen bij de vertrekhal, geen terrein en geen shuttle',
-          'Uw auto wordt door onze eigen chauffeur geparkeerd',
-          'Sleutels in een brandwerende kluis onder camerabewaking',
-          'Iedere rit digitaal geregistreerd, heen en terug',
+          'Uw auto wordt door de chauffeur geparkeerd',
+          'U krijgt uw sleutel bij terugkomst persoonlijk terug',
           'Bij valet kunt u bij aankomst afrekenen',
         ]}
         tone="canvas"
@@ -238,7 +199,7 @@ export default async function ValetParkingPage() {
       <FaqSection
         items={FAQS}
         heading="Veelgestelde vragen over valet parking"
-        lead="Over de overdracht, uw sleutels, wie er in uw auto rijdt en wat er wordt vastgelegd."
+        lead="Over de overdracht, uw sleutels en wie er in uw auto rijdt."
       />
 
       <ClosingCta
@@ -261,7 +222,7 @@ export default async function ValetParkingPage() {
             serviceSchema({
               name: 'Valet Parking Schiphol',
               description:
-                'U rijdt naar de vertrekhal van Schiphol, waar onze chauffeur uw auto overneemt en op onze beveiligde locatie parkeert. Iedere rit wordt digitaal geregistreerd.',
+                'U rijdt naar de vertrekhal van Schiphol, waar de chauffeur uw auto overneemt en op onze parkeerlocatie parkeert.',
               serviceType: 'Valet parking',
             }),
           ),

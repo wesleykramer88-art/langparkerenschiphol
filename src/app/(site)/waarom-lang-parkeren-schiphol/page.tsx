@@ -1,10 +1,7 @@
 import {
   ArrowRight,
-  Flame,
   Lock,
   Route,
-  UserCheck,
-  Video,
   Warehouse,
   type LucideIcon,
 } from 'lucide-react';
@@ -65,61 +62,41 @@ const PROCESS: readonly { title: string; body: string; car: string }[] = [
   {
     title: 'U reserveert online',
     body: 'In twee minuten geregeld. U kiest valet of shuttle, uw aankomst- en retourmoment en eventuele opties.',
-    car: 'Wij leggen uw kenteken en uw vluchtgegevens vast. Die vluchtgegevens zijn geen formaliteit — daarmee volgen wij later uw vlucht.',
+    car: 'Wij leggen uw kenteken en uw vluchtgegevens vast bij de reservering.',
   },
   {
-    title: 'Wij nemen uw auto over',
-    body: 'Bij valet parkeren rijdt u naar de Vertrekpassage op Schiphol — vertrekhal, 1e verdieping — waar onze chauffeur u opwacht. Bij shuttle parkeren rijdt u naar onze shuttleparkeerlocatie aan de Schipholweg 181 in Badhoevedorp. De shuttlerit naar de bushalte op Schiphol Plaza duurt ongeveer 8 minuten.',
-    car: 'Voordat wij de auto overnemen doen wij een korte controle van het voertuig. Kiest u shuttle parkeren, dan kunt u uw sleutels meenemen op reis.',
+    title: 'Parkeren of overdragen',
+    body: 'Shuttle: u rijdt naar Schipholweg 181, 1171 PK Badhoevedorp (bij het ibis hotel), parkeert zelf en houdt uw sleutel. Valet: u rijdt naar de Vertrekpassage op Schiphol, tussen Vertrekhal 2 en 3, en draagt uw auto over aan de chauffeur.',
+    car: 'Bij valet wordt de staat van de auto samen met u vastgelegd voordat hij wordt overgenomen. Bij shuttle parkeren houdt u de sleutel.',
   },
   {
-    title: 'Uw auto staat op een bewaakt terrein',
-    body: 'De auto wordt geparkeerd op een afgesloten en gecontroleerd parkeerterrein met 24/7 camerabewaking. Overdekt parkeren is mogelijk.',
-    car: 'De rit ernaartoe wordt digitaal geregistreerd, inclusief snelheid en route. Bij valet parkeren gaan uw sleutels in een brandwerende kluis op ons kantoor, dat eveneens onder camerabewaking staat.',
+    title: 'Naar de terminal',
+    body: 'Shuttle: de rit naar de bushalte op Schiphol Plaza duurt ongeveer 8 minuten. Houd daarnaast rekening met tijd voor parkeren, lopen naar de halte, wachten en instappen; wij adviseren minimaal 3 uur voor vertrek aanwezig te zijn. Valet: u loopt na de overdracht direct door naar de incheckbalie.',
+    car: 'Overdekt parkeren is mogelijk.',
   },
   {
-    title: 'Uw auto staat klaar bij terugkomst',
-    body: 'Bel ons direct na de landing op Schiphol. Bij valet parkeren staat uw auto voor u klaar bij de luchthaven; bij shuttle parkeren haalt de bus u op en brengt u terug naar uw auto.',
-    car: 'Wij volgen de actuele vluchtinformatie en passen de ophaaltijd aan bij vertraging of een vervroegde landing.',
+    title: 'Uw auto bij terugkomst',
+    body: 'Shuttle: u hoeft niet te bellen. U loopt naar dezelfde bushalte op Schiphol Plaza en stapt in wanneer de juiste shuttlebus langskomt; uw auto staat waar u hem heeft achtergelaten. Valet: bel ons direct na de landing, dan staat uw auto klaar op de Vertrekpassage, tussen Vertrekhal 2 en 3.',
+    car: 'Valet en shuttle werken bij terugkomst verschillend; volg de stappen van de service die u heeft gekozen.',
   },
 ];
 
-/* ══════════════════════════════════════════════════════════════════════════
-   SECURITY
-   All six carried from the client's own copy. No figure is invented — there is
-   deliberately no camera count, no retention period and no capacity number,
-   because nobody has supplied them.
-   ══════════════════════════════════════════════════════════════════════════ */
+/* SECURITY: only what is documented; no camera, fencing, registration or key-safe claims. */
 const MEASURES: readonly { icon: LucideIcon; title: string; body: string }[] = [
   {
-    icon: Video,
-    title: '24/7 camerabewaking',
-    body: 'Onze parkeerlocaties worden vierentwintig uur per dag bewaakt en gemonitord met camera’s.',
-  },
-  {
     icon: Lock,
-    title: 'Afgesloten terreinen',
-    body: 'De terreinen zijn afgesloten en gecontroleerd. Er komt niemand op die er niet hoort te zijn.',
+    title: 'Shuttle: u houdt de sleutel',
+    body: 'U parkeert zelf en neemt uw autosleutel mee op reis.',
   },
   {
     icon: Warehouse,
     title: 'Overdekt parkeren mogelijk',
-    body: 'U kunt kiezen voor een plek in de overdekte garage in plaats van buiten op het terrein.',
+    body: 'U kunt kiezen voor een plek in de overdekte garage in plaats van buiten.',
   },
   {
     icon: Route,
-    title: 'Digitale ritregistratie',
-    body: 'Iedere rit met uw auto wordt digitaal vastgelegd, inclusief snelheid en route. Er is dus altijd inzicht in de verplaatsingen van uw voertuig.',
-  },
-  {
-    icon: Flame,
-    title: 'Brandwerende sleutelkluis',
-    body: 'Bij valet parkeren worden uw autosleutels opgeborgen in een brandwerende kluis op ons kantoor, dat is voorzien van camerabewaking.',
-  },
-  {
-    icon: UserCheck,
-    title: 'Gescreende chauffeurs',
-    body: 'Onze chauffeurs zijn gescreend, in dienst en ervaren. Zij rijden dagelijks bij de vertrekhal van Schiphol.',
+    title: 'Valet: vaste overdracht',
+    body: 'U draagt uw auto over tussen Vertrekhal 2 en 3 en krijgt hem op dezelfde plek terug. De staat van de auto wordt samen met u vastgelegd.',
   },
 ];
 
@@ -131,7 +108,7 @@ const MEASURES: readonly { icon: LucideIcon; title: string; body: string }[] = [
 const GALLERY: readonly { photo: PhotoName; caption: string; aspect: string; alt: string }[] = [
   {
     photo: 'crewTerminal',
-    caption: 'Onze chauffeur bij Vertrek 2, waar de overdracht plaatsvindt.',
+    caption: 'Vertrek 2, waar de overdracht bij valet plaatsvindt.',
     alt: 'medewerkers veilig parkeren Schiphol',
     aspect: 'aspect-3/4',
   },
@@ -143,14 +120,14 @@ const GALLERY: readonly { photo: PhotoName; caption: string; aspect: string; alt
   },
   {
     photo: 'lotShuttle',
-    caption: 'Ons parkeerterrein, met de shuttlebus die naar de vertrekhal rijdt.',
-    alt: 'veilig parkeerterrein bij Schiphol',
+    caption: 'De parkeerlocatie, met de shuttlebus.',
+    alt: 'parkeerlocatie bij Schiphol',
     aspect: 'aspect-4/3',
   },
   {
     photo: 'crewCheck',
-    caption: 'Elke auto wordt bij overdracht gecontroleerd en vastgelegd.',
-    alt: 'beveiligd parkeren bij Schiphol',
+    caption: 'Bij valet wordt de staat van de auto bij overdracht vastgelegd.',
+    alt: 'controle van de auto bij overdracht',
     aspect: 'aspect-3/4',
   },
 ];
@@ -177,12 +154,12 @@ const SCENARIOS: readonly FaqItem[] = [
   {
     question: 'Wat gebeurt er als mijn vlucht vertraagd is?',
     answer:
-      'Geen zorgen. Wij volgen de actuele vluchtinformatie en passen de ophaaltijd indien nodig aan. Bij een vertraging zorgen wij ervoor dat uw auto weer op het afgesproken moment beschikbaar is. Vergeet niet direct te bellen na uw landing op Schiphol, dan weten wij dat u er bent.',
+      'Shuttle: u hoeft niet te bellen. U loopt naar de bushalte op Schiphol Plaza en stapt in wanneer de juiste shuttlebus langskomt. Valet: bel ons direct na uw landing, dan staat uw auto klaar tussen Vertrekhal 2 en 3.',
   },
   {
     question: 'En als ik juist eerder land dan gepland?',
     answer:
-      'Dat werkt precies zo. Omdat wij uw vlucht volgen, zien wij een vervroegde landing net zo goed als een vertraging, en passen wij de ophaaltijd daarop aan. Bel ons direct na de landing; dan staat uw auto klaar zodra u bij de vertrekhal bent.',
+      'Dat maakt voor de werkwijze geen verschil. Shuttle: u loopt naar de bushalte op Schiphol Plaza en stapt in wanneer de juiste shuttlebus langskomt. Valet: bel ons direct na de landing.',
   },
   {
     question: 'Ik kom later terug dan ik had gereserveerd. Wat nu?',
@@ -192,7 +169,7 @@ const SCENARIOS: readonly FaqItem[] = [
   {
     question: 'Wat als er schade aan mijn auto is?',
     answer:
-      'Voordat wij uw auto overnemen voeren wij een korte controle van het voertuig uit, en iedere rit met uw auto wordt digitaal geregistreerd inclusief snelheid en route. Constateert u bij terugkomst toch iets, meld het dan direct bij de chauffeur die uw auto terugbrengt, zodat het ter plaatse kan worden vastgelegd. Wat er verder geldt, staat in onze algemene voorwaarden.',
+      'Voordat wij uw auto overnemen voeren wij een korte controle van het voertuig uit bij valet samen met u. Constateert u bij terugkomst toch iets, meld het dan direct bij de chauffeur of bij ons, zodat het ter plaatse kan worden vastgelegd. Wat er verder geldt, staat in onze algemene voorwaarden.',
   },
 ];
 
@@ -202,7 +179,7 @@ export default function WhyPage() {
       <PageHero
         eyebrow="Waarom ons"
         title="Uw auto in vertrouwde handen op Schiphol"
-        lead="Uw auto is bij ons in vertrouwde handen. Met veilig parkeren Schiphol kiest u voor een zorgeloze start van uw reis. Onze medewerkers zorgen zorgvuldig voor uw auto, terwijl u met een gerust gevoel op reis kunt."
+        lead="Uw auto is bij ons in vertrouwde handen. Met veilig parkeren Schiphol kiest u voor een zorgeloze start van uw reis. Kies shuttle of valet parking en lees hieronder precies hoe het werkt."
         photo="crewTerminal"
         photoAlt="veilig parkeren Schiphol"
         objectPosition="object-[center_38%]"
@@ -282,13 +259,12 @@ export default function WhyPage() {
         <Container>
           <div className="grid gap-12 lg:grid-cols-[5fr_7fr] lg:gap-20">
             <Reveal className="lg:sticky lg:top-32 lg:self-start">
-              <Eyebrow rule>Beveiliging</Eyebrow>
+              <Eyebrow rule>Veiligheid</Eyebrow>
               <h2 id="beveiliging-heading" className="text-display-lg mt-5 max-w-[16ch]">
-                Zes maatregelen, geen van alle vrijblijvend
+                Drie dingen op een rij
               </h2>
               <p className="text-body mt-6 max-w-[42ch] leading-relaxed">
-                Dit is wat er concreet geregeld is rond uw voertuig — niet als geruststelling, maar
-                als opsomming van wat er staat, draait en wordt vastgelegd.
+                Dit is wat er concreet geregeld is rond uw voertuig, per service.
               </p>
             </Reveal>
 
@@ -358,12 +334,10 @@ export default function WhyPage() {
           <Reveal className="max-w-[46ch]">
             <Eyebrow rule>Het team en de auto&#39;s</Eyebrow>
             <h2 id="team-heading" className="text-display-lg mt-5">
-              Dit zijn wij, en dit is waar uw auto staat
+              Zo ziet het eruit
             </h2>
             <p className="text-muted mt-6 leading-relaxed">
-              Geen stockfoto&#39;s van een parkeergarage in een ander land. Dit zijn onze eigen
-              mensen, ons eigen busje en ons eigen terrein, gefotografeerd bij Vertrek 2 op
-              Schiphol.
+              Beelden van de overdracht bij Vertrek 2 op Schiphol en de parkeerlocatie.
             </p>
           </Reveal>
 

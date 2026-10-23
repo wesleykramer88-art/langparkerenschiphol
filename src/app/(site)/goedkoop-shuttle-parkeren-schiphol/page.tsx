@@ -70,7 +70,7 @@ const FAQS: readonly FaqItem[] = [
   },
   {
     question: 'Hoe lang duurt de shuttle naar de terminal?',
-    answer: 'De rit van onze parkeerlocatie in Badhoevedorp naar Schiphol duurt ongeveer 8 minuten (alleen de rijtijd).',
+    answer: 'De rit van onze parkeerlocatie in Badhoevedorp naar Schiphol duurt ongeveer 8 minuten (alleen de rijtijd). Houd daarnaast rekening met tijd voor parkeren, lopen naar de halte, wachten en instappen.',
   },
   {
     question: 'Moet ik mijn sleutel afgeven bij de goedkoopste optie?',
@@ -95,7 +95,7 @@ export default function CheapShuttlePage() {
       <PageHero
         eyebrow="Goedkoop parkeren"
         title="Goedkoop lang parkeren bij Schiphol"
-        lead="Voordelig parkeren hoeft niet te betekenen dat u inlevert op zekerheid. U parkeert zelf op ons bewaakte terrein, houdt uw sleutel en wordt naar Schiphol Plaza gereden."
+        lead="Voordelig parkeren hoeft niet te betekenen dat u inlevert op zekerheid. U parkeert zelf aan de Schipholweg 181 in Badhoevedorp, houdt uw sleutel en wordt naar Schiphol Plaza gereden."
         photo="lotShuttle"
         objectPosition="object-[center_40%]"
         crumbs={CRUMBS}
@@ -113,7 +113,7 @@ export default function CheapShuttlePage() {
         eyebrow="Wat het is"
         title="Wat goedkoop shuttle parkeren precies inhoudt"
         paragraphs={[
-          'Goedkoop shuttle parkeren betekent dat u niet op de luchthaven zelf parkeert, maar op een eigen terrein een paar minuten daarvandaan. U rijdt daarheen, zet uw auto neer en wordt met onze shuttlebus naar de bushalte op Schiphol Plaza gebracht. Bij terugkomst gebeurt hetzelfde in omgekeerde volgorde.',
+          'Goedkoop shuttle parkeren betekent dat u niet op de luchthaven zelf parkeert, maar op een eigen terrein een paar minuten daarvandaan. U rijdt daarheen, zet uw auto neer en wordt met onze shuttlebus naar de bushalte op Schiphol Plaza gebracht. Bij terugkomst loopt u terug naar dezelfde bushalte en gaat u met de shuttle terug naar uw auto.',
           'Dat is de hele reden dat het voordeliger is. Ruimte pal naast een terminal is schaars en duur; ruimte op een paar minuten rijden is dat niet. Het verschil in grondprijs is wat u per dag terugziet, en de afstand ertussen wordt voor u gereden.',
           'Het is bedoeld voor mensen die langer wegblijven. Voor een dagtrip is het verschil klein, maar bij twee of drie weken tikt het per dag stevig aan — en dat is precies het soort reis waarvoor deze service bestaat.',
         ]}
@@ -151,8 +151,8 @@ export default function CheapShuttlePage() {
         title="Van aankomst tot ophalen"
         paragraphs={[
           'U reserveert vooraf online en geeft door wanneer u aankomt en wanneer u terugkomt. Op de dag zelf rijdt u naar onze shuttleparkeerlocatie aan de Schipholweg 181 in Badhoevedorp — niet naar de terminal, dat is bij deze service een veelgemaakte vergissing.',
-          'U parkeert uw auto zelf op de plek die u krijgt aangewezen en neemt uw autosleutel mee. Onze shuttlebus zet u af bij de bushalte op Schiphol Plaza; de rit duurt ongeveer 8 minuten (alleen de rijtijd). Daarna loopt u door naar de incheckbalie.',
-          'Bij terugkomst belt u ons zodra u door de bagagehal bent. U keert terug naar dezelfde bushalte op Schiphol Plaza waar u bent uitgestapt. Daar haalt onze shuttlebus u weer op en brengt u terug naar uw auto.',
+          'U parkeert uw auto zelf op de plek die u krijgt aangewezen en neemt uw autosleutel mee. Onze shuttlebus zet u af bij de bushalte op Schiphol Plaza; de rit duurt ongeveer 8 minuten (alleen de rijtijd). Houd daarnaast rekening met tijd voor parkeren, lopen naar de halte, wachten en instappen. Daarna loopt u door naar de incheckbalie.',
+          'Bij terugkomst hoeft u niet te bellen. U loopt naar dezelfde bushalte op Schiphol Plaza waar u bent uitgestapt en stapt in zodra de juiste shuttlebus langskomt. Die brengt u terug naar uw auto.',
         ]}
       >
         <Button href="/shuttle-parkeren-schiphol/" variant="link" className="mt-7">
@@ -162,16 +162,15 @@ export default function CheapShuttlePage() {
 
       <ContentSection
         id="veilig"
-        eyebrow="Voordelig én bewaakt"
-        title="Goedkoop hoeft niet onveilig te zijn"
+        eyebrow="Voordelig én overzichtelijk"
+        title="Goedkoop hoeft niet onzeker te zijn"
         paragraphs={[
-          'De vraag achter iedere zoektocht naar goedkoop parkeren is of er iets is ingeleverd om die prijs mogelijk te maken. Bij ons zit de besparing in de locatie en in het feit dat u zelf parkeert — niet in het toezicht.',
-          'Het terrein is afgesloten en staat 24 uur per dag onder camerabewaking. Er geldt een vaste procedure bij aankomst en bij terugkomst, en er zijn overdekte plaatsen beschikbaar als u uw auto liever binnen zet.',
+          'De vraag achter iedere zoektocht naar goedkoop parkeren is of er iets is ingeleverd om die prijs mogelijk te maken. Bij ons zit de besparing in de locatie en in het feit dat u zelf parkeert — niet in de duidelijkheid van de service.',
+          'Er geldt een vaste procedure bij aankomst en bij terugkomst, en er zijn overdekte plaatsen beschikbaar als u uw auto liever binnen zet.',
           'Daar komt bij dat u bij deze service niets afgeeft. Uw sleutel gaat mee op reis, dus uw auto blijft staan waar u hem heeft neergezet.',
         ]}
         bullets={[
-          'Afgesloten, gecontroleerd parkeerterrein',
-          '24/7 camerabewaking en monitoring',
+          'Vaste procedure bij aankomst en terugkomst',
           'U houdt uw eigen autosleutel',
           'Overdekt parkeren mogelijk, in beperkt aantal',
         ]}
@@ -218,7 +217,7 @@ export default function CheapShuttlePage() {
               <p className="eyebrow text-muted">De snelste keuze</p>
               <h3 className="text-display-sm text-heading mt-3">Valet parking</h3>
               <p className="text-body mt-5 max-w-[44ch] leading-relaxed">
-                U rijdt tot de vertrekhal en geeft uw auto af aan onze chauffeur, die hem voor u
+                U rijdt tot de vertrekhal en geeft uw auto af aan de chauffeur, die hem voor u
                 parkeert. Dat kost meer dan shuttle parkeren, en wat u ervoor koopt is dat u geen
                 terrein en geen busrit meer hoeft mee te maken.
               </p>

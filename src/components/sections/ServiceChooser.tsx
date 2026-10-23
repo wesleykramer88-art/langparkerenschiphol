@@ -92,7 +92,7 @@ const SERVICES: readonly Service[] = [
     badge: 'Snelste optie',
     badgeTone: 'accent',
     description:
-      'Rijd rechtstreeks naar de vertrekhal van Schiphol. Onze chauffeur staat klaar, controleert uw auto en rijdt deze naar onze veilige parkeerlocatie.',
+      'Rijd rechtstreeks naar de vertrekhal van Schiphol. De chauffeur staat klaar en parkeert uw auto voor u.',
     // Read from the one place the client's compact USPs live, rather than
     // retyped. This card, the ticket stub and the two service landing pages all
     // render them; three transcriptions of the same four lines is three chances
@@ -150,8 +150,8 @@ const SERVICES: readonly Service[] = [
 const COVER_OPTIONS = [
   {
     label: 'Buitenterrein',
-    body: 'Afgesloten buitenterrein met 24/7 camerabewaking.',
-    mobileBody: 'Afgesloten buitenterrein',
+    body: 'Uw auto staat op het buitenterrein.',
+    mobileBody: 'Buitenterrein',
   },
   {
     label: 'Overdekt',
@@ -177,8 +177,8 @@ export function ServiceChooser() {
             </h2>
           </div>
           <p className="text-muted max-w-[32ch] text-sm leading-relaxed md:max-w-[36ch] md:text-base lg:pb-2 lg:text-right">
-            Twee manieren om bij de vertrekhal te komen. Beide met bewaakte parkeerplaats en een
-            optionele annuleringsdekking.
+            Twee manieren om bij de vertrekhal te komen. Beide met een optionele
+            annuleringsdekking.
           </p>
         </Reveal>
 

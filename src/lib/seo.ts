@@ -75,13 +75,13 @@ export const pageSeo = {
   why: {
     title: 'Veilig Parkeren Schiphol | Vertrouwd | Lang Parkeren Schiphol',
     description:
-      'Veilig parkeren Schiphol zonder zorgen. Ontdek hoe wij uw auto beveiligen en waarom reizigers kiezen voor Lang Parkeren Schiphol.',
+      'Veilig parkeren Schiphol zonder zorgen. Lees hoe shuttle en valet parking werken en waarom reizigers kiezen voor Lang Parkeren Schiphol.',
     path: '/waarom-lang-parkeren-schiphol/',
   },
   reviews: {
-    title: 'Lang Parkeren Schiphol Ervaringen | Echte Klantreacties',
+    title: 'Ervaringen en bedrijfsgegevens | Lang Parkeren Schiphol',
     description:
-      'Lang parkeren schiphol ervaringen van reizigers. Ontdek wat klanten zeggen over onze service, veiligheid en het parkeren.',
+      'Bedrijfsgegevens, contactmogelijkheden en voorwaarden van Lang Parkeren Schiphol, om te controleren voordat u reserveert.',
     path: '/reviews/',
   },
   // ── The service + SEO cluster, August 2026 ─────────────────────────────────
@@ -126,7 +126,7 @@ export const pageSeo = {
   safeParking: {
     title: 'Veilig parkeren Schiphol | Beveiligingsmaatregelen',
     description:
-      'Welke maatregelen beschermen uw auto tijdens uw reis? Lees over cameratoezicht, toegang tot het terrein en ritregistratie bij valet.',
+      'Welke maatregelen beschermen uw auto tijdens uw reis? Lees hoe shuttle en valet parking werken, wie uw sleutel heeft en hoe de overdracht verloopt.',
     path: '/veilig-parkeren-schiphol/',
   },
   selfParking: {
@@ -136,13 +136,10 @@ export const pageSeo = {
     path: '/zelf-parkeren-schiphol/',
   },
   rideRegistration: {
-    // Valet-only. The slug is the thing itself rather than a query — nobody
-    // searches "digitale ritregistratie", and that is fine: this page exists to
-    // be LINKED to at the moment a visitor hesitates about handing over a car,
-    // not to be found cold.
-    title: 'Ritregistratie Systeem | Veilig | Lang Parkeren Schiphol',
+    // Valet-only; the slug is kept so existing links keep working.
+    title: 'Valet parking: overdracht en terugkomst | Lang Parkeren Schiphol',
     description:
-      'Bij Valet parkeren worden route, snelheid en duur van de rit digitaal vastgelegd. Lees hoe de ritregistratie werkt.',
+      'Bij Valet parkeren draagt u uw auto over bij de vertrekhal en krijgt u hem daar terug. Lees hoe de overdracht werkt.',
     path: '/digitale-ritregistratie/',
   },
 

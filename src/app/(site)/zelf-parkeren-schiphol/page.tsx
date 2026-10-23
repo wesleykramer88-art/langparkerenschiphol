@@ -65,7 +65,7 @@ const STEPS: readonly TimelineStep[] = [
   },
   {
     title: 'Terug bij uw eigen auto.',
-    body: 'Na de landing belt u ons. U keert terug naar dezelfde bushalte op Schiphol Plaza en de shuttle brengt u terug naar uw auto.',
+    body: 'Na de landing hoeft u niet te bellen. U loopt naar dezelfde bushalte op Schiphol Plaza en stapt in zodra de juiste shuttlebus langskomt. Die brengt u terug naar uw auto.',
   },
 ];
 
@@ -73,12 +73,12 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Parkeer ik altijd zelf?',
     answer:
-      'Bij shuttle parkeren wel — dat is precies wat deze service inhoudt. Kiest u voor valet parking, dan rijdt u tot de vertrekhal en parkeert onze chauffeur uw auto voor u.',
+      'Bij shuttle parkeren wel — dat is precies wat deze service inhoudt. Kiest u voor valet parking, dan rijdt u tot de vertrekhal en parkeert de chauffeur uw auto voor u.',
   },
   {
     question: 'Moet ik zelf een plek zoeken?',
     answer:
-      'Nee. U wordt op het terrein ontvangen en krijgt een plek aangewezen. Zelf parkeren betekent dat u de auto zelf neerzet, niet dat u er een moet gaan zoeken.',
+      'Nee. U krijgt op het terrein een plek aangewezen. Zelf parkeren betekent dat u de auto zelf neerzet, niet dat u er een moet gaan zoeken.',
   },
   {
     question: 'Wordt mijn auto later nog verplaatst?',
@@ -88,12 +88,12 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Waar vertrekt de shuttle?',
     answer:
-      'Bij onze shuttleparkeerlocatie parkeert u zelf en stapt u in de shuttlebus. De rit naar de bushalte op Schiphol Plaza duurt ongeveer 8 minuten.',
+      'Bij onze shuttleparkeerlocatie parkeert u zelf en loopt u naar de shuttle. De rit naar de bushalte op Schiphol Plaza duurt ongeveer 8 minuten. Houd daarnaast rekening met tijd voor parkeren, lopen naar de halte, wachten en instappen.',
   },
   {
     question: 'Hoe kom ik na mijn reis terug bij mijn auto?',
     answer:
-      'Bel ons zodra u geland bent en door de bagagehal bent. U keert terug naar dezelfde bushalte op Schiphol Plaza waar u bent uitgestapt. Daar haalt onze shuttlebus u weer op en brengt u terug naar uw auto.',
+      'U hoeft niet te bellen. U loopt naar dezelfde bushalte op Schiphol Plaza waar u bent uitgestapt en stapt in zodra de juiste shuttlebus langskomt. Die brengt u terug naar uw auto.',
   },
   {
     question: 'Hoe lang van tevoren moet ik op het terrein zijn?',
@@ -118,7 +118,7 @@ export default function SelfParkingPage() {
       <PageHero
         eyebrow="Zelf parkeren"
         title="Zelf parkeren bij Schiphol"
-        lead="U zet uw auto zelf neer op ons bewaakte terrein en ziet met eigen ogen waar hij staat. Daarna brengt de shuttle u naar de bushalte op Schiphol Plaza."
+        lead="U zet uw auto zelf neer aan de Schipholweg 181 in Badhoevedorp en ziet met eigen ogen waar hij staat. Daarna brengt de shuttle u naar de bushalte op Schiphol Plaza."
         photo="lotShuttle"
         objectPosition="object-[center_50%]"
         crumbs={CRUMBS}
@@ -133,7 +133,7 @@ export default function SelfParkingPage() {
         eyebrow="Waarom zelf"
         title="Veel reizigers zetten hun auto liever zelf neer"
         paragraphs={[
-          'Er zijn twee manieren om bij ons te parkeren, en het verschil zit in wie er achter het stuur zit. Bij valet parking rijdt u tot de vertrekhal en neemt onze chauffeur het over. Bij shuttle parkeren doet u het zelf.',
+          'Er zijn twee manieren om bij ons te parkeren, en het verschil zit in wie er achter het stuur zit. Bij valet parking rijdt u tot de vertrekhal en neemt de chauffeur het over. Bij shuttle parkeren doet u het zelf.',
           'Voor een deel van onze klanten is dat laatste geen concessie maar de reden om te boeken. U rijdt het terrein op, ziet waar u staat, zet de auto neer zoals u dat zelf wilt en loopt weg met de sleutel op zak. Er is niets overgedragen en er is niets afgesproken dat u niet zelf heeft gezien.',
           'Het scheelt ook geld. Zelf parkeren is het deel van het werk dat bij valet door een chauffeur wordt gedaan, en dat verschil ziet u terug in het tarief.',
         ]}
@@ -166,7 +166,7 @@ export default function SelfParkingPage() {
         eyebrow="Controle"
         title="U weet waar hij staat, en dat blijft zo"
         paragraphs={[
-          'Het verschil tussen "mijn auto staat ergens veilig" en "mijn auto staat daar" is groter dan het klinkt. Wie zelf parkeert heeft het terrein gezien, weet hoe het eruitziet en weet op welke plek de auto staat.',
+          'Het verschil tussen "mijn auto staat ergens" en "mijn auto staat daar" is groter dan het klinkt. Wie zelf parkeert heeft het terrein gezien, weet hoe het eruitziet en weet op welke plek de auto staat.',
           'Die situatie verandert daarna niet meer. Omdat u de sleutel meeneemt, kan de auto niet verplaatst worden, en bij terugkomst loopt u naar dezelfde plek terug. Er is geen tweede overdracht, geen wachten tot iemand hem voorrijdt en geen moment waarop u iets moet aannemen dat u niet zelf kunt zien.',
         ]}
         bullets={[
@@ -188,7 +188,7 @@ export default function SelfParkingPage() {
         title="Voor wie zelf parkeren de juiste keuze is"
         paragraphs={[
           'Zelf parkeren past bij reizigers die op de kosten letten, want het is de voordeligste manier om bij ons lang te parkeren. Het past bij gezinnen, omdat u naast uw eigen auto uitlaadt in plaats van op een stoep bij de vertrekhal.',
-          'En het past bij iedereen die liever geen valet gebruikt. Niet omdat daar iets mis mee is — wij bieden het zelf aan en iedere valetrit wordt digitaal geregistreerd — maar omdat de gedachte aan iemand anders achter het stuur van uw auto voor sommige mensen nu eenmaal blijft knagen. Dan is dit de service die die vraag helemaal niet stelt.',
+          'En het past bij iedereen die liever geen valet gebruikt. Niet omdat daar iets mis mee is — wij bieden het zelf aan — maar omdat de gedachte aan iemand anders achter het stuur van uw auto voor sommige mensen nu eenmaal blijft knagen. Dan is dit de service die die vraag helemaal niet stelt.',
         ]}
         tone="surface"
       >
@@ -197,7 +197,7 @@ export default function SelfParkingPage() {
             Wat het kost
           </Button>
           <Button href="/veilig-parkeren-schiphol/" variant="outline">
-            Hoe veilig het terrein is
+            Meer over veilig parkeren
           </Button>
         </div>
       </ContentSection>
@@ -212,7 +212,7 @@ export default function SelfParkingPage() {
 
       <ClosingCta
         heading="Zet uw auto zelf neer"
-        lead="Reserveer shuttle parkeren, parkeer zelf op ons bewaakte terrein en houd uw eigen sleutel."
+        lead="Reserveer shuttle parkeren, parkeer zelf en houd uw eigen sleutel."
         photo="lotShuttle"
         bookingHref="/reservering/?service=shuttle"
         bookingLabel="Reserveer shuttle parkeren"

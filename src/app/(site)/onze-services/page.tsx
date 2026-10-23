@@ -63,17 +63,17 @@ const SERVICES: readonly ServiceBlock[] = [
     badge: 'Snelste optie',
     badgeTone: 'accent',
     title: 'Valet Parking bij de vertrekhal van Schiphol',
-    body: 'Bij Valet rijdt u naar de vertrekhal van Schiphol, waar een chauffeur uw auto na een controle overneemt. U loopt daarna door naar uw vlucht; uw auto wordt op onze parkeerlocatie geparkeerd.',
+    body: 'Bij Valet rijdt u naar de vertrekhal van Schiphol, waar de chauffeur uw auto na een controle overneemt. U loopt daarna door naar de incheckbalie; uw auto wordt op onze parkeerlocatie geparkeerd.',
     benefitsTitle: 'Voordelen van Valet Parking',
     benefits: [
       'Direct uitstappen bij de vertrekhal',
-      'U hoeft niet zelf naar een parkeerplek op het terrein te zoeken',
+      'U hoeft niet zelf naar een parkeerplek te zoeken',
       'Ideaal voor zakelijke reizigers en gezinnen',
-      'Professionele en gescreende chauffeurs',
+      'Overdracht en terugkomst op dezelfde plek, tussen Vertrekhal 2 en 3',
       'Uw auto wordt op onze parkeerlocatie geparkeerd',
     ],
     closing:
-      'Bij terugkomst staat uw auto volgens afspraak bij de luchthaven klaar. De overdracht vindt plaats bij de vertrekhal.',
+      'Bij terugkomst belt u ons na de landing, waarna uw auto klaarstaat op de Vertrekpassage, tussen Vertrekhal 2 en 3.',
     photo: 'crewHandover',
     objectPosition: 'object-[center_40%]',
     photoAlt: 'Schiphol parkeerplaats met valet bij de vertrekhal',
@@ -85,19 +85,19 @@ const SERVICES: readonly ServiceBlock[] = [
     badge: 'Meest betaalbare keuze',
     badgeTone: 'brand',
     title: 'Shuttle Parking — voordelig en comfortabel',
-    body: 'U parkeert uw auto zelf op ons afgesloten terrein, dat 24/7 onder camerabewaking staat. De rit met de shuttlebus naar Schiphol duurt ongeveer 8 minuten.',
+    body: 'U parkeert uw auto zelf op Schipholweg 181 in Badhoevedorp (bij het ibis hotel) en houdt uw sleutel. De rit met de shuttlebus naar Schiphol duurt ongeveer 8 minuten. Houd daarnaast rekening met tijd voor parkeren, lopen naar de halte, wachten en instappen.',
     benefitsTitle: 'Voordelen van Shuttle Parking',
     benefits: [
-      'Parkeer uw auto zelf op ons afgesloten terrein',
-      'Luxe shuttlebus naar de luchthaven',
+      'Parkeer uw auto zelf en houd uw sleutel',
+      'Shuttlebus naar de bushalte op Schiphol Plaza',
       'Shuttlerit naar Schiphol: ongeveer 8 minuten',
       'Voordelige oplossing zonder concessies op service',
-      '24/7 beschikbaar',
+      'U hoeft na de landing niet te bellen',
     ],
-    closing: 'Bij terugkomst wordt u weer opgehaald en teruggebracht naar uw auto.',
+    closing: 'Bij terugkomst loopt u naar dezelfde bushalte op Schiphol Plaza en stapt u in wanneer de juiste shuttlebus langskomt.',
     photo: 'lotShuttle',
     objectPosition: 'object-[center_35%]',
-    photoAlt: 'Schiphol parkeerplaats met shuttle op het parkeerterrein',
+    photoAlt: 'Schiphol parkeerplaats met shuttle',
   },
 ];
 
@@ -111,21 +111,21 @@ const CLAIMS: readonly { icon: LucideIcon; title: string; body: string }[] = [
   {
     icon: ShieldCheck,
     title: 'Veilig & professioneel',
-    body: 'De terreinen zijn afgesloten en voorzien van 24/7 camerabewaking. Valetritten worden digitaal geregistreerd.',
+    body: 'Bij valet wordt de staat van uw auto bij de overdracht samen met u vastgelegd. Bij shuttle houdt u zelf de sleutel.',
   },
   {
     icon: Gauge,
-    title: 'Ritregistratie bij Valet',
-    body: 'Bij Valet worden route, snelheid en duur van de rit digitaal vastgelegd.',
+    title: 'Duidelijk per service',
+    body: 'Shuttle: zelf parkeren en de sleutel mee. Valet: overdracht en terugkomst bij de vertrekhal.',
   },
 ];
 
 /** The safety band, verbatim. */
 const SAFETY = [
-  '24/7 camerabewaking op alle locaties',
-  'Afgesloten en gecontroleerde parkeerterreinen',
+  'Shuttle: u parkeert zelf en houdt uw sleutel',
+  'Valet: overdracht en terugkomst tussen Vertrekhal 2 en 3',
   'Mogelijkheid tot overdekt parkeren',
-  'Professionele, betrouwbare chauffeurs',
+  'Valet: de staat van de auto wordt bij overdracht vastgelegd',
 ] as const;
 
 /** The chooser, verbatim. */
@@ -156,7 +156,7 @@ export default function ServicesPage() {
       <PageHero
         eyebrow="Onze Services"
         title="Parkeren bij Schiphol — op uw manier."
-        lead="Een goede Schiphol parkeerplaats vinden hoeft niet ingewikkeld of duur te zijn. Bij Lang Parkeren Schiphol kiest u eenvoudig de parkeerservice die bij uw reis past: Valet Parking bij de vertrekhal of Shuttle Parking op ons veilige parkeerterrein."
+        lead="Een goede Schiphol parkeerplaats vinden hoeft niet ingewikkeld of duur te zijn. Bij Lang Parkeren Schiphol kiest u eenvoudig de parkeerservice die bij uw reis past: Valet Parking bij de vertrekhal of Shuttle Parking in Badhoevedorp."
         photo="crewTerminal"
         photoAlt="Schiphol parkeerplaats en parkeerservice bij de luchthaven"
         objectPosition="object-[center_30%]"
@@ -221,8 +221,8 @@ export default function ServicesPage() {
                 Concrete maatregelen op onze parkeerlocatie.
               </h2>
               <p className="text-lead text-body mt-6 max-w-[40ch]">
-                Het terrein is afgesloten en voorzien van camerabewaking. Digitale ritregistratie
-                geldt bij Valet.
+                Bij shuttle parkeert u zelf en houdt u uw sleutel. Bij valet draagt u uw auto
+                over bij de vertrekhal.
               </p>
             </Reveal>
 
@@ -242,11 +242,10 @@ export default function ServicesPage() {
 
               <Reveal>
                 <p className="text-muted mt-8 max-w-[52ch] text-sm leading-relaxed">
-                  We beschrijven concreet welke maatregelen gelden: afgesloten parkeerlocaties,
-                  camerabewaking en digitale ritregistratie bij Valet.
+                  Lees per service hoe parkeren, overdracht en terugkomst werken.
                 </p>
                 <Button href="/waarom-lang-parkeren-schiphol/" variant="outline" className="mt-7">
-                  Lees hoe wij uw auto beveiligen
+                  Lees hoe het werkt
                   <ArrowRight data-arrow className="size-4" aria-hidden />
                 </Button>
               </Reveal>

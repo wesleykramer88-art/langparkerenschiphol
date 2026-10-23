@@ -29,10 +29,6 @@ const CRUMBS = [{ name: 'Tarieven', path: '/tarieven/' }];
  * What this page adds around it is everything the calculator cannot say:
  *
  *   - that the figure it shows is inclusive of VAT and of the shuttle
- *   - what the paid option actually costs (€35 — a real figure, from the
- *     client's own FAQ copy, which is the only place it currently appears).
- *     "Keep keys" (€15) used to sit beside it and was withdrawn by the client
- *     on 2 Aug 2026; keeping keys on the shuttle service is not sold here.
  *   - that a free account takes 10% off it
  *
  * The last of those is the point of the page. See AccountDiscountBar.
@@ -49,7 +45,7 @@ const OPTIONS: readonly { icon: LucideIcon; name: string; price: string; body: s
     icon: BatteryCharging,
     name: 'Opladen',
     price: '€ 35,00',
-    body: 'Wij laden uw elektrische auto op tijdens uw reis, zodat hij met een volle accu voor u klaarstaat als u terugkomt.',
+    body: 'Optie in het reserveringssysteem. De voorwaarden en beschikbaarheid ziet u bij het reserveren.',
   },
 ];
 
@@ -69,11 +65,6 @@ const FAQS: readonly FaqItem[] = [
     question: 'Wanneer betaal ik een nachttoeslag?',
     answer:
       'Voor een aankomst of terugkomst tussen 00:00 en 07:00 geldt een nachttoeslag van €15. Dit geldt voor zowel Shuttle Parking als Valet Parking. Vallen zowel uw aankomst als terugkomst binnen dit tijdvak, dan kan de totale nachttoeslag €30 bedragen.',
-  },
-  {
-    question: 'Is het mogelijk om mijn elektrische auto op te laden tijdens het parkeren?',
-    answer:
-      "Ja, wij beschikken over laadfaciliteiten op ons terrein. Voor € 35,00 kunt u de optie 'Opladen' aan uw reservering toevoegen. Wij zorgen er dan voor dat uw elektrische auto met een volle accu voor u klaarstaat zodra u terugkomt van uw reis.",
   },
 ];
 
@@ -102,7 +93,7 @@ export default function RatesPage() {
               <p className="text-muted mt-6 max-w-[42ch] leading-relaxed">
                 Vul uw aankomst- en vertrekmoment in en kies de service. De prijs die u ziet is de
                 prijs die u betaalt — inclusief BTW, en bij Shuttle Parking inclusief de rit van en
-                naar de vertrekhal.
+                naar Schiphol.
               </p>
 
               {/* Three standing facts about the number in the frame beside it.
@@ -113,7 +104,7 @@ export default function RatesPage() {
               <ul className="divide-line border-line mt-9 divide-y border-y text-sm">
                 {[
                   'Alle prijzen inclusief BTW',
-                  'Shuttlerit van en naar de vertrekhal inbegrepen',
+                  'Shuttlerit van en naar Schiphol inbegrepen',
                   'Flexibel annuleren tot 24 uur voor aankomst met annuleringsdekking',
                 ].map((item) => (
                   <li key={item} className="text-body py-3.5">
@@ -203,7 +194,7 @@ export default function RatesPage() {
           <Reveal className="max-w-[46ch]">
             <Eyebrow rule>Opties</Eyebrow>
             <h2 id="opties-heading" className="text-display-md mt-5">
-              Eén extra, met een vaste prijs
+              Optie met vaste prijs
             </h2>
             <p className="text-muted mt-5 leading-relaxed">
               Aan te vinken tijdens het reserveren. Al het overige zit al in het tarief.
@@ -246,7 +237,7 @@ export default function RatesPage() {
                 Wat zit er in de prijs?
               </h2>
               <p className="text-muted mt-6 max-w-[40ch] leading-relaxed">
-                Vier vragen over hoe het tarief tot stand komt en welke toeslagen kunnen gelden.
+                Drie vragen over hoe het tarief tot stand komt en welke toeslagen kunnen gelden.
               </p>
               <Button href="/waarom-lang-parkeren-schiphol/" variant="link" className="mt-7">
                 Alle vragen over onze service

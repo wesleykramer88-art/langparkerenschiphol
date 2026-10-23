@@ -5,7 +5,7 @@ import { Container } from '@/components/ui/Container';
 import { Section } from '@/components/ui/Section';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { Reveal } from '@/components/motion/Reveal';
-import { PageHero } from '@/components/sections/PageHero';
+import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 // import { AccountDiscountBar } from '@/components/sections/AccountDiscountBar';
 import { ParkingProFrame } from '@/components/booking/ParkingProFrame';
 import { PARKINGPRO_DEFAULT_HEIGHTS, bookingUrl } from '@/lib/parkingpro';
@@ -95,8 +95,8 @@ const REASSURANCES: readonly { icon: LucideIcon; title: string; body: string }[]
   },
   {
     icon: Phone,
-    title: 'Vertraging of vervroegde landing?',
-    body: 'Wij volgen uw vlucht en passen de ophaaltijd aan. Bel ons direct na de landing op Schiphol.',
+    title: 'Terugkomst na uw reis',
+    body: `Shuttle: u hoeft niet te bellen. Loop naar de ${siteConfig.shuttleParking.stopName} en stap in wanneer de juiste shuttlebus langskomt. Valet: volg de belinstructies in uw bevestiging.`,
   },
 ];
 
@@ -134,20 +134,20 @@ export default async function BookingPage({
 
   return (
     <>
-      <PageHero
-        eyebrow="Reserveren"
-        title="Boek uw parkeerplaats"
-        lead="Wilt u een parkeerplaats bij Schiphol reserveren? Maak direct uw reservering en zorg voor een ontspannen begin van de reis."
-        crumbs={CRUMBS}
-      />
+      <Section spacing="none" className="pt-6 pb-2 sm:pt-8">
+        <Container>
+          <Breadcrumbs crumbs={CRUMBS} tone="onLight" />
+          <h1 className="text-display-md mt-3">Reserveer uw parkeerplaats bij Schiphol</h1>
+        </Container>
+      </Section>
 
-      <Section spacing="lg" aria-labelledby="reserveren-heading">
+      <Section spacing="none" className="py-4 sm:py-6" aria-labelledby="reserveren-heading">
         <Container>
           <h2 id="reserveren-heading" className="sr-only">
-            Reserveer uw parkeerplaats
+            Reserveringssysteem
           </h2>
 
-          <div className="grid gap-12 lg:grid-cols-[7fr_5fr] lg:gap-16">
+          <div className="grid gap-8 lg:grid-cols-[7fr_5fr] lg:gap-12">
             {/* ---------- The widget ---------- */}
             <Reveal>
               {/* The account offer, immediately above the frame. Ten per cent
@@ -168,11 +168,11 @@ export default async function BookingPage({
                 <ul className="text-muted mt-2 space-y-1">
                   <li>
                     <strong className="text-heading">Shuttle:</strong> u parkeert zelf aan de{' '}
-                    {siteConfig.shuttleParking.display} en reist met de shuttle naar de bushalte op Schiphol Plaza.
+                    {siteConfig.shuttleParking.display} en reist in ongeveer {siteConfig.shuttleParking.transferMinutes} minuten met de shuttle naar de bushalte op Schiphol Plaza.
                   </li>
                   <li>
                     <strong className="text-heading">Valet:</strong> u draagt uw auto over bij de{' '}
-                    {siteConfig.valetHandover.display}; onze chauffeur parkeert hem op onze locatie.
+                    {siteConfig.valetHandover.display}; de chauffeur parkeert hem voor u.
                   </li>
                 </ul>
                 <p className="text-muted mt-2">
@@ -195,7 +195,7 @@ export default async function BookingPage({
             </Reveal>
 
             {/* ---------- The four hesitations ---------- */}
-            <Reveal delay={80} className="lg:sticky lg:top-32 lg:self-start">
+            <Reveal delay={80} className="lg:self-start">
               <Eyebrow rule>Goed om te weten</Eyebrow>
               <ul className="divide-line border-line mt-6 divide-y border-y">
                 {REASSURANCES.map((item) => (

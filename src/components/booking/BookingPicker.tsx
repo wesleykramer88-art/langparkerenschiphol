@@ -328,7 +328,7 @@ export function BookingPicker({
               <div className="grid grid-cols-2 gap-2">
                 <ProductCard
                   label="Buiten"
-                  description="Afgesloten buitenterrein"
+                  description="Buitenterrein"
                   price={prices?.outdoor ?? null}
                   loading={prices === null}
                   active={covered === false}
@@ -458,7 +458,7 @@ export function BookingPicker({
                 Betaal bij aankomst
               </span>
             ) : (
-              <span className="text-muted text-xs">AMS · 24/7</span>
+              <span className="text-muted text-xs">AMS</span>
             )}
           </div>
         </div>

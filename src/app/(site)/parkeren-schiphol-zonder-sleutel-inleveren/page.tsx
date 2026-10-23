@@ -31,7 +31,7 @@ const CRUMBS = [{ name: 'Zonder sleutel inleveren', path: PATH }];
  * the key IS handed over, because a chauffeur has to move the car.
  *
  * So the page answers the question for shuttle (you keep it), states plainly
- * what happens at valet (fireproof safe, on a camera-monitored office), and
+ * what happens at valet (key stored at the office), and
  * lets the reader choose. A visitor who books shuttle believing no key ever
  * changes hands anywhere, and then reads the valet page, has been handled — and
  * the trust this page was built to earn is exactly what gets spent.
@@ -54,12 +54,12 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Is zelf parkeren verplicht als ik mijn sleutel wil houden?',
     answer:
-      'Ja, die twee horen bij elkaar. Uw sleutel meenemen kan omdat u zelf parkeert. Kiest u voor valet parking, dan neemt onze chauffeur uw auto over en is de sleutel dus nodig.',
+      'Ja, die twee horen bij elkaar. Uw sleutel meenemen kan omdat u zelf parkeert. Kiest u voor valet parking, dan neemt de chauffeur uw auto over en is de sleutel dus nodig.',
   },
   {
     question: 'Wat gebeurt er met mijn sleutel als ik wél valet kies?',
     answer:
-      'Dan worden uw sleutels bewaard in een brandwerende kluis op ons kantoor, dat is voorzien van camerabewaking. Bij terugkomst krijgt u ze persoonlijk terug.',
+      'Dan worden uw sleutels tijdens uw reis door ons bewaard. Bij terugkomst krijgt u ze persoonlijk terug.',
   },
   {
     question: 'Wat als ik maar één sleutel heb?',
@@ -69,12 +69,12 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Hoe kom ik bij mijn auto als ik terugkom?',
     answer:
-      'Bel ons zodra u geland bent en door de bagagehal bent. U keert terug naar dezelfde bushalte op Schiphol Plaza waar u bent uitgestapt. Daar haalt onze shuttlebus u weer op en brengt u terug naar uw auto. Bij uw auto rijdt u weg met uw eigen sleutel.',
+      'Bij shuttle parkeren hoeft u niet te bellen. U loopt naar dezelfde bushalte op Schiphol Plaza waar u bent uitgestapt en stapt in zodra de juiste shuttlebus langskomt. Die brengt u terug naar uw auto, waar u wegrijdt met uw eigen sleutel. Bij valet parking belt u na de landing en staat uw auto klaar tussen Vertrekhal 2 en 3.',
   },
   {
-    question: 'Staat mijn auto veilig als ik de sleutel meeneem?',
+    question: 'Is mijn auto goed geregeld als ik de sleutel meeneem?',
     answer:
-      'Het terrein is afgesloten en staat 24 uur per dag onder camerabewaking, ongeacht welke service u kiest. Dat u de sleutel meeneemt, komt daar bovenop.',
+      'Bij shuttle parkeren blijft de sleutel bij u, dus uw auto wordt niet verplaatst en er blijft geen sleutel bij ons achter.',
   },
 ];
 
@@ -112,8 +112,8 @@ export default function KeepKeysPage() {
               Bij <strong className="text-heading font-semibold">shuttle parkeren</strong> houdt u
               uw sleutel. U parkeert zelf, u geeft niets af en uw auto blijft staan waar u hem
               neerzet. Bij <strong className="text-heading font-semibold">valet parking</strong>{' '}
-              geeft u de sleutel wél af — onze chauffeur moet de auto immers kunnen verplaatsen — en
-              wordt hij bewaard in een brandwerende kluis op ons kantoor, onder camerabewaking.
+              geeft u de sleutel wél af — de chauffeur moet de auto immers kunnen verplaatsen — en
+              wordt hij tijdens uw reis door ons bewaard.
             </p>
           </Reveal>
         </Container>
@@ -132,7 +132,7 @@ export default function KeepKeysPage() {
           'U geeft niets af en tekent niets over',
           'Uw auto blijft staan waar u hem heeft neergezet',
           'Geen sleuteloverdracht bij terugkomst',
-          'Op een afgesloten terrein met 24/7 camerabewaking',
+          'Bij shuttle parkeren houdt u zelf de sleutel',
         ]}
         photo="crewShuttleTerminal"
         objectPosition="object-[center_45%]"
@@ -145,7 +145,7 @@ export default function KeepKeysPage() {
         paragraphs={[
           'Wij bieden twee services aan en ze verschillen precies op dit punt. Het is de moeite waard om ze naast elkaar te zien, want de goedkoopste van de twee is toevallig ook de service waarbij u niets afgeeft.',
           'Bij shuttle parkeren rijdt u naar onze shuttleparkeerlocatie aan de Schipholweg 181 in Badhoevedorp, parkeert u zelf en neemt u uw sleutel mee. De shuttlerit naar Schiphol duurt ongeveer 8 minuten.',
-          'Bij valet parking rijdt u tot de vertrekhal en neemt onze chauffeur de auto van u over. Daarvoor is de sleutel nodig. Hij wordt daarna opgeborgen in een brandwerende kluis op ons kantoor, dat onder camerabewaking staat, en u krijgt hem bij terugkomst persoonlijk terug. Iedere valetrit wordt bovendien digitaal geregistreerd.',
+          'Bij valet parking rijdt u tot de vertrekhal en neemt de chauffeur de auto van u over. Daarvoor is de sleutel nodig. U krijgt hem bij terugkomst persoonlijk terug.',
         ]}
         reversed
         tone="surface"
@@ -154,8 +154,8 @@ export default function KeepKeysPage() {
           <Button href="/shuttle-parkeren-schiphol/" variant="outline">
             Shuttle: sleutel mee
           </Button>
-          <Button href="/digitale-ritregistratie/" variant="outline">
-            Valet: iedere rit geregistreerd
+          <Button href="/valet-parking-schiphol/" variant="outline">
+            Valet: sleutel af
           </Button>
         </div>
       </ContentSection>
@@ -165,9 +165,9 @@ export default function KeepKeysPage() {
         eyebrow="In de praktijk"
         title="Hoe het op de dag zelf gaat"
         paragraphs={[
-          'U rijdt naar onze shuttleparkeerlocatie aan de Schipholweg 181 in Badhoevedorp. Let op dat dit niet de terminal is — bij shuttle parkeren komt u eerst naar ons, en brengen wij u daarna naar Schiphol.',
-          'Op het terrein wordt u ontvangen en krijgt u een plek aangewezen. U parkeert zelf, laadt uw bagage uit naast uw eigen auto en stapt in de shuttlebus. Uw sleutel houdt u bij u.',
-          'Na de landing belt u ons zodra u door de bagagehal bent. U keert terug naar dezelfde bushalte op Schiphol Plaza waar u bent uitgestapt. Daar haalt onze shuttlebus u weer op en brengt u terug naar uw auto. Bij uw auto opent u hem met uw eigen sleutel en rijdt u naar huis.',
+          'U rijdt naar onze shuttleparkeerlocatie aan de Schipholweg 181 in Badhoevedorp. Let op dat dit niet de terminal is — bij shuttle parkeren komt u eerst naar ons, en brengt de shuttle u daarna naar Schiphol (ongeveer 8 minuten rijden).',
+          'Op het terrein krijgt u een plek aangewezen. U parkeert zelf, laadt uw bagage uit naast uw eigen auto en loopt naar de shuttle. Uw sleutel houdt u bij u.',
+          'Na de landing hoeft u niet te bellen. U loopt naar dezelfde bushalte op Schiphol Plaza waar u bent uitgestapt en stapt in zodra de juiste shuttlebus langskomt. Die brengt u terug naar uw auto. Bij uw auto opent u hem met uw eigen sleutel en rijdt u naar huis.',
         ]}
       >
         <Button href="/zelf-parkeren-schiphol/" variant="link" className="mt-7">
