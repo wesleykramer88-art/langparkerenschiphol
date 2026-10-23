@@ -175,7 +175,7 @@ export default function CheapShuttlePage() {
           'U houdt uw eigen autosleutel',
           'Overdekt parkeren mogelijk, in beperkt aantal',
         ]}
-        photo="terminalDeparture"
+        photo="crewHandover"
         objectPosition="object-[center_55%]"
         tone="surface"
       >

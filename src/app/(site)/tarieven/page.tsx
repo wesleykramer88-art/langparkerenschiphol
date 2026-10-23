@@ -264,7 +264,7 @@ export default function RatesPage() {
       <ClosingCta
         heading="Klaar om te reserveren?"
         lead="Bereken de exacte prijs in de boekingsmodule — inclusief alle gekozen opties."
-        photo="terminalDeparture"
+        photo="crewHandover"
         photoAlt="parkeerprijzen Schiphol per dag bij Vertrek 2"
       />
 

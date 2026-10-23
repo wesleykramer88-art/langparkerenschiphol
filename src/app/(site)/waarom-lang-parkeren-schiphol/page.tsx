@@ -434,7 +434,7 @@ export default function WhyPage() {
       <ClosingCta
         heading="Uw auto in vertrouwde handen"
         lead="De keuze van reizigers die vanaf Schiphol vertrekken. Reserveer in twee minuten."
-        photo="terminalDeparture"
+        photo="crewHandover"
         photoAlt="veilige parkeerlocatie bij Schiphol"
       />
 

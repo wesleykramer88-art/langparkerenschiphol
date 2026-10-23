@@ -145,53 +145,6 @@ export const photos = {
   },
 
   /**
-   * An earlier real hero. The branded van at the kerb under Schiphol's own
-   * "Vertrek 2 / Departures 2" sign. Nothing renders it; kept for revert.
-   *
-   * This is the photograph the whole brand argument rests on. A covered deck
-   * says "car park operator"; a terminal frontage says "part of the airport",
-   * which is the feeling the client asked for in as many words. The wayfinding
-   * sign does the work — it places the business at the airport without
-   * reproducing anybody's logo or mark.
-   *
-   * Wide and already dark along the top, so the hero scrim grades into it
-   * rather than fighting it.
-   */
-  terminalDeparture: {
-    src: '/images/terminal-vertrekhal.webp',
-    width: 2400,
-    height: 1340,
-    alt: 'Shuttle parkeren bij Schiphol met de shuttlebus van Lang Parkeren Schiphol bij Vertrek 2.',
-    blurDataURL:
-      'data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAAAQAgCdASoMAAcAAsBIJZQCdAEfbLPZCIsAAP6mzonKXr8HEcWHLK9TYQkMPs6VJnKsLoCnIcUqAeI3oD2ty4sQGkAAAA==',
-  },
-
-  /**
-   * That earlier hero, PORTRAIT. The same frame, cropped 3:4 around the van.
-   *
-   * Art direction, not a duplicate. The landscape original is 1.79:1; a phone
-   * viewport is about 0.46:1. Filling one with the other crops away three
-   * quarters of the width, and what survived was a vertical strip of tinted
-   * glass — the client's report that the hero "looks bad on a phone" was
-   * exactly right, and the photograph might as well not have been there.
-   *
-   * This crop keeps everything the argument needs: the full "Lang Parkeren
-   * Schiphol" livery, the driver in the orange jacket, the "2" of the
-   * Departures sign, and the zebra crossing at the terminal kerb.
-   *
-   * Served below 640px via a real <picture> element — see <HeroPhoto>. Only one
-   * of the two is ever downloaded.
-   */
-  terminalDeparturePortrait: {
-    src: '/images/terminal-vertrekhal-portret.webp',
-    width: 1005,
-    height: 1340,
-    alt: 'Veilig parkeren Schiphol met shuttlebus bij de vertrekhal van Amsterdam Airport Schiphol.',
-    blurDataURL:
-      'data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADQAQCdASoJAAwAAsBIJQBOgB5wa12cAAD+5TpQ5LC6FUYks7ERV3gZuPfnbCDYFa6FEp1pdEhEErt+vIodSNjLasAj6lfICgITXGaEXAA=',
-  },
-
-  /**
    * ⚠ THE PREVIOUS HERO. GENERATED, NOT PHOTOGRAPHED. Kept for revert only —
    * nothing renders it since 3 August 2026, when `crewShuttleTerminal` above
    * took the slot.
@@ -314,7 +267,7 @@ export const photos = {
    * AN EARLIER HERO, PORTRAIT. Same generated frame, cropped 3:4 around the van.
    * Kept for revert; nothing renders it.
    *
-   * Same art-direction reason as terminalDeparturePortrait: a 1.79:1 frame in a
+   * Same art-direction reason as the earlier portrait crop: a 1.79:1 frame in a
    * phone viewport crops away most of its width. This crop holds the sign, the
    * full livery and the plate.
    *
