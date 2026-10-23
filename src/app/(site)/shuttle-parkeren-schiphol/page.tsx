@@ -68,12 +68,8 @@ const STEPS: readonly TimelineStep[] = [
     body: 'Onze shuttlebus zet u af bij de bushalte op Schiphol Plaza. De rit duurt ongeveer 8 minuten (alleen de rijtijd).',
   },
   {
-    title: 'Bel bij terugkomst.',
-    body: 'Na de landing belt u ons even. U keert terug naar dezelfde bushalte op Schiphol Plaza, waar onze shuttlebus u weer ophaalt.',
-  },
-  {
     title: 'Terug naar uw eigen auto.',
-    body: 'De shuttlebus brengt u terug naar de parkeerlocatie in Badhoevedorp, waar uw auto staat waar u hem heeft neergezet.',
+    body: 'Na terugkomst loopt u naar dezelfde bushalte op Schiphol Plaza waar u bent afgezet. U hoeft niet te bellen: stap in wanneer de shuttlebus langskomt. De bus brengt u terug naar de parkeerlocatie, waar uw auto staat.',
   },
 ];
 
@@ -121,12 +117,12 @@ const CONCERNS: readonly FaqItem[] = [
   {
     question: 'Wat als ik midden in de nacht aankom of terugkom?',
     answer:
-      'Onze shuttleservice is 24 uur per dag beschikbaar, dus ook een vroege vlucht of een late landing is geen probleem. Geef uw werkelijke aankomst- en retourtijd op bij het reserveren, zodat wij daarop kunnen plannen. Bel ons direct na de landing, ook als het laat is. Let op: voor een aankomst of terugkomst tussen 00:00 en 07:00 geldt een nachttoeslag van €15.',
+      'Onze shuttleservice is 24 uur per dag beschikbaar, dus ook een vroege vlucht of een late landing is geen probleem. Geef uw werkelijke aankomst- en retourtijd op bij het reserveren, zodat wij daarop kunnen plannen. Bij terugkomst loopt u naar de bushalte op Schiphol Plaza en stapt u in wanneer de shuttlebus langskomt, ook als het laat is. Let op: voor een aankomst of terugkomst tussen 00:00 en 07:00 geldt een nachttoeslag van €15.',
   },
   {
     question: 'Wat gebeurt er als mijn vlucht vertraging heeft?',
     answer:
-      'Wij volgen de actuele vluchtinformatie en passen de ophaaltijd indien nodig aan. Bij vertraging of een vervroegde landing zorgen wij dat u bij terugkomst gewoon wordt opgehaald. Bel ons wel even zodra u geland bent.',
+      'Wij volgen de actuele vluchtinformatie en houden daar rekening mee. Bij vertraging of een vervroegde landing kunt u bij terugkomst gewoon met de shuttlebus terug. U loopt naar de bushalte op Schiphol Plaza en stapt in wanneer de shuttlebus langskomt.',
   },
 ];
 
@@ -159,7 +155,7 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Hoe kom ik na mijn reis terug bij mijn auto?',
     answer:
-      'Bel ons direct nadat u geland bent en door de bagagehal bent. U keert terug naar dezelfde bushalte op Schiphol Plaza waar u bent uitgestapt. Daar haalt onze shuttlebus u weer op en brengt u terug naar uw auto.',
+      'U loopt naar dezelfde bushalte op Schiphol Plaza waar u bent uitgestapt. U hoeft niet te bellen: stap in wanneer de shuttlebus langskomt. De bus brengt u terug naar uw auto.',
   },
   {
     question: 'Kan ik mijn reservering nog wijzigen of annuleren?',
@@ -197,7 +193,7 @@ export default async function ShuttleParkingPage() {
         eyebrow="Wat is shuttle parkeren?"
         title="Uw auto in Badhoevedorp, u met de bus naar Schiphol"
         paragraphs={[
-          'Shuttle parkeren betekent dat u niet op de luchthaven zelf parkeert, maar op een parkeerlocatie vlakbij. Parkeer uw auto bij onze shuttleparkeerlocatie aan de Schipholweg 181 in Badhoevedorp. Vanaf hier brengt onze shuttlebus u in ongeveer 8 minuten naar luchthaven Schiphol. Bij aankomst op Schiphol wordt u door onze shuttlebus afgezet bij de bushalte op Schiphol Plaza. Na uw reis keert u terug naar dezelfde bushalte. Daar haalt onze shuttlebus u weer op en brengt u terug naar uw auto.',
+          'Shuttle parkeren betekent dat u niet op de luchthaven zelf parkeert, maar op een parkeerlocatie vlakbij. Parkeer uw auto bij onze shuttleparkeerlocatie aan de Schipholweg 181 in Badhoevedorp. Vanaf hier brengt onze shuttlebus u in ongeveer 8 minuten naar luchthaven Schiphol. Bij aankomst op Schiphol wordt u door onze shuttlebus afgezet bij de bushalte op Schiphol Plaza. Na uw reis loopt u naar dezelfde bushalte en stapt u in wanneer de shuttlebus langskomt. De bus brengt u terug naar uw auto.',
           'Het verschil met parkeren op de luchthaven zit in de grond eronder. Parkeerplaatsen direct bij een terminal zijn schaars en duur, en dat verschil betaalt u per dag. Een parkeerlocatie op ongeveer 8 minuten rijden kost minder, en die paar minuten worden voor u gereden.',
           'Het verschil met valet parking zit in wie er rijdt. Bij valet geeft u uw auto af bij de vertrekhal en parkeert onze chauffeur hem voor u. Bij shuttle parkeren doet u dat zelf en houdt u uw sleutel. Dat is voor veel reizigers precies de reden om hiervoor te kiezen.',
         ]}
@@ -232,7 +228,7 @@ export default async function ShuttleParkingPage() {
               </h2>
             </div>
             <p className="text-muted max-w-[34ch] text-base lg:pb-2 lg:text-right">
-              Zes stappen, waarvan u er twee zelf doet: parkeren en bellen als u terug bent.
+              In vijf eenvoudige stappen van reservering tot terugkomst. U parkeert zelf en reist met de shuttle van en naar Schiphol.
             </p>
           </Reveal>
 
@@ -246,7 +242,7 @@ export default async function ShuttleParkingPage() {
         title="Ongeveer 8 minuten naar Schiphol"
         paragraphs={[
           'De rit met de shuttlebus van onze parkeerlocatie in Badhoevedorp naar Schiphol duurt ongeveer 8 minuten. Dit is de geschatte rijtijd, niet de totale tijd; parkeren, instappen en eventuele wachttijd komen daar nog bij.',
-          'De shuttle rijdt op uw reservering. U geeft bij het boeken op wanneer u aankomt, zodat wij weten wanneer u er bent en daarop kunnen plannen. Voor de terugreis belt u ons na de landing; dan weten wij dat u er werkelijk bent, en niet alleen dat uw vlucht dat zou zijn.',
+          'De shuttle rijdt op uw reservering. U geeft bij het boeken op wanneer u aankomt, zodat wij weten wanneer u er bent en daarop kunnen plannen. Voor de terugreis hoeft u niet te bellen: u loopt naar de bushalte op Schiphol Plaza en stapt in wanneer de shuttlebus langskomt.',
           'Reken voor het hele proces op ongeveer een kwartier: parkeren, instappen, rijden en uitstappen. Wij adviseren om minimaal 3 uur voor vertrek op het terrein te zijn, zodat u daarna in alle rust kunt inchecken.',
         ]}
         photo="terminalDeparture"

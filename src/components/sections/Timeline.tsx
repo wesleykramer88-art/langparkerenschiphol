@@ -77,7 +77,7 @@ export function Timeline({ steps }: { steps: readonly TimelineStep[] }) {
   // Six columns leave about 150px each. The numeral and the body step down at
   // that density so the figure stays a quiet marker rather than the widest
   // thing in its column, and the body stops setting to three words a line.
-  const dense = steps.length >= 6;
+  const dense = steps.length >= 5;
 
   return (
     <ol
