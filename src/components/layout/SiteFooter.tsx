@@ -81,7 +81,7 @@ export function SiteFooter() {
           <div className="max-w-sm">
             <Logo tone="dark" />
             <p className="text-navy-200 mt-4 text-sm leading-relaxed md:mt-6">
-              Shuttle- en valetparkeren bij Schiphol, verzorgd door The Parking Company.
+              {siteConfig.tagline}
             </p>
 
             {/* Where the unsourced "4,7 / 5" and its five stars used to sit.

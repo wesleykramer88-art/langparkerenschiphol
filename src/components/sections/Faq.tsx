@@ -23,20 +23,19 @@ import { siteConfig } from '@/config/site';
  * Somebody scrolling an FAQ about their car is a few seconds from either
  * booking or leaving.
  *
- * Copy is verbatim, with one correction: the live site asks "Wat gebeurd er als
- * mijn vlucht vertraagd is" — a d/t error that is visible in the Google snippet.
+ * The accordion and structured data share the same verified public answers.
  */
 
 const FAQS: readonly FaqItem[] = [
   {
     question: 'Wat is het verschil tussen valet en shuttle parkeren?',
     answer:
-      'Bij valet parkeren rijdt u naar de vertrekhal en neemt onze chauffeur uw auto over. Bij shuttle parkeren parkeert u zelf bij onze shuttleparkeerlocatie aan de Schipholweg 181 in Badhoevedorp; de shuttlebus rijdt u in ongeveer 8 minuten naar Schiphol Plaza.',
+      'Bij Shuttle parkeert u buiten aan de Schipholweg 181 in Badhoevedorp; de shuttle rijdt doorlopend naar Schiphol Plaza en de rit duurt ongeveer 8 minuten. Bij Valet geeft u uw auto af tussen Vertrekhal 2 en 3 en kiest u tussen buiten of overdekt parkeren.',
   },
   {
-    question: 'Hoe veilig is mijn auto geparkeerd?',
+    question: 'Waar parkeer ik mijn auto?',
     answer:
-      'Uw auto staat geparkeerd op een professioneel parkeerterrein dat 24 uur per dag wordt bewaakt en gemonitord. Alle ritten worden digitaal geregistreerd, zodat er altijd inzicht is in de verplaatsingen van uw voertuig. Zo kunt u met een gerust gevoel op reis, terwijl uw auto veilig achterblijft.',
+      'Bij Shuttle parkeert u buiten op Schipholweg 181 in Badhoevedorp. Bij Valet geeft u uw auto af tussen Vertrekhal 2 en 3; de auto wordt volgens uw reservering buiten of overdekt geparkeerd.',
   },
   {
     // Reworded away from the live site's "kosteloos annuleren", which asked the
@@ -53,19 +52,19 @@ const FAQS: readonly FaqItem[] = [
       'Wij adviseren om uw parkeerplaats zo vroeg mogelijk te reserveren voor de beste beschikbaarheid en tarieven. Lastminute reserveringen zijn vaak ook mogelijk, mits er nog plaatsen beschikbaar zijn. Houd er rekening mee dat voor reserveringen op korte termijn extra kosten in rekening kunnen worden gebracht.',
   },
   {
-    question: 'Worden mijn autosleutels veilig opgeborgen?',
+    question: 'Waar geef ik mijn auto af voor Valet?',
     answer:
-      'Bij Shuttle parkeren neemt u uw autosleutels zelf mee op reis. Bij Valet parkeren worden uw sleutels opgeborgen in een brandwerende kluis op ons kantoor, dat is voorzien van camerabewaking.',
+      `Tussen Vertrekhal 2 en 3 op Schiphol. Bel 30 minuten vóór aankomst op ${siteConfig.valetPhone.display}. Bij terugkomst belt u direct na de landing en nogmaals zodra u uw ruimbagage heeft ontvangen.`,
   },
   {
     question: 'Wat gebeurt er als mijn vlucht vertraagd is?',
     answer:
-      'Geen zorgen. Wij volgen de actuele vluchtinformatie en passen de ophaaltijd indien nodig aan. Bij een vertraging of vervroegde landing zorgen wij ervoor dat uw auto weer op het afgesproken moment beschikbaar is. Vergeet niet direct te bellen na uw landing op Schiphol.',
+      `Bij Valet parkeren belt u direct na de landing op ${siteConfig.valetPhone.display}; met ruimbagage belt u opnieuw zodra u die heeft ontvangen. Bij Shuttle parkeren loopt u na aankomst naar de vaste shuttlehalte op Schiphol Plaza. U hoeft daarvoor niet te bellen.`,
   },
   {
     question: 'Hoe laat moet ik aanwezig zijn voor mijn vlucht?',
     answer:
-      'Wij adviseren om bij shuttle parkeren minimaal 3 uur voor vertrek aanwezig te zijn. Bij valet parkeren adviseren wij minimaal 2,5 uur voor vertrek aanwezig te zijn. Zo heeft u voldoende tijd voor de overdracht en het inchecken op Schiphol.',
+      `De Shuttle-transfertijd is ongeveer 8 minuten. Houd daarnaast rekening met de tijd voor parkeren, wachten en inchecken. Bij Valet belt u 30 minuten vóór aankomst op ${siteConfig.valetPhone.display}.`,
   },
 ];
 
@@ -75,7 +74,7 @@ export function Faq() {
     <FaqSection
       items={FAQS}
       heading="Alles over onze dienstverlening"
-      lead="De vragen die reizigers ons het vaakst stellen, over veiligheid, annuleren en de overdracht van uw auto."
+      lead="De beschikbare parkeerdiensten, locaties, prijzen en praktische instructies."
     />
   );
 }

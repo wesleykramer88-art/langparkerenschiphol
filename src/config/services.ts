@@ -1,24 +1,20 @@
 import {
-  BadgeCheck,
   BusFront,
   CarFront,
   DoorOpen,
-  Handshake,
-  KeyRound,
-  LayoutGrid,
-  ShieldCheck,
-  Zap,
+  Phone,
+  Warehouse,
   type LucideIcon,
 } from 'lucide-react';
 import { siteConfig } from '@/config/site';
 import type { ServiceSlug } from '@/lib/booking';
 
 /**
- * What each of the two services SAYS about itself.
+ * The public copy shared by the booking picker and service landing pages.
  *
  * Not what it is — src/lib/parkingpro.ts owns the products, the GUIDs and the
- * booking rules, and src/lib/booking.ts owns the selection model. This file owns
- * the client's own marketing copy for each service and nothing else.
+ * booking rules, and src/lib/booking.ts owns the selection model. This file
+ * owns the verified descriptions for each active service.
  *
  * ── Why this exists as a file ───────────────────────────────────────────────
  * This copy was declared inside BookingPicker, which was correct while the
@@ -29,26 +25,7 @@ import type { ServiceSlug } from '@/lib/booking';
  * eventually disagree with the first. The picker's stub and the landing pages
  * now read from here.
  *
- * ── The copy is the client's, 31 July 2026 ──────────────────────────────────
- * `note` is MECHANICAL — what physically happens to the car. `usp` is the
- * BENEFIT — what the visitor gets out of that. They are deliberately not the
- * same sentence: a card that makes the same point at both ends only reinforces
- * if the words have moved on.
- *
- * His originals open with an emoji (🔑 Sleutels mee op reis, 🚗 Direct voor de
- * vertrekhal). Those are line icons here, because a colour emoji would be the
- * only one on the site, and because the stub already sets an icon-plus-label
- * pair in its right column.
- *
- * His separator was "•". This uses "·", which is what the ticket stub's own
- * "AMS · 24/7" and the rest of the card already use.
- *
- * `bullets` are his "compacte versie voor icon-blokken" — his phrase, and the
- * reason each line carries its own icon rather than a fourth identical tick.
- * Each icon restates its own line (a key for the keys you keep, a door for
- * stepping out at the hall) so the block is scannable before it is read. The
- * LONGER five-item lists on /onze-services/ are a different thing and stay
- * where they are; these are the compact ones.
+ * `note` and `usp` summarize the service; `bullets` list its practical details.
  */
 export type ServiceCopy = {
   /** Short name, as it appears on the picker's radio. */
@@ -71,13 +48,13 @@ export const SERVICE_COPY: Record<ServiceSlug, ServiceCopy> = {
   shuttle: {
     name: 'Shuttle',
     fullName: 'Shuttle Parkeren',
-    note: 'U parkeert zelf · shuttle naar de vertrekhal',
-    usp: { icon: KeyRound, text: 'Sleutels mee op reis · Shuttlerit van ongeveer 8 minuten' },
+    note: 'Buiten parkeren · shuttle rijdt doorlopend',
+    usp: { icon: BusFront, text: 'Buiten parkeren · ongeveer 8 minuten naar Schiphol' },
     bullets: [
-      { icon: KeyRound, text: 'Zelf parkeren, sleutels mee op reis' },
+      { icon: BusFront, text: 'De shuttle rijdt doorlopend' },
       { icon: BusFront, text: 'Shuttlerit naar Schiphol: ongeveer 8 minuten' },
-      { icon: LayoutGrid, text: 'Duidelijk en strak georganiseerd' },
-      { icon: ShieldCheck, text: 'Afgesloten terrein met camerabewaking' },
+      { icon: DoorOpen, text: 'Bij terugkomst naar de vaste halte op Schiphol Plaza lopen' },
+      { icon: Warehouse, text: 'Shuttle parkeren is buiten beschikbaar' },
     ],
     where: `${siteConfig.shuttleParking.street}, ${siteConfig.shuttleParking.locality}`,
     href: '/shuttle-parkeren-schiphol/',
@@ -85,13 +62,13 @@ export const SERVICE_COPY: Record<ServiceSlug, ServiceCopy> = {
   valet: {
     name: 'Valet',
     fullName: 'Valet Parkeren',
-    note: 'Wij nemen uw auto over bij de vertrekhal',
-    usp: { icon: CarFront, text: 'Direct voor de vertrekhal · Auto wordt voor u geparkeerd' },
+    note: 'Auto afgeven tussen Vertrekhal 2 en 3',
+    usp: { icon: CarFront, text: 'Valet parkeren · keuze tussen buiten en overdekt' },
     bullets: [
-      { icon: DoorOpen, text: 'Direct uitstappen bij de vertrekhal' },
-      { icon: Zap, text: 'De snelste start van uw reis' },
-      { icon: Handshake, text: 'Professionele overdracht van uw auto' },
-      { icon: BadgeCheck, text: 'Comfort en zekerheid zonder stress' },
+      { icon: DoorOpen, text: 'Inleveren en ophalen tussen Vertrekhal 2 en 3' },
+      { icon: Warehouse, text: 'Kies voor buiten of overdekt parkeren' },
+      { icon: Phone, text: 'Bel 30 minuten vóór aankomst' },
+      { icon: Phone, text: 'Bel na landing en na ontvangst van ruimbagage' },
     ],
     // Read from the one place the handover point is defined. It used to be
     // retyped here, and when the client corrected it to "tussen Vertrekhal 2

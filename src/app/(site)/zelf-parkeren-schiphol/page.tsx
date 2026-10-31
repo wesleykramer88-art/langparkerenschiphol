@@ -45,19 +45,15 @@ const CRUMBS = [{ name: 'Zelf parkeren Schiphol', path: PATH }];
 const STEPS: readonly TimelineStep[] = [
   {
     title: 'U rijdt het terrein op.',
-    body: 'Schipholweg 181, 1171 PK Badhoevedorp. Niet de terminal — bij deze service komt u eerst naar ons toe.',
-  },
-  {
-    title: 'U krijgt een plek aangewezen.',
-    body: 'Geen rondjes rijden en geen zoeken naar een vrij vak op een vol dek.',
+    body: 'De shuttleparkeerlocatie ligt aan de Schipholweg 181 in Badhoevedorp.',
   },
   {
     title: 'U parkeert zelf.',
-    body: 'U zet de auto neer zoals u dat zelf wilt, en laadt uw bagage uit naast uw eigen auto.',
+    body: 'U parkeert uw auto buiten op het terrein.',
   },
   {
     title: 'Sleutel op zak.',
-    body: 'U neemt uw autosleutel mee. Er blijft niets bij ons achter.',
+    body: 'U neemt uw autosleutel mee.',
   },
   {
     title: 'De shuttle brengt u weg.',
@@ -65,7 +61,7 @@ const STEPS: readonly TimelineStep[] = [
   },
   {
     title: 'Terug bij uw eigen auto.',
-    body: 'Na de landing belt u ons. U keert terug naar dezelfde bushalte op Schiphol Plaza en de shuttle brengt u terug naar uw auto.',
+    body: 'Loop naar de vaste shuttlehalte op Schiphol Plaza. U hoeft niet te bellen; de shuttle brengt u terug naar uw auto.',
   },
 ];
 
@@ -78,7 +74,7 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Moet ik zelf een plek zoeken?',
     answer:
-      'Nee. U wordt op het terrein ontvangen en krijgt een plek aangewezen. Zelf parkeren betekent dat u de auto zelf neerzet, niet dat u er een moet gaan zoeken.',
+      'U parkeert uw auto zelf buiten op de shuttleparkeerlocatie aan de Schipholweg 181 in Badhoevedorp.',
   },
   {
     question: 'Wordt mijn auto later nog verplaatst?',
@@ -93,22 +89,22 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Hoe kom ik na mijn reis terug bij mijn auto?',
     answer:
-      'Bel ons zodra u geland bent en door de bagagehal bent. U keert terug naar dezelfde bushalte op Schiphol Plaza waar u bent uitgestapt. Daar haalt onze shuttlebus u weer op en brengt u terug naar uw auto.',
+      'Loop naar de vaste shuttlehalte op Schiphol Plaza. U hoeft niet te bellen; de shuttle brengt u terug naar uw auto.',
   },
   {
     question: 'Hoe lang van tevoren moet ik op het terrein zijn?',
     answer:
-      'Wees minimaal 3 uur voor vertrek op het terrein. Dan heeft u ruim tijd om te parkeren, in de shuttle te stappen en rustig in te checken op Schiphol.',
+      'De shuttlerit naar Schiphol duurt ongeveer 8 minuten. Houd daarnaast rekening met de tijd die u nodig heeft om te parkeren, op de shuttle te wachten en in te checken.',
   },
   {
     question: 'Kan ik mijn auto overdekt neerzetten?',
     answer:
-      'Ja, er is een beperkt aantal overdekte plaatsen. U kiest tussen buiten en overdekt tijdens het reserveren, waar beide tarieven naast elkaar staan.',
+      'Nee. Shuttle parkeren is alleen buiten beschikbaar. Overdekt parkeren is beschikbaar bij Valet parkeren.',
   },
   {
     question: 'Is zelf parkeren goedkoper?',
     answer:
-      'Ja. Shuttle parkeren, waarbij u zelf parkeert, is onze voordeligste service — u doet zelf het deel dat bij valet parking door een chauffeur wordt gedaan.',
+      'Bekijk de actuele prijzen op de tarievenpagina of bereken uw prijs op basis van uw reisdata.',
   },
 ];
 
@@ -118,7 +114,7 @@ export default function SelfParkingPage() {
       <PageHero
         eyebrow="Zelf parkeren"
         title="Zelf parkeren bij Schiphol"
-        lead="U zet uw auto zelf neer op ons bewaakte terrein en ziet met eigen ogen waar hij staat. Daarna brengt de shuttle u naar de bushalte op Schiphol Plaza."
+        lead="U parkeert buiten aan de Schipholweg 181 in Badhoevedorp. De shuttle rijdt doorlopend naar de vaste halte op Schiphol Plaza."
         photo="lotShuttle"
         objectPosition="object-[center_50%]"
         crumbs={CRUMBS}
@@ -133,9 +129,8 @@ export default function SelfParkingPage() {
         eyebrow="Waarom zelf"
         title="Veel reizigers zetten hun auto liever zelf neer"
         paragraphs={[
-          'Er zijn twee manieren om bij ons te parkeren, en het verschil zit in wie er achter het stuur zit. Bij valet parking rijdt u tot de vertrekhal en neemt onze chauffeur het over. Bij shuttle parkeren doet u het zelf.',
-          'Voor een deel van onze klanten is dat laatste geen concessie maar de reden om te boeken. U rijdt het terrein op, ziet waar u staat, zet de auto neer zoals u dat zelf wilt en loopt weg met de sleutel op zak. Er is niets overgedragen en er is niets afgesproken dat u niet zelf heeft gezien.',
-          'Het scheelt ook geld. Zelf parkeren is het deel van het werk dat bij valet door een chauffeur wordt gedaan, en dat verschil ziet u terug in het tarief.',
+          'Bij Shuttle parkeert u uw auto zelf buiten aan de Schipholweg 181 in Badhoevedorp. Daarna brengt de doorlopende shuttle u naar de vaste halte op Schiphol Plaza.',
+          'Bij Valet geeft u uw auto af tussen Vertrekhal 2 en 3. Valet is beschikbaar met buiten of overdekt parkeren.',
         ]}
         photo="lotShuttle"
         objectPosition="object-[center_38%]"
@@ -152,8 +147,7 @@ export default function SelfParkingPage() {
               </h2>
             </div>
             <p className="text-muted max-w-[34ch] text-base lg:pb-2 lg:text-right">
-              Van het terrein op rijden tot wegrijden bij terugkomst — zes stappen, waarvan u er
-              twee zelf doet.
+              Van aankomst op de parkeerlocatie tot uw terugkomst op Schiphol.
             </p>
           </Reveal>
 
@@ -164,16 +158,16 @@ export default function SelfParkingPage() {
       <ContentSection
         id="controle"
         eyebrow="Controle"
-        title="U weet waar hij staat, en dat blijft zo"
+        title="Parkeer zelf op de Shuttle-locatie"
         paragraphs={[
-          'Het verschil tussen "mijn auto staat ergens veilig" en "mijn auto staat daar" is groter dan het klinkt. Wie zelf parkeert heeft het terrein gezien, weet hoe het eruitziet en weet op welke plek de auto staat.',
-          'Die situatie verandert daarna niet meer. Omdat u de sleutel meeneemt, kan de auto niet verplaatst worden, en bij terugkomst loopt u naar dezelfde plek terug. Er is geen tweede overdracht, geen wachten tot iemand hem voorrijdt en geen moment waarop u iets moet aannemen dat u niet zelf kunt zien.',
+          'Bij Shuttle parkeert u zelf buiten op de locatie in Badhoevedorp. De shuttle brengt u naar Schiphol en haalt u bij terugkomst op bij de vaste halte op Schiphol Plaza.',
+          'De terugrit met Shuttle vraagt geen telefoontje. Bij Valet belt u direct na de landing en nogmaals zodra u uw ruimbagage heeft ontvangen.',
         ]}
         bullets={[
-          'U ziet zelf op wat voor terrein u parkeert',
-          'U bepaalt zelf hoe u de auto achterlaat',
-          'Geen verplaatsing tijdens uw reis',
-          'Bij terugkomst direct naar uw eigen auto',
+          'Parkeerlocatie: Schipholweg 181, Badhoevedorp',
+          'Shuttle naar Schiphol Plaza rijdt doorlopend',
+          'Transfertijd ongeveer 8 minuten',
+          'Alleen Shuttle is buiten beschikbaar',
         ]}
         reversed
       >
@@ -187,8 +181,7 @@ export default function SelfParkingPage() {
         eyebrow="Voor wie"
         title="Voor wie zelf parkeren de juiste keuze is"
         paragraphs={[
-          'Zelf parkeren past bij reizigers die op de kosten letten, want het is de voordeligste manier om bij ons lang te parkeren. Het past bij gezinnen, omdat u naast uw eigen auto uitlaadt in plaats van op een stoep bij de vertrekhal.',
-          'En het past bij iedereen die liever geen valet gebruikt. Niet omdat daar iets mis mee is — wij bieden het zelf aan en iedere valetrit wordt digitaal geregistreerd — maar omdat de gedachte aan iemand anders achter het stuur van uw auto voor sommige mensen nu eenmaal blijft knagen. Dan is dit de service die die vraag helemaal niet stelt.',
+          'Shuttle parkeren is de optie waarbij u zelf parkeert en met de shuttle naar Schiphol reist. Kies Valet als u uw auto liever bij de vertrekhallen afgeeft; daarbij kunt u buiten of overdekt parkeren.',
         ]}
         tone="surface"
       >
@@ -212,7 +205,7 @@ export default function SelfParkingPage() {
 
       <ClosingCta
         heading="Zet uw auto zelf neer"
-        lead="Reserveer shuttle parkeren, parkeer zelf op ons bewaakte terrein en houd uw eigen sleutel."
+        lead="Reserveer Shuttle parkeren op de locatie aan de Schipholweg 181 in Badhoevedorp."
         photo="lotShuttle"
         bookingHref="/reservering/?service=shuttle"
         bookingLabel="Reserveer shuttle parkeren"

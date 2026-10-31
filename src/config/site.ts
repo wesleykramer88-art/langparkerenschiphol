@@ -19,6 +19,7 @@
  * site cannot end up showing one number and dialling another.
  */
 const PHONE_E164 = '+31854013918';
+const VALET_PHONE_E164 = '+31615634297';
 
 export const siteConfig = {
   name: 'Lang Parkeren Schiphol',
@@ -26,7 +27,8 @@ export const siteConfig = {
   shortName: 'Lang Parkeren Schiphol',
   locale: 'nl-NL',
   lang: 'nl',
-  tagline: 'Zorgeloos parkeren, ontspannen reizen.',
+  tagline:
+    'Betrouwbaar shuttle- en valetparkeren bij Schiphol. Eenvoudig reserveren, professioneel geregeld.',
 
   /**
    * THE phone number, and the only one. Client decision, 29 July 2026.
@@ -59,6 +61,12 @@ export const siteConfig = {
     href: `tel:${PHONE_E164}`,
     e164: PHONE_E164,
   },
+  /** Dedicated number for the valet arrival and return call instructions. */
+  valetPhone: {
+    display: '06 1563 4297',
+    href: `tel:${VALET_PHONE_E164}`,
+    e164: VALET_PHONE_E164,
+  },
 
   /**
    * CANONICAL e-mail. Chosen because /contact/ uses it and it appears inside the
@@ -70,7 +78,7 @@ export const siteConfig = {
   emailSecondary: 'klantenservice@langparkerenschiphol.nl',
 
   /**
-   * SHUTTLE PARKING LOCATION (at the ibis hotel). Client decision, October 2026.
+   * SHUTTLE PARKING LOCATION. Client decision, October 2026.
    *
    * This is where a shuttle customer parks. It is NOT presented as the legal
    * or registered business address — the site publishes no business address
@@ -249,13 +257,12 @@ export const navigation = [
     inSitemap: true,
     priority: 0.7,
   },
-  // Valet-only trust page. Linked from the valet landing page and from the
-  // homepage security band, which is where the question it answers is raised.
+  // This legacy route redirects to the current Valet service page.
   {
     href: '/digitale-ritregistratie/',
     label: 'Digitale ritregistratie',
     inNav: false,
-    inSitemap: true,
+    inSitemap: false,
     priority: 0.6,
   },
   // Footer-only, and the lowest priority in the sitemap: it must be indexable —
@@ -298,7 +305,6 @@ export const footerNav = {
   ],
   bedrijf: [
     { href: '/waarom-lang-parkeren-schiphol/', label: 'Waarom ons' },
-    { href: '/digitale-ritregistratie/', label: 'Digitale ritregistratie' },
     { href: '/reviews/', label: 'Ervaringen' },
     { href: '/samenwerken/', label: 'Reisbureaus' },
     { href: '/contact/', label: 'Contact' },
@@ -479,7 +485,7 @@ export function isPromoActive(now: number = Date.now()): boolean {
 
 /** Clear company and affiliation statement, shown in the footer. */
 export const independenceDisclaimer =
-  'Lang Parkeren Schiphol is een merk van The Parking Company, een onafhankelijke parkeeraanbieder en geen onderdeel van Royal Schiphol Group.';
+  'Lang Parkeren Schiphol is een onafhankelijke parkeeraanbieder en geen onderdeel van Royal Schiphol Group.';
 
 
 /**
@@ -505,7 +511,6 @@ export const headerNav = [
     items: [
       { href: '/waarom-lang-parkeren-schiphol/', label: 'Waarom Lang Parkeren Schiphol' },
       { href: '/veilig-parkeren-schiphol/', label: 'Veilig parkeren' },
-      { href: '/digitale-ritregistratie/', label: 'Digitale ritregistratie' },
       { href: '/reviews/', label: 'Ervaringen' },
     ],
   },

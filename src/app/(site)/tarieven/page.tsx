@@ -58,7 +58,7 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Hoe worden de tarieven voor lang parkeren bij Schiphol berekend?',
     answer:
-      'Onze parkeertarieven zijn volledig transparant en inclusief btw. De prijs wordt berekend op basis van het exacte aantal dagen dat u parkeert en de service die u kiest. U heeft hierbij de keuze uit voordelig buiten parkeren of comfortabel overdekt parkeren, beschikbaar voor zowel onze shuttle- als valetservice.',
+      'De prijs wordt berekend op basis van uw reisdata en de gekozen service. Shuttle parkeren is buiten beschikbaar. Bij Valet kiest u tussen buiten en overdekt parkeren. De actuele prijs ziet u in de berekening voordat u reserveert.',
   },
   {
     question: 'Is de shuttlebus gratis inbegrepen bij het parkeertarief?',

@@ -51,7 +51,7 @@ type Service = {
   id: string;
   title: string;
   badge: string;
-  /** accent = the recommended option; there is only ever one. */
+  /** Visual tone of the service badge. */
   badgeTone: 'accent' | 'brand';
   description: string;
   /**
@@ -70,29 +70,16 @@ type Service = {
   slug: 'valet' | 'shuttle';
   /** Where the customer physically goes. The two services differ. */
   where: string;
-  /**
-   * Only valet takes payment on site. True, and a genuine reason to pick the
-   * more expensive service — but NOT rendered.
-   *
-   * It had been sitting here as a commented-out fifth list item since before the
-   * client supplied his USPs. Now that the list is his four and each line has
-   * its own mark, a fifth row in a different voice would dilute them. The fact
-   * is kept in the data rather than deleted, because it is the sort of thing
-   * that is expensive to rediscover.
-   * TODO(client): confirm this is still true, and we will find it a home —
-   * the payment section on /reservering/ is the natural one.
-   */
-  payOnArrival?: boolean;
 };
 
 const SERVICES: readonly Service[] = [
   {
     id: 'valet',
     title: 'Valet Parkeren',
-    badge: 'Snelste optie',
+    badge: 'Buiten of overdekt',
     badgeTone: 'accent',
     description:
-      'Rijd rechtstreeks naar de vertrekhal van Schiphol. Onze chauffeur staat klaar, controleert uw auto en rijdt deze naar onze veilige parkeerlocatie.',
+      'Geef uw auto af tussen Vertrekhal 2 en 3. Kies bij het reserveren voor buiten of overdekt parkeren.',
     // Read from the one place the client's compact USPs live, rather than
     // retyped. This card, the ticket stub and the two service landing pages all
     // render them; three transcriptions of the same four lines is three chances
@@ -104,17 +91,14 @@ const SERVICES: readonly Service[] = [
     photo: 'crewHandover',
     slug: 'valet',
     where: SERVICE_COPY.valet.where,
-    // Only valet does. It is a genuine reason to choose it and it appeared
-    // nowhere on the site before this pass — see the note on the card below.
-    payOnArrival: true,
   },
   {
     id: 'shuttle',
     title: 'Shuttle Parkeren',
-    badge: 'Meest betaalbare keuze',
+    badge: 'Buiten parkeren',
     badgeTone: 'brand',
     description:
-      'Parkeer uw auto bij onze shuttleparkeerlocatie in Badhoevedorp. De rit met de shuttlebus naar Schiphol duurt ongeveer 8 minuten.',
+      'Parkeer buiten aan de Schipholweg 181 in Badhoevedorp. De shuttle rijdt doorlopend naar Schiphol Plaza.',
     usps: SERVICE_COPY.shuttle.bullets,
     cta: 'Reserveer Shuttle Parkeren',
     // His own terrain, with the shuttle bus running along the top of the frame
@@ -125,40 +109,16 @@ const SERVICES: readonly Service[] = [
   },
 ];
 
-/**
- * Outdoor or covered — the half of the product range the site never mentioned.
- *
- * ParkingPro sells FOUR products, not two: each service in an outdoor and a
- * covered version, with separate rate lists. The rates FAQ already explains
- * that covered is priced differently and the booking flow already offers the
- * choice; only the marketing site was behaving as though there were two.
- *
- * ── Why neither is framed as the premium one ────────────────────────────────
- * The obvious treatment is "covered = the upgrade". The client's own live
- * prices say otherwise, and only for one of the two services:
- *
- *   shuttle   buiten € 201,49   overdekt € 211,49    (+ €10, as expected)
- *   valet     buiten € 361,49   overdekt € 182,48    (− €179, consistently)
- *
- * That holds across every date range checked. Either LPS-V's rate list is
- * misconfigured or valet-outdoor means something we have not been told. Until
- * the client answers, this block states what each option IS and lets the live
- * prices in the booking flow speak for themselves. Writing "overdekt kost iets
- * meer" here would be false for half the range and would survive right up until
- * a customer noticed.
- */
-const COVER_OPTIONS = [
-  {
-    label: 'Buitenterrein',
-    body: 'Afgesloten buitenterrein met 24/7 camerabewaking.',
-    mobileBody: 'Afgesloten buitenterrein',
-  },
-  {
-    label: 'Overdekt',
-    body: 'Uw auto staat binnen, uit weer en wind. Beperkt beschikbaar.',
-    mobileBody: 'Binnen, uit weer en wind',
-  },
-] as const;
+const PARKING_OPTIONS: Record<
+  Service['slug'],
+  readonly { label: string; body: string }[]
+> = {
+  shuttle: [{ label: 'Buiten parkeren', body: 'De shuttle rijdt doorlopend.' }],
+  valet: [
+    { label: 'Buiten parkeren', body: 'Uw auto wordt buiten geparkeerd.' },
+    { label: 'Overdekt parkeren', body: 'Uw auto wordt overdekt geparkeerd.' },
+  ],
+};
 
 export function ServiceChooser() {
   return (
@@ -177,8 +137,7 @@ export function ServiceChooser() {
             </h2>
           </div>
           <p className="text-muted max-w-[32ch] text-sm leading-relaxed md:max-w-[36ch] md:text-base lg:pb-2 lg:text-right">
-            Twee manieren om bij de vertrekhal te komen. Beide met bewaakte parkeerplaats en een
-            optionele annuleringsdekking.
+            Shuttle parkeren is buiten. Bij Valet kiest u tussen buiten en overdekt parkeren.
           </p>
         </Reveal>
 
@@ -249,15 +208,11 @@ function ServiceCard({ service }: { service: Service }) {
           ))}
         </ul>
 
-        {/* ---------- Outdoor or covered ----------
-            The 2×2. Each service comes in both, at different rates, and the
-            booking flow has always offered the choice — the site simply never
-            said so. Set as a hairline pair rather than two more cards: this is
-            a variant of the product above it, not a third and fourth product. */}
+        {/* ---------- Available parking options ---------- */}
         <div className="border-line mt-5 border-t pt-5 md:mt-6 md:pt-6">
-          <p className="eyebrow text-muted">Kies uw parkeerlocatie</p>
+          <p className="eyebrow text-muted">Parkeeropties</p>
           <dl className="mt-3 grid gap-2 md:gap-3 sm:grid-cols-2">
-            {COVER_OPTIONS.map((option) => (
+            {PARKING_OPTIONS[service.slug].map((option) => (
               <div key={option.label} className="border-line rounded-md border p-3 md:p-3.5">
                 <dt className="text-heading text-sm font-semibold">{option.label}</dt>
                 <dd className="text-muted mt-1 text-xs leading-relaxed">{option.body}</dd>

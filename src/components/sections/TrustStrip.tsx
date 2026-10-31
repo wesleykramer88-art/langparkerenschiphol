@@ -23,8 +23,8 @@ const ITEMS: readonly TrustItem[] = [
   },
   {
     icon: Warehouse,
-    title: 'Buiten of overdekt',
-    label: 'Kies uw parkeeroptie tijdens het reserveren.',
+    title: 'Parkeeropties per service',
+    label: 'Shuttle is buiten; Valet is buiten of overdekt.',
   },
   {
     icon: CalendarX2,

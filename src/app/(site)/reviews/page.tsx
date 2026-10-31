@@ -63,8 +63,7 @@ const CRUMBS = [{ name: 'Ervaringen', path: '/reviews/' }];
  * Nothing else on this page, or anywhere else, needs editing.
  */
 
-/** The other ways a reader can check this business, since no review platform is
- *  available to point them at. Each is real and each is verifiable today. */
+/** Public business details visitors can verify independently. */
 const CHECKS = [
   {
     title: 'Ingeschreven bij de Kamer van Koophandel',
@@ -72,15 +71,15 @@ const CHECKS = [
   },
   {
     title: 'Een vaste shuttleparkeerlocatie',
-    body: `${siteConfig.shuttleParking.display}, bij het ibis hotel. Geen postbus.`,
+    body: siteConfig.shuttleParking.display,
   },
   {
-    title: 'Een telefoonnummer dat wordt opgenomen',
-    body: `${siteConfig.phone.display}. Bel gerust vóór u reserveert — dat is de snelste manier om te merken met wie u te maken heeft.`,
+    title: 'Contactgegevens',
+    body: siteConfig.phone.display,
   },
   {
-    title: 'Onze eigen mensen op de foto',
-    body: 'De foto’s op deze site zijn van ons eigen team, ons eigen busje en ons eigen terrein bij Vertrek 2.',
+    title: 'Algemene voorwaarden',
+    body: 'Bekijk de voorwaarden via de link onderaan de website.',
   },
 ] as const;
 
@@ -92,8 +91,8 @@ export default function ReviewsPage() {
     <>
       <PageHero
         eyebrow="Ervaringen"
-        title="Wat reizigers over ons zeggen"
-        lead="Lees hier lang parkeren schiphol ervaringen van klanten die hun auto bij ons achterlieten — over de overdracht bij de vertrekhal, de shuttle en de staat van de auto bij terugkomst."
+        title="Beoordelingen en ervaringen"
+        lead="We tonen geen beoordelingen of gemiddelde score zolang de openbare bron niet kan worden gecontroleerd."
         photo="crewHandover"
         photoAlt="lang parkeren schiphol ervaringen"
         objectPosition="object-[center_55%]"
@@ -101,14 +100,15 @@ export default function ReviewsPage() {
       />
 
       {/* ══════════ THE QUOTES ══════════ */}
-      <Section spacing="lg" aria-labelledby="ervaringen-heading">
-        <Container>
-          <h2 id="ervaringen-heading" className="sr-only">
-            Ervaringen van klanten
-          </h2>
+      {reviews.length > 0 ? (
+        <Section spacing="lg" aria-labelledby="ervaringen-heading">
+          <Container>
+            <h2 id="ervaringen-heading" className="sr-only">
+              Ervaringen van klanten
+            </h2>
 
-          <Stagger as="ul" className="divide-line border-line divide-y border-y">
-            {reviews.map((item) => (
+            <Stagger as="ul" className="divide-line border-line divide-y border-y">
+              {reviews.map((item) => (
               <figure
                 key={item.name}
                 className="grid gap-6 py-10 lg:grid-cols-[auto_1fr] lg:gap-12 lg:py-14"
@@ -132,11 +132,12 @@ export default function ReviewsPage() {
                     <span>{item.role}</span>
                   </figcaption>
                 </div>
-              </figure>
-            ))}
-          </Stagger>
-        </Container>
-      </Section>
+                </figure>
+              ))}
+            </Stagger>
+          </Container>
+        </Section>
+      ) : null}
 
       {/* ══════════ THE SCORE — only when it can be checked ══════════
           Shown against a verified source and never otherwise. The platform is
@@ -175,37 +176,27 @@ export default function ReviewsPage() {
         </Section>
       ) : null}
 
-      {/* ══════════ WHERE THESE COME FROM ══════════
-          The block that makes this page work. Saying plainly that three
-          testimonials are three testimonials — and that we are not going to
-          publish an average we cannot show the workings of — is a stronger
-          trust signal on this particular page than the number would have been.
-
-          When reviewSource.verified flips true in config/site.ts, this is where
-          the score, the count and the link to the platform go. */}
+      {/* Show the reason no ratings are displayed until a public source is verified. */}
       {!reviewSource.verified ? (
         <Section tone="surface" spacing="lg" aria-labelledby="herkomst-heading">
           <Container>
             <div className="grid gap-12 lg:grid-cols-[5fr_7fr] lg:gap-20">
               <Reveal>
-                <Eyebrow rule>Waar deze reacties vandaan komen</Eyebrow>
+                <Eyebrow rule>Beoordelingen controleren</Eyebrow>
                 <h2 id="herkomst-heading" className="text-display-md mt-5 max-w-[18ch]">
-                  Geen gemiddeld cijfer, en dat is met opzet
+                  Geen onbevestigde beoordelingen
                 </h2>
               </Reveal>
 
               <Reveal delay={80}>
                 <div className="text-body flex max-w-[62ch] flex-col gap-4 leading-relaxed">
                   <p>
-                    Dit zijn drie reacties die klanten ons rechtstreeks stuurden. Wij verzamelen ze
-                    nog niet via een openbaar reviewplatform, en daarom staat er op deze site geen
-                    gemiddeld cijfer of aantal beoordelingen.
+                    Er is geen openbare reviewbron gekoppeld die we hier kunnen verifiëren. Daarom
+                    tonen we geen klantcitaten, gemiddelde score of aantal beoordelingen.
                   </p>
                   <p>
-                    Dat is een bewuste keuze. Een cijfer dat u nergens kunt controleren zegt u niets
-                    — en u staat op het punt uw auto aan ons toe te vertrouwen. Zodra wij reviews
-                    verzamelen op een platform waar u ze zelf kunt nalezen, staan het cijfer en de
-                    link hier.
+                    Zodra een openbare bron is geverifieerd, kunnen beoordelingen en een verwijzing
+                    naar die bron hier worden getoond.
                   </p>
                 </div>
 

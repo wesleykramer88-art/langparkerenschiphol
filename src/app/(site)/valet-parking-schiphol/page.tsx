@@ -1,4 +1,4 @@
-import { ArrowRight, Gauge } from 'lucide-react';
+import { Phone } from 'lucide-react';
 import { createMetadata } from '@/lib/seo';
 import { jsonLd, breadcrumbSchema, serviceSchema, type FaqItem } from '@/lib/schema';
 import { Container } from '@/components/ui/Container';
@@ -31,12 +31,7 @@ const CRUMBS = [{ name: 'Valet parking Schiphol', path: PATH }];
  * Valet sells convenience, and convenience is the easy thing to write about.
  * The reason a visitor does not book it is never that they doubt it is
  * convenient — it is that they are being asked to give away their car. So the
- * page states the mechanics of the handover early and in detail, and links to
- * /digitale-ritregistratie/ where the question gets its full answer.
- *
- * That link is the page's most important one. Ride registration is valet-only;
- * it exists precisely because this is the service where trust has to be earned
- * rather than assumed.
+ * page states the confirmed handover and return instructions early and in detail.
  *
  * ── The address on this page is NOT the shuttle parking address ─────────────
  * Valet customers drive to the terminal, not to the shuttle parking location. A
@@ -52,69 +47,43 @@ const STEPS: readonly TimelineStep[] = [
   },
   {
     title: 'Rijd naar de vertrekhal.',
-    body: 'U rijdt rechtstreeks naar de Vertrekpassage op Schiphol, tussen Vertrekhal 2 en 3.',
+    body: `Bel 30 minuten vóór aankomst op ${siteConfig.valetHandover.display}.`,
   },
   {
     title: 'Onze chauffeur wacht u op.',
-    body: 'Hij ontvangt uw gegevens digitaal en weet welke auto en welke vlucht bij u horen.',
+    body: 'U geeft uw auto af op Schiphol, tussen Vertrekhal 2 en 3.',
   },
   {
-    title: 'Samen langs de auto.',
-    body: 'De staat van uw auto wordt vastgelegd voordat wij hem overnemen. U tekent voor de overdracht.',
+    title: 'U kiest uw parkeerwijze.',
+    body: 'Bij het reserveren kiest u voor buiten of overdekt parkeren.',
   },
   {
     title: 'Wij parkeren, u loopt door.',
-    body: 'Uw auto gaat naar onze beveiligde locatie. De rit ernaartoe wordt digitaal geregistreerd.',
+    body: 'U kunt uw reis vervolgen; uw auto wordt volgens uw reservering buiten of overdekt geparkeerd.',
   },
   {
     title: 'Terug tussen Vertrekhal 2 en 3.',
-    body: 'Bel na de landing. Uw auto staat op dezelfde plek als bij vertrek, en de terugrit is opnieuw geregistreerd.',
+    body: 'Bel direct na de landing. Heeft u ruimbagage, bel dan opnieuw zodra u uw bagage heeft ontvangen. Uw auto staat klaar tussen Vertrekhal 2 en 3.',
   },
 ];
 
 const FAQS: readonly FaqItem[] = [
   {
     question: 'Waar moet ik zijn voor valet parking?',
-    answer: `Bij de ${siteConfig.valetHandover.display}. U rijdt dus rechtstreeks naar de luchthaven en niet naar ons parkeerterrein — dat laatste geldt alleen voor shuttle parkeren. Onze chauffeur staat op de afgesproken tijd voor u klaar.`,
+    answer: `Bij de ${siteConfig.valetHandover.display}. Bel 30 minuten vóór aankomst op ${siteConfig.valetPhone.display}.`,
   },
   {
     question: 'Hoe laat moet ik aanwezig zijn?',
     answer:
-      'Wij adviseren om bij valet parkeren minimaal 2,5 uur voor vertrek aanwezig te zijn. De overdracht zelf duurt maar een paar minuten, maar u wilt daarna rustig kunnen inchecken.',
-  },
-  {
-    question: 'Wat gebeurt er met mijn autosleutel?',
-    answer:
-      'Uw sleutels worden opgeborgen in een brandwerende kluis op ons kantoor, dat onder camerabewaking staat. Bij terugkomst krijgt u ze weer persoonlijk overhandigd.',
-  },
-  {
-    question: 'Wordt de staat van mijn auto vastgelegd?',
-    answer:
-      'Ja. Voordat wij uw auto overnemen, wordt de staat ervan samen met u vastgelegd. Zo is voor beide partijen duidelijk hoe de auto is afgegeven, en dat is bij terugkomst het uitgangspunt.',
+      `Bel 30 minuten vóór aankomst op Schiphol op ${siteConfig.valetPhone.display}.`,
   },
   {
     question: 'Waar krijg ik mijn auto terug?',
-    answer: `${siteConfig.valetHandover.returnNote} Afgifte en teruggave gebeuren allebei bij de vertrekhal — u hoeft dus na de landing niet naar een aankomsthal of naar een parkeerterrein. Bel ons zodra u geland bent, dan staat de auto klaar wanneer u buiten komt.`,
-  },
-  {
-    question: 'Wie rijdt er in mijn auto?',
-    answer:
-      'Een van onze eigen chauffeurs. Zij rijden alleen de route tussen de vertrekhal en onze parkeerlocatie, en die ritten worden digitaal geregistreerd — inclusief de gereden snelheid.',
-  },
-  {
-    question: 'Hoeveel kilometer wordt er op mijn auto gereden?',
-    answer:
-      'Alleen de afstand tussen de vertrekhal en onze parkeerlocatie, heen en terug. De kilometerstand wordt bij afgifte en bij terugkomst genoteerd, dus dat is voor u te controleren.',
-  },
-  {
-    question: 'Kan ik bij aankomst betalen?',
-    answer:
-      'Bij valet parking kunt u bij aankomst afrekenen. Dat is een verschil met shuttle parkeren, waar u vooraf betaalt.',
+    answer: `${siteConfig.valetHandover.returnNote} Bel direct na de landing. Heeft u ruimbagage, bel dan opnieuw zodra u uw bagage heeft ontvangen. Bel ${siteConfig.valetPhone.display}.`,
   },
   {
     question: 'Wat als mijn vlucht vertraagd is?',
-    answer:
-      'Wij volgen de actuele vluchtinformatie en passen de ophaaltijd aan. Bij vertraging of een vervroegde landing staat uw auto op het aangepaste moment klaar. Bel ons wel direct na de landing.',
+    answer: `Bel direct na de landing op ${siteConfig.valetPhone.display}. Heeft u ruimbagage, bel dan opnieuw zodra u uw bagage heeft ontvangen.`,
   },
 ];
 
@@ -126,7 +95,7 @@ export default async function ValetParkingPage() {
       <PageHero
         eyebrow="Valet Parking"
         title="Valet parkeren bij Schiphol"
-        lead={`U boekt Valet parkeren bij The Parking Company. U draagt uw auto over bij de ${siteConfig.valetHandover.display}; onze chauffeur parkeert hem op onze locatie.`}
+        lead={`Bij Valet parkeren geeft u uw auto af bij de ${siteConfig.valetHandover.display}. Kies voor buiten of overdekt parkeren.`}
         photo="crewHandover"
         objectPosition="object-[center_40%]"
         crumbs={CRUMBS}
@@ -140,14 +109,28 @@ export default async function ValetParkingPage() {
         eyebrow="De overdracht"
         title="Wat er precies gebeurt bij de vertrekhal"
         paragraphs={[
-          `U rijdt naar de ${siteConfig.valetHandover.display}. Onze chauffeur staat daar op u te wachten en heeft uw gegevens al digitaal ontvangen: welke auto, welke vlucht, hoe laat u terugkomt.`,
-          'Samen loopt u langs de auto en wordt de staat ervan vastgelegd. Daarna neemt hij de sleutel over en tekent u voor de overdracht. Vanaf dat moment loopt u door naar de incheckbalie, en gaat uw auto naar onze beveiligde parkeerlocatie.',
-          'De rit ernaartoe is geen blinde vlek. Route, snelheid en duur worden digitaal geregistreerd, zodat achteraf inzichtelijk is wat er met uw auto is gebeurd — ook de terugrit, wanneer hij weer naar de Vertrekpassage wordt gebracht.',
+          `Bel 30 minuten vóór aankomst op ${siteConfig.valetPhone.display} en rijd naar de ${siteConfig.valetHandover.display}.`,
+          'U draagt uw auto over tussen Vertrekhal 2 en 3 en kunt daarna uw reis vervolgen. Uw auto wordt buiten of overdekt geparkeerd, afhankelijk van uw reservering.',
+          'Bij terugkomst belt u direct na de landing. Heeft u ruimbagage, bel dan opnieuw zodra u uw bagage heeft ontvangen. U krijgt uw auto terug tussen Vertrekhal 2 en 3.',
         ]}
         photo="crewTerminal"
         photoAlt="valet parking bij Schiphol vertrekhal"
         objectPosition="object-[center_30%]"
       >
+        <div className="border-line mt-5 border-t pt-5">
+          <p className="text-muted text-sm leading-relaxed">
+            Bel 30 minuten vóór aankomst en bij terugkomst direct na de landing. Met ruimbagage belt u
+            opnieuw zodra u de bagage heeft ontvangen.
+          </p>
+          <a
+            href={siteConfig.valetPhone.href}
+            className="text-heading hover:text-brand ease-settle mt-2 inline-flex min-h-11 items-center gap-2 text-sm font-medium transition-colors duration-(--duration-micro)"
+          >
+            <Phone className="text-accent size-4" aria-hidden />
+            <span className="sr-only">Bel voor Valet: </span>
+            <span className="numeric">{siteConfig.valetPhone.display}</span>
+          </a>
+        </div>
         <p className="text-muted mt-5 max-w-[52ch] text-sm leading-relaxed">
           Voor een aankomst of terugkomst tussen 00:00 en 07:00 geldt een nachttoeslag van €15.{' '}
           <a
@@ -157,9 +140,6 @@ export default async function ValetParkingPage() {
             Bekijk de voorwaarden en toeslagen
           </a>
         </p>
-        <Button href="/digitale-ritregistratie/" variant="link" className="mt-7">
-          Lees hoe wij iedere rit registreren
-        </Button>
       </ContentSection>
 
       {/* ---------- The process ---------- */}
@@ -192,41 +172,20 @@ export default async function ValetParkingPage() {
           around it — the wash does that without putting a fifth dark band on a
           page that already opens on one. Contrast on valet-100: navy-950
           heading 14.90:1, ink-700 body 8.44:1. Both AAA. */}
-      <Section tone="accent" spacing="md" aria-labelledby="ritregistratie-heading">
-        <Container>
-          <Reveal className="grid items-center gap-10 lg:grid-cols-[1fr_auto] lg:gap-16">
-            <div>
-              <Gauge className="text-accent-hover size-7" strokeWidth={1.75} aria-hidden />
-              <h2 id="ritregistratie-heading" className="text-display-sm mt-5 max-w-[24ch]">
-                Iedere valetrit wordt digitaal geregistreerd
-              </h2>
-              <p className="text-body mt-4 max-w-[58ch] leading-relaxed">
-                Tijdens iedere valetrit worden route, snelheid en duur digitaal vastgelegd. Zo is
-                achteraf informatie beschikbaar over de rit met uw auto.
-              </p>
-            </div>
-            <Button href="/digitale-ritregistratie/" variant="outline" size="lg">
-              Bekijk hoe dat werkt
-              <ArrowRight data-arrow className="size-4" aria-hidden />
-            </Button>
-          </Reveal>
-        </Container>
-      </Section>
-
       <ContentSection
         id="verschil"
         eyebrow="Valet of shuttle"
-        title="Wanneer valet parking de moeite waard is"
+        title="Buiten of overdekt parkeren met Valet"
         paragraphs={[
-          'Valet parking is de duurdere van onze twee services, en dat verschil koopt precies één ding: u hoeft niet naar een parkeerterrein. U rijdt tot de hal, stapt uit en loopt naar binnen.',
-          'Dat weegt het zwaarst als tijd of gemak op dat moment het meest waard is — een vroege zakenvlucht, kleine kinderen en veel bagage, of slecht ter been zijn. Reist u met meer tijd en let u op de kosten, dan is shuttle parkeren de logische keuze: u parkeert dan zelf en houdt uw sleutel.',
+          'Bij Valet geeft u uw auto af op Schiphol, tussen Vertrekhal 2 en 3. U kiest bij het reserveren voor buiten of overdekt parkeren.',
+          'Shuttle parkeren is de andere service: u parkeert buiten aan de Schipholweg 181 in Badhoevedorp en reist met de doorlopende shuttle naar Schiphol Plaza.',
         ]}
         bullets={[
-          'Uitstappen bij de vertrekhal, geen terrein en geen shuttle',
-          'Uw auto wordt door onze eigen chauffeur geparkeerd',
-          'Sleutels in een brandwerende kluis onder camerabewaking',
-          'Iedere rit digitaal geregistreerd, heen en terug',
-          'Bij valet kunt u bij aankomst afrekenen',
+          'Inleveren en ophalen tussen Vertrekhal 2 en 3',
+          'Keuze tussen buiten en overdekt parkeren',
+          'Bel 30 minuten vóór aankomst',
+          'Bel direct na de landing en nogmaals na ontvangst van ruimbagage',
+          `Valet-telefoon: ${siteConfig.valetPhone.display}`,
         ]}
         tone="canvas"
       >
@@ -261,7 +220,7 @@ export default async function ValetParkingPage() {
             serviceSchema({
               name: 'Valet Parking Schiphol',
               description:
-                'U rijdt naar de vertrekhal van Schiphol, waar onze chauffeur uw auto overneemt en op onze beveiligde locatie parkeert. Iedere rit wordt digitaal geregistreerd.',
+                'U geeft uw auto af tussen Vertrekhal 2 en 3. Valet parkeren is beschikbaar buiten en overdekt.',
               serviceType: 'Valet parking',
             }),
           ),

@@ -58,14 +58,6 @@ export function organizationSchema() {
       name: 'Amsterdam Airport Schiphol',
       iataCode: 'AMS',
     },
-    // Valet and shuttle operate around the clock — every departure and arrival
-    // slot has to be coverable, which is itself a selling point.
-    openingHoursSpecification: {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-      opens: '00:00',
-      closes: '23:59',
-    },
     currenciesAccepted: 'EUR',
     // Read from the one list rather than retyped — this used to name three
     // methods while the footer named four different ones. See config/site.ts.
@@ -89,7 +81,7 @@ export function organizationSchema() {
             '@type': 'Service',
             name: 'Valet Parkeren Schiphol',
             description:
-              'U rijdt naar de vertrekhal, wij nemen uw auto over en parkeren hem voor u.',
+              'Geef uw auto af tussen Vertrekhal 2 en 3 en kies tussen buiten of overdekt parkeren.',
           },
         },
         {

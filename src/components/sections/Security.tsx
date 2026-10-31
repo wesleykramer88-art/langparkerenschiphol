@@ -1,4 +1,4 @@
-import { ArrowRight, Award, Lock, PlugZap, Video, Warehouse, type LucideIcon } from 'lucide-react';
+import { ArrowRight, BusFront, CarFront, MapPin, Phone, Warehouse, type LucideIcon } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { Section } from '@/components/ui/Section';
 import { Eyebrow } from '@/components/ui/Eyebrow';
@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/Button';
 import { SectionTear } from '@/components/ui/Ticket';
 import { Photo } from '@/components/ui/Photo';
 import { Reveal, Stagger } from '@/components/motion/Reveal';
+import { siteConfig } from '@/config/site';
 
 /**
  * Security.
@@ -52,40 +53,29 @@ import { Reveal, Stagger } from '@/components/motion/Reveal';
 
 const MEASURES: readonly { icon: LucideIcon; label: string; body: string }[] = [
   {
-    icon: Video,
-    label: '24/7 camerabewaking',
-    body: 'Het terrein staat dag en nacht onder cameratoezicht. Dit betekent niet dat er permanent een fysieke bewaker aanwezig is.',
+    icon: MapPin,
+    label: 'Shuttle parkeren buiten',
+    body: `Schipholweg 181, ${siteConfig.shuttleParking.postalCode} ${siteConfig.shuttleParking.locality}.`,
   },
   {
-    icon: Lock,
-    label: 'Afgesloten parkeerterreinen',
-    body: 'Afgesloten en gecontroleerd. Geen vrije toegang.',
+    icon: BusFront,
+    label: 'Shuttle rijdt doorlopend',
+    body: `De transfer naar Schiphol duurt ongeveer ${siteConfig.shuttleParking.transferMinutes} minuten.`,
+  },
+  {
+    icon: Phone,
+    label: 'Terug met de shuttle',
+    body: 'Loop naar de vaste shuttlehalte op Schiphol Plaza. U hoeft bij terugkomst niet te bellen.',
+  },
+  {
+    icon: CarFront,
+    label: 'Valet afgeven',
+    body: `${siteConfig.valetHandover.display}.`,
   },
   {
     icon: Warehouse,
-    label: 'Overdekte parkeergarage',
-    body: 'Liever binnen? Beperkt aantal overdekte plaatsen.',
-  },
-  {
-    icon: Award,
-    label: 'Vakbekwame chauffeurs',
-    body: 'Rijdt er iemand in uw auto, dan is dat onze eigen chauffeur.',
-  },
-  {
-    // ── EV charging. Client, August 2026: a real differentiator he wants
-    // surfaced, and none of the competitors on this keyword mention it.
-    //
-    // The claim is deliberately thin: that it exists, and where. We have not
-    // been told how many chargers there are, what a charge costs, whether it
-    // has to be requested at booking, or which connector — and every one of
-    // those is the first thing an EV driver will ask. Stating any of them
-    // without knowing is how a customer arrives expecting a charged car.
-    // TODO(client): aantal laadpunten, kosten, en of het vooraf aangevraagd
-    // moet worden. Zodra we die hebben, verdient dit een eigen blok in plaats
-    // van één regel.
-    icon: PlugZap,
-    label: 'Elektrisch opladen',
-    body: 'Laadpunten op onze eigen parkeerlocatie, voor wie elektrisch rijdt.',
+    label: 'Valet buiten of overdekt',
+    body: 'Bij Valet kiest u tussen buiten parkeren en overdekt parkeren.',
   },
 ];
 
@@ -101,55 +91,31 @@ export function Security() {
       <Container className="relative">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <Reveal>
-            <Eyebrow rule>Toezicht op de parkeerlocatie</Eyebrow>
+            <Eyebrow rule>Parkeren bij Schiphol</Eyebrow>
             <h2 id="beveiliging-heading" className="text-display-lg mt-5 max-w-[18ch]">
-              Welke maatregelen er op het terrein zijn
+              Heldere afspraken voor Shuttle en Valet
             </h2>
             <p className="text-lead text-muted mt-6 max-w-[52ch]">
-              De parkeerlocatie is afgesloten en voorzien van camerabewaking. Bij Valet wordt ook de
-              rit met uw auto digitaal geregistreerd.
+              Parkeer buiten bij Shuttle of kies bij Valet voor buiten of overdekt parkeren. De
+              dienstverlening verschilt per service; hieronder ziet u waar u naartoe gaat en hoe de
+              terugreis werkt.
             </p>
 
-            {/* The one link out of this band, and it belongs here rather than
-                anywhere else on the homepage: this is the section that raises
-                the question "what happens to my car when I am not there", and
-                ride registration is the only answer on the site that is a
-                system rather than a claim. Valet-only, which the line says
-                rather than leaving a shuttle customer to click and find out. */}
-            <p className="text-muted mt-8 max-w-[52ch] text-sm leading-relaxed">
-              Alleen bij Valet parkeren wordt de rit met uw auto digitaal geregistreerd — route,
-              snelheid en duur.
-            </p>
-            <Button href="/digitale-ritregistratie/" variant="outline" className="mt-5">
-              Bekijk de digitale ritregistratie
+            <Button href="/reservering/" variant="outline" className="mt-8">
+              Bekijk beschikbaarheid
               <ArrowRight data-arrow className="size-4" aria-hidden />
             </Button>
           </Reveal>
 
-          {/* ── The EV frame, and why it took this slot ─────────────────────
-              This was `lotShuttle` — his terrain under the shuttle. It moved
-              aside for `evCharging` because the EV claim is the newest thing on
-              this band and was the only measure here with nothing behind it:
-              four of the five are states of a car park, which the terrain photo
-              showed adequately, while "elektrisch opladen" was an assertion.
-              Now it is a photograph of his own charger, his own garage and his
-              own staff member plugging in.
-
-              The terrain is not lost — it still carries /veilig-parkeren-
-              schiphol/, the shuttle page's hero and the samenwerken band.
-
-              The frame is 3:2 and this slot is 4:3, so the crop trims the
-              sides. object-[38%_50%] keeps the charge point and the connector —
-              the part that makes the point — inside the frame; centred, the
-              charger's left edge falls off. */}
+          {/* Use a service image instead of implying an extra parking add-on. */}
           <Reveal delay={80}>
             <div className="shadow-photo relative aspect-4/3 overflow-hidden rounded-xl">
               <Photo
-                name="evCharging"
+                name="lotShuttle"
                 fill
                 sizes="(min-width: 1024px) 34rem, 100vw"
                 className="absolute inset-0 h-full w-full"
-                imageClassName="object-cover object-[38%_50%]"
+                imageClassName="object-cover object-center"
               />
             </div>
           </Reveal>

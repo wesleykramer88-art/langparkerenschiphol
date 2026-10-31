@@ -40,13 +40,8 @@ const CRUMBS = [{ name: 'Shuttle parkeren Schiphol', path: PATH }];
  * This is the hub: it links down to the other four cluster pages, and they link
  * back up to it.
  *
- * ── Every claim here is already published somewhere on this site ────────────
- * ongeveer 8 minuten, sleutel meenemen bij shuttle, 24/7 camerabewaking, afgesloten
- * terrein, overdekt beperkt beschikbaar, annuleringsdekking als betaalde optie,
- * 3 uur voor vertrek aanwezig zijn. Nothing is invented for SEO. Where the
- * document asked for something this business has not stated — how often the
- * shuttle runs, what happens on a 03:00 return — the copy says what is true
- * without inventing a number, and a TODO(client) names the missing fact.
+ * The page describes the active outdoor Shuttle service and its confirmed
+ * location, transfer time, continuous shuttle and return procedure.
  */
 
 const STEPS: readonly TimelineStep[] = [
@@ -56,7 +51,7 @@ const STEPS: readonly TimelineStep[] = [
   },
   {
     title: 'Rijd naar de parkeerlocatie.',
-    body: 'U rijdt naar onze shuttleparkeerlocatie aan de Schipholweg 181 in Badhoevedorp, bij het ibis hotel. Dat is niet de terminal.',
+    body: 'U rijdt naar de shuttleparkeerlocatie aan de Schipholweg 181 in Badhoevedorp.',
   },
   {
     title: 'Parkeer zelf, sleutel mee.',
@@ -64,31 +59,31 @@ const STEPS: readonly TimelineStep[] = [
   },
   {
     title: 'Shuttle naar Schiphol Plaza.',
-    body: 'Onze shuttlebus zet u af bij de bushalte op Schiphol Plaza. De rit duurt ongeveer 8 minuten (alleen de rijtijd).',
+    body: 'De shuttle rijdt doorlopend en zet u af bij de bushalte op Schiphol Plaza. De rit duurt ongeveer 8 minuten.',
   },
   {
     title: 'Terug naar uw eigen auto.',
-    body: 'Na terugkomst loopt u naar dezelfde bushalte op Schiphol Plaza waar u bent afgezet. U hoeft niet te bellen: stap in wanneer de shuttlebus langskomt. De bus brengt u terug naar de parkeerlocatie, waar uw auto staat.',
+    body: 'Loop naar de vaste shuttlehalte op Schiphol Plaza. U hoeft niet te bellen; de shuttle brengt u terug naar de parkeerlocatie.',
   },
 ];
 
 /** Who it suits. The document asks for this section by name. */
 const SUITS = [
   {
-    title: 'Vakantiegangers die langer wegblijven',
-    body: 'Hoe langer u weg bent, hoe zwaarder de parkeerkosten wegen. Shuttle parkeren is de voordeligste van onze twee services en het verschil loopt op per dag.',
+    title: 'Reizigers die zelf willen parkeren',
+    body: 'Bij Shuttle parkeert u uw auto zelf buiten op de locatie in Badhoevedorp.',
   },
   {
-    title: 'Gezinnen met bagage',
-    body: 'U rijdt tot naast uw parkeerplek en laadt rustig uit. De shuttle zet u af bij de bushalte op Schiphol Plaza, dus u sjouwt niet verder dan nodig.',
+    title: 'Reizigers die met de shuttle willen reizen',
+    body: 'De shuttle rijdt doorlopend naar de vaste halte op Schiphol Plaza.',
   },
   {
-    title: 'Reizigers die hun sleutel houden',
-    body: 'Bij shuttle parkeren geeft u niets af. U parkeert zelf en uw autosleutel gaat mee in uw zak of tas.',
+    title: 'Reizigers die buiten willen parkeren',
+    body: 'Shuttle parkeren is beschikbaar op het buitenterrein.',
   },
   {
-    title: 'Prijsbewuste reizigers die geen risico willen',
-    body: 'Voordelig parkeren zonder in te leveren op het terrein: afgesloten, 24 uur per dag onder camerabewaking en met een vaste procedure.',
+    title: 'Reizigers die een korte transfer willen',
+    body: 'De shuttlerit naar Schiphol Plaza duurt ongeveer 8 minuten.',
   },
 ] as const;
 
@@ -106,22 +101,22 @@ const CONCERNS: readonly FaqItem[] = [
   {
     question: 'Moet ik lang wachten op de shuttle?',
     answer:
-      'De shuttle rijdt op uw reservering: wij weten wanneer u aankomt en stemmen daarop af. De rit duurt vervolgens ongeveer 8 minuten. Reken voor het geheel — parkeren, instappen en de rit — op ongeveer een kwartier, en houd daarnaast de normale tijd voor inchecken aan.',
+      'De shuttle rijdt doorlopend. De rit naar Schiphol Plaza duurt ongeveer 8 minuten.',
   },
   {
     question: 'Hoe gaat het met veel bagage?',
     answer:
-      'U parkeert zelf, dus u laadt uw bagage uit naast uw eigen auto en niet op een stoep. De shuttlebus is een personenbusje met ruimte voor koffers, en onze chauffeur helpt met in- en uitladen.',
+      'Bij Shuttle parkeert u zelf op de locatie in Badhoevedorp en reist u met de shuttle naar Schiphol Plaza.',
   },
   {
     question: 'Wat als ik midden in de nacht aankom of terugkom?',
     answer:
-      'Onze shuttleservice is 24 uur per dag beschikbaar, dus ook een vroege vlucht of een late landing is geen probleem. Geef uw werkelijke aankomst- en retourtijd op bij het reserveren, zodat wij daarop kunnen plannen. Bij terugkomst loopt u naar de bushalte op Schiphol Plaza en stapt u in wanneer de shuttlebus langskomt, ook als het laat is. Let op: voor een aankomst of terugkomst tussen 00:00 en 07:00 geldt een nachttoeslag van €15.',
+      'De shuttle rijdt doorlopend. Bij terugkomst loopt u naar de vaste shuttlehalte op Schiphol Plaza; u hoeft niet te bellen.',
   },
   {
     question: 'Wat gebeurt er als mijn vlucht vertraging heeft?',
     answer:
-      'Wij volgen de actuele vluchtinformatie en houden daar rekening mee. Bij vertraging of een vervroegde landing kunt u bij terugkomst gewoon met de shuttlebus terug. U loopt naar de bushalte op Schiphol Plaza en stapt in wanneer de shuttlebus langskomt.',
+      'Bij terugkomst loopt u naar de vaste shuttlehalte op Schiphol Plaza. U hoeft niet te bellen.',
   },
 ];
 
@@ -129,12 +124,12 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Hoe laat moet ik aanwezig zijn bij shuttle parkeren?',
     answer:
-      'Wij adviseren om bij shuttle parkeren minimaal 3 uur voor vertrek op onze parkeerlocatie te zijn. Zo heeft u ruim tijd om te parkeren, met de shuttle naar Schiphol te rijden en rustig in te checken.',
+      'De shuttlerit duurt ongeveer 8 minuten. Houd daarnaast rekening met de tijd die u nodig heeft om te parkeren, op de shuttle te wachten en in te checken.',
   },
   {
     question: 'Waar moet ik precies zijn?',
     answer:
-      'Bij onze shuttleparkeerlocatie aan de Schipholweg 181, 1171 PK Badhoevedorp (bij het ibis hotel). Dat is niet de terminal — bij shuttle parkeren rijdt u naar ons toe en brengen wij u naar Schiphol. Rijd dus niet eerst naar de vertrekhal.',
+      'Bij de shuttleparkeerlocatie aan de Schipholweg 181, 1171 PK Badhoevedorp.',
   },
   {
     question: 'Hoe lang duurt de rit naar Schiphol?',
@@ -144,7 +139,7 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Moet ik mijn autosleutel afgeven?',
     answer:
-      'Nee. Bij shuttle parkeren parkeert u uw auto zelf en neemt u uw autosleutel mee op reis. Alleen bij valet parking nemen wij uw auto over; dan worden uw sleutels bewaard in een brandwerende kluis op ons kantoor, dat onder camerabewaking staat.',
+      'Nee. Bij Shuttle parkeert u zelf en neemt u uw sleutel mee. Bij Valet geeft u uw auto af tussen Vertrekhal 2 en 3; daarbij kiest u tussen buiten of overdekt parkeren.',
   },
   {
     question: 'Waar stap ik uit op Schiphol?',
@@ -164,7 +159,7 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Staat mijn auto binnen of buiten?',
     answer:
-      'U kiest zelf. Wij hebben een afgesloten buitenterrein en een beperkt aantal overdekte plaatsen. Beide opties staan in het reserveringsscherm met hun eigen tarief, zodat u ze naast elkaar ziet voordat u kiest.',
+      'Shuttle parkeren is alleen beschikbaar op het buitenterrein. Overdekt parkeren wordt op dit moment uitsluitend aangeboden bij Valet parkeren.',
   },
 ];
 
@@ -176,7 +171,7 @@ export default async function ShuttleParkingPage() {
       <PageHero
         eyebrow="Shuttle Parkeren"
         title="Shuttle parkeren bij Schiphol"
-        lead={`U boekt Shuttle parkeren bij The Parking Company. U parkeert uw auto bij onze shuttleparkeerlocatie aan de ${siteConfig.shuttleParking.street} in ${siteConfig.shuttleParking.locality}. Vanaf hier brengt onze shuttlebus u in ongeveer ${siteConfig.shuttleParking.transferMinutes} minuten naar luchthaven Schiphol. U neemt uw sleutel mee.`}
+        lead={`Bij Shuttle parkeren parkeert u buiten aan de ${siteConfig.shuttleParking.street} in ${siteConfig.shuttleParking.locality}. De shuttle rijdt doorlopend naar Schiphol Plaza; de rit duurt ongeveer ${siteConfig.shuttleParking.transferMinutes} minuten. U neemt uw sleutel mee.`}
         photo="lotShuttle"
         objectPosition="object-[center_35%]"
         crumbs={CRUMBS}
@@ -192,9 +187,8 @@ export default async function ShuttleParkingPage() {
         eyebrow="Wat is shuttle parkeren?"
         title="Uw auto in Badhoevedorp, u met de bus naar Schiphol"
         paragraphs={[
-          'Shuttle parkeren betekent dat u niet op de luchthaven zelf parkeert, maar op een parkeerlocatie vlakbij. Parkeer uw auto bij onze shuttleparkeerlocatie aan de Schipholweg 181 in Badhoevedorp. Vanaf hier brengt onze shuttlebus u in ongeveer 8 minuten naar luchthaven Schiphol. Bij aankomst op Schiphol wordt u door onze shuttlebus afgezet bij de bushalte op Schiphol Plaza. Na uw reis loopt u naar dezelfde bushalte en stapt u in wanneer de shuttlebus langskomt. De bus brengt u terug naar uw auto.',
-          'Het verschil met parkeren op de luchthaven zit in de grond eronder. Parkeerplaatsen direct bij een terminal zijn schaars en duur, en dat verschil betaalt u per dag. Een parkeerlocatie op ongeveer 8 minuten rijden kost minder, en die paar minuten worden voor u gereden.',
-          'Het verschil met valet parking zit in wie er rijdt. Bij valet geeft u uw auto af bij de vertrekhal en parkeert onze chauffeur hem voor u. Bij shuttle parkeren doet u dat zelf en houdt u uw sleutel. Dat is voor veel reizigers precies de reden om hiervoor te kiezen.',
+          'Bij Shuttle parkeert u buiten aan de Schipholweg 181 in Badhoevedorp. De shuttle rijdt doorlopend naar de vaste halte op Schiphol Plaza; de rit duurt ongeveer 8 minuten. Bij terugkomst loopt u naar die halte. U hoeft niet te bellen.',
+          'Bij Valet geeft u uw auto af tussen Vertrekhal 2 en 3. Valet is beschikbaar met buiten of overdekt parkeren.',
         ]}
         photo="crewShuttleTerminal"
         photoAlt="shuttle parkeren bij Schiphol"
@@ -227,7 +221,7 @@ export default async function ShuttleParkingPage() {
               </h2>
             </div>
             <p className="text-muted max-w-[34ch] text-base lg:pb-2 lg:text-right">
-              In vijf eenvoudige stappen van reservering tot terugkomst. U parkeert zelf en reist met de shuttle van en naar Schiphol.
+              Parkeer buiten in Badhoevedorp en reis met de doorlopende shuttle naar Schiphol.
             </p>
           </Reveal>
 
@@ -241,8 +235,7 @@ export default async function ShuttleParkingPage() {
         title="Ongeveer 8 minuten naar Schiphol"
         paragraphs={[
           'De rit met de shuttlebus van onze parkeerlocatie in Badhoevedorp naar Schiphol duurt ongeveer 8 minuten. Dit is de geschatte rijtijd, niet de totale tijd; parkeren, instappen en eventuele wachttijd komen daar nog bij.',
-          'De shuttle rijdt op uw reservering. U geeft bij het boeken op wanneer u aankomt, zodat wij weten wanneer u er bent en daarop kunnen plannen. Voor de terugreis hoeft u niet te bellen: u loopt naar de bushalte op Schiphol Plaza en stapt in wanneer de shuttlebus langskomt.',
-          'Reken voor het hele proces op ongeveer een kwartier: parkeren, instappen, rijden en uitstappen. Wij adviseren om minimaal 3 uur voor vertrek op het terrein te zijn, zodat u daarna in alle rust kunt inchecken.',
+          'De shuttle rijdt doorlopend. Bij terugkomst loopt u naar de vaste shuttlehalte op Schiphol Plaza; u hoeft niet te bellen.',
         ]}
         photo="shuttleRoute"
         photoAlt="Routekaart van de parkeerplaats naar Schiphol"
@@ -288,40 +281,28 @@ export default async function ShuttleParkingPage() {
         items={CONCERNS}
         eyebrow="Waar reizigers over twijfelen"
         heading="De vragen die u stelt vóór u boekt"
-        lead="Wachten, bagage, en aankomen of terugkomen op een onmogelijk tijdstip — de vier dingen waar shuttle parkeren op wordt beoordeeld."
+        lead="Over de transfertijd, de route en terugkomst bij de vaste halte."
         schema={false}
       />
 
       <ContentSection
         id="veiligheid"
-        eyebrow="Het terrein"
-        title="Voordelig parkeren, zonder concessies aan het terrein"
+        eyebrow="De locatie"
+        title="Shuttle parkeren buiten in Badhoevedorp"
         paragraphs={[
-          'Voordelig parkeren wordt vaak verward met onbewaakt parkeren. Dat is bij ons niet aan de orde: het terrein is afgesloten, staat 24 uur per dag onder camerabewaking en wordt gemonitord.',
-          'Daarbij komt iets wat alleen voor deze service geldt. U parkeert zelf en houdt uw sleutel, dus uw auto blijft staan waar u hem heeft neergezet. Er is niemand die hem verplaatst en er ligt geen sleutel op kantoor.',
+          'U parkeert buiten aan de Schipholweg 181 in Badhoevedorp. De shuttle rijdt doorlopend naar de vaste halte op Schiphol Plaza; de rit duurt ongeveer 8 minuten.',
+          'Bij terugkomst loopt u naar die halte. U hoeft niet te bellen; de shuttle brengt u terug naar uw auto.',
         ]}
         bullets={[
-          'Afgesloten en gecontroleerd parkeerterrein',
-          '24/7 camerabewaking en monitoring',
-          'Overdekte plaatsen beschikbaar, in beperkt aantal',
-          'Laadpunten aanwezig voor elektrische auto\u2019s',
-          'U parkeert zelf en houdt uw autosleutel',
+          'Parkeerlocatie: Schipholweg 181, Badhoevedorp',
+          'Shuttle parkeren buiten',
+          'Doorlopende shuttle naar Schiphol Plaza',
+          'Ongeveer 8 minuten transfertijd',
+          'Geen telefoontje nodig bij terugkomst',
         ]}
-        // The EV frame carries this section rather than another shot of the
-        // terrain: the bullet list above is four states of a car park and one
-        // genuinely different thing, and the different thing is the one worth
-        // showing. It is also the only frame on this page taken INSIDE the
-        // covered garage, which the third bullet claims and nothing else here
-        // evidences.
-        //
-        // Not `reversed`, so it alternates against the reistijd section above
-        // it. object-[45%_50%] \u2014 a 3:2 frame into a 4:3 slot again; this
-        // placement can afford slightly more of the car on the right than the
-        // homepage band, because the charge point is not competing with a
-        // heading beside it.
-        photo="evCharging"
-        photoAlt="veilig shuttle parkeren Schiphol"
-        objectPosition="object-[45%_50%]"
+        photo="lotShuttle"
+        photoAlt="Shuttle parkeerlocatie in Badhoevedorp"
+        objectPosition="object-[center_35%]"
       >
         <Button href="/veilig-parkeren-schiphol/" variant="link" className="mt-7">
           Lees meer over veilig parkeren bij Schiphol

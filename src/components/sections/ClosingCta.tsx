@@ -62,14 +62,14 @@ import type { NotchColor } from '@/components/ui/Ticket';
  */
 
 const REASSURANCES = [
-  'Flexibel annuleren tot 24 uur voor aankomst met annuleringsdekking',
-  'Binnen 2 minuten geregeld',
-  '24/7 bewaakte parkeerlocatie',
+  'Shuttle parkeren buiten; Valet buiten of overdekt',
+  'Shuttletransfertijd ongeveer 8 minuten',
+  'Valet afgeven tussen Vertrekhal 2 en 3',
 ] as const;
 
 export function ClosingCta({
   heading = 'Begin uw reis ontspannen',
-  lead = 'Kies zekerheid, snelheid en gemak. Reserveer vandaag nog uw parkeerplaats bij Schiphol.',
+  lead = 'Kies Shuttle parkeren of Valet parkeren en bekijk de actuele beschikbaarheid bij Schiphol.',
   photo = 'crewHandover',
   photoAlt = '',
   photoAspect = 'wide',
@@ -79,9 +79,8 @@ export function ClosingCta({
    * Where the primary button goes, and what it says.
    *
    * The two service landing pages carry their service into the booking flow —
-   * /reservering/?service=shuttle opens narrowed to that service's two products
-   * instead of all four. A page that has spent itself arguing for ONE service
-   * should not hand the visitor a form offering both again.
+   * /reservering/?service=shuttle opens narrowed to the active Shuttle product.
+   * A page about one service should not offer unavailable variants.
    */
   bookingHref = '/reservering/',
   bookingLabel = 'Reserveer nu',

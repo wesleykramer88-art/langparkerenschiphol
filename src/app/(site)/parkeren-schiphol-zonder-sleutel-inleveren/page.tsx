@@ -1,4 +1,5 @@
 import { KeyRound } from 'lucide-react';
+import { siteConfig } from '@/config/site';
 import { createMetadata } from '@/lib/seo';
 import { jsonLd, breadcrumbSchema, type FaqItem } from '@/lib/schema';
 import { Container } from '@/components/ui/Container';
@@ -57,24 +58,24 @@ const FAQS: readonly FaqItem[] = [
       'Ja, die twee horen bij elkaar. Uw sleutel meenemen kan omdat u zelf parkeert. Kiest u voor valet parking, dan neemt onze chauffeur uw auto over en is de sleutel dus nodig.',
   },
   {
-    question: 'Wat gebeurt er met mijn sleutel als ik wél valet kies?',
+    question: 'Hoe werkt Valet parkeren?',
     answer:
-      'Dan worden uw sleutels bewaard in een brandwerende kluis op ons kantoor, dat is voorzien van camerabewaking. Bij terugkomst krijgt u ze persoonlijk terug.',
+      `U geeft uw auto af tussen Vertrekhal 2 en 3. Valet is beschikbaar buiten of overdekt. Bel 30 minuten vóór aankomst op ${siteConfig.valetPhone.display}.`,
   },
   {
     question: 'Wat als ik maar één sleutel heb?',
     answer:
-      'Bij shuttle parkeren maakt dat niets uit: u houdt hem zelf. Bij valet parking geeft u de sleutel af die nodig is om de auto te verplaatsen; een reservesleutel hoeft u niet mee te nemen.',
+      'Bij Shuttle parkeert u zelf en neemt u uw autosleutel mee. Vraag bij andere vragen over Valet contact op met de klantenservice.',
   },
   {
     question: 'Hoe kom ik bij mijn auto als ik terugkom?',
     answer:
-      'Bel ons zodra u geland bent en door de bagagehal bent. U keert terug naar dezelfde bushalte op Schiphol Plaza waar u bent uitgestapt. Daar haalt onze shuttlebus u weer op en brengt u terug naar uw auto. Bij uw auto rijdt u weg met uw eigen sleutel.',
+      'Loop naar de vaste shuttlehalte op Schiphol Plaza. U hoeft niet te bellen; de shuttle brengt u terug naar uw auto.',
   },
   {
     question: 'Staat mijn auto veilig als ik de sleutel meeneem?',
     answer:
-      'Het terrein is afgesloten en staat 24 uur per dag onder camerabewaking, ongeacht welke service u kiest. Dat u de sleutel meeneemt, komt daar bovenop.',
+      'Bij Shuttle parkeert u uw auto zelf buiten aan de Schipholweg 181 in Badhoevedorp. De shuttle brengt u naar Schiphol Plaza.',
   },
 ];
 
@@ -110,10 +111,9 @@ export default function KeepKeysPage() {
             </h2>
             <p className="text-body mt-4 leading-relaxed">
               Bij <strong className="text-heading font-semibold">shuttle parkeren</strong> houdt u
-              uw sleutel. U parkeert zelf, u geeft niets af en uw auto blijft staan waar u hem
-              neerzet. Bij <strong className="text-heading font-semibold">valet parking</strong>{' '}
-              geeft u de sleutel wél af — onze chauffeur moet de auto immers kunnen verplaatsen — en
-              wordt hij bewaard in een brandwerende kluis op ons kantoor, onder camerabewaking.
+              uw sleutel. U parkeert zelf buiten aan de Schipholweg 181 in Badhoevedorp. Bij{' '}
+              <strong className="text-heading font-semibold">Valet parkeren</strong> geeft u uw auto
+              af tussen Vertrekhal 2 en 3 en kiest u tussen buiten of overdekt parkeren.
             </p>
           </Reveal>
         </Container>
@@ -124,15 +124,14 @@ export default function KeepKeysPage() {
         eyebrow="Waarom het uitmaakt"
         title="Uw sleutel houden is een kwestie van controle"
         paragraphs={[
-          'Voor veel reizigers is het afgeven van een autosleutel het enige onprettige moment van het hele parkeerproces. Niet omdat ze verwachten dat er iets misgaat, maar omdat ze op dat moment niets meer in de hand hebben — en dat gevoel gaat mee het vliegtuig in.',
-          'Zelf parkeren neemt dat weg. U rijdt het terrein op, kiest niets ingewikkelds, zet de auto neer en loopt weg met uw sleutel op zak. Wat u achterlaat is een geparkeerde auto, precies zoals u die zelf ergens anders ook zou achterlaten.',
-          'Dat is ook praktisch merkbaar. Er is niemand die uw auto verplaatst, er ligt geen sleutel op een kantoor, en er is geen tweede overdracht nodig als u terugkomt: u loopt naar uw auto en rijdt weg.',
+          'Bij Shuttle parkeert u uw auto zelf buiten aan de Schipholweg 181 in Badhoevedorp en neemt u uw sleutel mee.',
+          'Bij terugkomst loopt u naar de vaste shuttlehalte op Schiphol Plaza. U hoeft niet te bellen; de shuttle brengt u terug naar uw auto.',
         ]}
         bullets={[
-          'U geeft niets af en tekent niets over',
-          'Uw auto blijft staan waar u hem heeft neergezet',
-          'Geen sleuteloverdracht bij terugkomst',
-          'Op een afgesloten terrein met 24/7 camerabewaking',
+          'Parkeerlocatie: Schipholweg 181, Badhoevedorp',
+          'Parkeer uw auto zelf buiten',
+          'Neem uw autosleutel mee',
+          'Geen telefoontje nodig bij terugkomst',
         ]}
         photo="crewShuttleTerminal"
         objectPosition="object-[center_45%]"
@@ -143,9 +142,9 @@ export default function KeepKeysPage() {
         eyebrow="Het verschil"
         title="Zelf parkeren met sleutel, of valet met sleuteloverdracht"
         paragraphs={[
-          'Wij bieden twee services aan en ze verschillen precies op dit punt. Het is de moeite waard om ze naast elkaar te zien, want de goedkoopste van de twee is toevallig ook de service waarbij u niets afgeeft.',
+          'Wij bieden Shuttle parkeren buiten en Valet parkeren buiten of overdekt aan.',
           'Bij shuttle parkeren rijdt u naar onze shuttleparkeerlocatie aan de Schipholweg 181 in Badhoevedorp, parkeert u zelf en neemt u uw sleutel mee. De shuttlerit naar Schiphol duurt ongeveer 8 minuten.',
-          'Bij valet parking rijdt u tot de vertrekhal en neemt onze chauffeur de auto van u over. Daarvoor is de sleutel nodig. Hij wordt daarna opgeborgen in een brandwerende kluis op ons kantoor, dat onder camerabewaking staat, en u krijgt hem bij terugkomst persoonlijk terug. Iedere valetrit wordt bovendien digitaal geregistreerd.',
+          `Bij Valet geeft u uw auto af tussen Vertrekhal 2 en 3. Bel 30 minuten vóór aankomst op ${siteConfig.valetPhone.display}; bij terugkomst belt u direct na de landing en nogmaals zodra u uw ruimbagage heeft ontvangen.`,
         ]}
         reversed
         tone="surface"
@@ -154,8 +153,8 @@ export default function KeepKeysPage() {
           <Button href="/shuttle-parkeren-schiphol/" variant="outline">
             Shuttle: sleutel mee
           </Button>
-          <Button href="/digitale-ritregistratie/" variant="outline">
-            Valet: iedere rit geregistreerd
+          <Button href="/valet-parking-schiphol/" variant="outline">
+            Meer over Valet parkeren
           </Button>
         </div>
       </ContentSection>
@@ -166,8 +165,8 @@ export default function KeepKeysPage() {
         title="Hoe het op de dag zelf gaat"
         paragraphs={[
           'U rijdt naar onze shuttleparkeerlocatie aan de Schipholweg 181 in Badhoevedorp. Let op dat dit niet de terminal is — bij shuttle parkeren komt u eerst naar ons, en brengen wij u daarna naar Schiphol.',
-          'Op het terrein wordt u ontvangen en krijgt u een plek aangewezen. U parkeert zelf, laadt uw bagage uit naast uw eigen auto en stapt in de shuttlebus. Uw sleutel houdt u bij u.',
-          'Na de landing belt u ons zodra u door de bagagehal bent. U keert terug naar dezelfde bushalte op Schiphol Plaza waar u bent uitgestapt. Daar haalt onze shuttlebus u weer op en brengt u terug naar uw auto. Bij uw auto opent u hem met uw eigen sleutel en rijdt u naar huis.',
+          'U parkeert uw auto zelf buiten, neemt uw sleutel mee en reist met de shuttle naar Schiphol Plaza. De transfertijd is ongeveer 8 minuten.',
+          'Bij terugkomst loopt u naar de vaste shuttlehalte op Schiphol Plaza. U hoeft niet te bellen; de shuttle brengt u terug naar uw auto.',
         ]}
       >
         <Button href="/zelf-parkeren-schiphol/" variant="link" className="mt-7">

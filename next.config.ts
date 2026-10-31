@@ -271,6 +271,11 @@ const nextConfig: NextConfig = {
       { source: '/old-samenwerken/', destination: '/samenwerken/', permanent: true },
       { source: '/contact-us/', destination: '/contact/', permanent: true },
       { source: '/reserveren/', destination: '/reservering/', permanent: true },
+      {
+        source: '/digitale-ritregistratie/',
+        destination: '/valet-parking-schiphol/',
+        permanent: true,
+      },
 
       /**
        * The rest of the WordPress site, recovered from the Wayback Machine on
