@@ -82,6 +82,8 @@ function toAmount(input: unknown): number | null {
     normalised = cleaned.replace(/,/g, '');
   }
 
+  if (!/^\d+(?:\.\d+)?$/.test(normalised)) return null;
+
   const value = Number.parseFloat(normalised);
   return Number.isFinite(value) && value > 0 ? value : null;
 }
