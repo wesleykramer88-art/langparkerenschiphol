@@ -14,11 +14,12 @@ import { clearPendingBooking, readPendingBooking, trackPurchase } from '@/lib/an
  * towards traffic that abandons at iDEAL.
  *
  * ── The two ways a visitor gets here ────────────────────────────────────────
- *   1. ONLINE PAYMENT — nearly all bookings. ParkingPro redirects here after
- *      the provider settles and appends `reservationCode` and `totalWithTax`.
- *      They confirmed on 2026-08-06 that `reservationAdded` is NOT emitted on
- *      this path, so the query string is the only evidence we get. Both values
- *      arrive as props, read and bounded on the server.
+ *   1. ONLINE PAYMENT — nearly all bookings. ParkingPro is expected to redirect
+ *      here with `reservationCode` and `totalWithTax`. They confirmed on
+ *      2026-08-06 that `reservationAdded` is NOT emitted on this path, so the
+ *      query string is the only evidence available to this browser. These
+ *      visitor-editable parameters do not independently prove payment succeeded.
+ *      Both values arrive as props, read and bounded on the server.
  *
  *   2. A reservation made WITHOUT the online payment flow. `reservationAdded`
  *      does fire there, so ParkingProFrame stashed the value and pushed us here
@@ -87,7 +88,6 @@ export function PurchaseReporter({
     trackPurchase({
       transactionId: reference ?? pending?.reference ?? null,
       value: urlValue ?? (sameBooking ? (pending?.value ?? null) : null),
-      currency: pending?.currency,
       source: fromOnlinePayment ? 'online-payment' : 'in-frame',
     });
 
