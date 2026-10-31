@@ -20,7 +20,7 @@ import { fromIso } from '@/lib/date';
  *     onto somebody else's server.
  *
  * ── What it returns ────────────────────────────────────────────────────────
- * Both outdoor and covered prices for the chosen service, each from ParkingPro's
+ * Prices for the chosen service's active products, each from ParkingPro's
  * /api/widget/price endpoint with the exact locationId. An entry is omitted from
  * the response when ParkingPro marks it unavailable or returns no valid price.
  *

@@ -19,7 +19,7 @@ const CRUMBS = [{ name: 'Contact', path: '/contact/' }];
  * /contact/
  *
  * ── Two locations, both labelled ───────────────────────────────────────────
- * Shuttle parks at Schipholweg 181 (Badhoevedorp, ibis hotel); valet hands
+ * Shuttle parks at Schipholweg 181 in Badhoevedorp; valet hands
  * over at the Vertrekpassage in the terminal itself. Both are published here,
  * each labelled with what happens there, because a customer who drives to the
  * wrong one misses their flight. Neither is presented as a registered
@@ -55,8 +55,8 @@ export default function ContactPage() {
                 Direct contact
               </h2>
               <p className="text-muted mt-4 max-w-[42ch] text-sm leading-relaxed">
-                Lang Parkeren Schiphol is een merk van The Parking Company. Hieronder ziet u waar u
-                terechtkunt voor Shuttle parkeren en waar de Valet-overdracht plaatsvindt.
+                Hieronder ziet u waar u terechtkunt voor Shuttle parkeren en waar de
+                Valet-overdracht plaatsvindt.
               </p>
 
               <dl className="divide-line border-line mt-9 divide-y border-y">
@@ -137,9 +137,9 @@ export default function ContactPage() {
                       </address>
                     </dd>
                     <p className="text-muted mt-2 max-w-[34ch] text-sm leading-relaxed">
-                      Parkeerlocatie bij het ibis hotel. Hier parkeert u zelf; de shuttlebus rijdt u in
-                      ongeveer 8 minuten naar de bushalte op Schiphol Plaza, en haalt u daar bij
-                      terugkomst weer op.
+                      Hier parkeert u zelf buiten. De shuttle rijdt doorlopend naar de vaste halte op
+                      Schiphol Plaza; de transfertijd is ongeveer 8 minuten. Bij terugkomst hoeft u
+                      niet te bellen.
                     </p>
                     <div className="mt-3">
                       <RouteButton />
@@ -163,7 +163,10 @@ export default function ContactPage() {
                       </address>
                     </dd>
                     <p className="text-muted mt-2 max-w-[34ch] text-sm leading-relaxed">
-                      Hier neemt onze chauffeur uw auto over, bij de vertrekhal van Schiphol zelf.
+                      Geef uw auto af en haal hem terug tussen Vertrekhal 2 en 3. Bel 30 minuten vóór
+                      aankomst, direct na de landing en nogmaals zodra u uw ruimbagage heeft ontvangen.
+                      <br />
+                      Valet-telefoon: <a href={siteConfig.valetPhone.href}>{siteConfig.valetPhone.display}</a>
                     </p>
                   </div>
                 </div>

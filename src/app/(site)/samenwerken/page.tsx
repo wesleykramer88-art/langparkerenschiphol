@@ -69,28 +69,28 @@ const CRUMBS = [{ name: 'Reisbureaus', path: '/samenwerken/' }];
 const REASONS: readonly { icon: LucideIcon; title: string; body: string }[] = [
   {
     icon: Building2,
-    title: 'Gevestigde parkeerservice bij Schiphol',
-    body: 'Uw klanten komen terecht bij een gevestigde parkeerservice die dagelijks bij de vertrekhal rijdt — niet bij een tussenpersoon die het werk doorzet.',
+    title: 'Twee parkeerdiensten',
+    body: 'Klanten kunnen kiezen tussen Shuttle parkeren buiten en Valet parkeren buiten of overdekt.',
   },
   {
     icon: ShieldCheck,
-    title: 'Beveiligde, afgesloten locaties',
-    body: 'Afgesloten en gecontroleerde parkeerterreinen met 24/7 camerabewaking, en de mogelijkheid tot overdekt parkeren.',
+    title: 'Shuttlelocatie in Badhoevedorp',
+    body: 'Shuttle parkeren vindt plaats buiten aan de Schipholweg 181 in Badhoevedorp.',
   },
   {
     icon: SquareUser,
-    title: 'Gescreende chauffeurs',
-    body: 'Onze chauffeurs zijn gescreend en ervaren. Iedere rit wordt digitaal geregistreerd, inclusief snelheid en route.',
+    title: 'Valet bij de vertrekhallen',
+    body: 'Valet-klanten geven hun auto af tussen Vertrekhal 2 en 3 en bellen volgens de aankomst- en terugkomstinstructies.',
   },
   {
     icon: Handshake,
     title: 'Twee services, één partner',
-    body: 'Valet parking bij de vertrekhal voor wie haast heeft, shuttle parking voor wie voordeliger uit wil zijn. U maakt met ons één afspraak voor beide.',
+    body: 'Shuttle brengt reizigers vanaf Badhoevedorp naar Schiphol Plaza; Valet haalt de auto op bij Schiphol.',
   },
   {
     icon: Wallet,
-    title: 'Wij doen de volledige afhandeling',
-    body: 'Van reservering tot terugkomst van de auto. Uw klant boekt via u, wij nemen het daarna over — u heeft er geen omkijken naar.',
+    title: 'Samenwerkingsinformatie',
+    body: 'Neem contact op om de voorwaarden en werkwijze van een mogelijke samenwerking te bespreken.',
   },
 ];
 

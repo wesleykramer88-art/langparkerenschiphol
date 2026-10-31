@@ -13,9 +13,7 @@ import { reviews } from '@/content/reviews';
  * backwards: anyone already persuaded has left, and anyone not persuaded is
  * closed at and then shown proof with nothing left to click.
  *
- * Three quotes, rendered once. The live site loops them through a carousel to
- * fill space, which shows the same three people twice and reads as padding — it
- * undermines the proof rather than multiplying it.
+ * The section is omitted when no reviews have a verifiable source.
  *
  * The layout is deliberately asymmetric: the heading anchors a sticky left
  * column and the quotes run down the right as hairline-separated entries rather
@@ -33,11 +31,11 @@ import { reviews } from '@/content/reviews';
  * the EU Omnibus rules an unverified average review score is an unfair
  * commercial practice, and the fine is calculated on turnover.
  *
- * What replaces the score is the one thing a hesitant reader actually wants —
- * a way to read more of them — and a sentence saying plainly what these three
- * are. See src/content/testimonials.ts.
+ * Do not present testimonials or scores without a verifiable source.
  */
 export function Testimonials() {
+  if (reviews.length === 0) return null;
+
   return (
     <Section tone="surface" spacing="lg" aria-labelledby="reviews-heading">
       <Container>

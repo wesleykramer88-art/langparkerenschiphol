@@ -40,7 +40,7 @@ export type ServiceSlug = (typeof serviceSlugs)[number];
 
 /**
  * Whether the visitor chose covered (overdekt) or outdoor (buiten) parking.
- * Null means no choice has been made yet — both options are shown.
+ * Null means no choice has been made yet — the active options are shown.
  */
 export type CoveredChoice = boolean | null;
 
@@ -50,35 +50,23 @@ export const SERVICE_BY_SLUG: Record<ServiceSlug, ServiceTypeValue> = {
 };
 
 /**
- * Both products of a service: outdoor and covered.
+ * The products currently available for a service.
  *
- * The hero asks for the SERVICE, not the product. Outdoor versus covered is a
- * price trade-off, and the place to make a price trade-off is the booking flow,
- * where both numbers are on screen together — not a radio button on a
- * photograph, before the visitor knows what either costs.
+ * The hero asks for the SERVICE, not the product. Shuttle has one active
+ * product; Valet offers outdoor and covered parking, with both prices shown
+ * together in the booking flow.
  *
- * ── Why no `locationId` is preselected ──────────────────────────────────────
- * The obvious thing is to preselect the cheaper of the pair. We do not, because
- * on this instance we cannot say which that is, and the live prices are strange
- * enough that guessing would be steering:
+ * Shuttle-covered remains in LOCATIONS for historical data and future
+ * reactivation, but is deliberately absent from public selection and pricing.
  *
- *   14–21 Aug 2026    shuttle buiten € 201,49   shuttle overdekt € 211,49
- *                     valet   buiten € 361,49   valet   overdekt € 182,48
- *
- * Shuttle behaves as expected — covered costs ten euro more. Valet does not:
- * outdoor is consistently about €184 MORE than covered, across every date range
- * checked. Either LPS-V's rate list is misconfigured or it means something we
- * have not been told, and it is flagged in the handover for the client to check.
- *
- * Until it is answered, `showLocations` narrows the flow to the chosen service's
- * two products and lets the visitor pick with both prices in front of them.
- * That is correct whichever way the answer goes, and it cannot push somebody
- * onto a €361 product when a €182 one is sitting beside it.
+ * When Valet is chosen without an outdoor/covered selection, `showLocations`
+ * narrows the booking flow to its two active products. Shuttle always resolves
+ * to its outdoor location.
  */
 export function locationsFor(slug: ServiceSlug): readonly ParkingLocation[] {
   return slug === 'valet'
     ? [LOCATIONS.valetOutdoor, LOCATIONS.valetCovered]
-    : [LOCATIONS.shuttleOutdoor, LOCATIONS.shuttleCovered];
+    : [LOCATIONS.shuttleOutdoor];
 }
 
 /** Ids only, for `showLocations`. */
@@ -89,8 +77,8 @@ export function locationChoicesFor(slug: ServiceSlug): readonly string[] {
 /**
  * Resolve the exact ParkingPro location for a service + covered combination.
  *
- * Returns null when `covered` is null (no choice made yet) — callers fall back
- * to `showLocations` to let the visitor pick inside the flow.
+ * Returns null when `covered` is null or the requested product is unavailable.
+ * Callers then restrict the flow to that service's active products.
  */
 export function locationFor(slug: ServiceSlug, covered: boolean | null): ParkingLocation | null {
   if (covered === null) return null;

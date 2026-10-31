@@ -96,7 +96,7 @@ const REASSURANCES: readonly { icon: LucideIcon; title: string; body: string }[]
   {
     icon: Phone,
     title: 'Vertraging of vervroegde landing?',
-    body: 'Wij volgen uw vlucht en passen de ophaaltijd aan. Bel ons direct na de landing op Schiphol.',
+    body: `Bij Valet belt u direct na de landing op ${siteConfig.valetPhone.display}; met ruimbagage belt u opnieuw na ontvangst. Bij Shuttle loopt u naar de vaste halte en hoeft u niet te bellen.`,
   },
 ];
 
@@ -158,7 +158,13 @@ export default async function BookingPage({
 
               <div className="border-line bg-canvas mb-4 border-l-2 border-accent px-4 py-3 text-sm leading-relaxed">
                 <p className="text-heading font-semibold">
-                  U boekt bij The Parking Company, het bedrijf achter Lang Parkeren Schiphol.
+                  De contractspartij is {siteConfig.legal.entity} (KvK {siteConfig.legal.kvk}).{' '}
+                  <a
+                    href="/algemene-voorwaarden/"
+                    className="text-accent underline underline-offset-2 hover:text-accent-hover"
+                  >
+                    Bekijk de algemene voorwaarden.
+                  </a>
                 </p>
                 <p className="text-heading mt-1">
                   {selection.service
@@ -168,11 +174,21 @@ export default async function BookingPage({
                 <ul className="text-muted mt-2 space-y-1">
                   <li>
                     <strong className="text-heading">Shuttle:</strong> u parkeert zelf aan de{' '}
-                    {siteConfig.shuttleParking.display} en reist met de shuttle naar de bushalte op Schiphol Plaza.
+                    {siteConfig.shuttleParking.display}. De shuttle rijdt doorlopend; de rit naar de
+                    vaste halte op Schiphol Plaza duurt ongeveer 8 minuten. Bij terugkomst hoeft u
+                    niet te bellen.
                   </li>
                   <li>
                     <strong className="text-heading">Valet:</strong> u draagt uw auto over bij de{' '}
-                    {siteConfig.valetHandover.display}; onze chauffeur parkeert hem op onze locatie.
+                    {siteConfig.valetHandover.display}. Bel 30 minuten vóór aankomst op{' '}
+                    <a
+                      href={siteConfig.valetPhone.href}
+                      className="numeric text-accent underline underline-offset-2 hover:text-accent-hover"
+                    >
+                      {siteConfig.valetPhone.display}
+                    </a>
+                    . Bij terugkomst belt u direct na de landing; met ruimbagage belt u opnieuw zodra
+                    u die heeft ontvangen.
                   </li>
                 </ul>
                 <p className="text-muted mt-2">

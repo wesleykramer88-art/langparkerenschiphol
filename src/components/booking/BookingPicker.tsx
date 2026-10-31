@@ -2,7 +2,7 @@
 
 import { useId, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowRight, Wallet } from 'lucide-react';
+import { ArrowRight, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { DateField } from '@/components/ui/DateField';
 import { TimeField } from '@/components/ui/TimeField';
@@ -17,6 +17,7 @@ import {
   type ServiceSlug,
 } from '@/lib/booking';
 import { SERVICE_COPY } from '@/config/services';
+import { siteConfig } from '@/config/site';
 import { isBefore, isoToShortLabel } from '@/lib/date';
 import { DEFAULT_BOUNDS, type PickerBounds } from '@/lib/parkingpro-config';
 import { formatPrice, useLivePrices, type LivePriceEntry } from '@/hooks/useLivePrice';
@@ -45,7 +46,9 @@ import { cn } from '@/lib/cn';
  * place — see src/lib/booking.ts.
  *
  * ── Why the service choice is here ──────────────────────────────────────────
- * ParkingPro sells four products: shuttle and valet, each outdoor or covered.
+ * The active product choice differs by service: shuttle is outdoor-only, while
+ * valet can be booked outdoors or covered. The unavailable shuttle-covered
+ * product remains in the integration config but is not exposed here.
  * The service is the real decision and it changes the rules — valet cannot be
  * booked less than an hour ahead, shuttle can be booked for right now — so it
  * has to be made before the times are validated.
@@ -148,8 +151,13 @@ export function BookingPicker({
   // Price for whichever product the visitor has actively selected.
   // null while no selection is made (covered === null) or prices haven't
   // arrived yet — the CTA falls back to "Bekijk mijn prijs" in that case.
+  const selectedCovered = values.service === 'shuttle' ? false : covered;
   const selectedPrice: LivePriceEntry | null =
-    covered === null ? null : covered ? (prices?.covered ?? null) : (prices?.outdoor ?? null);
+    selectedCovered === null
+      ? null
+      : selectedCovered
+        ? (prices?.covered ?? null)
+        : (prices?.outdoor ?? null);
 
   const setField = <K extends keyof BookingSelection>(key: K, value: BookingSelection[K]) => {
     setValues((current) => {
@@ -203,10 +211,9 @@ export function BookingPicker({
 
     setSubmitting(true);
     const params = new URLSearchParams(result.data);
-    // Pass the covered choice so /reservering/ can prefill the exact locationId.
-    // Absent means no choice was made; parseSelectionParams treats that as null
-    // and falls back to showLocations, which is backward-compatible.
-    if (covered !== null) params.set('covered', String(covered));
+    // Shuttle has one active product, so always preselect its outdoor location.
+    // Valet keeps the visitor's choice optional and shows its two active products.
+    if (selectedCovered !== null) params.set('covered', String(selectedCovered));
     router.push(`/reservering/?${params.toString()}`);
   };
 
@@ -308,12 +315,13 @@ export function BookingPicker({
             />
           </fieldset>
 
-          {/* ---------- Product cards (Buiten / Overdekt) ----------
+          {/* ---------- Active product cards ----------
               Shown once the visitor has entered both dates. The cards load their
               prices from ParkingPro in the background; while waiting they render
               without a price and become selectable the moment a number arrives.
               A product that ParkingPro marks unavailable is shown greyed out and
-              cannot be selected.
+              cannot be selected. Shuttle has only an outdoor option; valet has
+              both outdoor and covered options.
 
               NOTE — Valet Buiten pricing anomaly:
               Valet outdoor (LPS-V) is currently priced ~€184 ABOVE valet
@@ -325,23 +333,30 @@ export function BookingPicker({
           {nights ? (
             <div className="mt-4 sm:mt-5">
               <p className="eyebrow text-muted mb-2.5">Parkeeroptie</p>
-              <div className="grid grid-cols-2 gap-2">
-                <ProductCard
-                  label="Buiten"
-                  description="Afgesloten buitenterrein"
-                  price={prices?.outdoor ?? null}
-                  loading={prices === null}
-                  active={covered === false}
-                  onSelect={() => setCovered(false)}
-                />
-                <ProductCard
-                  label="Overdekt"
-                  description="Droog en beschermd"
-                  price={prices?.covered ?? null}
-                  loading={prices === null}
-                  active={covered === true}
-                  onSelect={() => setCovered(true)}
-                />
+              <div className={cn('grid gap-2', values.service === 'valet' ? 'grid-cols-2' : 'grid-cols-1')}>
+                {(values.service === 'valet'
+                  ? [
+                      { covered: false, label: 'Buiten', description: 'Auto buiten geparkeerd' },
+                      { covered: true, label: 'Overdekt', description: 'Auto overdekt geparkeerd' },
+                    ]
+                  : [
+                      {
+                        covered: false,
+                        label: 'Buiten',
+                        description: 'Shuttle rijdt doorlopend',
+                      },
+                    ]
+                ).map((option) => (
+                  <ProductCard
+                    key={option.label}
+                    label={option.label}
+                    description={option.description}
+                    price={option.covered ? (prices?.covered ?? null) : (prices?.outdoor ?? null)}
+                    loading={prices === null}
+                    active={selectedCovered === option.covered}
+                    onSelect={() => setCovered(option.covered)}
+                  />
+                ))}
               </div>
             </div>
           ) : null}
@@ -450,15 +465,12 @@ export function BookingPicker({
                 </span>
               </>
             ) : values.service === 'valet' ? (
-              // Only valet takes payment on arrival. It is a real difference
-              // between the two products and it appears nowhere else on the
-              // site, so the stub says it while the service is selected.
               <span className="text-muted inline-flex items-center gap-1.5 text-xs">
-                <Wallet className="size-3.5" aria-hidden />
-                Betaal bij aankomst
+                <Phone className="size-3.5" aria-hidden />
+                Bel 30 minuten vóór aankomst: {siteConfig.valetPhone.display}
               </span>
             ) : (
-              <span className="text-muted text-xs">AMS · 24/7</span>
+              <span className="text-muted text-xs">Shuttle rijdt doorlopend</span>
             )}
           </div>
         </div>

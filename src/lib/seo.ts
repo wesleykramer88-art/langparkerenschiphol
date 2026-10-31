@@ -26,7 +26,7 @@ export const pageSeo = {
   home: {
     title: 'Lang parkeren Schiphol | Shuttle & Valet',
     description:
-      'Lang parkeren bij Schiphol met valet of shuttle. Reserveer eenvoudig uw parkeerplaats bij een onafhankelijke aanbieder.',
+      'Lang parkeren Schiphol met Shuttle buiten of Valet buiten en overdekt. Bekijk de beschikbaarheid en reserveer online.',
     path: '/',
   },
   services: {
@@ -73,15 +73,15 @@ export const pageSeo = {
     path: '/login/',
   },
   why: {
-    title: 'Veilig Parkeren Schiphol | Vertrouwd | Lang Parkeren Schiphol',
+    title: 'Parkeren Schiphol | Shuttle en Valet | Lang Parkeren Schiphol',
     description:
-      'Veilig parkeren Schiphol zonder zorgen. Ontdek hoe wij uw auto beveiligen en waarom reizigers kiezen voor Lang Parkeren Schiphol.',
+      'Vergelijk Shuttle parkeren buiten met Valet parkeren buiten of overdekt. Bekijk de locaties en praktische instructies.',
     path: '/waarom-lang-parkeren-schiphol/',
   },
   reviews: {
-    title: 'Lang Parkeren Schiphol Ervaringen | Echte Klantreacties',
+    title: 'Beoordelingen | Lang Parkeren Schiphol',
     description:
-      'Lang parkeren schiphol ervaringen van reizigers. Ontdek wat klanten zeggen over onze service, veiligheid en het parkeren.',
+      'Bekijk hoe Lang Parkeren Schiphol omgaat met beoordelingen en hoe u de bedrijfsgegevens kunt controleren.',
     path: '/reviews/',
   },
   // ── The service + SEO cluster, August 2026 ─────────────────────────────────
@@ -108,13 +108,13 @@ export const pageSeo = {
     // page has always been headed Valet Parking.
     title: 'Valet parking Schiphol | Afgeven bij de vertrekhal',
     description:
-      'Valet parking bij Schiphol: u geeft uw auto af tussen Vertrekhal 2 en 3 en krijgt hem op dezelfde plek terug. Lees hoe overdracht en sleutelbeheer werken.',
+      'Valet parkeren Schiphol, buiten of overdekt: geef uw auto af tussen Vertrekhal 2 en 3. Lees hoe de overdracht werkt en reserveer online.',
     path: '/valet-parking-schiphol/',
   },
   cheapShuttle: {
-    title: 'Goedkoop Parkeren Schiphol | Voordelig Shuttle Parkeren',
+    title: 'Shuttle parkeren Schiphol | Lang Parkeren Schiphol',
     description:
-      'Goedkoop lang parkeren bij Schiphol met shuttleservice. Ontdek waarom shuttle parkeren voordeliger uitpakt per dag, en waarom voordelig niet onveilig hoeft te zijn.',
+      'Parkeer buiten aan de Schipholweg 181 in Badhoevedorp. De shuttle rijdt doorlopend naar Schiphol Plaza; de transfertijd is ongeveer 8 minuten.',
     path: '/goedkoop-shuttle-parkeren-schiphol/',
   },
   keepKeys: {
@@ -124,9 +124,9 @@ export const pageSeo = {
     path: '/parkeren-schiphol-zonder-sleutel-inleveren/',
   },
   safeParking: {
-    title: 'Veilig parkeren Schiphol | Beveiligingsmaatregelen',
+    title: 'Parkeren bij Schiphol | Shuttle en Valet',
     description:
-      'Welke maatregelen beschermen uw auto tijdens uw reis? Lees over cameratoezicht, toegang tot het terrein en ritregistratie bij valet.',
+      'Lees waar u uw auto parkeert, welke opties beschikbaar zijn en hoe Shuttle en Valet werken bij terugkomst.',
     path: '/veilig-parkeren-schiphol/',
   },
   selfParking: {

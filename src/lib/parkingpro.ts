@@ -127,6 +127,25 @@ export const LOCATIONS = {
 
 export const ALL_LOCATIONS: readonly ParkingLocation[] = Object.values(LOCATIONS);
 
+/**
+ * Products currently offered through this website.
+ *
+ * Keep the shuttle-covered product in LOCATIONS for historical records and
+ * possible reactivation, but do not expose it through public booking or rates
+ * URLs while it is unavailable.
+ */
+export const ACTIVE_LOCATION_IDS = [
+  LOCATIONS.shuttleOutdoor.id,
+  LOCATIONS.valetOutdoor.id,
+  LOCATIONS.valetCovered.id,
+] as const;
+
+const activeLocationIds = new Set<string>(ACTIVE_LOCATION_IDS);
+
+function isActiveLocationId(id: string): boolean {
+  return activeLocationIds.has(id);
+}
+
 export function locationsByService(serviceType: ServiceTypeValue): readonly ParkingLocation[] {
   return ALL_LOCATIONS.filter((l) => l.serviceType === serviceType);
 }
@@ -207,11 +226,18 @@ function buildUrl(
 
 export function bookingUrl(params: BookingParams = {}): string {
   const { showLocations, startCarCount, ...rest } = params;
+  const locationId = rest.locationId && isActiveLocationId(rest.locationId) ? rest.locationId : undefined;
+  const selectedLocations = showLocations?.filter(isActiveLocationId);
 
   return buildUrl(PARKINGPRO_PATHS.booking, ['hideHeader', 'hideTitle'], {
     ...rest,
+    locationId,
     startCarCount,
-    showLocations: showLocations?.join(','),
+    // Unknown, stale, and inactive product ids must never widen the widget back
+    // to the provider's full product list.
+    showLocations: locationId
+      ? undefined
+      : (selectedLocations?.length ? selectedLocations : ACTIVE_LOCATION_IDS).join(','),
     culture: 'nl-NL',
   });
 }
@@ -219,10 +245,12 @@ export function bookingUrl(params: BookingParams = {}): string {
 export function ratesUrl(
   options: { maxNumberOfDays?: number; showLocations?: readonly string[] } = {},
 ): string {
+  const selectedLocations = options.showLocations?.filter(isActiveLocationId);
+
   return buildUrl(PARKINGPRO_PATHS.rates, ['hideHeader', 'hideTitle'], {
     culture: 'nl-NL',
     maxNumberOfDays: options.maxNumberOfDays ?? 30,
-    showLocations: options.showLocations?.join(','),
+    showLocations: (selectedLocations?.length ? selectedLocations : ACTIVE_LOCATION_IDS).join(','),
   });
 }
 

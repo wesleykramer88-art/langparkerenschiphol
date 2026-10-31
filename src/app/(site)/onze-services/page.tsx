@@ -1,4 +1,4 @@
-import { ArrowRight, Check, Gauge, ShieldCheck, Zap, type LucideIcon } from 'lucide-react';
+import { ArrowRight, Check, Clock, MapPin, Phone, type LucideIcon } from 'lucide-react';
 import { createMetadata } from '@/lib/seo';
 import { jsonLd, breadcrumbSchema, serviceSchema } from '@/lib/schema';
 import { Container } from '@/components/ui/Container';
@@ -19,20 +19,8 @@ const CRUMBS = [{ name: 'Onze Services', path: '/onze-services/' }];
 /**
  * /onze-services/
  *
- * Every line of copy is carried over verbatim from the live page. What changed
- * is the order and the shape.
- *
- * The live page runs: valet block → three claims → shuttle block → safety →
- * "Kies Valet als u" / "Kies Shuttle als u" → CTA. That order is right and it is
- * kept. What is not kept is that all six of those bands are centred headings
- * over grids of bordered rectangles, so the page reads as one shape repeated
- * until it stops.
- *
- * Here the two service blocks mirror each other across the measure (photograph
- * left, then photograph right), the three claims run as a hairline strip rather
- * than a second card grid, the safety band is navy and typographic — no
- * photograph, no glass, so it does not restate the homepage's security band —
- * and the chooser is a genuine two-column comparison split by a rule.
+ * The page explains only the currently offered services and their practical
+ * locations and instructions.
  *
  * ── The anchor ids ──────────────────────────────────────────────────────────
  * `#valet` and `#Shuttle`. The capital S is NOT a typo and must not be
@@ -60,20 +48,19 @@ const SERVICES: readonly ServiceBlock[] = [
   {
     id: 'valet',
     eyebrow: 'Valet Parking',
-    badge: 'Snelste optie',
+    badge: 'Buiten of overdekt',
     badgeTone: 'accent',
     title: 'Valet Parking bij de vertrekhal van Schiphol',
-    body: 'Bij Valet rijdt u naar de vertrekhal van Schiphol, waar een chauffeur uw auto na een controle overneemt. U loopt daarna door naar uw vlucht; uw auto wordt op onze parkeerlocatie geparkeerd.',
+    body: 'Geef uw auto af op Schiphol, tussen Vertrekhal 2 en 3. U kiest bij het reserveren voor buiten of overdekt parkeren.',
     benefitsTitle: 'Voordelen van Valet Parking',
     benefits: [
-      'Direct uitstappen bij de vertrekhal',
-      'U hoeft niet zelf naar een parkeerplek op het terrein te zoeken',
-      'Ideaal voor zakelijke reizigers en gezinnen',
-      'Professionele en gescreende chauffeurs',
-      'Uw auto wordt op onze parkeerlocatie geparkeerd',
+      'Inleveren en ophalen tussen Vertrekhal 2 en 3',
+      'Keuze tussen buiten en overdekt parkeren',
+      'Bel 30 minuten vóór aankomst',
+      'Bel direct na de landing en nogmaals na ontvangst van ruimbagage',
     ],
     closing:
-      'Bij terugkomst staat uw auto volgens afspraak bij de luchthaven klaar. De overdracht vindt plaats bij de vertrekhal.',
+      'U krijgt uw auto bij terugkomst terug tussen Vertrekhal 2 en 3.',
     photo: 'crewHandover',
     objectPosition: 'object-[center_40%]',
     photoAlt: 'Schiphol parkeerplaats met valet bij de vertrekhal',
@@ -82,70 +69,66 @@ const SERVICES: readonly ServiceBlock[] = [
     // Capital S. See the note above — do not normalise this.
     id: 'Shuttle',
     eyebrow: 'Shuttle Parking',
-    badge: 'Meest betaalbare keuze',
+    badge: 'Buiten parkeren',
     badgeTone: 'brand',
-    title: 'Shuttle Parking — voordelig en comfortabel',
-    body: 'U parkeert uw auto zelf op ons afgesloten terrein, dat 24/7 onder camerabewaking staat. De rit met de shuttlebus naar Schiphol duurt ongeveer 8 minuten.',
+    title: 'Shuttle parkeren buiten bij Schiphol',
+    body: 'U parkeert buiten aan de Schipholweg 181 in Badhoevedorp. De shuttle rijdt doorlopend; de rit naar Schiphol Plaza duurt ongeveer 8 minuten.',
     benefitsTitle: 'Voordelen van Shuttle Parking',
     benefits: [
-      'Parkeer uw auto zelf op ons afgesloten terrein',
-      'Luxe shuttlebus naar de luchthaven',
-      'Shuttlerit naar Schiphol: ongeveer 8 minuten',
-      'Voordelige oplossing zonder concessies op service',
-      '24/7 beschikbaar',
+      'Parkeren op Schipholweg 181 in Badhoevedorp',
+      'Doorlopende shuttle naar Schiphol',
+      'Transfertijd ongeveer 8 minuten',
+      'Bij terugkomst naar de vaste halte op Schiphol Plaza lopen',
     ],
-    closing: 'Bij terugkomst wordt u weer opgehaald en teruggebracht naar uw auto.',
+    closing: 'Bij terugkomst hoeft u niet te bellen; loop naar de vaste shuttlehalte op Schiphol Plaza.',
     photo: 'lotShuttle',
     objectPosition: 'object-[center_35%]',
     photoAlt: 'Schiphol parkeerplaats met shuttle op het parkeerterrein',
   },
 ];
 
-/** The three claims that sit between the two service blocks, verbatim. */
+/** The practical instructions that help visitors distinguish the services. */
 const CLAIMS: readonly { icon: LucideIcon; title: string; body: string }[] = [
   {
-    icon: Zap,
-    title: 'Supersnel & zorgeloos',
-    body: 'Binnen enkele minuten geregeld. Bij valet parking stapt u direct uit bij de vertrekhal — wij doen de rest.',
+    icon: MapPin,
+    title: 'Shuttlelocatie',
+    body: 'Shuttle parkeren vindt plaats buiten aan de Schipholweg 181 in Badhoevedorp.',
   },
   {
-    icon: ShieldCheck,
-    title: 'Veilig & professioneel',
-    body: 'De terreinen zijn afgesloten en voorzien van 24/7 camerabewaking. Valetritten worden digitaal geregistreerd.',
+    icon: Clock,
+    title: 'Shuttle naar Schiphol',
+    body: 'De shuttle rijdt doorlopend. De rit naar Schiphol duurt ongeveer 8 minuten.',
   },
   {
-    icon: Gauge,
-    title: 'Ritregistratie bij Valet',
-    body: 'Bij Valet worden route, snelheid en duur van de rit digitaal vastgelegd.',
+    icon: Phone,
+    title: 'Valet bellen',
+    body: 'Bel 30 minuten vóór aankomst en volg de terugkomstinstructies voor uw vlucht en ruimbagage.',
   },
 ];
 
-/** The safety band, verbatim. */
-const SAFETY = [
-  '24/7 camerabewaking op alle locaties',
-  'Afgesloten en gecontroleerde parkeerterreinen',
-  'Mogelijkheid tot overdekt parkeren',
-  'Professionele, betrouwbare chauffeurs',
+/** The service facts visitors need before choosing. */
+const SERVICE_FACTS = [
+  'Shuttle parkeren buiten aan de Schipholweg 181 in Badhoevedorp',
+  'Doorlopende shuttle naar de vaste halte op Schiphol Plaza',
+  'Valet afgeven tussen Vertrekhal 2 en 3',
+  'Valet parkeren buiten of overdekt',
 ] as const;
 
-/** The chooser, verbatim. */
 const CHOOSER = [
   {
     title: 'Kies Valet Parking als u:',
     href: '#valet',
     items: [
-      'Snel en zonder moeite wilt parkeren',
-      'Direct bij de vertrekhal wilt uitstappen',
-      'Maximale luxe en gemak zoekt',
+      'Uw auto bij de vertrekhallen wilt afgeven',
+      'Buiten of overdekt wilt parkeren',
     ],
   },
   {
     title: 'Kies Shuttle Parking als u:',
     href: '#Shuttle',
     items: [
-      'Voordelig wilt parkeren',
-      'Uw auto zelf wilt parkeren',
-      'Comfortabel naar de luchthaven gebracht wilt worden',
+      'Uw auto zelf buiten wilt parkeren',
+      'Met de shuttle naar Schiphol wilt reizen',
     ],
   },
 ] as const;
@@ -156,7 +139,7 @@ export default function ServicesPage() {
       <PageHero
         eyebrow="Onze Services"
         title="Parkeren bij Schiphol — op uw manier."
-        lead="Een goede Schiphol parkeerplaats vinden hoeft niet ingewikkeld of duur te zijn. Bij Lang Parkeren Schiphol kiest u eenvoudig de parkeerservice die bij uw reis past: Valet Parking bij de vertrekhal of Shuttle Parking op ons veilige parkeerterrein."
+        lead="Kies Shuttle parkeren buiten of Valet parkeren bij de vertrekhallen, met keuze tussen buiten en overdekt."
         photo="crewTerminal"
         photoAlt="Schiphol parkeerplaats en parkeerservice bij de luchthaven"
         objectPosition="object-[center_30%]"
@@ -198,37 +181,22 @@ export default function ServicesPage() {
       {/* ---------- Shuttle ---------- */}
       <ServiceSection service={SERVICES[1]} reversed />
 
-      {/* ---------- Safety ----------
-          Typographic, on the accent wash. It was a flat navy field, on the
-          reasoning that the homepage already spends a photograph and the site's
-          only glassmorphism on this same argument and a second photographic
-          treatment would weaken the stronger of the two. That reasoning holds;
-          only the colour changed, because the client asked for no dark sections
-          anywhere ("nergens donker").
-
-          The wash rather than plain surface: this page runs canvas, white,
-          canvas, and a fourth plain band would disappear into the stack. Used
-          once per page, which is the rule on it.
-
-          Contrast on valet-100: navy-950 heading 14.90:1 AAA, ink-700 items
-          8.44:1 AAA, ink-500 note 4.66:1 AA. */}
       <Section tone="accent" spacing="lg" aria-labelledby="veiligheid-heading">
         <Container>
           <div className="grid gap-12 lg:grid-cols-[5fr_7fr] lg:gap-20">
             <Reveal>
-              <Eyebrow rule>Veiligheid &amp; Kwaliteit</Eyebrow>
+              <Eyebrow rule>De services</Eyebrow>
               <h2 id="veiligheid-heading" className="text-display-lg mt-5 max-w-[14ch]">
-                Concrete maatregelen op onze parkeerlocatie.
+                De locaties en terugkomstinstructies.
               </h2>
               <p className="text-lead text-body mt-6 max-w-[40ch]">
-                Het terrein is afgesloten en voorzien van camerabewaking. Digitale ritregistratie
-                geldt bij Valet.
+                Shuttle en Valet verschillen in waar u uw auto parkeert en hoe u bij terugkomst contact opneemt.
               </p>
             </Reveal>
 
             <div>
               <Stagger as="ul" className="divide-valet-200 border-valet-200 divide-y border-y">
-                {SAFETY.map((item) => (
+                {SERVICE_FACTS.map((item) => (
                   <div key={item} className="flex items-start gap-5 py-5">
                     <Check
                       className="text-accent-hover mt-1 size-5 shrink-0"
@@ -242,11 +210,10 @@ export default function ServicesPage() {
 
               <Reveal>
                 <p className="text-muted mt-8 max-w-[52ch] text-sm leading-relaxed">
-                  We beschrijven concreet welke maatregelen gelden: afgesloten parkeerlocaties,
-                  camerabewaking en digitale ritregistratie bij Valet.
+                  Bij Shuttle loopt u bij terugkomst naar de vaste shuttlehalte. Bij Valet belt u direct na de landing; met ruimbagage belt u opnieuw na ontvangst.
                 </p>
                 <Button href="/waarom-lang-parkeren-schiphol/" variant="outline" className="mt-7">
-                  Lees hoe wij uw auto beveiligen
+                  Lees de praktische parkeerinformatie
                   <ArrowRight data-arrow className="size-4" aria-hidden />
                 </Button>
               </Reveal>
