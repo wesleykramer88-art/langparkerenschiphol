@@ -114,7 +114,7 @@ export default function SelfParkingPage() {
       <PageHero
         eyebrow="Zelf parkeren"
         title="Zelf parkeren bij Schiphol"
-        lead="U parkeert buiten aan de Schipholweg 181 in Badhoevedorp. De shuttle rijdt doorlopend naar de vaste halte op Schiphol Plaza."
+        lead="U parkeert buiten aan de Schipholweg 181 in Badhoevedorp. De shuttle rijdt volgens de dienstregeling naar de vaste halte op Schiphol Plaza."
         photo="lotShuttle"
         objectPosition="object-[center_50%]"
         crumbs={CRUMBS}
@@ -129,7 +129,7 @@ export default function SelfParkingPage() {
         eyebrow="Waarom zelf"
         title="Veel reizigers zetten hun auto liever zelf neer"
         paragraphs={[
-          'Bij Shuttle parkeert u uw auto zelf buiten aan de Schipholweg 181 in Badhoevedorp. Daarna brengt de doorlopende shuttle u naar de vaste halte op Schiphol Plaza.',
+          'Bij Shuttle parkeert u uw auto zelf buiten aan de Schipholweg 181 in Badhoevedorp. Daarna brengt de shuttle u volgens de dienstregeling naar de vaste halte op Schiphol Plaza.',
           'Bij Valet geeft u uw auto af tussen Vertrekhal 2 en 3. Valet is beschikbaar met buiten of overdekt parkeren.',
         ]}
         photo="lotShuttle"
@@ -165,7 +165,7 @@ export default function SelfParkingPage() {
         ]}
         bullets={[
           'Parkeerlocatie: Schipholweg 181, Badhoevedorp',
-          'Shuttle naar Schiphol Plaza rijdt doorlopend',
+          'Shuttle naar Schiphol Plaza volgens de dienstregeling',
           'Transfertijd ongeveer 8 minuten',
           'Alleen Shuttle is buiten beschikbaar',
         ]}

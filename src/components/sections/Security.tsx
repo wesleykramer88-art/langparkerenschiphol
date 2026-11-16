@@ -59,7 +59,7 @@ const MEASURES: readonly { icon: LucideIcon; label: string; body: string }[] = [
   },
   {
     icon: BusFront,
-    label: 'Shuttle rijdt doorlopend',
+    label: 'Shuttle volgens dienstregeling',
     body: `De transfer naar Schiphol duurt ongeveer ${siteConfig.shuttleParking.transferMinutes} minuten.`,
   },
   {

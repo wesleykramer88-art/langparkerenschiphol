@@ -174,7 +174,7 @@ export default async function BookingPage({
                 <ul className="text-muted mt-2 space-y-1">
                   <li>
                     <strong className="text-heading">Shuttle:</strong> u parkeert zelf aan de{' '}
-                    {siteConfig.shuttleParking.display}. De shuttle rijdt doorlopend; de rit naar de
+                    {siteConfig.shuttleParking.display}. De shuttle rijdt volgens de dienstregeling; de rit naar de
                     vaste halte op Schiphol Plaza duurt ongeveer 8 minuten. Bij terugkomst hoeft u
                     niet te bellen.
                   </li>

@@ -48,10 +48,10 @@ export const SERVICE_COPY: Record<ServiceSlug, ServiceCopy> = {
   shuttle: {
     name: 'Shuttle',
     fullName: 'Shuttle Parkeren',
-    note: 'Buiten parkeren · shuttle rijdt doorlopend',
+    note: 'Buiten parkeren · shuttle volgens dienstregeling',
     usp: { icon: BusFront, text: 'Buiten parkeren · ongeveer 8 minuten naar Schiphol' },
     bullets: [
-      { icon: BusFront, text: 'De shuttle rijdt doorlopend' },
+      { icon: BusFront, text: 'Vertrektijden volgens de dienstregeling' },
       { icon: BusFront, text: 'Shuttlerit naar Schiphol: ongeveer 8 minuten' },
       { icon: DoorOpen, text: 'Bij terugkomst naar de vaste halte op Schiphol Plaza lopen' },
       { icon: Warehouse, text: 'Shuttle parkeren is buiten beschikbaar' },

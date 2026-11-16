@@ -137,7 +137,7 @@ export default function ContactPage() {
                       </address>
                     </dd>
                     <p className="text-muted mt-2 max-w-[34ch] text-sm leading-relaxed">
-                      Hier parkeert u zelf buiten. De shuttle rijdt doorlopend naar de vaste halte op
+                      Hier parkeert u zelf buiten. De shuttle rijdt volgens de dienstregeling naar de vaste halte op
                       Schiphol Plaza; de transfertijd is ongeveer 8 minuten. Bij terugkomst hoeft u
                       niet te bellen.
                     </p>

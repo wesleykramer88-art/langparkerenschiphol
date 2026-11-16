@@ -30,7 +30,7 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Wat is het verschil tussen valet en shuttle parkeren?',
     answer:
-      'Bij Shuttle parkeert u buiten aan de Schipholweg 181 in Badhoevedorp; de shuttle rijdt doorlopend naar Schiphol Plaza en de rit duurt ongeveer 8 minuten. Bij Valet geeft u uw auto af tussen Vertrekhal 2 en 3 en kiest u tussen buiten of overdekt parkeren.',
+      'Bij Shuttle parkeert u buiten aan de Schipholweg 181 in Badhoevedorp; de shuttle vertrekt volgens de dienstregeling naar Schiphol Plaza en de rit duurt ongeveer 8 minuten. Bij Valet geeft u uw auto af tussen Vertrekhal 2 en 3 en kiest u tussen buiten of overdekt parkeren.',
   },
   {
     question: 'Waar parkeer ik mijn auto?',

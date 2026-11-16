@@ -57,7 +57,7 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Hoe kom ik bij terugkomst terug naar mijn auto met Shuttle?',
     answer:
-      `U loopt naar de vaste shuttlehalte op Schiphol Plaza. De shuttle rijdt doorlopend en u hoeft niet te bellen.`,
+      `U loopt naar de vaste shuttlehalte op Schiphol Plaza. De shuttle vertrekt volgens de dienstregeling; u hoeft niet te bellen.`,
   },
   {
     question: 'Waar geef ik mijn auto af voor Valet?',
@@ -77,7 +77,7 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Moet ik bellen als ik terugkom met Shuttle?',
     answer:
-      'Nee. Loop naar de vaste shuttlehalte op Schiphol Plaza; de shuttle rijdt doorlopend.',
+      'Nee. Loop naar de vaste shuttlehalte op Schiphol Plaza; bekijk de dienstregeling voor de vertrektijden.',
   },
 ];
 
@@ -106,7 +106,7 @@ export default function SafeParkingPage() {
         eyebrow="Parkeren bij Schiphol"
         title="Kies de parkeerservice die bij uw reis past"
         paragraphs={[
-          'Met Shuttle parkeert u buiten in Badhoevedorp en reist u met de doorlopende shuttle naar Schiphol. Met Valet geeft u uw auto af bij de vertrekhallen en kiest u tussen buiten en overdekt parkeren.',
+          'Met Shuttle parkeert u buiten in Badhoevedorp en reist u met de shuttle volgens de dienstregeling naar Schiphol. Met Valet geeft u uw auto af bij de vertrekhallen en kiest u tussen buiten en overdekt parkeren.',
           'Hieronder vindt u de locaties en praktische instructies voor uw aankomst en terugkomst.',
         ]}
       />
@@ -143,7 +143,7 @@ export default function SafeParkingPage() {
         eyebrow="Shuttle parkeren"
         title="Parkeerlocatie in Badhoevedorp"
         paragraphs={[
-          `Bij Shuttle parkeert u op ${siteConfig.shuttleParking.display}. De shuttle rijdt doorlopend en de transfertijd naar Schiphol is ongeveer ${siteConfig.shuttleParking.transferMinutes} minuten.`,
+          `Bij Shuttle parkeert u op ${siteConfig.shuttleParking.display}. De shuttle rijdt volgens de dienstregeling en de transfertijd naar Schiphol is ongeveer ${siteConfig.shuttleParking.transferMinutes} minuten.`,
           'Bij terugkomst loopt u naar de vaste shuttlehalte op Schiphol Plaza. U hoeft niet te bellen.',
         ]}
         photo="lotShuttle"

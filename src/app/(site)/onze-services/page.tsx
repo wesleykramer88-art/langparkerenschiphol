@@ -72,7 +72,7 @@ const SERVICES: readonly ServiceBlock[] = [
     badge: 'Buiten parkeren',
     badgeTone: 'brand',
     title: 'Shuttle parkeren buiten bij Schiphol',
-    body: 'U parkeert buiten aan de Schipholweg 181 in Badhoevedorp. De shuttle rijdt doorlopend; de rit naar Schiphol Plaza duurt ongeveer 8 minuten.',
+    body: 'U parkeert buiten aan de Schipholweg 181 in Badhoevedorp. De shuttle rijdt volgens de dienstregeling; de rit naar Schiphol Plaza duurt ongeveer 8 minuten.',
     benefitsTitle: 'Voordelen van Shuttle Parking',
     benefits: [
       'Parkeren op Schipholweg 181 in Badhoevedorp',
@@ -97,7 +97,7 @@ const CLAIMS: readonly { icon: LucideIcon; title: string; body: string }[] = [
   {
     icon: Clock,
     title: 'Shuttle naar Schiphol',
-    body: 'De shuttle rijdt doorlopend. De rit naar Schiphol duurt ongeveer 8 minuten.',
+    body: 'De shuttle rijdt volgens de dienstregeling. De rit naar Schiphol duurt ongeveer 8 minuten.',
   },
   {
     icon: Phone,

@@ -12,7 +12,7 @@ import type { PickerBounds } from '@/lib/parkingpro-config';
 const EASE = [0.16, 1, 0.3, 1] as const;
 const HEADLINE_LINES = ['Lang parkeren bij', 'Schiphol'] as const;
 const PROOF = [
-  'Shuttlerit: ongeveer 8 minuten, doorlopend',
+  'Shuttlerit: ongeveer 8 minuten, volgens dienstregeling',
   'Valet afgeven tussen Vertrekhal 2 en 3',
 ] as const;
 
