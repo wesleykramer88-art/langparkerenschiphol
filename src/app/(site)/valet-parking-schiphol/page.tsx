@@ -178,7 +178,7 @@ export default async function ValetParkingPage() {
         title="Buiten of overdekt parkeren met Valet"
         paragraphs={[
           'Bij Valet geeft u uw auto af op Schiphol, tussen Vertrekhal 2 en 3. U kiest bij het reserveren voor buiten of overdekt parkeren.',
-          'Shuttle parkeren is de andere service: u parkeert buiten aan de Schipholweg 181 in Badhoevedorp en reist met de doorlopende shuttle naar Schiphol Plaza.',
+          'Shuttle parkeren is de andere service: u parkeert buiten aan de Schipholweg 181 in Badhoevedorp en reist met de shuttle volgens de dienstregeling naar Schiphol Plaza.',
         ]}
         bullets={[
           'Inleveren en ophalen tussen Vertrekhal 2 en 3',

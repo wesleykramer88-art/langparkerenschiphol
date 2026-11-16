@@ -98,7 +98,7 @@ const SERVICES: readonly Service[] = [
     badge: 'Buiten parkeren',
     badgeTone: 'brand',
     description:
-      'Parkeer buiten aan de Schipholweg 181 in Badhoevedorp. De shuttle rijdt doorlopend naar Schiphol Plaza.',
+      'Parkeer buiten aan de Schipholweg 181 in Badhoevedorp. De shuttle vertrekt volgens de dienstregeling naar Schiphol Plaza.',
     usps: SERVICE_COPY.shuttle.bullets,
     cta: 'Reserveer Shuttle Parkeren',
     // His own terrain, with the shuttle bus running along the top of the frame
@@ -113,7 +113,7 @@ const PARKING_OPTIONS: Record<
   Service['slug'],
   readonly { label: string; body: string }[]
 > = {
-  shuttle: [{ label: 'Buiten parkeren', body: 'De shuttle rijdt doorlopend.' }],
+  shuttle: [{ label: 'Buiten parkeren', body: 'Vertrektijden volgens de dienstregeling.' }],
   valet: [
     { label: 'Buiten parkeren', body: 'Uw auto wordt buiten geparkeerd.' },
     { label: 'Overdekt parkeren', body: 'Uw auto wordt overdekt geparkeerd.' },

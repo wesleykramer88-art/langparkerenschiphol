@@ -114,7 +114,7 @@ export const pageSeo = {
   cheapShuttle: {
     title: 'Shuttle parkeren Schiphol | Lang Parkeren Schiphol',
     description:
-      'Parkeer buiten aan de Schipholweg 181 in Badhoevedorp. De shuttle rijdt doorlopend naar Schiphol Plaza; de transfertijd is ongeveer 8 minuten.',
+      'Parkeer buiten aan de Schipholweg 181 in Badhoevedorp. De shuttle rijdt volgens de dienstregeling naar Schiphol Plaza; de transfertijd is ongeveer 8 minuten.',
     path: '/goedkoop-shuttle-parkeren-schiphol/',
   },
   keepKeys: {

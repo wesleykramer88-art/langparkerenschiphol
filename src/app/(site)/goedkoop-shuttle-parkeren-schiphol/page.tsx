@@ -56,7 +56,7 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Hoe werkt Shuttle parkeren?',
     answer:
-      'U parkeert buiten aan de Schipholweg 181 in Badhoevedorp. De shuttle rijdt doorlopend naar Schiphol Plaza; de rit duurt ongeveer 8 minuten.',
+      'U parkeert buiten aan de Schipholweg 181 in Badhoevedorp. De shuttle vertrekt volgens de dienstregeling naar Schiphol Plaza; de rit duurt ongeveer 8 minuten.',
   },
   {
     question: 'Welke parkeervarianten zijn beschikbaar?',
@@ -90,7 +90,7 @@ export default function CheapShuttlePage() {
       <PageHero
         eyebrow="Shuttle parkeren"
         title="Shuttle parkeren bij Schiphol"
-        lead="Parkeer buiten aan de Schipholweg 181 in Badhoevedorp. De shuttle rijdt doorlopend naar de vaste halte op Schiphol Plaza."
+        lead="Parkeer buiten aan de Schipholweg 181 in Badhoevedorp. De shuttle vertrekt volgens de dienstregeling naar de vaste halte op Schiphol Plaza."
         photo="lotShuttle"
         objectPosition="object-[center_40%]"
         crumbs={CRUMBS}
@@ -108,7 +108,7 @@ export default function CheapShuttlePage() {
         eyebrow="Wat het is"
         title="Wat goedkoop shuttle parkeren precies inhoudt"
         paragraphs={[
-          'Bij Shuttle parkeert u buiten aan de Schipholweg 181 in Badhoevedorp. De doorlopende shuttle brengt u naar de vaste halte op Schiphol Plaza; de rit duurt ongeveer 8 minuten.',
+          'Bij Shuttle parkeert u buiten aan de Schipholweg 181 in Badhoevedorp. De shuttle brengt u volgens de dienstregeling naar de vaste halte op Schiphol Plaza; de rit duurt ongeveer 8 minuten.',
           'Bij terugkomst loopt u naar de vaste halte. U hoeft niet te bellen; de shuttle brengt u terug naar uw auto.',
           'Valet is een aparte service: u geeft uw auto af tussen Vertrekhal 2 en 3 en kiest voor buiten of overdekt parkeren.',
         ]}
@@ -160,7 +160,7 @@ export default function CheapShuttlePage() {
         title="Parkeerlocatie en terugkomst"
         paragraphs={[
           'U parkeert buiten op de shuttleparkeerlocatie aan de Schipholweg 181 in Badhoevedorp.',
-          'De shuttle rijdt doorlopend. Bij terugkomst loopt u naar de vaste halte op Schiphol Plaza; u hoeft niet te bellen.',
+          'Bekijk de dienstregeling voor de vertrektijden. Bij terugkomst loopt u naar de vaste halte op Schiphol Plaza; u hoeft niet te bellen.',
         ]}
         bullets={[
           'Buiten parkeren',
@@ -197,7 +197,7 @@ export default function CheapShuttlePage() {
               <p className="eyebrow text-muted">Zelf parkeren</p>
               <h3 className="text-display-sm text-heading mt-3">Shuttle parkeren</h3>
               <p className="text-body mt-5 max-w-[44ch] leading-relaxed">
-                U parkeert buiten aan de Schipholweg 181 in Badhoevedorp. De shuttle rijdt doorlopend naar Schiphol Plaza; de rit duurt ongeveer 8 minuten.
+                U parkeert buiten aan de Schipholweg 181 in Badhoevedorp. De shuttle vertrekt volgens de dienstregeling naar Schiphol Plaza; de rit duurt ongeveer 8 minuten.
               </p>
               <Button href="/shuttle-parkeren-schiphol/" variant="link" className="mt-6">
                 Over shuttle parkeren

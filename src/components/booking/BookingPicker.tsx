@@ -343,7 +343,7 @@ export function BookingPicker({
                       {
                         covered: false,
                         label: 'Buiten',
-                        description: 'Shuttle rijdt doorlopend',
+                        description: 'Shuttle volgens dienstregeling',
                       },
                     ]
                 ).map((option) => (
@@ -470,7 +470,12 @@ export function BookingPicker({
                 Bel 30 minuten vóór aankomst: {siteConfig.valetPhone.display}
               </span>
             ) : (
-              <span className="text-muted text-xs">Shuttle rijdt doorlopend</span>
+              <a
+                href="/shuttle-parkeren-schiphol/#dienstregeling"
+                className="text-brand text-xs underline underline-offset-2"
+              >
+                Bekijk de shuttlevertrektijden
+              </a>
             )}
           </div>
         </div>

@@ -41,7 +41,7 @@ const PROCESS: readonly { title: string; body: string; car: string }[] = [
   },
   {
     title: 'U reist naar Schiphol',
-    body: 'De Shuttle rijdt doorlopend naar Schiphol Plaza. De transfertijd is ongeveer 8 minuten.',
+    body: 'De Shuttle rijdt volgens de dienstregeling naar Schiphol Plaza. De transfertijd is ongeveer 8 minuten.',
     car: 'Met Valet parkeert u buiten of overdekt volgens uw reservering.',
   },
   {
@@ -105,7 +105,7 @@ const SCENARIOS: readonly FaqItem[] = [
   {
     question: 'Hoe werkt terugkomst bij Shuttle?',
     answer:
-      'Loop naar de vaste shuttlehalte op Schiphol Plaza. De shuttle rijdt doorlopend; u hoeft niet te bellen.',
+      'Loop naar de vaste shuttlehalte op Schiphol Plaza. Bekijk de dienstregeling voor de vertrektijden; u hoeft niet te bellen.',
   },
   {
     question: 'Hoe werkt terugkomst bij Valet?',

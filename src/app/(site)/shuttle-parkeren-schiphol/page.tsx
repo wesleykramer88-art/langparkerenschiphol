@@ -5,6 +5,7 @@ import { RouteButton } from '@/components/ui/RouteButton';
 import { BookingPicker } from '@/components/booking/BookingPicker';
 import { PageHero } from '@/components/sections/PageHero';
 import { ServiceUsp } from '@/components/sections/ServiceUsp';
+import { ShuttleTimetable } from '@/components/sections/ShuttleTimetable';
 import { ContentSection } from '@/components/sections/ContentSection';
 import { Timeline, type TimelineStep } from '@/components/sections/Timeline';
 import { Container } from '@/components/ui/Container';
@@ -41,7 +42,7 @@ const CRUMBS = [{ name: 'Shuttle parkeren Schiphol', path: PATH }];
  * back up to it.
  *
  * The page describes the active outdoor Shuttle service and its confirmed
- * location, transfer time, continuous shuttle and return procedure.
+ * location, transfer time, shuttle timetable and return procedure.
  */
 
 const STEPS: readonly TimelineStep[] = [
@@ -59,7 +60,7 @@ const STEPS: readonly TimelineStep[] = [
   },
   {
     title: 'Shuttle naar Schiphol Plaza.',
-    body: 'De shuttle rijdt doorlopend en zet u af bij de bushalte op Schiphol Plaza. De rit duurt ongeveer 8 minuten.',
+    body: 'De shuttle vertrekt volgens de dienstregeling en zet u af bij de bushalte op Schiphol Plaza. De rit duurt ongeveer 8 minuten.',
   },
   {
     title: 'Terug naar uw eigen auto.',
@@ -75,7 +76,7 @@ const SUITS = [
   },
   {
     title: 'Reizigers die met de shuttle willen reizen',
-    body: 'De shuttle rijdt doorlopend naar de vaste halte op Schiphol Plaza.',
+    body: 'De shuttle rijdt volgens de dienstregeling naar de vaste halte op Schiphol Plaza.',
   },
   {
     title: 'Reizigers die buiten willen parkeren',
@@ -92,16 +93,14 @@ const SUITS = [
  * shuttle, bagage, nachtelijke aankomst of late terugkeer" — and this is the
  * part where an SEO page normally starts promising things.
  *
- * It does not. Each answer states the procedure that exists and stops there.
- * TODO(client): two of these would be much stronger with a number from you —
- * how vaak de shuttle rijdt in de daluren, en hoe de terugrit 's nachts loopt.
- * Zodra we die hebben, vervangen ze de algemene formulering hieronder.
+ * It does not. Each answer states the procedure and points to the published
+ * timetable rather than promising a continuous service.
  */
 const CONCERNS: readonly FaqItem[] = [
   {
     question: 'Moet ik lang wachten op de shuttle?',
     answer:
-      'De shuttle rijdt doorlopend. De rit naar Schiphol Plaza duurt ongeveer 8 minuten.',
+      'De shuttle vertrekt volgens de dienstregeling. De rit naar Schiphol Plaza duurt ongeveer 8 minuten.',
   },
   {
     question: 'Hoe gaat het met veel bagage?',
@@ -111,7 +110,7 @@ const CONCERNS: readonly FaqItem[] = [
   {
     question: 'Wat als ik midden in de nacht aankom of terugkom?',
     answer:
-      'De shuttle rijdt doorlopend. Bij terugkomst loopt u naar de vaste shuttlehalte op Schiphol Plaza; u hoeft niet te bellen.',
+      'Bekijk de dienstregeling voor de vertrektijden. Bij terugkomst loopt u naar de vaste shuttlehalte op Schiphol Plaza; u hoeft niet te bellen.',
   },
   {
     question: 'Wat gebeurt er als mijn vlucht vertraging heeft?',
@@ -124,7 +123,7 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Hoe laat moet ik aanwezig zijn bij shuttle parkeren?',
     answer:
-      'De shuttlerit duurt ongeveer 8 minuten. Houd daarnaast rekening met de tijd die u nodig heeft om te parkeren, op de shuttle te wachten en in te checken.',
+      'De shuttlerit duurt ongeveer 8 minuten. Houd daarnaast rekening met parkeren, de geplande vertrektijd en eventuele wachttijd voordat u incheckt.',
   },
   {
     question: 'Waar moet ik precies zijn?',
@@ -149,7 +148,7 @@ const FAQS: readonly FaqItem[] = [
   {
     question: 'Hoe kom ik na mijn reis terug bij mijn auto?',
     answer:
-      'U loopt naar dezelfde bushalte op Schiphol Plaza waar u bent uitgestapt. U hoeft niet te bellen: stap in wanneer de shuttlebus langskomt. De bus brengt u terug naar uw auto.',
+      'U loopt naar dezelfde bushalte op Schiphol Plaza waar u bent uitgestapt. Bekijk de vertrektijden vanaf Schiphol in de dienstregeling; u hoeft niet te bellen.',
   },
   {
     question: 'Kan ik mijn reservering nog wijzigen of annuleren?',
@@ -171,7 +170,7 @@ export default async function ShuttleParkingPage() {
       <PageHero
         eyebrow="Shuttle Parkeren"
         title="Shuttle parkeren bij Schiphol"
-        lead={`Bij Shuttle parkeren parkeert u buiten aan de ${siteConfig.shuttleParking.street} in ${siteConfig.shuttleParking.locality}. De shuttle rijdt doorlopend naar Schiphol Plaza; de rit duurt ongeveer ${siteConfig.shuttleParking.transferMinutes} minuten. U neemt uw sleutel mee.`}
+        lead={`Bij Shuttle parkeren parkeert u buiten aan de ${siteConfig.shuttleParking.street} in ${siteConfig.shuttleParking.locality}. De shuttle rijdt volgens de dienstregeling naar Schiphol Plaza; de rit duurt ongeveer ${siteConfig.shuttleParking.transferMinutes} minuten. U neemt uw sleutel mee.`}
         photo="lotShuttle"
         objectPosition="object-[center_35%]"
         crumbs={CRUMBS}
@@ -182,12 +181,14 @@ export default async function ShuttleParkingPage() {
 
       <ServiceUsp service="shuttle" heading="Zelf parkeren, sleutels mee, transfer inbegrepen" />
 
+      <ShuttleTimetable />
+
       <ContentSection
         id="wat-is-het"
         eyebrow="Wat is shuttle parkeren?"
         title="Uw auto in Badhoevedorp, u met de bus naar Schiphol"
         paragraphs={[
-          'Bij Shuttle parkeert u buiten aan de Schipholweg 181 in Badhoevedorp. De shuttle rijdt doorlopend naar de vaste halte op Schiphol Plaza; de rit duurt ongeveer 8 minuten. Bij terugkomst loopt u naar die halte. U hoeft niet te bellen.',
+          'Bij Shuttle parkeert u buiten aan de Schipholweg 181 in Badhoevedorp. De shuttle rijdt volgens de dienstregeling naar de vaste halte op Schiphol Plaza; de rit duurt ongeveer 8 minuten. Bij terugkomst loopt u naar die halte. U hoeft niet te bellen.',
           'Bij Valet geeft u uw auto af tussen Vertrekhal 2 en 3. Valet is beschikbaar met buiten of overdekt parkeren.',
         ]}
         photo="crewShuttleTerminal"
@@ -221,7 +222,7 @@ export default async function ShuttleParkingPage() {
               </h2>
             </div>
             <p className="text-muted max-w-[34ch] text-base lg:pb-2 lg:text-right">
-              Parkeer buiten in Badhoevedorp en reis met de doorlopende shuttle naar Schiphol.
+              Parkeer buiten in Badhoevedorp en reis met de shuttle volgens de dienstregeling naar Schiphol.
             </p>
           </Reveal>
 
@@ -235,7 +236,7 @@ export default async function ShuttleParkingPage() {
         title="Ongeveer 8 minuten naar Schiphol"
         paragraphs={[
           'De rit met de shuttlebus van onze parkeerlocatie in Badhoevedorp naar Schiphol duurt ongeveer 8 minuten. Dit is de geschatte rijtijd, niet de totale tijd; parkeren, instappen en eventuele wachttijd komen daar nog bij.',
-          'De shuttle rijdt doorlopend. Bij terugkomst loopt u naar de vaste shuttlehalte op Schiphol Plaza; u hoeft niet te bellen.',
+          'Bekijk de dienstregeling voor de vertrektijden. Bij terugkomst loopt u naar de vaste shuttlehalte op Schiphol Plaza; u hoeft niet te bellen.',
         ]}
         photo="shuttleRoute"
         photoAlt="Routekaart van de parkeerplaats naar Schiphol"
@@ -290,7 +291,7 @@ export default async function ShuttleParkingPage() {
         eyebrow="De locatie"
         title="Shuttle parkeren buiten in Badhoevedorp"
         paragraphs={[
-          'U parkeert buiten aan de Schipholweg 181 in Badhoevedorp. De shuttle rijdt doorlopend naar de vaste halte op Schiphol Plaza; de rit duurt ongeveer 8 minuten.',
+          'U parkeert buiten aan de Schipholweg 181 in Badhoevedorp. De shuttle rijdt volgens de dienstregeling naar de vaste halte op Schiphol Plaza; de rit duurt ongeveer 8 minuten.',
           'Bij terugkomst loopt u naar die halte. U hoeft niet te bellen; de shuttle brengt u terug naar uw auto.',
         ]}
         bullets={[
