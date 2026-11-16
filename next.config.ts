@@ -139,6 +139,7 @@ const GOOGLE_TAGGING = {
     'https://analytics.google.com',
     'https://stats.g.doubleclick.net',
     'https://googleads.g.doubleclick.net',
+    'https://ad.doubleclick.net',
     'https://www.googleadservices.com',
     // See the note in `image` — same collector, blocked on fetch as well.
     'https://pagead2.googlesyndication.com',

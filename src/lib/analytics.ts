@@ -82,6 +82,8 @@ function toAmount(input: unknown): number | null {
     normalised = cleaned.replace(/,/g, '');
   }
 
+  if (!/^\d+(?:\.\d+)?$/.test(normalised)) return null;
+
   const value = Number.parseFloat(normalised);
   return Number.isFinite(value) && value > 0 ? value : null;
 }
@@ -327,24 +329,31 @@ function markFired(key: string) {
 export function trackPurchase(input: {
   transactionId: string | null;
   value: number | null;
-  currency?: string;
   /** Which of the two paths above reported it. Visible in Tag Assistant. */
   source: 'online-payment' | 'in-frame';
 }): boolean {
   if (typeof window === 'undefined') return false;
 
-  // With no reference there is nothing to deduplicate ON, so the whole session
-  // gets one slot. A visitor who genuinely books twice in one tab without a
-  // reference is a case worth losing to avoid double-counting every refresh.
-  const key = input.transactionId ?? 'anonymous';
+  const transactionId = input.transactionId?.trim();
+  if (!transactionId) return false;
+
+  const value =
+    typeof input.value === 'number' &&
+    Number.isFinite(input.value) &&
+    input.value > 0 &&
+    input.value <= MAX_PLAUSIBLE_VALUE
+      ? input.value
+      : null;
+
+  const key = transactionId;
   if (alreadyFired(key)) return false;
 
   window.dataLayer = window.dataLayer ?? [];
   window.dataLayer.push({
     event: PURCHASE_EVENT,
-    transaction_id: input.transactionId ?? undefined,
-    value: input.value ?? undefined,
-    currency: input.currency ?? DEFAULT_CURRENCY,
+    transaction_id: transactionId,
+    value: value ?? undefined,
+    currency: DEFAULT_CURRENCY,
     /**
      * True when the booking completed but its value could not be read.
      *
@@ -354,7 +363,7 @@ export function trackPurchase(input: {
      * the failure is otherwise invisible, because the conversion count looks
      * perfectly healthy. Set a GTM trigger exception or an alert on it.
      */
-    value_missing: input.value === null,
+    value_missing: value === null,
     booking_source: input.source,
   });
 
